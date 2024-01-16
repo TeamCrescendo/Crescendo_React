@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../Scss/RecordBar.scss';
+import './RecordBar.scss';
 
 const RecordBar = () => {
     const [rotationAngle, setRotationAngle] = useState(0);

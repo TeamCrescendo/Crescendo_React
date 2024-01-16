@@ -2,8 +2,8 @@
 import React, {useState} from "react";
 import { MdAdd, MdDelete, MdDone } from "react-icons/md";
 
-import '../../Scss/Crescendo_main.scss';
-import Conversion from "./Conversion";
+import './Crescendo_main.scss';
+import Conversion from "../UI/Page/Conversion/Conversion";
 
 const Crescendo_main = () => {
 
