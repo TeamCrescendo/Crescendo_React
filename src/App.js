@@ -7,7 +7,6 @@ function App() {
   return (
       <>
           <div className="pageContainer">
-              <RecordBar />
               <Crescendo_main />
           </div>
       </>
