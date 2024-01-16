@@ -1,0 +1,28 @@
+
+.RecordBarDiv {
+  width: 500px;
+  min-width: 500px;
+  max-width: 500px;
+  background: #61dafb;
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .RecordBarIMG {
+    width: 1200px;
+    height: 1200px;
+    position: fixed;
+    left: -600px;
+    border-radius: 50%;
+    cursor: pointer;
+
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+  }
+}
+
