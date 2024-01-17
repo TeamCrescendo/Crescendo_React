@@ -6,6 +6,9 @@ import './Crescendo_main.scss';
 import Conversion from "../UI/Page/Conversion/Conversion";
 import MyPage from "../UI/Page/MyPage/MyPage";
 import RecordBar from "../UI/RecordBar/RecordBar";
+import TeamInfo from "../UI/Page/TeamInfo/TeamInfo";
+import WebInfo from "../UI/Page/WebInfo/WebInfo";
+import Board from "../UI/Page/Board/Board";
 
 const Crescendo_main = () => {
     const [pageId, setPageId] = useState(1);
@@ -21,6 +24,12 @@ const Crescendo_main = () => {
                 return <Conversion />;
             case 2:
                 return <MyPage />;
+            case 3:
+                return <Board />;
+            case 4:
+                return <WebInfo />;
+            case 5:
+                return <TeamInfo />;
             default:
         }
     };
