@@ -48,7 +48,6 @@ const LoginModal = ({ onClose, registerHandler }) => {
 
                 <LoginButton />
                 <KakaoLoginButton />
-                구글로그인
 
                 <div className="registerContainer">
                     <span>회원이 아니신가요?</span> <span className="registerSpan" onClick={setRegisterModal}>회원가입</span>

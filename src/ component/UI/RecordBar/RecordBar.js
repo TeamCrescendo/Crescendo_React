@@ -31,8 +31,6 @@ const RecordBar = ({ pageGetter }) => {
             setTimeout(() => {
                 setIsAnimating(false);
             }, 1000);
-
-
         }
     };
 
