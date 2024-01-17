@@ -14,14 +14,14 @@ const RecordBar = ({ pageGetter }) => {
             // 휠을 위로 올리면 360도 회전 (한 바퀴)
             // setRotationAngle((prevAngle) => prevAngle + (deltaY > 0 ? 360 : -360));
             if (deltaY > 0) {
-                if (pageId >= 1 && pageId < 2) {
+                if (pageId >= 1 && pageId < 5) {
                     setRotationAngle((prevAngle) => prevAngle + 360);
                     setPageId((prevPageId) => prevPageId + 1);
                     console.log("다음 페이지");
                     pageGetter(pageId + 1);
                 }
             } else {
-                if (pageId > 1 && pageId < 3) {
+                if (pageId > 1 && pageId < 6) {
                     setRotationAngle((prevAngle) => prevAngle - 360);
                     setPageId((prevPageId) => prevPageId - 1);
                     console.log("이전 페이지");

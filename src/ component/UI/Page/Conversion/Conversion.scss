@@ -1,4 +1,3 @@
-
 .conversionContainer {
   width: 100%;
   height: 100%;
@@ -9,4 +8,67 @@
 
   border-bottom-left-radius: 10%;
   border-top-left-radius: 10%;
+}
+//업로드 파일 scss
+.file-btn{
+  width: 250px;
+  height: 150px;
+  font-size: 18px;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  color: #2E2E2E;
+  background-color: #fff;
+  border: 1.5px dashed #AC58FA;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.file-btn:hover{
+  color: #DA81F5;
+  background-color: #fff;
+}
+.file-btn span{
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
+  color: #8181F7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 25px;
+  background-color: #E2A9F3;
+}
+.selected-file{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #CECEF6;
+  border: 1px solid #F8E0EC;
+  border-radius: 20px;
+  margin-top: 20px;
+}
+.selected-file p{
+  font-size: 13px;
+  font-weight: 500;
+  margin-left: 15px;
+}
+.selected-file button{
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.selected-file button:hover{
+  color: #ffffff;
+  background-color: #A9BCF5;
 }
