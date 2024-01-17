@@ -9,6 +9,47 @@
   border-bottom-left-radius: 10%;
   border-top-left-radius: 10%;
 }
+.wrap {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center; /* 가운데 정렬을 위해 추가 */
+  align-items: center; /* 가운데 정렬을 위해 추가 */
+  height: 100vh; /* 높이를 화면 전체 높이로 설정 */
+}
+//검색 폼
+form {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+form input {
+  border: none;
+  outline: none;
+  border-radius: 20px;
+  font-size: 18px;
+  padding: 12px 20px;
+}
+form input[type="text"] {
+  background: rgba(255, 254, 254, 0.7);
+  min-width: 300px;
+  max-width: 100%;
+}
+form input[type="submit"] {
+  cursor: pointer;
+  margin-left: 8px;
+  background: #c62828;
+  color: #f0d0d0;
+}
+
+.pokemon {
+  text-align: center;
+}
+
 //업로드 파일 scss
 .file-btn{
   width: 250px;
@@ -71,4 +112,27 @@
 .selected-file button:hover{
   color: #ffffff;
   background-color: #A9BCF5;
+}
+//랭킹
+h1 {
+  font-size: 1rem;
+}
+ul, li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.rolling {
+  width: 300px;
+  height: 34px;
+  overflow: hidden;
+  border: 1px solid #bbb;
+  .rolling__list {
+    li {
+      height: 34px;
+      padding: 0 1rem;
+      font-weight: 700;
+      line-height: 34px;
+    }
+  }
 }
