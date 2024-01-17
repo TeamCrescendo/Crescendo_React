@@ -12,24 +12,25 @@ import Board from "../UI/Page/Board/Board";
 
 const Crescendo_main = () => {
     const [pageId, setPageId] = useState(1);
-
-    const pageGetter = id => {
+    const [isForward, setIsForward] = useState(true);
+    const pageGetter = (id, getIsForward) => {
         console.log("이동한 페이지는: ", id);
+        console.log("forward?: ", getIsForward);
         setPageId(id);
+        setIsForward(getIsForward);
     }
-
     const renderPage = () => {
         switch (pageId) {
             case 1:
-                return <Conversion />;
+                return <Conversion isForward={isForward}/>;
             case 2:
-                return <MyPage />;
+                return <MyPage isForward={isForward}/>;
             case 3:
-                return <Board />;
+                return <Board isForward={isForward} />;
             case 4:
-                return <WebInfo />;
+                return <WebInfo isForward={isForward} />;
             case 5:
-                return <TeamInfo />;
+                return <TeamInfo isForward={isForward} />;
             default:
         }
     };

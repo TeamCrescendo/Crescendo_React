@@ -1,12 +1,60 @@
 
 .conversionContainer {
+  font-family: "Noto Sans KR", sans-serif;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background: bisque;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
+  flex-direction: column;
 
-  border-bottom-left-radius: 10%;
-  border-top-left-radius: 10%;
+  border-bottom-left-radius: 100px;
+  border-top-left-radius: 100px;
+
+  //animation: slide-up-invitation 1s;
+
+  .conversionHeader {
+    width: 100%;
+    height: 10%;
+    //background: #637ad3;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .conversionMain {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @keyframes slide-up-invitation {
+    0% {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes slide-down-invitation {
+    0% {
+      opacity: 0;
+      transform: translateY(-100%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+.slide-up {
+  animation: slide-up-invitation 1s;
+}
+.slide-down {
+  animation: slide-down-invitation 1s;
 }
