@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { MdCloudUpload, MdDelete } from 'react-icons/md';
 import { AiFillFileImage } from 'react-icons/ai';
 import './Conversion.scss';
+import {FaSearch} from "react-icons/fa";
 
 const Conversion = () => {
     const inputRef = useRef();
@@ -47,14 +48,15 @@ const Conversion = () => {
     return (
         <>
             <div className="conversionContainer">
-                <form>
-                    <input
-                        type="text"
-                        placeholder="Please enter your search term"
-                    />
-                    <input type="submit" value="Search" />
-                </form>
-
+                <div className="w">
+                    <div className="search">
+                        <input type="text" className="searchTerm" placeholder="What are you looking for?" />
+                        <button type="submit" className="searchButton">
+                            <FaSearch />
+                        </button>
+                    </div>
+                </div>
+                {/*--------------------업로드-------------------------*/}
                 <input type="file" ref={inputRef} onChange={handleOnChange} style={{ display: 'none' }} />
                 <button className="file-btn" onClick={onChooseFile}>
                     <span className="material-symbol-rounded">🎵</span> Upload File
@@ -67,8 +69,7 @@ const Conversion = () => {
                         </button>
                     </div>
                 )}
-
-                <h1>The Most Popular Score Ranking</h1>
+                <h1>Ranking</h1>
                 <div className="rolling">
                     <ul className="rolling__list" ref={ulRef}>
                         <li>1. River Flows In You</li>
@@ -83,6 +84,7 @@ const Conversion = () => {
                         <li>10. Hope</li>
                     </ul>
                 </div>
+
             </div>
         </>
     );

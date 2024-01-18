@@ -18,42 +18,59 @@
   height: 100vh; /* 높이를 화면 전체 높이로 설정 */
 }
 //검색 폼
-form {
-  position: fixed;
-  display: flex;
-  justify-content: center;
+.w {
+  width: 30%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  align-items: flex-start; // 위에 배치하도록 설정
   padding: 10px;
-  top: 0;
-  left: 0;
-  right: 0;
+  height: 40vh;
 }
-form input {
-  border: none;
+
+.search-container {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center; /* 가로 중앙 정렬을 위해 추가 */
+  margin-top: 20px; /* 필요한 여백 조정 */
+}
+
+.search {
+  width: 100%;
+  display: flex;
+  align-items: center; /* 세로 중앙 정렬을 위해 추가 */
+}
+
+.searchTerm {
+  flex: 1;
+  border: 3px solid #00B4CC;
+  border-right: none;
+  padding: 5px;
+  height: 20px;
+  border-radius: 5px 0 0 5px;
   outline: none;
-  border-radius: 20px;
-  font-size: 18px;
-  padding: 12px 20px;
-}
-form input[type="text"] {
-  background: rgba(255, 254, 254, 0.7);
-  min-width: 300px;
-  max-width: 100%;
-}
-form input[type="submit"] {
-  cursor: pointer;
-  margin-left: 8px;
-  background: #c62828;
-  color: #f0d0d0;
+  color: #9DBFAF;
+
+  &:focus {
+    color: #00B4CC;
+  }
 }
 
-.pokemon {
+.searchButton {
+  width: 40px;
+  height: 36px;
+  border: 1px solid #00B4CC;
+  background: #00B4CC;
   text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
 }
-
 //업로드 파일 scss
 .file-btn{
-  width: 250px;
-  height: 150px;
+  width: 650px;
+  height: 250px;
   font-size: 18px;
   font-weight: 500;
   display: flex;
@@ -112,27 +129,4 @@ form input[type="submit"] {
 .selected-file button:hover{
   color: #ffffff;
   background-color: #A9BCF5;
-}
-//랭킹
-h1 {
-  font-size: 1rem;
-}
-ul, li {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-.rolling {
-  width: 300px;
-  height: 34px;
-  overflow: hidden;
-  border: 1px solid #bbb;
-  .rolling__list {
-    li {
-      height: 34px;
-      padding: 0 1rem;
-      font-weight: 700;
-      line-height: 34px;
-    }
-  }
 }
