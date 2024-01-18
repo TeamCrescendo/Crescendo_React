@@ -1,8 +1,11 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { MdCloudUpload, MdDelete } from 'react-icons/md';
-import { AiFillFileImage } from 'react-icons/ai';
 import './Conversion.scss';
 import {FaSearch} from "react-icons/fa";
+
+
+function Header() {
+    return null;
+}
 
 const Conversion = () => {
     const inputRef = useRef();
@@ -11,7 +14,14 @@ const Conversion = () => {
 
     const handleOnChange = (event) => {
         if (event.target.files && event.target.files.length > 0) {
-            setSelectedFile(event.target.files[0]);
+            const selectedFileType = event.target.files[0].type;
+
+            // 여기에서 확장자가 오디오인지 확인
+            if (selectedFileType.startsWith('audio/')) {
+                setSelectedFile(event.target.files[0]);
+            } else {
+                alert('Please choose an audio file.');
+            }
         }
     };
 
@@ -22,7 +32,6 @@ const Conversion = () => {
     const removeFile = () => {
         setSelectedFile(null);
     };
-
     // 랭킹
     const newsTicker = (timer) => {
         if (ulRef.current) {
@@ -48,28 +57,39 @@ const Conversion = () => {
     return (
         <>
             <div className="conversionContainer">
-                <div className="w">
-                    <div className="search">
-                        <input type="text" className="searchTerm" placeholder="What are you looking for?" />
-                        <button type="submit" className="searchButton">
-                            <FaSearch />
-                        </button>
+                {/*-----------------검색-------------------------*/}
+                    <div className="w">
+                        <div className="search">
+                            <input type="text" className="searchTerm" placeholder="What are you looking for?" />
+                            <button type="submit" className="searchButton">
+                                <FaSearch />
+                            </button>
+                        </div>
                     </div>
-                </div>
+
                 {/*--------------------업로드-------------------------*/}
-                <input type="file" ref={inputRef} onChange={handleOnChange} style={{ display: 'none' }} />
-                <button className="file-btn" onClick={onChooseFile}>
-                    <span className="material-symbol-rounded">🎵</span> Upload File
-                </button>
-                {selectedFile && (
-                    <div className="selected-file">
-                        <p>{selectedFile.name}</p>
-                        <button onClick={removeFile}>
-                            <span className="material-symbols-rounded">❌</span>
-                        </button>
-                    </div>
-                )}
-                <h1>Ranking</h1>
+
+                <div>
+                    <h1 className="form-up">파일을 업로드 하세요 !</h1>
+                    <input
+                        type="file"
+                        ref={inputRef}
+                        onChange={handleOnChange}
+                        accept="audio/*" // 이 부분이 오디오 파일만 허용하도록 하는 부분
+                        style={{ display: 'none' }}
+                    />
+                    <button className="file-btn" onClick={onChooseFile}>
+                        <span className="material-symbol-rounded">🎵</span> Upload Audio File
+                    </button>
+                    {selectedFile && (
+                        <div className="selected-file">
+                            <p>{selectedFile.name}</p>
+                            <button onClick={removeFile}>
+                                <span className="material-symbols-rounded">❌</span>
+                            </button>
+                        </div>
+                    )}
+                </div>
                 <div className="rolling">
                     <ul className="rolling__list" ref={ulRef}>
                         <li>1. River Flows In You</li>

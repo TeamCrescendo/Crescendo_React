@@ -1,3 +1,9 @@
+@font-face {
+  font-family: '양진체';
+  src: url('https://cdn.jsdelivr.net/gh/supernovice-lab/font@0.9/yangjin.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 .conversionContainer {
   width: 100%;
   height: 100%;
@@ -49,6 +55,8 @@
   height: 50px; // 검색 바 높이 조절
   border-radius: 5px 0 0 5px;
   outline: none;
+  font-family: '양진체';
+  font-size: 20px;
   color: #6E6E6E;
 
   &:focus {
@@ -68,11 +76,19 @@
   font-size: 20px;
 }
 //업로드 파일 scss
+.form-up{
+  margin: 10px 10px 10px 10px;
+  color: #FFBF00;
+  text-align: center;
+  font-family: '양진체';
+
+}
 .file-btn{
-  width: 750px;
+  width: 650px;
   height: 350px;
   font-size: 18px;
   font-weight: 500;
+  font-family: '양진체';
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -80,14 +96,15 @@
   gap: 15px;
   color: #2E2E2E;
   background-color: #fff;
-  border: 1.5px dashed #AC58FA;
+  border: 5px dashed #F78181;
   border-radius: 20px;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 .file-btn:hover{
-  color: #DA81F5;
+  color: #FE2E2E;
   background-color: #fff;
+  font-family: '양진체';
 }
 .file-btn span{
   width: 50px;
@@ -113,6 +130,7 @@
   font-size: 13px;
   font-weight: 500;
   margin-left: 15px;
+  font-family: '양진체';
 }
 .selected-file button{
   width: 40px;
@@ -130,36 +148,48 @@
   color: #ffffff;
   background-color: #A9BCF5;
 }
-h1 {
-  font-size: 1.5rem; /* 원하는 크기로 조절 */
-  margin: 20px  -150px  400px 55px;
+.rolling__list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 20px 20px 80px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.rolling {
+li {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  width: 300px;
-  height: 300px; /* 원하는 높이로 조절 */
-  overflow: hidden;
-  border: 5px solid #bbb;
-   /* 필요한 여백 조정 */
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.3s ease;
+  font-family: '양진체';
 
-  &__list {
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-
-    li {
-      height: 30px; /* 원하는 높이로 조절 */
-      padding: 0 1rem;
-      font-weight: 700;
-      line-height: 30px; /* 원하는 높이로 조절 */
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      transition: transform 0.5s ease-in-out;
-    }
+  &:last-child {
+    border-bottom: none;
   }
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
+
+  span {
+    font-size: 16px;
+    margin-right: 10px;
+  }
+}
+
+/* 옵션: 처음 세 가지 항목에 스타일 을 추가 하여 눈에 띄도록 합니다.*/
+li:nth-child(1) {
+  background-color: #ffd700; /* Gold */
+}
+
+li:nth-child(2) {
+  background-color: #c0c0c0; /* Silver */
+}
+li:nth-child(3) {
+  background-color: #624637; /* Bronze */
 }
