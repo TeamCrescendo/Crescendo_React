@@ -4,7 +4,7 @@ import './Login_Button.scss';
 
 const LoginButton = () => {
     return (
-        <button className="loginBtn" type="button" onClick="">
+        <button className="loginBtn" type="submit">
             로그인
         </button>
     );

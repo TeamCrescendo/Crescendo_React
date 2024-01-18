@@ -35,17 +35,26 @@
       margin-bottom: 20px;
     }
 
-    .input-account,
-    .input-password {
-      width: 300px;
-      height: 40px;
-      padding-left: 10px;
-      font-family: "Noto Sans KR", sans-serif;
-      border: 1px solid #8d8e91;
-      border-radius: 5px;
-      font-size: 20px;
-      margin-bottom: 10px;
+    .login-input-form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      .input-account,
+      .input-password {
+        width: 300px;
+        height: 40px;
+        padding-left: 10px;
+        font-family: "Noto Sans KR", sans-serif;
+        border: 1px solid #8d8e91;
+        border-radius: 5px;
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
     }
+
+
 
     .autoLoginContainer {
       width: 314px;

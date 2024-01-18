@@ -4,7 +4,7 @@ import './Register_Button.scss';
 
 const RegisterButton = () => {
     return (
-        <button className="register-btn" type="button">
+        <button className="register-btn" type="submit">
             회원가입
         </button>
     );
