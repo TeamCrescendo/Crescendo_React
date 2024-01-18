@@ -3,7 +3,7 @@ import './Login_modal_Button.scss';
 import LoginModal from '../../modal/login_modal/Login_modal';
 import RegisterModal from "../../modal/register_modal/Register_modal";
 
-const Login_modal_Button = () => {
+const Login_modal_Button = ({ isLogin }) => {
     const [loginModalOpen, setLoginModalOpen] = useState(false);
     const [registerModalOpen, setRegisterModalOpen] = useState(false);
 
@@ -24,7 +24,8 @@ const Login_modal_Button = () => {
                 로그인
             </button>
 
-            {loginModalOpen && <LoginModal onClose={() => setLoginModalOpen(false)} registerHandler={registerHandler}/>}
+            {loginModalOpen && <LoginModal onClose={() => setLoginModalOpen(false)}
+                                           registerHandler={registerHandler} isLogin={isLogin}/>}
             {registerModalOpen && <RegisterModal onClose={() => setRegisterModalOpen(false)} />}
         </>
     );

@@ -1,0 +1,69 @@
+
+.user-info-div {
+  font-family: "Noto Sans KR", sans-serif;
+  width: 200px;
+  height: 70px;
+  background: #d0ece2;
+  border-bottom-left-radius: 100px;
+  border-top-left-radius: 100px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding-right: 10px;
+  padding-left: 10px;
+
+  .imgtest {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px  ;
+  }
+  .user-info-subdiv {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+
+    .user-info-name {
+      font-size: 17px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  }
+
+
+  .user-info-setting {
+    font-size: 30px;
+    margin-left: auto;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  .dropdown-menu {
+    width: 185px;
+    height: 100px;
+    position: absolute;
+    top: 6.6%;
+    right: 0;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+    //padding-left: 15px;
+    //padding-right: 15px;
+
+    li {
+      width: 100%;
+      height: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      &:hover {
+        background: #eaeaea;
+      }
+    }
+  }
+}

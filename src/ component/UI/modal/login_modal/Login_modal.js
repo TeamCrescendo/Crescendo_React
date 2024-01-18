@@ -1,15 +1,17 @@
 import React, {useRef, useState} from 'react';
-import { GrClose } from "react-icons/gr";
+import {GrClose} from "react-icons/gr";
 import './Login_modal.scss';
 import LoginButton from "../../button/login/original_login/Login_Button";
 import KakaoLoginButton from "../../button/login/kakao_login/Kakao_Login_Button";
+import Session from "react-session-api/src";
 
-const LoginModal = ({ onClose, registerHandler }) => {
+const LoginModal = ({onClose, registerHandler, isLogin}) => {
     const modalBackground = useRef();
     // 상태변수 관리
     const [account, setAccount] = useState('');
     const [password, setPassword] = useState('');
     const [autoLogin, setAutoLogin] = useState(false);
+    const URL = "http://localhost:8484/api/auth";
 
     // 모달 바깥의 백그라운드를 클릭하면 모달이 사라짐
     const handleModalClick = (e) => {
@@ -27,7 +29,7 @@ const LoginModal = ({ onClose, registerHandler }) => {
     }
 
     // 패스워드 찾기 모달을 생성함
-    const pwFindHandler= e => {
+    const pwFindHandler = e => {
         console.log("비밀번호 찾기 클릭됨!");
     }
 
@@ -35,7 +37,7 @@ const LoginModal = ({ onClose, registerHandler }) => {
     const loginSubmit = e => {
         e.preventDefault();
 
-        fetch(`${URL}/auth/login`, {
+        fetch(`${URL}/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -45,19 +47,35 @@ const LoginModal = ({ onClose, registerHandler }) => {
                 password: password,
                 autoLogin: autoLogin
             }),
+            credentials: 'include',
         })
             .then(res => res.json())
             .then(json => {
-                // 로그인 검증 메서드
-                console.log("로그인 상태는: ", json)
+                if (json.result === true) {
+                    isLogin(true);
+                    console.log(json)
+                } else {
+                    isLogin(false);
+                }
+                // console.log("로그인 유저 정보: ", json.dto);
+                fetch("http://localhost:8484/api/auth/compare", {
+                    method: "GET",
+                    credentials: 'include'
+                })
+                    .then(res => res.json())
+                    .then(json => {
+                        console.log(json)
+
+                    })
             })
+
     }
 
     return (
         <div className="login-modal-container" ref={modalBackground} onClick={handleModalClick}>
             <div className="login-modal-content">
                 <button className="loginModalCloseBtn" onClick={loginClose}>
-                    <GrClose />
+                    <GrClose/>
                 </button>
                 <div className="login-modal-title">
                     <h2>로그인</h2>
@@ -90,10 +108,10 @@ const LoginModal = ({ onClose, registerHandler }) => {
                         </div>
                         <span className="pwfindSpan" onClick={pwFindHandler}>비밀번호 찾기</span>
                     </div>
-                    <LoginButton />
+                    <LoginButton/>
                 </form>
 
-                <KakaoLoginButton />
+                <KakaoLoginButton/>
 
                 <div className="registerContainer">
                     <span>회원이 아니신가요?</span> <span className="registerSpan" onClick={setRegisterModal}>회원가입</span>

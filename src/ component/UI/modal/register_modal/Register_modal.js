@@ -14,7 +14,7 @@ const RegisterModal = ({ onClose }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
-
+    const URL = "http://localhost:8484/api/auth";
 
     const handleModalClick = (e) => {
         if (e.target === modalBackground.current) {
@@ -32,14 +32,14 @@ const RegisterModal = ({ onClose }) => {
             return;
         }
 
-        fetch(`${URL}/auth/register`, {
+        fetch(`${URL}/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 account: account,
-                nickname: nickname,
+                userName: nickname,
                 email: email,
                 password: password
             }),
@@ -47,7 +47,12 @@ const RegisterModal = ({ onClose }) => {
             .then(res => res.json())
             .then(json => {
                 // 로그인 검증 메서드
-                console.log("회원가입 성공여부: ", json)
+                if (json === true) {
+                    alert("회원가입이 성공적으로 처리되었습니다!");
+                    onClose();
+                } else {
+                    alert("회원가입에 실패했습니다!");
+                }
             })
     }
 
