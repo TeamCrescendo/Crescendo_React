@@ -28,7 +28,9 @@ const Crescendo_main = () => {
         switch (pageId) {
             case 1:
                 return <Conversion isForward={isForward} LoginHandler={LoginHandler}
-                                   isLogin={isLogin} loginInfo={loginInfo}/>;
+                                   isLogin={isLogin} loginInfo={loginInfo}
+                                   loginSessionCheck={LoginSessionCheck}
+                                   logoutHandler={logoutHandler}/>;
             case 2:
                 return <MyPage isForward={isForward} LoginHandler={LoginHandler}
                                isLogin={isLogin} loginInfo={loginInfo}/>;
@@ -57,14 +59,49 @@ const Crescendo_main = () => {
             method: "GET",
             credentials: 'include'
         })
-            .then(res => res.json())
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`HTTP error! Status: ${res.status}`);
+                }
+                return res.json();
+            })
             .then(json => {
                 if (json != null) {
                     setIsLogin(true);
                     setLoginInfo(json);
+                    console.log("로그인 검증 성공");
+                } else {
+                    console.log("로그인 검증 실패");
                 }
             })
+            .catch(error => {
+                console.error("JSON 파싱 오류:", error);
+            });
     }
+
+    // const logoutHandler = () => {
+    //     setIsLogin(false);
+    //     document.cookie = 'JSESSIONID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    //     console.log("로그아웃 시도");
+    //
+    //
+    // }
+    const logoutHandler = async () => {
+        try {
+            const response = await fetch('http://localhost:8484/api/auth/logout', {
+                method: 'POST',
+                credentials: 'include',
+            });
+
+            if (response.ok) {
+                setIsLogin(false);
+            } else {
+                console.error('로그아웃 실패');
+            }
+        } catch (error) {
+            console.error('로그아웃 에러:', error);
+        }
+    };
 
     useEffect(() => {
         LoginSessionCheck();

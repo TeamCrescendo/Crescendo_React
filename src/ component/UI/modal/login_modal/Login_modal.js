@@ -5,7 +5,7 @@ import LoginButton from "../../button/login/original_login/Login_Button";
 import KakaoLoginButton from "../../button/login/kakao_login/Kakao_Login_Button";
 import Session from "react-session-api/src";
 
-const LoginModal = ({onClose, registerHandler, isLogin}) => {
+const LoginModal = ({onClose, registerHandler, isLogin, LoginSessionCheck}) => {
     const modalBackground = useRef();
     // 상태변수 관리
     const [account, setAccount] = useState('');
@@ -58,15 +58,9 @@ const LoginModal = ({onClose, registerHandler, isLogin}) => {
                     isLogin(false);
                 }
                 // console.log("로그인 유저 정보: ", json.dto);
-                fetch("http://localhost:8484/api/auth/compare", {
-                    method: "GET",
-                    credentials: 'include'
-                })
-                    .then(res => res.json())
-                    .then(json => {
-                        console.log(json)
-
-                    })
+                console.log("여기까지왔다");
+                // LoginSessionCheck();
+                window.location.reload();
             })
 
     }
