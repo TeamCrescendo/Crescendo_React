@@ -31,7 +31,7 @@
   width: 100%;
   position: relative;
   display: flex;
-  justify-content: center; /* 가로 중앙 정렬을 위해 추가 */
+  justify-content: flex-end; /* 오른쪽 정렬을 위해 수정 */
   margin-top: 20px; /* 필요한 여백 조정 */
 }
 
@@ -43,24 +43,24 @@
 
 .searchTerm {
   flex: 1;
-  border: 3px solid #00B4CC;
+  border: 3px solid #FE2E2E;
   border-right: none;
   padding: 5px;
-  height: 20px;
+  height: 50px; // 검색 바 높이 조절
   border-radius: 5px 0 0 5px;
   outline: none;
-  color: #9DBFAF;
+  color: #6E6E6E;
 
   &:focus {
-    color: #00B4CC;
+    color:#000000 ;
   }
 }
 
 .searchButton {
-  width: 40px;
-  height: 36px;
-  border: 1px solid #00B4CC;
-  background: #00B4CC;
+  width: 70px; // 버튼 너비 조절
+  height: 65px; // 버튼 높이 조절
+  border: 1px solid #FE2E2E;
+  background: #FE2E2E;
   text-align: center;
   color: #fff;
   border-radius: 0 5px 5px 0;
@@ -69,8 +69,8 @@
 }
 //업로드 파일 scss
 .file-btn{
-  width: 650px;
-  height: 250px;
+  width: 550px;
+  height: 350px;
   font-size: 18px;
   font-weight: 500;
   display: flex;
