@@ -69,7 +69,7 @@
 }
 //업로드 파일 scss
 .file-btn{
-  width: 550px;
+  width: 750px;
   height: 350px;
   font-size: 18px;
   font-weight: 500;
@@ -129,4 +129,37 @@
 .selected-file button:hover{
   color: #ffffff;
   background-color: #A9BCF5;
+}
+h1 {
+  font-size: 1.5rem; /* 원하는 크기로 조절 */
+  margin: 20px  -150px  400px 55px;
+}
+
+.rolling {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  height: 300px; /* 원하는 높이로 조절 */
+  overflow: hidden;
+  border: 5px solid #bbb;
+   /* 필요한 여백 조정 */
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+
+    li {
+      height: 30px; /* 원하는 높이로 조절 */
+      padding: 0 1rem;
+      font-weight: 700;
+      line-height: 30px; /* 원하는 높이로 조절 */
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      transition: transform 0.5s ease-in-out;
+    }
+  }
 }
