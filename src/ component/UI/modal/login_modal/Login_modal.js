@@ -52,7 +52,7 @@ const LoginModal = ({onClose, registerHandler, isLogin, LoginSessionCheck}) => {
             .then(res => res.json())
             .then(json => {
                 if (json.result === true) {
-                    isLogin(true);
+                    isLogin = true;
                     console.log(json)
                 } else {
                     isLogin(false);

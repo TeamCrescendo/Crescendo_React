@@ -7,9 +7,27 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 
   border-bottom-left-radius: 100px;
   border-top-left-radius: 100px;
+  box-shadow: 0 0 10px #23252c;
+
+  .mypageHeader {
+    width: 100%;
+    height: 10%;
+    //background: #637ad3;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .mypageMain {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   @keyframes slide-up-invitation {
     0% {

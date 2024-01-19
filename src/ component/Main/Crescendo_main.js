@@ -34,7 +34,9 @@ const Crescendo_main = () => {
                                    logoutHandler={logoutHandler}/>;
             case 2:
                 return <MyPage isForward={isForward} LoginHandler={LoginHandler}
-                               isLogin={isLogin} loginInfo={loginInfo}/>;
+                               isLogin={isLogin} loginInfo={loginInfo}
+                               loginSessionCheck={LoginSessionCheck}
+                               logoutHandler={logoutHandler}/>;
             case 3:
                 return <Board isForward={isForward} LoginHandler={LoginHandler}
                               isLogin={isLogin} loginInfo={loginInfo}/>;

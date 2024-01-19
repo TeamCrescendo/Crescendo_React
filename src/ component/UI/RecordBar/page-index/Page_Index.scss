@@ -1,0 +1,68 @@
+
+.page-index {
+  position: fixed;
+  z-index: 110;
+  height: 100%;
+  width: 600px;
+  padding: 0;
+  left: -100px;
+  //background: rgba(112, 112, 112, 0.14);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+  ul {
+    li {
+      display: flex;
+      justify-content: left;
+      align-items: start;
+      margin-bottom: 70px;
+      border: 0;
+      text-shadow: 0 0 10px black;
+
+      .index-icon {
+        font-family: "Noto Sans KR", sans-serif;
+        font-size: 30px;
+        font-weight: bold;
+        color: white;
+        margin-right: 15px;
+      }
+      .index-name {
+        font-family: "Noto Sans KR", sans-serif;
+        font-size: 30px;
+        font-weight: bold;
+        color: white;
+      }
+
+      &:hover {
+
+      }
+    }
+    .index-first {
+      transform: rotate(-55deg);
+      margin-left: -60px;
+      margin-bottom: 120px;
+      margin-top: 40px;
+    }
+    .index-second {
+      transform: rotate(-25deg);
+      margin-left: 50px;
+      margin-bottom: 120px;
+    }
+    .index-third {
+      margin-left: 90px;
+      margin-bottom: 120px;
+    }
+    .index-fourth {
+      transform: rotate(25deg);
+      margin-left: 50px;
+      margin-bottom: 120px;
+    }
+    .index-fifth {
+      transform: rotate(55deg);
+      margin-left: -60px;
+    }
+  }
+
+}

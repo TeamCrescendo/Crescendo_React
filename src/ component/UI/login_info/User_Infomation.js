@@ -25,7 +25,7 @@ const UserInfomation = ({ loginInfo, logoutHandler }) =>
             {
                 dropdownView && (
                 <ul className="dropdown-menu">
-                    <li><a className="dropdown-item">마이페이지</a></li>
+                    {/*<li><a className="dropdown-item">마이페이지</a></li>*/}
                     <li onClick={deleteLoginCookie}><a className="dropdown-item logoutTag">로그아웃</a></li>
                 </ul>
             )}

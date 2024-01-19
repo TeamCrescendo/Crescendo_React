@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './RecordBar.scss';
+import PageIndex from "./page-index/Page_Index";
 
 const RecordBar = ({ pageGetter }) => {
     const [rotationAngle, setRotationAngle] = useState(0);
@@ -39,13 +40,13 @@ const RecordBar = ({ pageGetter }) => {
 
 
     return (
-        <div className="RecordBarDiv">
+        <div className="RecordBarDiv" onWheel={handleWheel}>
+            <PageIndex pageId={pageId}/>
             <img
                 className="RecordBarIMG"
                 alt="LP판 이미지"
                 src="img/recordCD.png"
                 style={{ transform: `rotate(${rotationAngle}deg)`, transition: 'transform 1s' }}
-                onWheel={handleWheel}
             />
         </div>
     );
