@@ -1,8 +1,9 @@
 
 .RecordBarDiv {
-  width: 500px;
-  min-width: 500px;
-  max-width: 500px;
+  font-family: "Noto Sans KR", sans-serif;
+  width: 400px;
+  min-width: 400px;
+  max-width: 400px;
   //background: #61dafb;
   position: relative;
 
@@ -14,9 +15,10 @@
     width: 1200px;
     height: 1200px;
     position: fixed;
-    left: -600px;
+    left: -750px;
     border-radius: 50%;
     //cursor: pointer;
+    z-index: 100;
 
     -webkit-user-drag: none;
     -khtml-user-drag: none;
@@ -26,3 +28,20 @@
   }
 }
 
+@media screen and (max-width:1023px) {
+  .RecordBarDiv {
+    width: 200px;
+    min-width: 200px;
+    max-width: 200px;
+
+    .RecordBarIMG {
+      width: 900px;
+      height: 900px;
+      left: -650px;
+    }
+  }
+}
+
+@media screen and (max-width:767px) {
+  /* 모바일 */
+}

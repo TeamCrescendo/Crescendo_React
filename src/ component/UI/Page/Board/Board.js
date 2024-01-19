@@ -1,8 +1,16 @@
 import React from 'react';
 
-const Board = () => {
+import './Board.scss';
+import classNames from "classnames";
+
+const Board = ({ isForward }) => {
+    const setAnimation = classNames({
+        'slide-up': isForward,
+        'slide-down': !isForward,
+    });
+
     return (
-        <div>
+        <div className={`boardContainer ${setAnimation}`}>
             게시물 페이지 입니다.
         </div>
     );

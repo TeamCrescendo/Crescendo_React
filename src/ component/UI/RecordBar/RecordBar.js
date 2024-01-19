@@ -6,8 +6,10 @@ const RecordBar = ({ pageGetter }) => {
     const [isAnimating, setIsAnimating] = useState(false);
     let [pageId, setPageId] = useState(1);
 
+
     const handleWheel = (event) => {
         if (!isAnimating) {
+
             setIsAnimating(true);
             const deltaY = event.deltaY;
             // 휠을 아래로 내리면 360도 회전 (한 바퀴)
@@ -18,23 +20,22 @@ const RecordBar = ({ pageGetter }) => {
                     setRotationAngle((prevAngle) => prevAngle + 360);
                     setPageId((prevPageId) => prevPageId + 1);
                     console.log("다음 페이지");
-                    pageGetter(pageId + 1);
+                    pageGetter(pageId + 1, true);
                 }
             } else {
                 if (pageId > 1 && pageId < 6) {
                     setRotationAngle((prevAngle) => prevAngle - 360);
                     setPageId((prevPageId) => prevPageId - 1);
                     console.log("이전 페이지");
-                    pageGetter(pageId - 1);
+                    pageGetter(pageId - 1, false);
                 }
             }
             setTimeout(() => {
                 setIsAnimating(false);
             }, 1000);
-
-
         }
     };
+
 
 
     return (
