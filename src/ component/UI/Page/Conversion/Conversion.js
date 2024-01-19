@@ -2,6 +2,10 @@
 import React, { useRef, useState, useEffect } from 'react';
 import './Conversion.scss';
 import {FaSearch} from "react-icons/fa";
+import classNames from "classnames";
+import UserInfomation from "../../login_info/User_Infomation";
+import Login_modal_Button from "../../button/login_modal_btn/Login_modal_Button";
+import Board from "../Board/Board";
 
 // function Header() {
 //     return null;
@@ -13,8 +17,8 @@ const Conversion = ({ isForward, LoginHandler, isLogin, loginInfo,
     const inputRef = useRef();
     const ulRef = useRef(null);
     const [selectedFile, setSelectedFile] = useState(null);
- 
-  
+
+
     const setAnimation = classNames({
         'slide-up': isForward,
         'slide-down': !isForward,
@@ -57,12 +61,12 @@ const Conversion = ({ isForward, LoginHandler, isLogin, loginInfo,
             }, timer);
         }
     };
-  
+
     const renderUserInfo = () => {
-        switch (isLogin && loginInfo != null){
+        switch (isLogin && loginInfo != null) {
             case true:
                 return <UserInfomation loginInfo={loginInfo} logoutHandler={logoutHandler}
-                                       />
+                />
             default:
                 return <Login_modal_Button isLogin={LoginHandler} LoginSessionCheck={LoginSessionCheck}/>
         }
@@ -80,14 +84,14 @@ const Conversion = ({ isForward, LoginHandler, isLogin, loginInfo,
                 </div>
                 <div className="conversionMain">
                     {/*-----------------검색-------------------------*/}
-                        <div className="w">
-                            <div className="search">
-                                <input type="text" className="searchTerm" placeholder="What are you looking for?" />
-                                <button type="submit" className="searchButton">
-                                    <FaSearch />
-                                </button>
-                            </div>
+                    <div className="w">
+                        <div className="search">
+                            <input type="text" className="searchTerm" placeholder="What are you looking for?"/>
+                            <button type="submit" className="searchButton">
+                                <FaSearch/>
+                            </button>
                         </div>
+                    </div>
 
                     {/*--------------------업로드-------------------------*/}
                     <div>
@@ -97,7 +101,7 @@ const Conversion = ({ isForward, LoginHandler, isLogin, loginInfo,
                             ref={inputRef}
                             onChange={handleOnChange}
                             accept="audio/*" // 이 부분이 오디오 파일만 허용하도록 하는 부분
-                            style={{ display: 'none' }}
+                            style={{display: 'none'}}
                         />
                         <button className="file-btn" onClick={onChooseFile}>
                             <span className="material-symbol-rounded">🎵</span> Upload Audio File
@@ -128,3 +132,7 @@ const Conversion = ({ isForward, LoginHandler, isLogin, loginInfo,
                 </div>
             </div>
         </>
+    );
+};
+
+export default Conversion;
