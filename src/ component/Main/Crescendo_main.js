@@ -17,13 +17,14 @@ const Crescendo_main = () => {
     const [isLogin, setIsLogin] = useState(false);
     const [loginInfo, setLoginInfo] = useState();
 
-
     const pageGetter = (id, getIsForward) => {
         console.log("이동한 페이지는: ", id);
         console.log("forward?: ", getIsForward);
         setPageId(id);
         setIsForward(getIsForward);
     }
+
+
     const renderPage = () => {
         switch (pageId) {
             case 1:

@@ -10,6 +10,8 @@ const UserInfomation = ({ loginInfo, logoutHandler }) =>
         logoutHandler();
     };
 
+
+
     return (
         <div className="user-info-div">
             <img className="imgtest" src="img/default_profile.png" alt="프로필 더미" />

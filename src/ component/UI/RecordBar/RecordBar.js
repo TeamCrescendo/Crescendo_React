@@ -6,8 +6,10 @@ const RecordBar = ({ pageGetter }) => {
     const [isAnimating, setIsAnimating] = useState(false);
     let [pageId, setPageId] = useState(1);
 
+
     const handleWheel = (event) => {
         if (!isAnimating) {
+
             setIsAnimating(true);
             const deltaY = event.deltaY;
             // 휠을 아래로 내리면 360도 회전 (한 바퀴)
@@ -33,6 +35,7 @@ const RecordBar = ({ pageGetter }) => {
             }, 1000);
         }
     };
+
 
 
     return (

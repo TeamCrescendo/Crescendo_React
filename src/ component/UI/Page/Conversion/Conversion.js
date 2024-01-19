@@ -21,7 +21,8 @@ const Conversion =
     const renderUserInfo = () => {
         switch (isLogin && loginInfo != null){
             case true:
-                return <UserInfomation loginInfo={loginInfo} logoutHandler={logoutHandler} />
+                return <UserInfomation loginInfo={loginInfo} logoutHandler={logoutHandler}
+                                       />
             default:
                 return <Login_modal_Button isLogin={LoginHandler} LoginSessionCheck={LoginSessionCheck}/>
         }
