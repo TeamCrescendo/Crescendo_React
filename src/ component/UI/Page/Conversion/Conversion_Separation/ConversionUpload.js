@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import '../Conversion.scss';
+import './ConversionUpload.scss';
 const ConversionUpload = () => {
     const inputRef = useRef();
     const [selectedFile, setSelectedFile] = useState(null);

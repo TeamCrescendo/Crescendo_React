@@ -4,27 +4,12 @@
   font-weight: normal;
   font-style: normal;
 }
-header {
-  width: 100%;
-  height: 100%;
-  background: #F79F81;
-  background-size: cover;
-  top: 0;
-  position: fixed;
-  z-index: -1;
-}
-h1{
-  text-align: center;
-  font-size: 45px;
-  color: #ffffff;
-  font-family: '양진체';
-
-}
 .conversionContainer {
   font-family: "Noto Sans KR", sans-serif;
   width: 100%;
   height: 100vh;
   background: bisque;
+  background-size:cover;
   display: flex;
   justify-content: start;
   align-items: center;
@@ -87,132 +72,6 @@ h1{
   align-items: center; /* 가운데 정렬을 위해 추가 */
   height: 100vh; /* 높이를 화면 전체 높이로 설정 */
 }
-//검색 폼
-.w {
-  width: 30%;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  align-items: flex-start; // 위에 배치하도록 설정
-  padding: 10px;
-  height: 40vh;
-  margin-top: 80px;
-}
-
-.search-container {
-  width: 100%;
-  position: relative;
-  display: flex;
-  justify-content: flex-end; /* 오른쪽 정렬을 위해 수정 */
-  margin-top: 20px; /* 필요한 여백 조정 */
-}
-
-.search {
-  width: 100%;
-  display: flex;
-  align-items: center; /* 세로 중앙 정렬을 위해 추가 */
-}
-
-.searchTerm {
-  flex: 1;
-  border: 3px solid #FE2E2E;
-  border-right: none;
-  padding: 5px;
-  height: 50px; // 검색 바 높이 조절
-  border-radius: 5px 0 0 5px;
-  outline: none;
-  font-family: '양진체';
-  font-size: 20px;
-  color: #6E6E6E;
-
-  &:focus {
-    color:#000000 ;
-  }
-}
-
-.searchButton {
-  width: 70px; // 버튼 너비 조절
-  height: 65px; // 버튼 높이 조절
-  border: 1px solid #FE2E2E;
-  background: #FE2E2E;
-  text-align: center;
-  color: #fff;
-  border-radius: 0 5px 5px 0;
-  cursor: pointer;
-  font-size: 20px;
-}
-//업로드 파일 scss
-.form-up{
-  margin: 10px 10px 10px 10px;
-  color: #FFBF00;
-  text-align: center;
-  font-family: '양진체';
-
-}
-.file-btn{
-  width: 650px;
-  height: 350px;
-  font-size: 18px;
-  font-weight: 500;
-  font-family: '양진체';
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  color: #2E2E2E;
-  background-color: #fff;
-  border: 5px dashed #F78181;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-.file-btn:hover{
-  color: #FE2E2E;
-  background-color: #fff;
-  font-family: '양진체';
-}
-.file-btn span{
-  width: 50px;
-  height: 50px;
-  font-size: 30px;
-  color: #8181F7;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 25px;
-  background-color: #E2A9F3;
-}
-.selected-file{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #CECEF6;
-  border: 1px solid #F8E0EC;
-  border-radius: 20px;
-  margin-top: 20px;
-}
-.selected-file p{
-  font-size: 13px;
-  font-weight: 500;
-  margin-left: 15px;
-  font-family: '양진체';
-}
-.selected-file button{
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: transparent;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-.selected-file button:hover{
-  color: #ffffff;
-  background-color: #A9BCF5;
-}
 .rolling__list {
   list-style: none;
   padding: 0;
@@ -222,39 +81,40 @@ h1{
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
 
-li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-  border-bottom: 1px solid #eee;
-  transition: background-color 0.3s ease;
-  font-family: '양진체';
+  li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.3s ease;
+    font-family: '양진체';
 
-  &:last-child {
-    border-bottom: none;
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background-color: #f5f5f5;
+    }
+
+    span {
+      font-size: 16px;
+      margin-right: 10px;
+    }
   }
 
-  &:hover {
-    background-color: #f5f5f5;
+  /* 옵션: 처음 세 가지 항목에 스타일을 추가하여 눈에 띄도록 합니다. */
+  li:nth-child(1) {
+    background-color: #ffd700; /* Gold */
   }
 
-  span {
-    font-size: 16px;
-    margin-right: 10px;
+  li:nth-child(2) {
+    background-color: #c0c0c0; /* Silver */
   }
-}
 
-/* 옵션: 처음 세 가지 항목에 스타일 을 추가 하여 눈에 띄도록 합니다.*/
-li:nth-child(1) {
-  background-color: #ffd700; /* Gold */
-}
-
-li:nth-child(2) {
-  background-color: #c0c0c0; /* Silver */
-}
-li:nth-child(3) {
-  background-color: #624637; /* Bronze */
+  li:nth-child(3) {
+    background-color: #624637; /* Bronze */
+  }
 }

@@ -8,7 +8,7 @@ import Login_modal_Button from "../../button/login_modal_btn/Login_modal_Button"
 import Board from "../Board/Board";
 import ConversionSearch from "./Conversion_Separation/ConversionSearch";
 import ConversionUpload from "./Conversion_Separation/ConversionUpload";
-import ConversionRanking from "./Conversion_Separation/ConversionRanking";
+import ConversionRanking from "./ConversionRanking";
 
 const Conversion = (
     { isForward, LoginHandler, isLogin, loginInfo,
@@ -76,17 +76,13 @@ const Conversion = (
 
     return (
         <>
-            <header className="foot">
-                <h1>자유롭게 다운로드 하세요!</h1>
-                <div className="conversionContainer">
-                </div>
-            </header>
-            {/*----------------------검색--------------------------*/}
-                <ConversionSearch/>
-            {/*--------------------업로드-------------------------*/}
-                <ConversionUpload />
-            {/*--------------------랭킹-------------------------*/}
-                <ConversionRanking/>
+             {/*----------------------검색--------------------------*/}
+               <ConversionSearch/>
+              {/*--------------------업로드-------------------------*/}
+              <ConversionUpload />
+              {/*--------------------랭킹-------------------------*/}
+              <ConversionRanking/>
+
 
         </>
     );

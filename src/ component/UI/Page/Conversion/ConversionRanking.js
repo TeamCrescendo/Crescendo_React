@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-
+import './Conversion.scss';
 const ConversionRanking = () => {
     const ulRef = useRef(null);
 

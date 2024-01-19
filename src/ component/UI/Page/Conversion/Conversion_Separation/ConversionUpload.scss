@@ -1,0 +1,79 @@
+@font-face {
+  font-family: '양진체';
+  src: url('https://cdn.jsdelivr.net/gh/supernovice-lab/font@0.9/yangjin.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+//업로드 파일 scss
+.form-up{
+  margin: 10px 10px 10px 10px;
+  color: #FFBF00;
+  text-align: center;
+  font-family: '양진체';
+
+}
+.file-btn{
+  width: 650px;
+  height: 350px;
+  font-size: 18px;
+  font-weight: 500;
+  font-family: '양진체';
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  color: #2E2E2E;
+  background-color: #fff;
+  border: 5px dashed #F78181;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.file-btn:hover{
+  color: #FE2E2E;
+  background-color: #fff;
+  font-family: '양진체';
+}
+.file-btn span{
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
+  color: #8181F7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 25px;
+  background-color: #E2A9F3;
+}
+.selected-file{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #CECEF6;
+  border: 1px solid #F8E0EC;
+  border-radius: 20px;
+  margin-top: 20px;
+}
+.selected-file p{
+  font-size: 13px;
+  font-weight: 500;
+  margin-left: 15px;
+  font-family: '양진체';
+}
+.selected-file button{
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.selected-file button:hover{
+  color: #ffffff;
+  background-color: #A9BCF5;
+}

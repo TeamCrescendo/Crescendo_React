@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaSearch } from 'react-icons/fa';
-
+import './CoverdionSearch.scss'
 const ConversionSearch = () => {
     return (
         <div className="w">
