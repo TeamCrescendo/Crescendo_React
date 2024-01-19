@@ -2,10 +2,9 @@ import React, { useRef, useState, useEffect } from 'react';
 import './Conversion.scss';
 import {FaSearch} from "react-icons/fa";
 
-
-function Header() {
-    return null;
-}
+// function Header() {
+//     return null;
+// }
 
 const Conversion = () => {
     const inputRef = useRef();
@@ -68,7 +67,6 @@ const Conversion = () => {
                     </div>
 
                 {/*--------------------업로드-------------------------*/}
-
                 <div>
                     <h1 className="form-up">파일을 업로드 하세요 !</h1>
                     <input
