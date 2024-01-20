@@ -5,7 +5,7 @@
   height: 100%;
   width: 600px;
   padding: 0;
-  left: -100px;
+  left: -120px;
   //background: rgba(112, 112, 112, 0.14);
   display: flex;
   justify-content: center;
@@ -20,6 +20,8 @@
       margin-bottom: 70px;
       border: 0;
       text-shadow: 0 0 10px black;
+      cursor: pointer;
+
 
       .index-icon {
         font-family: "Noto Sans KR", sans-serif;
@@ -48,11 +50,11 @@
     .index-second {
       transform: rotate(-25deg);
       margin-left: 50px;
-      margin-bottom: 120px;
+      margin-bottom: 100px;
     }
     .index-third {
       margin-left: 90px;
-      margin-bottom: 120px;
+      margin-bottom: 100px;
     }
     .index-fourth {
       transform: rotate(25deg);

@@ -11,6 +11,11 @@
   justify-content: center;
   align-items: center;
 
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
+
   .RecordBarIMG {
     width: 1200px;
     height: 1200px;
@@ -28,19 +33,19 @@
   }
 }
 
-@media screen and (max-width:1023px) {
-  .RecordBarDiv {
-    width: 200px;
-    min-width: 200px;
-    max-width: 200px;
-
-    .RecordBarIMG {
-      width: 900px;
-      height: 900px;
-      left: -650px;
-    }
-  }
-}
+//@media screen and (max-width:1023px) {
+//  .RecordBarDiv {
+//    width: 200px;
+//    min-width: 200px;
+//    max-width: 200px;
+//
+//    .RecordBarIMG {
+//      width: 900px;
+//      height: 900px;
+//      left: -650px;
+//    }
+//  }
+//}
 
 @media screen and (max-width:767px) {
   /* 모바일 */

@@ -18,10 +18,15 @@ const Crescendo_main = () => {
     const [loginInfo, setLoginInfo] = useState();
 
     const pageGetter = (id, getIsForward) => {
+        setPageId(parseInt(id, 10));
         console.log("이동한 페이지는: ", id);
         console.log("forward?: ", getIsForward);
-        setPageId(id);
         setIsForward(getIsForward);
+    }
+
+    const clickPageGetter = (id) =>  {
+        console.log(id + "를 클릭함");
+        // setPageId(parseInt(id, 10));
     }
 
 
@@ -112,7 +117,7 @@ const Crescendo_main = () => {
 
     return (
         <>
-            <RecordBar pageGetter={pageGetter}/>
+            <RecordBar pageGetter={pageGetter} clickPageGetter={clickPageGetter}/>
             <div className='CrescendoMain'>
                 {renderPage()}
             </div>
