@@ -1,12 +1,17 @@
+@import '~bootstrap/scss/bootstrap';
 
 .CrescendoMain {
-  width: 100%;
+  width: 1500px;
+  max-width: 1500px;
+  min-width: 800px;
   height: 100%;
   //background: bisque;
 
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: left;
+  align-items: start;
+  margin-left: 100px;
 
   font-family: "Noto Sans KR", sans-serif;
+
 }

@@ -1,0 +1,24 @@
+
+.card {
+  font-family: "Noto Sans KR", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: 400px;
+  min-width: 400px;
+  height: 100%;
+  background: white;
+  //border-bottom-left-radius: 150px;
+  border-top-left-radius: 100px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  padding: 70px 10px 70px 60px;
+  border-right: 1px solid gray;
+
+  .info {
+    margin-right: 10px;
+  }
+
+
+}

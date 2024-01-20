@@ -28,7 +28,7 @@ const UserTotal = () => {
                 <Table sx={{ minWidth: 300 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>공유 목록</TableCell>
+                            <TableCell>공유 악보 (최신순)</TableCell>
                             <TableCell align="right">조회수</TableCell>
                             <TableCell align="right">좋아요</TableCell>
                             <TableCell align="right">싫어요</TableCell>

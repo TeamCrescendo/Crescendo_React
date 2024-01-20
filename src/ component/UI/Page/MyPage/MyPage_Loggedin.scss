@@ -1,0 +1,77 @@
+
+.mypage-loggedin-container {
+  font-family: "Noto Sans KR", sans-serif;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  //border-bottom-left-radius: 100px;
+  //border-top-left-radius: 100px;
+  //box-shadow: 0 0 10px #23252c;
+  overflow: hidden;
+
+  .mypageHeader {
+    width: 100%;
+    //height: 10%;
+    //background: #637ad3;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .mypageMain {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+
+    //padding-left: 100px;
+
+    .mypageMain-top {
+      width: 100%;
+      height: 300px;
+      background: rgba(139, 158, 245, 0.3);
+      //margin-bottom: 100px;
+      border-radius: 5px;
+
+      .mypage-info-div {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        flex-direction: row;
+        padding-left: 50px;
+
+        .imgtest {
+          width: 220px;
+          height: 220px;
+          border: 1px solid black;
+          border-radius: 50%;
+          margin-right: 20px;
+        }
+
+        .note-div {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          background: white;
+        }
+      }
+    }
+    .mypageMain-bottom {
+      width: 100%;
+      height: 100%;
+      //background: rgba(202, 212, 255, 0.3);
+      padding-left: 50px;
+      padding-top: 50px;
+    }
+  }
+}
