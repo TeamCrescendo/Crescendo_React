@@ -1,5 +1,4 @@
 import React from 'react';
-
 import './WebInfo.scss';
 import classNames from "classnames";
 
@@ -9,17 +8,23 @@ const WebInfo = ({ isForward }) => {
         'slide-down': !isForward,
     });
 
-    return (
-        <header className="head2">
-            <h1>
-                This is the site introduction page
-            </h1>
-            <div className={`webinfoContainer ${setAnimation}`}>
-                사이트 소개 페이지 입니다
-            </div>
-        </header>
+    return (<>
+            <header className="head2">
+                <h1>
+                    Melodious Fusion Hub
+                </h1>
+                <div className={`webinfoContainer ${setAnimation}`}>
+                    <h2>
+                        <p>음악 파일을 악보로 바로 변환, 한번에 즐기기</p>
+                        사용자가 음원 파일을 업로드하면, 빠르고 정확한 변환 알고리즘이 적용되어 즉시 악보로 변환됩니다.<br/>
+                        도구를 사용하여 음악 파일을 악보로 변환하고, 빠르게 음악을 이해하며 연주하는 새로운 경험을 즐겨보세요!
+                    </h2>
+                </div>
+            </header>
+        </>
 
-    );
+    )
+        ;
 };
 
 export default WebInfo;
