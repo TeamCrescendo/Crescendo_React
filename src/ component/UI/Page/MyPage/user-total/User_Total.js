@@ -20,13 +20,14 @@ const UserTotal = () => {
         createData('아무노래', 262, 16, 24, 6),
         createData('너를위해서', 305, 3, 67, 4),
         createData('좋은 날', 356, 16, 49, 3),
+        createData('좋은 2', 356, 16, 49, 3),
     ];
 
     return (
         <div className="user-total-container">
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 300 }} aria-label="simple table">
-                    <TableHead>
+                    <TableHead className="tHead">
                         <TableRow>
                             <TableCell>공유 악보 (최신순)</TableCell>
                             <TableCell align="right">조회수</TableCell>
@@ -35,7 +36,7 @@ const UserTotal = () => {
                             <TableCell align="right">다운로드 횟수</TableCell>
                         </TableRow>
                     </TableHead>
-                    <TableBody>
+                    <TableBody className="tBody">
                         {rows.map((row) => (
                             <TableRow
                                 key={row.title}

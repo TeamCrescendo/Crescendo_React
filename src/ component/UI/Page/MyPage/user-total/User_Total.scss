@@ -2,4 +2,19 @@
 .user-total-container {
   //width: 70%;
   width: 600px;
+  height: 320px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  div {
+    border-radius: 0;
+  }
+  .tHead {
+    th{
+      font-weight: bold;
+    }
+
+  }
+  .tBody {
+
+  }
 }
