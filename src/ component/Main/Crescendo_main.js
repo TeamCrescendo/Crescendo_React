@@ -10,6 +10,7 @@ import TeamInfo from "../UI/Page/TeamInfo/TeamInfo";
 import WebInfo from "../UI/Page/WebInfo/WebInfo";
 import Board from "../UI/Page/Board/Board";
 import Session from "react-session-api/src";
+import {AUTH_URL} from "../../config/host-config";
 
 const Crescendo_main = () => {
     const [pageId, setPageId] = useState(1);
@@ -96,7 +97,7 @@ const Crescendo_main = () => {
     // }
     const logoutHandler = async () => {
         try {
-            const response = await fetch('http://localhost:8484/api/auth/logout', {
+            const response = await fetch(AUTH_URL + "/logout", {
                 method: 'POST',
                 credentials: 'include',
             });

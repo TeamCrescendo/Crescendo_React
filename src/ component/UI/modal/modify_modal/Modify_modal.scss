@@ -14,7 +14,7 @@
 
   .modify-modal-content {
     background-color: #ffffff;
-    width: 700px;
+    width: 750px;
     height: 600px;
     padding: 15px;
     border-radius: 10px;
@@ -42,6 +42,7 @@
       flex-direction: row;
 
       .modify-input-form {
+        width: 400px;
         display: flex;
         justify-content: left;
         //align-items: center;
@@ -74,7 +75,7 @@
         flex-direction: column;
         width: 200px;
         height: 386px;
-        margin-left: 60px;
+        //margin-left: 60px;
 
 
         .imgtest {

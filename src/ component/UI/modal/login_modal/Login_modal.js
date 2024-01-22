@@ -4,6 +4,7 @@ import './Login_modal.scss';
 import LoginButton from "../../button/login/original_login/Login_Button";
 import KakaoLoginButton from "../../button/login/kakao_login/Kakao_Login_Button";
 import Session from "react-session-api/src";
+import {AUTH_URL} from "../../../../config/host-config";
 
 const LoginModal = ({onClose, registerHandler, isLogin, LoginSessionCheck}) => {
     const modalBackground = useRef();
@@ -11,7 +12,6 @@ const LoginModal = ({onClose, registerHandler, isLogin, LoginSessionCheck}) => {
     const [account, setAccount] = useState('');
     const [password, setPassword] = useState('');
     const [autoLogin, setAutoLogin] = useState(false);
-    const URL = "http://localhost:8484/api/auth";
 
     // 모달 바깥의 백그라운드를 클릭하면 모달이 사라짐
     const handleModalClick = (e) => {
@@ -37,7 +37,7 @@ const LoginModal = ({onClose, registerHandler, isLogin, LoginSessionCheck}) => {
     const loginSubmit = e => {
         e.preventDefault();
 
-        fetch(`${URL}/login`, {
+        fetch(AUTH_URL + "/login", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
