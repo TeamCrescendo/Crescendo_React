@@ -68,6 +68,7 @@ const ModifyModal = ({ onClose, loginInfo }) => {
     const nameHandler = e => {
         const nameRegex = /^[가-힣]{2,5}$/;
         const inputVal = e.target.value;
+        console.log(inputVal)
 
         let msg, flag; // 검증 메세지를 임시 저장할 지역변수
 
@@ -138,7 +139,6 @@ const ModifyModal = ({ onClose, loginInfo }) => {
                                 msg = ' / 변경할 닉네임으로 수정해주세요.';
                                 flagg = false;
                             }
-
                         } else {
                             msg = ' / 사용 가능한 닉네임입니다.';
                             flagg = true;
