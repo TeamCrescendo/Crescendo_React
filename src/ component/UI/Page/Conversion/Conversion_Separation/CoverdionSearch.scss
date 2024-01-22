@@ -12,15 +12,14 @@
   align-items: flex-start; // 위에 배치하도록 설정
   padding: 10px;
   height: 40vh;
-  margin-top: 80px;
+  margin-bottom: 80px;
 }
-
 .search-container {
   width: 100%;
   position: relative;
   display: flex;
   justify-content: flex-end; /* 오른쪽 정렬을 위해 수정 */
-  margin-top: 20px; /* 필요한 여백 조정 */
+  margin-top: 10px; /* 필요한 여백 조정 */
 }
 
 .search {
@@ -45,7 +44,6 @@
     color:#000000 ;
   }
 }
-
 .searchButton {
   width: 70px; // 버튼 너비 조절
   height: 65px; // 버튼 높이 조절
