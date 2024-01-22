@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
-
 import '././CoverdionSearch.scss';
 
 const ConversionSearch = () => {
@@ -10,13 +9,12 @@ const ConversionSearch = () => {
     const handleSearch = () => {
         // 간단한 검색 결과 배열을 시뮬레이션합니다.
         const simulatedSearchResults = [
-            { id: 1, title: '검색 결과 1' },
-            { id: 2, title: '검색 결과 2' },
-            { id: 3, title: '검색 결과 3' },
-            { id: 4, title: '검색 결과 4' },
-            { id: 5, title: '검색 결과 5' },
+            { id: 1, title: '검색 결과 1', videoId: 'VIDEO_ID_1' },
+            { id: 2, title: '검색 결과 2', videoId: 'VIDEO_ID_2' },
+            { id: 3, title: '검색 결과 3', videoId: 'VIDEO_ID_3' },
+            { id: 4, title: '검색 결과 4', videoId: 'VIDEO_ID_4' },
+            { id: 5, title: '검색 결과 5', videoId: 'VIDEO_ID_5' },
         ];
-
         // 시뮬레이션된 검색 결과를 상태에 설정합니다.
         setSearchResults(simulatedSearchResults);
 
@@ -24,10 +22,10 @@ const ConversionSearch = () => {
         setSearchTerm('');
     };
 
-    // 검색 결과 항목을 클릭할 때 처음 화면으로 돌아가는 함수
-    const handleResultClick = () => {
-        // 여기에 처음 화면으로 이동하는 코드를 추가하세요.
-        window.location.href = '/';
+    // 검색 결과 항목을 클릭할 때 유튜브 링크로 이동하는 함수
+    const handleResultClick = (videoId) => {
+        // 유튜브 동영상 링크로 이동
+        window.location.href = `https://www.youtube.com/watch?v=${videoId}`;
     };
 
     return (
@@ -54,7 +52,7 @@ const ConversionSearch = () => {
                 <h3>검색 결과</h3>
                 <ul>
                     {searchResults.map((result) => (
-                        <li key={result.id} onClick={handleResultClick}>
+                        <li key={result.id} onClick={() => handleResultClick(result.videoId)}>
                             <p>{result.title}</p>
                         </li>
                     ))}
