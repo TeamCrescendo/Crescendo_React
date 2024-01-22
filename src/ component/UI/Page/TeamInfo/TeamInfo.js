@@ -1,6 +1,8 @@
 import './TeamInfo.scss';
 import classNames from "classnames";
 
+import React from "react";
+
 const TeamInfo = ({ isForward }) => {
     const setAnimation = classNames({
         'slide-up': isForward,
@@ -15,9 +17,24 @@ const TeamInfo = ({ isForward }) => {
             <div className={`teaminfoContainer ${setAnimation}`}>
                 <h2>
                    <p>팀 소개 페이지 입니다!</p>
-                    음악을 더 풍부하게 즐기기 위해 음원을 악보로 변환하는 고급 음악 변환 사이트를 개발하는 팀입니다.
+                    음악을 더 풍부하게 즐기기 위해 음원을 악보로 변환하는 고급 음악 변환 사이트를 개발하는 팀입니다.<br/>
                 </h2>
+                <div className="contenitore">
+                    <div className="card">
+                        <div className="card__text">
+                        </div>
+                    </div>
+                    <div className="card">
+                        <div className="card__text">
+                        </div>
+                    </div>
+                    <div className="card">
+
+                    </div>
+                </div>
+
             </div>
+
         </header>
 
     );

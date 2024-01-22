@@ -1,4 +1,3 @@
-
 import React, { useRef, useState, useEffect } from 'react';
 import './Conversion.scss';
 import {FaSearch} from "react-icons/fa";
@@ -6,6 +5,7 @@ import classNames from "classnames";
 import UserInfomation from "../../login_info/User_Infomation";
 import Login_modal_Button from "../../button/login_modal_btn/Login_modal_Button";
 import Board from "../Board/Board";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ConversionSearch from "./Conversion_Separation/ConversionSearch";
 import ConversionUpload from "./Conversion_Separation/ConversionUpload";
 import ConversionRanking from "./ConversionRanking";
@@ -77,12 +77,14 @@ const Conversion = (
     return (
         <>
 
-                {/*----------------------검색--------------------------*/}
-                <ConversionSearch/>
-                {/*--------------------업로드-------------------------*/}
-                <ConversionUpload />
-                {/*--------------------랭킹-------------------------*/}
-                <ConversionRanking/>
+                    {/*----------------------검색--------------------------*/}
+                    <ConversionSearch/>
+                    {/*--------------------업로드-------------------------*/}
+                    <ConversionUpload />
+                    {/*--------------------랭킹-------------------------*/}
+                    <ConversionRanking/>
+
+
         </>
     );
 };

@@ -57,7 +57,7 @@ header
     }
   }
   h2 {
-    p{
+    p {
       font-size: 35px;
       font-family: 'KNUTRUTHTTF';
       color: #5882FA;
@@ -68,6 +68,24 @@ header
     order: -1; /* h2를 위로 올리기 위해 추가 */
     margin: 70px 580px 650px 600px;
     white-space: nowrap;
+    position: fixed;
+  }
+
+  .contenitore {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    .card {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      box-sizing: content-box;
+      background: whitesmoke;
+      padding: 10px;
+      border-radius: 8px;
+      margin: 30px; /* 여기에서 마진을 조절하면 됩니다. */
+    }
   }
 }
 .slide-up {
