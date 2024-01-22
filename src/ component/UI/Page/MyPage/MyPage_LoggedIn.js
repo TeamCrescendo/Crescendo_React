@@ -5,7 +5,7 @@ import UserTotal from "./user-total/User_Total";
 import './MyPage_Loggedin.scss';
 import UserInfo from "./user-info/User_Info";
 import InquiryInfo from "../../inquiry/Inquiry_Info";
-import InquiryButton from "../../button/inquiry/Inquiry_Button";
+import InquiryButton from "../../button/inquiry_modal_btn/Inquiry_modal_Button";
 
 const MyPageLoggedIn = ({ loginInfo, logoutHandler }) => {
 
@@ -26,8 +26,7 @@ const MyPageLoggedIn = ({ loginInfo, logoutHandler }) => {
                 </div>
                 <div className="mypageMain-bottom">
                     <UserTotal />
-                    <InquiryInfo />
-                    <InquiryButton />
+                    <InquiryInfo loginInfo={loginInfo}/>
                 </div>
             </div>
         </div>
