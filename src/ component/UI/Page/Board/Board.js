@@ -1,7 +1,8 @@
-import React from 'react';
-
+import * as React from 'react';
 import './Board.scss';
 import classNames from "classnames";
+import ImageMasonry from "../../board/board_list/ImageMansonry";
+import PaginationRounded from "../../board/page_button/Page_Button";
 
 const Board = ({ isForward }) => {
     const setAnimation = classNames({
@@ -9,9 +10,11 @@ const Board = ({ isForward }) => {
         'slide-down': !isForward,
     });
 
+
     return (
         <div className={`boardContainer ${setAnimation}`}>
-            게시물 페이지 입니다.
+            {ImageMasonry()}
+            {PaginationRounded()}
         </div>
     );
 };
