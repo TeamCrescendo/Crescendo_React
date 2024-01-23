@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 @font-face {
   font-family: 'KNUTRUTHTTF';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/KNUTRUTHTTF.woff2') format('woff2');
@@ -20,6 +21,8 @@ header
 .head1 {
   text-align: center;
   color: #ffffff;
+  background: url(https://cdn.pixabay.com/photo/2014/06/21/20/09/violin-374096_1280.jpg);
+  background-size: cover;
   font-family: 'Playfair Display', serif;
   font-size: 30px;
 }
@@ -81,10 +84,33 @@ header
       width: 300px;
       height: 300px;
       box-sizing: content-box;
-      background: whitesmoke;
+      background: #F8E0E0;
       padding: 10px;
       border-radius: 8px;
       margin: 30px 0 0 30px; /* 여기에서 마진을 조절하면 됩니다. */
+      font-family: 'Pacifico', cursive;
+      color: #282c34;
+      text-align: center;
+      font-size: 55px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .card__text {
+        display: flex;
+        flex-grow: 1; /* 텍스트가 남은 공간을 차지하도록 함 */
+        align-items: center;
+        justify-content: center;
+      }
+      .img1 {
+        width: 85px; /* 이미지가 부모 요소의 100%를 차지하도록 함 */
+      }
+      .img2 {
+        width: 85px; /* 이미지가 부모 요소의 100%를 차지하도록 함 */
+      }
+      .img3 {
+        width: 65px; /* 이미지가 부모 요소의 100%를 차지하도록 함 */
+      }
     }
   }
 }

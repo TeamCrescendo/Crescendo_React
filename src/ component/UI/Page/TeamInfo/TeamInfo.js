@@ -1,8 +1,9 @@
 import './TeamInfo.scss';
 import classNames from "classnames";
-
 import React from "react";
-
+import r from './img/r.png';
+import b from './img/b.png';
+import p from './img/p.png';
 const TeamInfo = ({ isForward }) => {
     const setAnimation = classNames({
         'slide-up': isForward,
@@ -22,17 +23,29 @@ const TeamInfo = ({ isForward }) => {
                 <div className="contenitore">
                     <div className="card">
                         <div className="card__text">
+                            React
                         </div>
+                        <img src={r} className="img1" alt="instruction1" />
                     </div>
+
+                </div>
+                <div className="contenitore">
                     <div className="card">
                         <div className="card__text">
+                            Backend
                         </div>
+                        <img src={b} className="img2" alt="instruction1" />
                     </div>
-                    <div className="card">
 
+                </div>
+                <div className="contenitore">
+                    <div className="card">
+                        <div className="card__text">
+                            Python
+                        </div>
+                            <img src={p} className="img3" alt="instruction1" />
                     </div>
                 </div>
-
             </div>
 
         </header>
