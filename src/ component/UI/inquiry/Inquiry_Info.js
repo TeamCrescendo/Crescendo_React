@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
@@ -12,9 +12,11 @@ import InquiryButton from "../button/inquiry_modal_btn/Inquiry_modal_Button";
 import ModifyModal from "../modal/modify_modal/Modify_modal";
 import InquiryModal from "../modal/inquiry_modal/Inquiry_modal";
 import InquiryModalButton from "../button/inquiry_modal_btn/Inquiry_modal_Button";
+import {AUTH_URL, INQUIRY_URL} from "../../../config/host-config";
 
 const InquiryInfo = ({ loginInfo }) => {
     const [modifyModalOpen, setModifyModalOpen] = useState(false);
+    const [rows, setRows] = useState([]);
 
     const modifyButtonClick = () => {
         setModifyModalOpen(true);
@@ -24,11 +26,54 @@ const InquiryInfo = ({ loginInfo }) => {
         return { title, content, inquiry_time };
     }
 
-    const rows = [
-        createData('업로드가 잘 안됩니다.', '어떤일이 있었냐면', "1일전"),
-        createData('등록이 잘 안되요.', '어떤일이 있었냐면', "3일전"),
-        createData('아이디는 못바꾸나요.', '어떤일이 있었냐면', "7일전"),
-    ];
+    function formatDate(timeString) {
+        const today = new Date();
+        const date = new Date(timeString);
+        const diffTime = today - date;
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+        if (diffDays === 0) {
+            return '오늘';
+        } else if (diffDays === 1) {
+            return '어제';
+        } else if (diffDays <= 7) {
+            return `${diffDays}일전`;
+        } else if (diffDays <= 30) {
+            const diffWeeks = Math.floor(diffDays / 7);
+            return `${diffWeeks}주전`;
+        } else if (diffDays <= 365) {
+            const diffMonths = Math.floor(diffDays / 30);
+            return `${diffMonths}개월전`;
+        } else {
+            const diffYears = Math.floor(diffDays / 365);
+            return `${diffYears}년전`;
+        }
+    }
+
+    // 문의목록 전체조회 (본인것만)
+    const selectMyInquiry = e => {
+
+        fetch(INQUIRY_URL + `?account=${loginInfo.account}`)
+            .then(res => res.json())
+            .then(json => {
+                const updatedRows = json.map(inquiry => {
+                    const formatTime = formatDate(inquiry.createTime);
+                    return createData(inquiry.inquiryTitle, inquiry.inquiryContent, formatTime);
+                });
+                setRows(updatedRows);
+            })
+
+    }
+
+    // let rows = [
+    //     // createData('업로드가 잘 안됩니다.', '어떤일이 있었냐면', "1일전"),
+    //     // createData('등록이 잘 안되요.', '어떤일이 있었냐면', "3일전"),
+    //     // createData('아이디는 못바꾸나요.', '어떤일이 있었냐면', "7일전"),
+    // ];
+
+    useEffect(() => {
+        selectMyInquiry();
+    }, [modifyModalOpen]);
 
     return (
         <>

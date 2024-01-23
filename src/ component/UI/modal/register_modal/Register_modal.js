@@ -7,9 +7,12 @@ import LoginButton from "../../button/login/original_login/Login_Button";
 import KakaoLoginButton from "../../button/login/kakao_login/Kakao_Login_Button";
 import RegisterButton from "../../button/register/Register_Button";
 import {AUTH_URL} from "../../../../config/host-config";
+import Form from 'react-bootstrap/Form';
+
 
 const RegisterModal = ({ onClose }) => {
     const modalBackground = useRef();
+    const [profileIMG, setProfileIMG] = useState('img/default_profile.png');
 
     // 상태변수로 회원가입 입력값 관리
     const [userValue, setUserValue] = useState({
@@ -35,6 +38,7 @@ const RegisterModal = ({ onClose }) => {
         password2: false,
         email: false
     });
+
 
     // 패스워드 확인란을 검증할 함수
     const pwCheckHandler = e => {
@@ -286,39 +290,62 @@ const RegisterModal = ({ onClose }) => {
         onClose();
     }
 
-    const registerSubmit = e => {
-        e.preventDefault();
-        if (!correct.account || !correct.userName || !correct.password || !correct.password2 || !correct.email) {
-            return;
-        }
-        console.log(userValue.account)
-        console.log(userValue.userName)
-        console.log(userValue.email)
-        console.log(userValue.password)
+    // const registerSubmit = e => {
+    //     e.preventDefault();
+    //     if (!correct.account || !correct.userName || !correct.password || !correct.password2 || !correct.email) {
+    //         return;
+    //     }
+    //
+    //     fetch(`${URL}/register`, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'multipart/form-data',
+    //         },
+    //         body: JSON.stringify({
+    //             account: userValue.account,
+    //             userName: userValue.userName,
+    //             email: userValue.email,
+    //             password: userValue.password,
+    //             profileImage: profileIMG
+    //         }),
+    //     })
+    //         .then(res => res.json())
+    //         .then(json => {
+    //             // 로그인 검증 메서드
+    //             if (json === true) {
+    //                 alert("회원가입이 성공적으로 처리되었습니다!");
+    //                 onClose();
+    //             } else {
+    //                 alert("회원가입에 실패했습니다!");
+    //             }
+    //         })
+    // }
 
-        fetch(`${URL}/register`, {
+    const registerSubmit = () => {
+        const formData = new FormData();
+        formData.append('profileImage', profileIMG);
+        formData.append('account', userValue.account);
+        formData.append('userName', userValue.userName);
+        formData.append('email', userValue.email);
+        formData.append('password', userValue.password);
+
+        fetch('http://localhost:8484/api/auth/register', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                account: userValue.account,
-                userName: userValue.userName,
-                email: userValue.email,
-                password: userValue.password
-            }),
+            body: formData,
         })
-            .then(res => res.json())
-            .then(json => {
-                // 로그인 검증 메서드
-                if (json === true) {
-                    alert("회원가입이 성공적으로 처리되었습니다!");
-                    onClose();
-                } else {
-                    alert("회원가입에 실패했습니다!");
-                }
-            })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error uploading file:', error));
+    };
+
+    const imgHandler = e => {
+        const img = e.target.files[0];
+
+        setProfileIMG(img);
+
     }
+
+
 
     return (
         <div className="register-modal-container" ref={modalBackground} onClick={handleModalClick}>
@@ -433,12 +460,13 @@ const RegisterModal = ({ onClose }) => {
 
                     </div>
                     <div className="register-profile-img-container">
-                        <img className="imgtest" src="img/default_profile.png" alt="기본 프로필" />
-
+                        <img className="imgtest" src={profileIMG} alt="프로필 사진"/>
+                        <Form.Group controlId="formFile" className="mb-3">
+                            <Form.Control type="file" onChange={imgHandler}/>
+                        </Form.Group>
                         <div className="img-title">
-                            기본 프로필
+                            프로필 사진
                         </div>
-
                         <RegisterButton />
                     </div>
                 </div>

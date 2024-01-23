@@ -11,10 +11,11 @@ const UserInfomation = ({ loginInfo, logoutHandler }) =>
     };
 
 
-
+    const url = loginInfo.profileImageUrl;
+    console.log("프사" , url);
     return (
         <div className="user-info-div">
-            <img className="imgtest" src="img/default_profile.png" alt="프로필 더미" />
+            <img className="imgtest" src={`http://localhost:8484/local${url}`} alt="프로필" />
 
             <div className="user-info-subdiv" >
                 <span className="user-info-name">{loginInfo.userName}</span>

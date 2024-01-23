@@ -17,7 +17,7 @@ const UserInfo = ({ logoutHandler, loginInfo }) => {
     return (
         <Card>
             <Card.Body>
-                <Card.Title>{loginInfo.userName} 님</Card.Title>
+                <Card.Title>{loginInfo.userName} ({loginInfo.account}) 님</Card.Title>
                 <Card.Text>
                     오늘의 다운로드 기회: {loginInfo.userDownloadChance}/5번
                 </Card.Text>

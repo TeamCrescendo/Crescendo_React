@@ -7,11 +7,20 @@ import RegisterButton from "../../button/register/Register_Button";
 import ModifyButton from "../../button/modify/Modify_Button";
 import QuitButton from "../../button/quit/Quit_Button";
 import {AUTH_URL} from "../../../../config/host-config";
+import Form from "react-bootstrap/Form";
 
 
 const ModifyModal = ({ onClose, loginInfo }) => {
     const modalBackground = useRef();
     const URL = "http://localhost:8484/api/auth";
+    const [profileIMG, setProfileIMG] = useState();
+    const url = loginInfo.profileImageUrl;
+
+    const imgHandler = e => {
+        const img = e.target.files[0];
+        // console.log("프사이거: ", img[0]);
+        setProfileIMG(img);
+    }
 
     // 상태변수로 회원가입 입력값 관리
     const [userValue, setUserValue] = useState({
@@ -424,11 +433,13 @@ const ModifyModal = ({ onClose, loginInfo }) => {
                         />
                     </form>
                     <div className="modify-profile-img-container">
-                        <img className="imgtest" src="img/default_profile.png" alt="기본 프로필" />
-
-                        <div className="img-title">
-                            프로필 변경
-                        </div>
+                        <img className="imgtest" src={`http://localhost:8484/local${url}`} alt="프로필" />
+                        <Form.Group controlId="formFile" className="mb-3">
+                            <Form.Control type="file" onChange={imgHandler}/>
+                        </Form.Group>
+                        {/*<div className="img-title">*/}
+                        {/*    프로필 변경*/}
+                        {/*</div>*/}
                         <QuitButton restoreSubmit={restoreSubmit}/>
                         <ModifyButton modifySubmit={modifySubmit}/>
                     </div>

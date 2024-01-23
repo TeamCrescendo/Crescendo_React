@@ -8,6 +8,7 @@ import InquiryInfo from "../../inquiry/Inquiry_Info";
 import InquiryButton from "../../button/inquiry_modal_btn/Inquiry_modal_Button";
 
 const MyPageLoggedIn = ({ loginInfo, logoutHandler }) => {
+    const url = loginInfo.profileImageUrl;
 
     return (
         <div className="mypage-loggedin-container">
@@ -17,7 +18,7 @@ const MyPageLoggedIn = ({ loginInfo, logoutHandler }) => {
             <div className="mypageMain" >
                 <div className="mypageMain-top">
                     <div className="mypage-info-div">
-                        <img className="imgtest" src="img/default_profile.png" alt="프로필 더미" />
+                        <img className="imgtest" src={`http://localhost:8484/local${url}`} alt="프로필" />
                         <UserInfo loginInfo={loginInfo} logoutHandler={logoutHandler}/>
                         <div className="note-div">
                             쪽지보관함

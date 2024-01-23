@@ -55,7 +55,7 @@ const LoginModal = ({onClose, registerHandler, isLogin, LoginSessionCheck}) => {
                     isLogin = true;
                     console.log(json)
                 } else {
-                    isLogin(false);
+                    isLogin = false;
                 }
                 // console.log("로그인 유저 정보: ", json.dto);
                 console.log("여기까지왔다");
