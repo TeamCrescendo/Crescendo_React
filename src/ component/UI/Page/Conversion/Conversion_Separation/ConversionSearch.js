@@ -13,6 +13,8 @@ const ConversionSearch = () => {
             if (!youtubeLink) return;
 
             // SCORE_URL을 사용하여 서버에 요청을 보내고 결과를 받아옴
+            // axios는 응답 데이터를 자동으로 JSON으로 파싱해주지만, fetch는 기본적으로 그렇지 않습니다. 
+            // 따라서 fetch를 사용할 때는 수동으로 response.json()을 호출하여 JSON 데이터를 파싱
             const response = await axios({
                 method: 'POST',
                 url: SCORE_URL,
