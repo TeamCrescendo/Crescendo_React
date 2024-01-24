@@ -1,37 +1,36 @@
 import React, { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
+import '././CoverdionSearch.scss'
 import axios from 'axios';
-import './CoverdionSearch.scss';
 
 const ConversionSearch = () => {
-    const [searchTerm, setSearchTerm] = useState('');
+    const [youtubeLink, setYoutubeLink] = useState('');
     const [sheetMusic, setSheetMusic] = useState('');
+
     const handleSearch = async () => {
         try {
-            if (!searchTerm) return;
+            if (!youtubeLink) return;
 
             const backendUrl = 'http://localhost:8484/api/score/youtube';
 
-            // 여기에서 isMajor 값을 설정하여 서버로 전송
-            const response
-                = await axios.post(backendUrl, { youtubeLink: searchTerm, isMajor: true });
+            const response = await axios.post(backendUrl, { youtubeLink });
 
-            // 백엔드에서 받은 검색 결과 및 악보를 상태에 설정
             setSheetMusic(response.data.sheetMusic);
         } catch (error) {
             alert(`검색 중 에러 발생: ${error.message}`);
         }
-        setSearchTerm('');
+        setYoutubeLink('');
     };
+
     return (
         <div className="w">
             <div className="search">
                 <input
                     type="text"
                     className="searchTerm"
-                    placeholder="무엇을 찾고 계신가요?"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
+                    placeholder="유튜브 링크를 입력하세요"
+                    value={youtubeLink}
+                    onChange={(e) => setYoutubeLink(e.target.value)}
                 />
                 <button
                     type="button"
@@ -48,4 +47,5 @@ const ConversionSearch = () => {
         </div>
     );
 };
+
 export default ConversionSearch;
