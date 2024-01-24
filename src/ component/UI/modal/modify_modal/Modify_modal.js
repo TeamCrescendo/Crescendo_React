@@ -6,20 +6,20 @@ import {FiAlertCircle} from "react-icons/fi";
 import RegisterButton from "../../button/register/Register_Button";
 import ModifyButton from "../../button/modify/Modify_Button";
 import QuitButton from "../../button/quit/Quit_Button";
-import {AUTH_URL} from "../../../../config/host-config";
+import {AUTH_URL, MEMBER_URL} from "../../../../config/host-config";
 import Form from "react-bootstrap/Form";
 
 
 const ModifyModal = ({ onClose, loginInfo }) => {
     const modalBackground = useRef();
-    const URL = "http://localhost:8484/api/auth";
-    const [profileIMG, setProfileIMG] = useState();
-    const url = loginInfo.profileImageUrl;
+    // const url = loginInfo.profileImageUrl;
+    const [profileIMG, setProfileIMG] = useState(loginInfo.profileImageUrl);
+    const [imgChange, setImgChange] = useState(false);
 
     const imgHandler = e => {
         const img = e.target.files[0];
-        // console.log("프사이거: ", img[0]);
         setProfileIMG(img);
+        setImgChange(true);
     }
 
     // 상태변수로 회원가입 입력값 관리
@@ -156,8 +156,6 @@ const ModifyModal = ({ onClose, loginInfo }) => {
                         setMessage({...message, userName: msg });
                         setCorrect({...correct, userName: flagg });
                         return;
-                    default:
-                        return;
                 }
 
             });
@@ -261,32 +259,30 @@ const ModifyModal = ({ onClose, loginInfo }) => {
 
     // 회원정보 수정 버튼을 눌렀을 때
     const modifySubmit = e => {
+        e.preventDefault();
         if (
             userValue.userName === loginInfo.userName && userValue.email === loginInfo.email
-            && userValue.password === '' && userValue.password2 === ''
+            && userValue.password === '' && userValue.password2 === '' && imgChange === false
         ) {
             // 바뀐것없음
+            alert("아무것도 변경하지 않았습니다!");
             return;
         }
-        // console.log(userValue);
 
-        e.preventDefault();
+        const formData = new FormData();
+        formData.append('account', loginInfo.account,);
+        formData.append('userName', userValue.userName);
+        formData.append('email', userValue.email);
+        formData.append('password', userValue.password);
+        if (imgChange) {
+            formData.append('profileImage', profileIMG);
+        }
 
-        fetch(AUTH_URL + "/modify", {
+        fetch(MEMBER_URL + "/modify", {
             method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                account: loginInfo.account,
-                userName: userValue.userName,
-                password: userValue.password,
-                email: userValue.email,
-
-            }),
-            credentials: 'include',
+            body: formData,
         })
-            .then(res => res.json())
+            .then(response => response.json())
             .then(flag => {
                 console.log(flag);
                 if (flag) {
@@ -296,6 +292,41 @@ const ModifyModal = ({ onClose, loginInfo }) => {
                     alert("회원정보 변경에 실패했습니다!");
                 }
             })
+            .catch(error => console.error('Error uploading file:', error));
+
+            // fetch(MEMBER_URL + "/modify", {
+            //     method: 'PATCH',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify({
+            //         account: loginInfo.account,
+            //         userName: userValue.userName,
+            //         password: userValue.password,
+            //         email: userValue.email,
+            //         profileImage: profileIMG
+            //     }),
+            //     credentials: 'include',
+            // })
+            //     .then(res => {
+            //         if (!res.ok) {
+            //             throw new Error(`HTTP error! Status: ${res.status}`);
+            //         }
+            //         return res.json();
+            //     })
+            //     .then(flag => {
+            //         console.log(flag);
+            //         if (flag) {
+            //             alert("회원정보가 성공적으로 변경되었습니다!");
+            //             onClose();
+            //         } else {
+            //             alert("회원정보 변경에 실패했습니다!");
+            //         }
+            //     })
+            //     .catch(error => {
+            //         console.error('Error during request:', error);
+            //     });
+
     }
 
     // 회원 탈퇴 버튼을 눌렀을 때
@@ -303,7 +334,7 @@ const ModifyModal = ({ onClose, loginInfo }) => {
 
         e.preventDefault();
 
-        fetch(`${URL}/restore/${loginInfo.account}`, {
+        fetch(AUTH_URL + `/restore/${loginInfo.account}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -368,7 +399,7 @@ const ModifyModal = ({ onClose, loginInfo }) => {
                                 outline: 'none',
                                 borderWidth: userValue.userName ? '2px' : '1px',
                             }}
-                            value={userValue.userName}
+                            placeholder={userValue.userName}
                         />
 
 
@@ -388,7 +419,7 @@ const ModifyModal = ({ onClose, loginInfo }) => {
                                 outline: 'none',
                                 borderWidth: userValue.email ? '2px' : '1px',
                             }}
-                            value={userValue.email}
+                            placeholder={userValue.email}
                         />
 
 
@@ -433,9 +464,18 @@ const ModifyModal = ({ onClose, loginInfo }) => {
                         />
                     </form>
                     <div className="modify-profile-img-container">
-                        <img className="imgtest" src={`http://localhost:8484/local${url}`} alt="프로필" />
+                        {
+                            imgChange
+                                ? <img className="imgtest"
+                                       src={URL.createObjectURL(profileIMG)}  alt="프로필"
+                                />
+                                : <img className="imgtest"
+                                       src={`http://localhost:8484/local${profileIMG}`} alt="프로필"
+                                />
+
+                        }
                         <Form.Group controlId="formFile" className="mb-3">
-                            <Form.Control type="file" onChange={imgHandler}/>
+                            <Form.Control className="file-upload" type="file" onChange={imgHandler}/>
                         </Form.Group>
                         {/*<div className="img-title">*/}
                         {/*    프로필 변경*/}
