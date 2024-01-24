@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 //POST 요청이 /api/convert 엔드포인트로 들어올 때의 핸들러를 정의
-app.post('/api/convert', (req
+app.post('/api/score/youtube', (req
                           , res) => {
     const youtubeLink = req.body.youtubeLink;
     // 두 번째 매개변수로 장조/단조 여부를 받아오도록 수정

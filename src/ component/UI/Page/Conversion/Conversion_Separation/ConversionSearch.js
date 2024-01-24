@@ -10,7 +10,7 @@ const ConversionSearch = () => {
         try {
             if (!searchTerm) return;
 
-            const backendUrl = 'http://localhost:8484/api/convert';
+            const backendUrl = 'http://localhost:8484/api/score/youtube';
 
             // 여기에서 isMajor 값을 설정하여 서버로 전송
             const response
