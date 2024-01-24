@@ -24,7 +24,7 @@ app.post('/api/score/youtube', (req
 });
 
 app.listen(port, () => {
-    //app.listen()을 사용하여 서버를 지정된 포트(여기서는 5000)에서 실행
+    //app.listen()을 사용하여 서버를 지정된 포트 8484에서 실행
     //서버를 지정된 포트에서 실행
     console.log(`Server is running on port ${port}`);
 });
@@ -33,8 +33,13 @@ function generateSheetMusicFromYouTubeLink(youtubeLink, isMajor) {
     //generateSheetMusicFromYouTubeLink 함수는 YouTube 링크와 해당 음악이 장조인지 단조인지에 따라 무작위로 악보를 생성
     // isMajor를 기반으로 장조/단조 여부를 판단하여 악보를 생성하는 함수
     //무작위로 음표와 박자를 선택하여 10개의 악보를 생성
+    //notesMajor (장조 음계)
     const notesMajor = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
+    //notesMinor (단조 음계)
     const notesMinor = ['c', 'd', 'e', 'f', 'g', 'a', 'b'];
+    //rhythms (박자)
+    // quarter'는 4분음표, 'eighth'는 8분음표, 'half'는 2분음표
+    //나중에 난이도 조절 가능 Easy , Nomal , Hard
     const rhythms = ['quarter', 'eighth', 'half'];
 
     const notes = isMajor ? notesMajor : notesMinor;
