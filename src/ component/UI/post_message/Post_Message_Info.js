@@ -6,7 +6,11 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
-import { RiChatDeleteFill } from "react-icons/ri";
+import {RiChatDeleteFill, RiMailSendFill} from "react-icons/ri";
+import {IoIosMail, IoIosMailOpen} from "react-icons/io";
+
+import './Post_Message_Info.scss';
+
 
 
 import InquiryButton from "../button/inquiry_modal_btn/Inquiry_modal_Button";
@@ -15,17 +19,21 @@ import InquiryModal from "../modal/inquiry_modal/Inquiry_modal";
 import InquiryModalButton from "../button/inquiry_modal_btn/Inquiry_modal_Button";
 import {AUTH_URL, INQUIRY_URL, MESSAGE_URL} from "../../../config/host-config";
 import {getCurrentLoginUser} from "../../util/login-util";
+import MessageModalButton from "../button/message_modal_btn/message_modal_button";
+import MessageModal from "../modal/message_modal/Message_modal";
 
 const PostMessageInfo = ({ loginInfo }) => {
     const [modifyModalOpen, setModifyModalOpen] = useState(false);
     const [rows, setRows] = useState([]);
+    const [data, setData] = useState();
 
-    const modifyButtonClick = () => {
+    const modifyButtonClick = rowdata => {
         setModifyModalOpen(true);
+        setData(rowdata);
     };
 
-    function createData(status, content, post_time) {
-        return { status, content, post_time };
+    function createData(status, sender, receiver, content, post_time, messageId, check) {
+        return { status, sender, receiver, content, post_time, messageId, check };
     }
 
     function formatDate(timeString) {
@@ -69,8 +77,22 @@ const PostMessageInfo = ({ loginInfo }) => {
             .then(res => res.json())
             .then(json => {
                 const updatedRows = json.map(message => {
-                    const formatTime = formatDate(message.createTime);
-                    return createData(, inquiry.inquiryContent, formatTime);
+                    let formatPost = "";
+                    if (message.sender === loginInfo.account){
+                        formatPost = "발신";
+                    } else if (message.receiver === loginInfo.account) {
+                        if (!message.check) {
+                            formatPost = "미확인";
+                        } else {
+                            formatPost = "확인완료";
+                        }
+                    }
+                    const sender = "" + message.senderNickName + "(" + message.sender + ")";
+                    const receiver = "" + message.receiverNickname + "(" + message.receiver + ")";
+
+                    const formatTime = formatDate(message.writtenTime);
+                    return createData(formatPost, sender, receiver
+                        ,message.content, formatTime, message.messageId, message.check);
                 });
                 setRows(updatedRows);
             })
@@ -93,9 +115,10 @@ const PostMessageInfo = ({ loginInfo }) => {
                     <Table sx={{ minWidth: 300 }} aria-label="simple table">
                         <TableHead className="tHead">
                             <TableRow>
-                                <TableCell>수신/발신여부</TableCell>
-                                <TableCell align="right">쪽지내용</TableCell>
-                                <TableCell align="right">쪽지시각</TableCell>
+                                <TableCell>상태</TableCell>
+                                <TableCell align="right">발신자</TableCell>
+                                <TableCell align="right">수신자</TableCell>
+                                <TableCell align="right">발송시간</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody className="tBody">
@@ -105,10 +128,24 @@ const PostMessageInfo = ({ loginInfo }) => {
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 >
                                     <TableCell component="th" scope="row">
-                                        {row.status}
+                                        {
+                                            row.status === "미확인" ? <IoIosMail className="mail-icon"/> :
+                                                row.status === "확인완료" ? <IoIosMailOpen className="mail-icon"/> :
+                                                    row.status === "발신" ? <RiMailSendFill className="mail-icon"/> :
+                                                        null
+                                        }
+                                        ㅡ {row.status}
                                     </TableCell>
-                                    <TableCell align="right">{row.content}</TableCell>
+                                    <TableCell align="right">{row.sender}</TableCell>
+                                    <TableCell align="right">{row.receiver}</TableCell>
                                     <TableCell align="right">{row.post_time}</TableCell>
+                                    <TableCell align="right" id={row.messageId}>
+                                        <MessageModalButton row={{content: row.content, receiver: row.receiver, receiverNickName: row.receiverNickName,
+                                                            sender: row.sender, senderNickName: row.senderNickName}}
+                                                            onClose={() => setModifyModalOpen(false)}
+                                                            modifyButtonClick={modifyButtonClick} />
+
+                                    </TableCell>
                                     <TableCell align="right"><RiChatDeleteFill style={{cursor:"pointer"}}/></TableCell>
                                 </TableRow>
                             ))}
@@ -117,9 +154,8 @@ const PostMessageInfo = ({ loginInfo }) => {
                 </TableContainer>
             </div>
 
-            {/*<InquiryModalButton  onClose={() => setModifyModalOpen(false)}*/}
-            {/*                     modifyButtonClick={modifyButtonClick} />*/}
-            {/*{modifyModalOpen && <InquiryModal loginInfo={loginInfo} onClose={() => setModifyModalOpen(false)}/>}*/}
+            {modifyModalOpen && <MessageModal row={data}  onClose={() => setModifyModalOpen(false)}/>}
+
         </>
     );
 };
