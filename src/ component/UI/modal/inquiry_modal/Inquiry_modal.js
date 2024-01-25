@@ -7,6 +7,7 @@ import KakaoLoginButton from "../../button/login/kakao_login/Kakao_Login_Button"
 import TextField from '@mui/material/TextField';
 import InquiryButton from "../../button/inpuiry/Inquiry_Button";
 import {AUTH_URL, INQUIRY_URL} from "../../../../config/host-config";
+import {getCurrentLoginUser} from "../../../util/login-util";
 
 const InquiryModal = ({ onClose, loginInfo }) => {
     const modalBackground = useRef();
@@ -38,7 +39,11 @@ const InquiryModal = ({ onClose, loginInfo }) => {
             content: inputValue
         })
     }
-
+    const[token, setToken] = useState(getCurrentLoginUser().token);
+    const requestHeader = {
+        'content-type': 'application/json',
+        'Authorization': 'Bearer ' + token
+    };
 
     // 문의전송 버튼을 눌렀을 때
     const inquirySubmit = e => {
@@ -46,9 +51,7 @@ const InquiryModal = ({ onClose, loginInfo }) => {
 
         fetch(INQUIRY_URL, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: requestHeader,
             body: JSON.stringify({
                 account: loginInfo.account,
                 title: userValue.title,

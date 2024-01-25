@@ -6,17 +6,17 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
+import { RiChatDeleteFill } from "react-icons/ri";
 
-import './Inquiry_Info.scss';
+
 import InquiryButton from "../button/inquiry_modal_btn/Inquiry_modal_Button";
 import ModifyModal from "../modal/modify_modal/Modify_modal";
 import InquiryModal from "../modal/inquiry_modal/Inquiry_modal";
 import InquiryModalButton from "../button/inquiry_modal_btn/Inquiry_modal_Button";
-import {AUTH_URL, INQUIRY_URL} from "../../../config/host-config";
+import {AUTH_URL, INQUIRY_URL, MESSAGE_URL} from "../../../config/host-config";
 import {getCurrentLoginUser} from "../../util/login-util";
-import {RiChatDeleteFill} from "react-icons/ri";
 
-const InquiryInfo = ({ loginInfo }) => {
+const PostMessageInfo = ({ loginInfo }) => {
     const [modifyModalOpen, setModifyModalOpen] = useState(false);
     const [rows, setRows] = useState([]);
 
@@ -24,8 +24,8 @@ const InquiryInfo = ({ loginInfo }) => {
         setModifyModalOpen(true);
     };
 
-    function createData(title, content, inquiry_time) {
-        return { title, content, inquiry_time };
+    function createData(status, content, post_time) {
+        return { status, content, post_time };
     }
 
     function formatDate(timeString) {
@@ -59,32 +59,31 @@ const InquiryInfo = ({ loginInfo }) => {
         'content-type': 'application/json',
         'Authorization': 'Bearer ' + token
     };
-    // 문의목록 전체조회 (본인것만)
-    const selectMyInquiry = e => {
 
-        fetch(INQUIRY_URL + `?account=${loginInfo.account}`, {
+    // 쪽지목록 전체조회 (본인관련)
+    const selectMyPostMessage = e => {
+        fetch(MESSAGE_URL + '/all', {
             method: 'GET',
             headers: requestHeader
         })
             .then(res => res.json())
             .then(json => {
-                const updatedRows = json.map(inquiry => {
-                    const formatTime = formatDate(inquiry.createTime);
-                    return createData(inquiry.inquiryTitle, inquiry.inquiryContent, formatTime);
+                const updatedRows = json.map(message => {
+                    const formatTime = formatDate(message.createTime);
+                    return createData(, inquiry.inquiryContent, formatTime);
                 });
                 setRows(updatedRows);
             })
-
     }
 
     // let rows = [
-    //     // createData('업로드가 잘 안됩니다.', '어떤일이 있었냐면', "1일전"),
-    //     // createData('등록이 잘 안되요.', '어떤일이 있었냐면', "3일전"),
-    //     // createData('아이디는 못바꾸나요.', '어떤일이 있었냐면', "7일전"),
+    //     createData('발신', '다른곡도 공유해주세요', "1일전"),
+    //     createData('수신', '님 신고함 ㅋㅋ', "3일전"),
+    //     createData('수신', '이상한거 올리네 신고함', "7일전"),
     // ];
 
     useEffect(() => {
-        selectMyInquiry();
+        selectMyPostMessage();
     }, [modifyModalOpen]);
 
     return (
@@ -94,22 +93,22 @@ const InquiryInfo = ({ loginInfo }) => {
                     <Table sx={{ minWidth: 300 }} aria-label="simple table">
                         <TableHead className="tHead">
                             <TableRow>
-                                <TableCell>문의제목</TableCell>
-                                <TableCell align="right">문의내용</TableCell>
-                                <TableCell align="right">문의시각</TableCell>
+                                <TableCell>수신/발신여부</TableCell>
+                                <TableCell align="right">쪽지내용</TableCell>
+                                <TableCell align="right">쪽지시각</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody className="tBody">
                             {rows.map((row) => (
                                 <TableRow
-                                    key={row.title}
+                                    key={row.status}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 >
                                     <TableCell component="th" scope="row">
-                                        {row.title}
+                                        {row.status}
                                     </TableCell>
                                     <TableCell align="right">{row.content}</TableCell>
-                                    <TableCell align="right">{row.inquiry_time}</TableCell>
+                                    <TableCell align="right">{row.post_time}</TableCell>
                                     <TableCell align="right"><RiChatDeleteFill style={{cursor:"pointer"}}/></TableCell>
                                 </TableRow>
                             ))}
@@ -118,11 +117,11 @@ const InquiryInfo = ({ loginInfo }) => {
                 </TableContainer>
             </div>
 
-            <InquiryModalButton  onClose={() => setModifyModalOpen(false)}
-                            modifyButtonClick={modifyButtonClick} />
-            {modifyModalOpen && <InquiryModal loginInfo={loginInfo} onClose={() => setModifyModalOpen(false)}/>}
+            {/*<InquiryModalButton  onClose={() => setModifyModalOpen(false)}*/}
+            {/*                     modifyButtonClick={modifyButtonClick} />*/}
+            {/*{modifyModalOpen && <InquiryModal loginInfo={loginInfo} onClose={() => setModifyModalOpen(false)}/>}*/}
         </>
     );
 };
 
-export default InquiryInfo;
+export default PostMessageInfo;

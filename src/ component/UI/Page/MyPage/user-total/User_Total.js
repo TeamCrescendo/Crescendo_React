@@ -8,6 +8,7 @@ import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 
 import './User_Total.scss';
+import {RiChatDeleteFill} from "react-icons/ri";
 
 const UserTotal = () => {
     function createData(title, viewCount, like, dislike, downloadCount) {
@@ -49,6 +50,7 @@ const UserTotal = () => {
                                 <TableCell align="right">{row.like}개</TableCell>
                                 <TableCell align="right">{row.dislike}개</TableCell>
                                 <TableCell align="right">{row.downloadCount}번</TableCell>
+                                <TableCell align="right"><RiChatDeleteFill style={{cursor:"pointer"}}/></TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

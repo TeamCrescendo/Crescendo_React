@@ -62,13 +62,12 @@ const  BoardDetail = ({ score_no, detailClose }) => {
     }
     const dislikeClickHandler = () => {
         setDislikeClicked(!dislikeClicked);
-
     }
 
     // 이미지 우클릭 금지
-    document.querySelector('.detail-img').addEventListener('contextmenu', function (e) {
-        e.preventDefault();
-    });
+    // document.querySelector('.detail-img').addEventListener('contextmenu', function (e) {
+    //     e.preventDefault();
+    // });
 
     return (
         <div className="board-detail-container">
