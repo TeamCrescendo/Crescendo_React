@@ -6,13 +6,14 @@ import classNames from "classnames";
 import UserInfomation from "../../login_info/User_Infomation";
 import Login_modal_Button from "../../button/login_modal_btn/Login_modal_Button";
 import Board from "../Board/Board";
+import {getCurrentLoginUser} from "../../../util/login-util";
 
 // function Header() {
 //     return null;
 // }
 
-const Conversion = ({ isForward, LoginHandler, isLogin, loginInfo, 
-                     LoginSessionCheck, logoutHandler
+const Conversion = ({ isForward, LoginHandler, isLogin, loginInfo,
+                        LoginCheck, logoutHandler
 }) => {
     const inputRef = useRef();
     const ulRef = useRef(null);
@@ -62,18 +63,19 @@ const Conversion = ({ isForward, LoginHandler, isLogin, loginInfo,
         }
     };
 
+
+    // const[token, setToken] = useState(getCurrentLoginUser().token);
     const renderUserInfo = () => {
-        switch (isLogin && loginInfo != null) {
-            case true:
-                return <UserInfomation loginInfo={loginInfo} logoutHandler={logoutHandler}
-                />
-            default:
-                return <Login_modal_Button isLogin={LoginHandler} LoginSessionCheck={LoginSessionCheck}/>
+        if (loginInfo !== undefined) {
+            return <UserInfomation loginInfo={loginInfo} logoutHandler={logoutHandler} />;
+        } else {
+            return <Login_modal_Button isLogin={LoginHandler} LoginCheck={LoginCheck} />;
         }
     }
 
     useEffect(() => {
         newsTicker(1500);
+        LoginCheck();
     }, []);
 
     return (

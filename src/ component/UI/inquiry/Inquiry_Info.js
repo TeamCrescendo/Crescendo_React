@@ -13,6 +13,7 @@ import ModifyModal from "../modal/modify_modal/Modify_modal";
 import InquiryModal from "../modal/inquiry_modal/Inquiry_modal";
 import InquiryModalButton from "../button/inquiry_modal_btn/Inquiry_modal_Button";
 import {AUTH_URL, INQUIRY_URL} from "../../../config/host-config";
+import {getCurrentLoginUser} from "../../util/login-util";
 
 const InquiryInfo = ({ loginInfo }) => {
     const [modifyModalOpen, setModifyModalOpen] = useState(false);
@@ -50,10 +51,20 @@ const InquiryInfo = ({ loginInfo }) => {
         }
     }
 
+    // 토큰 가져오기
+    const[token, setToken] = useState(getCurrentLoginUser().token);
+    // 요청 헤더 객체
+    const requestHeader = {
+        'content-type': 'application/json',
+        'Authorization': 'Bearer ' + token
+    };
     // 문의목록 전체조회 (본인것만)
     const selectMyInquiry = e => {
 
-        fetch(INQUIRY_URL + `?account=${loginInfo.account}`)
+        fetch(INQUIRY_URL + `?account=${loginInfo.account}`, {
+            method: 'GET',
+            headers: requestHeader
+        })
             .then(res => res.json())
             .then(json => {
                 const updatedRows = json.map(inquiry => {

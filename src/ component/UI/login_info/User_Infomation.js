@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { IoSettingsSharp } from "react-icons/io5";
 
 import './User_Infomaion.scss';
+import {getCurrentLoginUser} from "../../util/login-util";
 
 const UserInfomation = ({ loginInfo, logoutHandler }) =>
 {const [dropdownView, setDropdownView] = useState(false);
@@ -9,26 +10,34 @@ const UserInfomation = ({ loginInfo, logoutHandler }) =>
     const deleteLoginCookie = () => {
         logoutHandler();
     };
-
-
-    const url = loginInfo.profileImageUrl;
-    console.log("프사" , url);
+    const test = () => {
+        console.log(loginInfo);
+    }
     return (
-        <div className="user-info-div">
-            <img className="imgtest" src={`http://localhost:8484/local${url}`} alt="프로필" />
+        <div className="user-info-div" onClick={test}>
+            {loginInfo
+                ? ( // loginInfo가 존재하는 경우에만 렌더링
+                <>
+                    <img className="imgtest" src={`http://localhost:8484/local${loginInfo.profileImageUrl}`} alt="프로필" />
 
-            <div className="user-info-subdiv" >
-                <span className="user-info-name">{loginInfo.userName}</span>
-                <span className="downloadCount">남은 기회: {loginInfo.userDownloadChance}</span>
-            </div>
+                    <div className="user-info-subdiv" >
+                        <span className="user-info-name">{loginInfo.userName}</span>
+                        <span className="downloadCount">남은 기회: {loginInfo.userDownloadChance}</span>
+                    </div>
 
-            <span className="user-info-setting" onClick={() => {setDropdownView(!dropdownView)}}><IoSettingsSharp /></span>
-            {
-                dropdownView && (
-                <ul className="dropdown-menu">
-                    {/*<li><a className="dropdown-item">마이페이지</a></li>*/}
-                    <li onClick={deleteLoginCookie}><a className="dropdown-item logoutTag">로그아웃</a></li>
-                </ul>
+                    <span className="user-info-setting" onClick={() => {setDropdownView(!dropdownView)}}><IoSettingsSharp /></span>
+                    {dropdownView && (
+                        <ul className="dropdown-menu">
+                            {/*<li><a className="dropdown-item">마이페이지</a></li>*/}
+                            <li onClick={deleteLoginCookie}><a className="dropdown-item logoutTag">로그아웃</a></li>
+                        </ul>
+                    )}
+                </>
+            )
+            : (
+                // loginInfo가 undefined인 경우에 대한 처리
+                <p>로딩중</p>
+                // <img src="/img/write.gif" alt="" />
             )}
         </div>
     );

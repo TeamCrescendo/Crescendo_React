@@ -3,10 +3,11 @@ import {GrClose} from "react-icons/gr";
 import './Login_modal.scss';
 import LoginButton from "../../button/login/original_login/Login_Button";
 import KakaoLoginButton from "../../button/login/kakao_login/Kakao_Login_Button";
-import Session from "react-session-api/src";
 import {AUTH_URL} from "../../../../config/host-config";
+import {TOKEN, USERNAME} from "../../../util/login-util";
 
-const LoginModal = ({onClose, registerHandler, isLogin, LoginSessionCheck}) => {
+
+const LoginModal = ({onClose, registerHandler, isLogin, LoginCheck}) => {
     const modalBackground = useRef();
     // 상태변수 관리
     const [account, setAccount] = useState('');
@@ -34,34 +35,58 @@ const LoginModal = ({onClose, registerHandler, isLogin, LoginSessionCheck}) => {
     }
 
     // 로그인 버튼을 눌렀을 때
-    const loginSubmit = e => {
+    const loginSubmit = async e => {
         e.preventDefault();
 
-        fetch(AUTH_URL + "/login", {
+        // fetch(AUTH_URL + "/login", {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify({
+        //         account: account,
+        //         password: password,
+        //         autoLogin: autoLogin
+        //     }),
+        //     credentials: 'include',
+        // })
+        //     .then(res => res.json())
+        //     .then(json => {
+        //         if (json.result === true) {
+        //             isLogin = true;
+        //             console.log(json)
+        //         } else {
+        //             isLogin = false;
+        //         }
+        //         // console.log("로그인 유저 정보: ", json.dto);
+        //         console.log("여기까지왔다");
+        //         // LoginSessionCheck();
+        //         window.location.reload();
+        //     })
+        const res = await fetch(AUTH_URL + "/login", {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: {'content-type': 'application/json'},
             body: JSON.stringify({
                 account: account,
                 password: password,
                 autoLogin: autoLogin
-            }),
-            credentials: 'include',
-        })
-            .then(res => res.json())
-            .then(json => {
-                if (json.result === true) {
-                    isLogin = true;
-                    console.log(json)
-                } else {
-                    isLogin = false;
-                }
-                // console.log("로그인 유저 정보: ", json.dto);
-                console.log("여기까지왔다");
-                // LoginSessionCheck();
-                window.location.reload();
             })
+        });
+
+        if (res.status === 400) {
+            const text = await res.text();
+            alert(text);
+            return;
+        }
+        if (res.status === 200) {
+            const {token, userName, auth} = await res.json();
+
+            localStorage.setItem(TOKEN, token);
+            localStorage.setItem(USERNAME, userName);
+
+            window.location.reload();
+        }
+
 
     }
 
@@ -75,7 +100,7 @@ const LoginModal = ({onClose, registerHandler, isLogin, LoginSessionCheck}) => {
                     <h2>로그인</h2>
                 </div>
 
-                <form className="login-input-form" onSubmit={loginSubmit}>
+                <form className="login-input-form">
                     <input
                         type="text"
                         className="input-account"
@@ -102,7 +127,7 @@ const LoginModal = ({onClose, registerHandler, isLogin, LoginSessionCheck}) => {
                         </div>
                         <span className="pwfindSpan" onClick={pwFindHandler}>비밀번호 찾기</span>
                     </div>
-                    <LoginButton/>
+                    <LoginButton loginSubmit={loginSubmit}/>
                 </form>
 
                 <KakaoLoginButton/>

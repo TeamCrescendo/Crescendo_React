@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 
 import './Register_modal.scss';
 import {GrClose} from "react-icons/gr";
@@ -13,6 +13,7 @@ import Form from 'react-bootstrap/Form';
 const RegisterModal = ({ onClose }) => {
     const modalBackground = useRef();
     const [profileIMG, setProfileIMG] = useState('img/default_profile.png');
+    const [isChange, setIsChange] = useState(false);
 
     // 상태변수로 회원가입 입력값 관리
     const [userValue, setUserValue] = useState({
@@ -36,8 +37,7 @@ const RegisterModal = ({ onClose }) => {
         userName: false,
         password: false,
         password2: false,
-        email: false,
-        profileIMG: false
+        email: false
     });
 
 
@@ -72,7 +72,7 @@ const RegisterModal = ({ onClose }) => {
 
     // 계정 입력값을 검증하고 관리할 함수
     const accountHandler = e => {
-        const accountRegex = /^[a-zA-Z]{4,10}$/;
+        const accountRegex = /^[a-zA-Z]{2,10}$/;
         const inputVal = e.target.value;
 
         let msg, flag; // 검증 메세지를 임시 저장할 지역변수
@@ -80,7 +80,7 @@ const RegisterModal = ({ onClose }) => {
             msg = " / 아이디는 필수값입니다!";
             flag = false;
         } else if (!accountRegex.test(inputVal)) {
-            msg = " / 4 ~ 10 글자 사이의 영어로 작성";
+            msg = " / 2 ~ 10 글자 사이의 영어로 작성";
             flag = false;
         } else {
             fetchDuplicatedCheck("account", inputVal);
@@ -322,17 +322,7 @@ const RegisterModal = ({ onClose }) => {
     //         })
     // }
 
-    const registerSubmit = e => {
-        e.preventDefault();
-
-        for (let value of Object.values(correct)) {
-            if (!value) {
-                alert("전부 입력 해야합니다!");
-                return;
-            }
-        }
-
-
+    const registerSubmit = () => {
         const formData = new FormData();
         formData.append('profileImage', profileIMG);
         formData.append('account', userValue.account);
@@ -351,27 +341,16 @@ const RegisterModal = ({ onClose }) => {
 
     const imgHandler = e => {
         const img = e.target.files[0];
-        console.log("사진 등록됨: ", img);
+
         setProfileIMG(img);
-
-        setCorrect({
-            ...correct,
-            profileIMG: true
-        })
+        setIsChange(true);
     }
 
-    // useEffect(() => {
-    //
-    // }, [profileIMG]);
-
-    const imgClickHandler = e => {
-        document.querySelector('.file-upload').click();
-    }
 
 
     return (
         <div className="register-modal-container" ref={modalBackground} onClick={handleModalClick}>
-            <form className="register-modal-content">
+            <form className="register-modal-content" onSubmit={registerSubmit}>
                 <button className="registerModalCloseBtn" onClick={registerClose}>
                     <GrClose />
                 </button>
@@ -483,23 +462,17 @@ const RegisterModal = ({ onClose }) => {
                     </div>
                     <div className="register-profile-img-container">
                         {
-                            correct.profileIMG
-                                ? <img className="imgtest"
-                                       src={URL.createObjectURL(profileIMG)} alt="프로필 사진"
-                                       onClick={imgClickHandler}
-                                />
-                                : <img className="imgtest"
-                                       src={profileIMG} alt="프로필 사진"
-                                       onClick={imgClickHandler}
-                                />
+                            isChange
+                            ? <img className="imgtest" src={URL.createObjectURL(profileIMG)} alt="프로필 사진"/>
+                            : <img className="imgtest" src={profileIMG} alt="프로필 사진"/>
                         }
                         <Form.Group controlId="formFile" className="mb-3">
-                            <Form.Control className="file-upload"  type="file" onChange={imgHandler}/>
+                            <Form.Control type="file" onChange={imgHandler}/>
                         </Form.Group>
                         <div className="img-title">
-                            프로필 사진 필수 등록
+                            프로필 사진
                         </div>
-                        <RegisterButton registerSubmit={registerSubmit}/>
+                        <RegisterButton />
                     </div>
                 </div>
             </form>

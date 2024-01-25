@@ -11,12 +11,15 @@ import WebInfo from "../UI/Page/WebInfo/WebInfo";
 import Board from "../UI/Page/Board/Board";
 import Session from "react-session-api/src";
 import {AUTH_URL} from "../../config/host-config";
+import {getCurrentLoginUser} from "../util/login-util";
 
 const Crescendo_main = () => {
     const [pageId, setPageId] = useState(1);
     const [isForward, setIsForward] = useState(true);
     const [isLogin, setIsLogin] = useState(false);
     const [loginInfo, setLoginInfo] = useState();
+
+
 
     const pageGetter = (id, getIsForward) => {
         setPageId(parseInt(id, 10));
@@ -31,17 +34,18 @@ const Crescendo_main = () => {
     }
 
 
+
     const renderPage = () => {
         switch (pageId) {
             case 1:
                 return <Conversion isForward={isForward} LoginHandler={LoginHandler}
                                    isLogin={isLogin} loginInfo={loginInfo}
-                                   loginSessionCheck={LoginSessionCheck}
+                                   LoginCheck={LoginCheck}
                                    logoutHandler={logoutHandler}/>;
             case 2:
                 return <MyPage isForward={isForward} LoginHandler={LoginHandler}
                                isLogin={isLogin} loginInfo={loginInfo}
-                               loginSessionCheck={LoginSessionCheck}
+                               loginSessionCheck={LoginCheck}
                                logoutHandler={logoutHandler}/>;
             case 3:
                 return <Board isForward={isForward} LoginHandler={LoginHandler}
@@ -63,22 +67,29 @@ const Crescendo_main = () => {
         // console.log("dto: ", );
     }
 
-    const LoginSessionCheck = () => {
-        fetch("http://localhost:8484/api/auth/compare", {
+    // 토큰 가져오기
+    const[token, setToken] = useState(getCurrentLoginUser().token);
+    // 요청 헤더 객체
+    const requestHeader = {
+        'content-type': 'application/json',
+        'Authorization': 'Bearer ' + token
+    };
+    const LoginCheck = () => {
+        if (token === null) {
+            return;
+        }
+        console.log("로그인체크");
+        fetch("http://localhost:8484/api/member", {
             method: "GET",
-            credentials: 'include'
+            headers: requestHeader,
         })
-            .then(res => {
-                if (!res.ok) {
-                    throw new Error(`HTTP error! Status: ${res.status}`);
-                }
-                return res.json();
-            })
+            .then(res => res.json())
             .then(json => {
                 if (json != null) {
                     setIsLogin(true);
                     setLoginInfo(json);
                     console.log("로그인 검증 성공");
+                    console.log(loginInfo);
                 } else {
                     console.log("로그인 검증 실패");
                 }
@@ -96,24 +107,15 @@ const Crescendo_main = () => {
     //
     // }
     const logoutHandler = async () => {
-        try {
-            const response = await fetch(AUTH_URL + "/logout", {
-                method: 'POST',
-                credentials: 'include',
-            });
-
-            if (response.ok) {
-                setIsLogin(false);
-            } else {
-                console.error('로그아웃 실패');
-            }
-        } catch (error) {
-            console.error('로그아웃 에러:', error);
-        }
+        localStorage.clear();
+        setIsLogin(false);
+        setLoginInfo(undefined);
+        setToken(null);
+        // window.location.reload();
     };
 
     useEffect(() => {
-        LoginSessionCheck();
+        // LoginCheck();
     }, []);
 
     return (
