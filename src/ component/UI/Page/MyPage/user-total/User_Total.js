@@ -1,14 +1,6 @@
 import React from 'react';
-import TableContainer from "@mui/material/TableContainer";
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import TableCell from "@mui/material/TableCell";
-import TableBody from "@mui/material/TableBody";
-
 import './User_Total.scss';
-import {RiChatDeleteFill} from "react-icons/ri";
+import { RiChatDeleteFill } from "react-icons/ri";
 
 const UserTotal = () => {
     function createData(title, viewCount, like, dislike, downloadCount) {
@@ -22,40 +14,38 @@ const UserTotal = () => {
         createData('너를위해서', 305, 3, 67, 4),
         createData('좋은 날', 356, 16, 49, 3),
         createData('좋은 2', 356, 16, 49, 3),
+        createData('좋은 3', 356, 16, 49, 3),
+        createData('좋은 4', 356, 16, 49, 3),
+        createData('좋은 5', 356, 16, 49, 3),
+        createData('좋은 6', 356, 16, 49, 3),
+        createData('좋은 7', 356, 16, 49, 3),
+        createData('좋은 8', 356, 16, 49, 3),
     ];
 
     return (
         <div className="user-total-container">
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 300 }} aria-label="simple table">
-                    <TableHead className="tHead">
-                        <TableRow>
-                            <TableCell>공유 악보 (최신순)</TableCell>
-                            <TableCell align="right">조회수</TableCell>
-                            <TableCell align="right">좋아요</TableCell>
-                            <TableCell align="right">싫어요</TableCell>
-                            <TableCell align="right">다운로드 횟수</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody className="tBody">
-                        {rows.map((row) => (
-                            <TableRow
-                                key={row.title}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
-                                <TableCell component="th" scope="row">
-                                    {row.title}
-                                </TableCell>
-                                <TableCell align="right">{row.viewCount}회</TableCell>
-                                <TableCell align="right">{row.like}개</TableCell>
-                                <TableCell align="right">{row.dislike}개</TableCell>
-                                <TableCell align="right">{row.downloadCount}번</TableCell>
-                                <TableCell align="right"><RiChatDeleteFill style={{cursor:"pointer"}}/></TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+            <div className="table-container">
+                <div className="table-row">
+                    <div>공유 악보</div>
+                    <div>조회수</div>
+                    <div>좋아요</div>
+                    <div>싫어요</div>
+                    <div>다운로드 횟수</div>
+                    <div></div>
+                </div>
+                <div className="scroll-container">
+                    {rows.map((row) => (
+                        <div className="table-data" key={row.title}>
+                            <div>{row.title}</div>
+                            <div>{row.viewCount}회</div>
+                            <div>{row.like}개</div>
+                            <div>{row.dislike}개</div>
+                            <div>{row.downloadCount}번</div>
+                            <div><RiChatDeleteFill style={{cursor:"pointer"}}/></div>
+                        </div>
+                    ))}
+                </div>
+            </div>
         </div>
     );
 };

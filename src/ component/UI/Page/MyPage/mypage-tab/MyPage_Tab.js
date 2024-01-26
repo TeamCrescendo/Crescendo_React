@@ -11,7 +11,7 @@ import PostMessageInfo from "../../../post_message/Post_Message_Info";
 function MyPageTab({ loginInfo }) {
     return (
         <Tabs
-            defaultActiveKey="profile"
+            defaultActiveKey="list"
             id="fill-tab-example"
             className="mb-3"
             fill

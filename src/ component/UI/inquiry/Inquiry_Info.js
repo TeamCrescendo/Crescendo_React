@@ -24,8 +24,8 @@ const InquiryInfo = ({ loginInfo }) => {
         setModifyModalOpen(true);
     };
 
-    function createData(title, content, inquiry_time) {
-        return { title, content, inquiry_time };
+    function createData(title, content, inquiry_time, inquiryId) {
+        return { title, content, inquiry_time, inquiryId };
     }
 
     function formatDate(timeString) {
@@ -61,7 +61,6 @@ const InquiryInfo = ({ loginInfo }) => {
     };
     // 문의목록 전체조회 (본인것만)
     const selectMyInquiry = e => {
-
         fetch(INQUIRY_URL + `?account=${loginInfo.account}`, {
             method: 'GET',
             headers: requestHeader
@@ -70,11 +69,34 @@ const InquiryInfo = ({ loginInfo }) => {
             .then(json => {
                 const updatedRows = json.map(inquiry => {
                     const formatTime = formatDate(inquiry.createTime);
-                    return createData(inquiry.inquiryTitle, inquiry.inquiryContent, formatTime);
+                    return createData(inquiry.inquiryTitle, inquiry.inquiryContent, formatTime, inquiry.inquiryId);
+
                 });
                 setRows(updatedRows);
+
             })
 
+    }
+
+    const deleteInqHandler = (inquiryId) => {
+        if (window.confirm("해당 문의를 삭제하시겠습니까?")) {
+
+            fetch(INQUIRY_URL + "?inquiryId=" + inquiryId, {
+                method: 'DELETE',
+                headers: requestHeader
+            })
+                .then(res => res.json())
+                .then(b => {
+                    if (b) {
+                        alert("해당 문의가 삭제되었습니다!");
+                        selectMyInquiry();
+                    } else {
+                        alert("문의 삭제가 실패했습니다!");
+                    }
+                })
+
+
+        }
     }
 
     // let rows = [
@@ -110,7 +132,7 @@ const InquiryInfo = ({ loginInfo }) => {
                                     </TableCell>
                                     <TableCell align="right">{row.content}</TableCell>
                                     <TableCell align="right">{row.inquiry_time}</TableCell>
-                                    <TableCell align="right"><RiChatDeleteFill style={{cursor:"pointer"}}/></TableCell>
+                                    <TableCell align="right"><RiChatDeleteFill onClick={() => deleteInqHandler(row.inquiryId)} style={{cursor:"pointer"}}/></TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
@@ -118,7 +140,7 @@ const InquiryInfo = ({ loginInfo }) => {
                 </TableContainer>
             </div>
 
-            <InquiryModalButton  onClose={() => setModifyModalOpen(false)}
+            <InquiryModalButton onClose={() => setModifyModalOpen(false)}
                             modifyButtonClick={modifyButtonClick} />
             {modifyModalOpen && <InquiryModal loginInfo={loginInfo} onClose={() => setModifyModalOpen(false)}/>}
         </>

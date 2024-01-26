@@ -28,7 +28,7 @@ const MessageModal = ({ onClose, row }) => {
                     발신자: {row.senderNickName ? `${row.senderNickName}(${row.sender})` : row.sender}
                 </span>
                 <span className="receiver-name">
-                    수신자: {row.receiverNickname ? `${row.receiverNickname}(${row.receiver})` : row.receiver}
+                    수신자: {row.receiverFormat ? `${row.receiverFormat}` : row.receiver}
                 </span>
 
                 <span className="message-content">

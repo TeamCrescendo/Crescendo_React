@@ -32,8 +32,8 @@ const PostMessageInfo = ({ loginInfo }) => {
         setData(rowdata);
     };
 
-    function createData(status, sender, receiver, content, post_time, messageId, check) {
-        return { status, sender, receiver, content, post_time, messageId, check };
+    function createData(status, sender, receiverFormat, receiver, content, post_time, messageId, check) {
+        return { status, sender, receiverFormat, receiver, content, post_time, messageId, check };
     }
 
     function formatDate(timeString) {
@@ -88,10 +88,10 @@ const PostMessageInfo = ({ loginInfo }) => {
                         }
                     }
                     const sender = "" + message.senderNickName + "(" + message.sender + ")";
-                    const receiver = "" + message.receiverNickname + "(" + message.receiver + ")";
+                    const receiverFormat = "" + message.receiverNickname + "(" + message.receiver + ")";
 
                     const formatTime = formatDate(message.writtenTime);
-                    return createData(formatPost, sender, receiver
+                    return createData(formatPost, sender, receiverFormat, message.receiver
                         ,message.content, formatTime, message.messageId, message.check);
                 });
                 setRows(updatedRows);
@@ -103,6 +103,29 @@ const PostMessageInfo = ({ loginInfo }) => {
     //     createData('수신', '님 신고함 ㅋㅋ', "3일전"),
     //     createData('수신', '이상한거 올리네 신고함', "7일전"),
     // ];
+
+    // 메세지 읽음처리 메서드
+    const messageCheckHandler = (id, receiver) => {
+        if (receiver !== loginInfo.account) {
+            console.log("받은사람: ", receiver);
+            console.log("로그인유저: ", loginInfo.account);
+            return;
+        }
+
+
+        console.log("읽음처리!")
+
+        fetch(MESSAGE_URL + "?messageId=" + id, {
+            method: "PUT",
+            headers: requestHeader,
+        })
+            .then(res => res.json())
+            .then(b => {
+                if (b) {
+                    selectMyPostMessage();
+                }
+            })
+    }
 
     useEffect(() => {
         selectMyPostMessage();
@@ -124,25 +147,26 @@ const PostMessageInfo = ({ loginInfo }) => {
                         <TableBody className="tBody">
                             {rows.map((row) => (
                                 <TableRow
-                                    key={row.status}
+                                    key={row.messageId}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 >
                                     <TableCell component="th" scope="row">
                                         {
-                                            row.status === "미확인" ? <IoIosMail className="mail-icon"/> :
-                                                row.status === "확인완료" ? <IoIosMailOpen className="mail-icon"/> :
+                                            row.status === "미확인" ? <IoIosMail className="mail-icon" style={{color:"red"}}/> :
+                                                row.status === "확인완료" ? <IoIosMailOpen className="mail-icon" style={{color:"green"}}/> :
                                                     row.status === "발신" ? <RiMailSendFill className="mail-icon"/> :
                                                         null
                                         }
                                         ㅡ {row.status}
                                     </TableCell>
                                     <TableCell align="right">{row.sender}</TableCell>
-                                    <TableCell align="right">{row.receiver}</TableCell>
+                                    <TableCell align="right">{row.receiverFormat}</TableCell>
                                     <TableCell align="right">{row.post_time}</TableCell>
                                     <TableCell align="right" id={row.messageId}>
-                                        <MessageModalButton row={{content: row.content, receiver: row.receiver, receiverNickName: row.receiverNickName,
-                                                            sender: row.sender, senderNickName: row.senderNickName}}
+                                        <MessageModalButton row={{content: row.content, receiver: row.receiver, receiverFormat: row.receiverFormat
+                                                            , sender: row.sender, messageId: row.messageId}}
                                                             onClose={() => setModifyModalOpen(false)}
+                                                            onCheck={messageCheckHandler}
                                                             modifyButtonClick={modifyButtonClick} />
 
                                     </TableCell>
