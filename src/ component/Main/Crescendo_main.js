@@ -12,13 +12,15 @@ import Board from "../UI/Page/Board/Board";
 import Session from "react-session-api/src";
 import {AUTH_URL} from "../../config/host-config";
 import {getCurrentLoginUser} from "../util/login-util";
+import ConversionPage from "../UI/Page/Conversion/ConversionPage";
 
 const Crescendo_main = () => {
+    // 페이지 목차 인덱스
     const [pageId, setPageId] = useState(1);
+    // 시계 방향이냐 반시계 방향이냐
     const [isForward, setIsForward] = useState(true);
-    const [isLogin, setIsLogin] = useState(false);
+    // 로그인 유저의 정보
     const [loginInfo, setLoginInfo] = useState();
-
 
 
     const pageGetter = (id, getIsForward) => {
@@ -38,24 +40,24 @@ const Crescendo_main = () => {
     const renderPage = () => {
         switch (pageId) {
             case 1:
-                return <Conversion isForward={isForward} LoginHandler={LoginHandler}
-                                   isLogin={isLogin} loginInfo={loginInfo}
+                return <ConversionPage isForward={isForward} LoginHandler={LoginHandler}
+                                   loginInfo={loginInfo}
                                    LoginCheck={LoginCheck}
                                    logoutHandler={logoutHandler}/>;
             case 2:
                 return <MyPage isForward={isForward} LoginHandler={LoginHandler}
-                               isLogin={isLogin} loginInfo={loginInfo}
+                               loginInfo={loginInfo}
                                loginSessionCheck={LoginCheck}
                                logoutHandler={logoutHandler}/>;
             case 3:
                 return <Board isForward={isForward} LoginHandler={LoginHandler}
-                              isLogin={isLogin} loginInfo={loginInfo}/>;
+                              loginInfo={loginInfo}/>;
             case 4:
                 return <WebInfo isForward={isForward} LoginHandler={LoginHandler}
-                                isLogin={isLogin} loginInfo={loginInfo}/>;
+                                loginInfo={loginInfo}/>;
             case 5:
                 return <TeamInfo isForward={isForward} LoginHandler={LoginHandler}
-                                 isLogin={isLogin} loginInfo={loginInfo}/>;
+                                 loginInfo={loginInfo}/>;
             default:
         }
     };
@@ -63,7 +65,6 @@ const Crescendo_main = () => {
     const LoginHandler = (check) => {
         console.log("전달된 로그인 성공여부: ", check);
         // localStorage.setItem("isLoggedIn", Session.get("login"));
-        setIsLogin(check);
         // console.log("dto: ", );
     }
 
@@ -86,7 +87,7 @@ const Crescendo_main = () => {
             .then(res => res.json())
             .then(json => {
                 if (json != null) {
-                    setIsLogin(true);
+                    // setIsLogin(true);
                     setLoginInfo(json);
                     console.log("로그인 검증 성공");
                     console.log(loginInfo);
@@ -108,7 +109,6 @@ const Crescendo_main = () => {
     // }
     const logoutHandler = async () => {
         localStorage.clear();
-        setIsLogin(false);
         setLoginInfo(undefined);
         setToken(null);
         // window.location.reload();
