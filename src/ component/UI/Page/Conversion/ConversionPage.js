@@ -105,15 +105,28 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
         link.click();
         document.body.removeChild(link);
     };
-    const shareHandler = async (e) =>{
+
+    const shareHandler = async (e) => {
+        const formData = new FormData();
+
+        formData.set("pdfFile", pdfFile, "example.pdf");
+
+        const headers = {
+            'Authorization': 'Bearer ' + token,
+        };
+
         fetch("http://localhost:8484/api/score/share", {
-            method : "PUT",
-            headers: {
-                'content-type': 'application/pdf',
-                'Authorization': 'Bearer ' + token
-            },
-            body: pdfFile
+            method: "PUT",
+            headers: headers,
+            body: formData
         })
+            .then(res => res.text())
+            .then(json => {
+                console.log(json);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
     }
 
 
