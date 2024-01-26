@@ -6,6 +6,7 @@ import axios from 'axios';
 const ConversionSearch = () => {
     const [youtubeLink, setYoutubeLink] = useState('');
     const [sheetMusic, setSheetMusic] = useState('');
+    const [error, setError] = useState('');
 
     const LOCAL_PORT: string = '8484';
     const API_BASE_URL = 'http://localhost:';
@@ -15,7 +16,10 @@ const ConversionSearch = () => {
 // export const AUTH_URL = API_BASE_URL + '/api/auth'; // 이 부분은 아직 사용되지 않으므로 주석 처리
     const handleSearch = async () => {
         try {
-            if (!youtubeLink) return;
+            if (!youtubeLink) {
+                setError('유튜브 링크를 입력하세요.');
+                return;
+            }
 
             // SCORE_URL을 사용하여 서버에 요청을 보내고 결과를 받아옴
             // axios는 응답 데이터를 자동으로 JSON으로 파싱해주지만, fetch는 기본적으로 그렇지 않습니다.

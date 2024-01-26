@@ -24,6 +24,7 @@
     "react-youtube": "^10.1.0",
     "reactstrap": "^9.2.1",
     "sass": "^1.70.0",
+    "swiper": "^11.0.5",
     "web-vitals": "^2.1.4",
     "winston": "^3.11.0"
   },

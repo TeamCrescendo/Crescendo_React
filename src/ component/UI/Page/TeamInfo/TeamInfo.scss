@@ -39,6 +39,8 @@ header
   border-bottom-left-radius: 100px;
   border-top-left-radius: 100px;
 
+
+
   @keyframes slide-up-invitation {
     0% {
       opacity: 0;
@@ -59,61 +61,68 @@ header
       transform: translateY(0);
     }
   }
+
   h2 {
     p {
       font-size: 35px;
       font-family: 'KNUTRUTHTTF';
       color: #5882FA;
     }
+
     font-size: 20px;
     font-family: 'KNUTRUTHTTF';
     color: #fff; /* 원하는 색상으로 조절 */
     order: -1; /* h2를 위로 올리기 위해 추가 */
-    margin: 70px 580px 650px 600px;
+    margin: -50px 580px 650px 600px;
     white-space: nowrap;
     position: fixed;
   }
-
-  .contenitore {
+  /* 위에 2개 정렬 */
+  .top {
     display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-
-    .card {
-      position: relative;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  /* 아래에 3개 정렬 */
+  .bottom {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+  }
+    .box {
       width: 300px;
-      height: 300px;
-      box-sizing: content-box;
-      background: #F8E0E0;
-      padding: 10px;
       border-radius: 8px;
-      margin: 30px 0 0 30px; /* 여기에서 마진을 조절하면 됩니다. */
-      font-family: 'Pacifico', cursive;
-      color: #282c34;
+      overflow: hidden;
+      background: #637ad3;
+      padding: 20px;
       text-align: center;
-      font-size: 55px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      .card__text {
-        display: flex;
-        flex-grow: 1; /* 텍스트가 남은 공간을 차지하도록 함 */
-        align-items: center;
-        justify-content: center;
+      margin: 10px 10px 10px 10px;
+      .img {
+        width: 100%;
+        height: auto;
+        border-radius: 50%;
       }
-      .img1 {
-        width: 85px; /* 이미지가 부모 요소의 100%를 차지하도록 함 */
+      .heading {
+        font-size: 24px;
+        margin: 10px 0;
       }
-      .img2 {
-        width: 85px; /* 이미지가 부모 요소의 100%를 차지하도록 함 */
+      .data {
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 10px;
       }
-      .img3 {
-        width: 65px; /* 이미지가 부모 요소의 100%를 차지하도록 함 */
+      .date {
+        margin-right: 10px;
+      }
+      .texts {
+        font-size: 16px;
+        line-height: 1.5;
       }
     }
   }
-}
+
+
+
 .slide-up {
   animation: slide-up-invitation 1s;
 }
