@@ -13,7 +13,7 @@ const MyPage = ({ isForward, isLogin, loginInfo, logoutHandler, LoginSessionChec
     });
 
     const renderPage = () => {
-        if (isLogin && loginInfo != null) {
+        if (loginInfo != null) {
             return <MyPageLoggedIn loginInfo={loginInfo} logoutHandler={logoutHandler}/>
         } else {
             return <MyPageLogin isLogin={isLogin} LoginSessionCheck={LoginSessionCheck}/>
