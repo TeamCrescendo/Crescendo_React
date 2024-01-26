@@ -10,15 +10,20 @@ import {FormControl, FormHelperText, FormLabel} from "@mui/joy";
 import {InfoOutlined} from "@mui/icons-material";
 import cn from "classnames";
 import {getCurrentLoginUser} from "../../../util/login-util";
-import { Document, Page } from 'react-pdf';
-
-
+import { Document, Page, pdfjs } from 'react-pdf';
+import '@react-pdf-viewer/default-layout/lib/styles/index.css';
+import 'react-pdf/dist/Page/TextLayer.css';
+import 'react-pdf/dist/Page/AnnotationLayer.css';
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 
 
 const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutHandler}) => {
     // pdf 파일
     const [pdfFile, setPdfFile] = useState(null);
+    const [numPages, setNumPages] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1); // Current page state
+
 
 
     const setAnimation = classNames({
@@ -61,51 +66,93 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
         // console.log(match);
         // setIsValid(match);
     }
-    const submitHandler = async (e) =>{
+    const submitHandler = async (e) => {
         e.preventDefault();
-        console.log("서브밋됌")
-        const res = await ("http://localhost:8484/api/score/youtube", {
-            method:"POST",
-            headers:requestHeader,
-            responseType: "arraybuffer",
+        console.log("변환시작!")
+        const res = await fetch("http://localhost:8484/api/score/youtube", {
+            method: "POST",
+            headers: requestHeader,
             body: JSON.stringify({
                 "url": youtubeLink
             })
         });
-        if(res.status ===200) {
-            const json = await res.json();
-            const blob = new Blob([json], { type: 'application/pdf' });
-            // Blob을 파일로 변환
+
+        if (res.status === 200) {
+            const arrayBuffer = await res.arrayBuffer();
+            const blob = new Blob([arrayBuffer], { type: 'application/pdf' });
             const file = new File([blob], 'example.pdf', { type: 'application/pdf' });
-
             setPdfFile(file);
-
+        } else {
+            console.error("Failed to fetch PDF:", res.statusText);
         }
     }
+
+    const onDocumentLoadSuccess = ({ numPages }) => {
+        setNumPages(numPages);
+    };
+
+    const goToPage = (page) => {
+        setCurrentPage(page);
+    };
+
+    const downloadPdf = () => {
+        const url = URL.createObjectURL(pdfFile);
+        console.log(url);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'example.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+    const shareHandler = async (e) =>{
+        fetch("http://localhost:8484/api/score/share", {
+            method : "PUT",
+            headers: {
+                'content-type': 'application/pdf',
+                'Authorization': 'Bearer ' + token
+            },
+            body: pdfFile
+        })
+    }
+
+
 
 //{`mainContainer ${setAnimation}`}
     return (
         <div className='conversion-page'>
             <form className="form" onSubmit={submitHandler}>
-                <Input error
-                       className="youtube-link"
-                       startDecorator={<FaYoutube />}
-                       endDecorator={<IoIosSend onClick={submitHandler}/>}
-                       placeholder="유튜브 링크를 적어주세요!!"
-                       size="lg"
-                       color="danger"
-                       variant="outlined"
-                       onChange={youtubeLinkHandler}
-                       sx={{color:'error.main'}}/>
-                <div className={cn('error', {none : isValid})}>
+                <Input
+                    error
+                    className="youtube-link"
+                    startDecorator={<FaYoutube />}
+                    endDecorator={<IoIosSend onClick={submitHandler} />}
+                    placeholder="유튜브 링크를 적어주세요!!"
+                    size="lg"
+                    color="danger"
+                    variant="outlined"
+                    onChange={youtubeLinkHandler}
+                    sx={{ color: 'error.main' }}
+                />
+                <div className={cn('error', { none: isValid })}>
                     <InfoOutlined />
                     링크 형식으로 적어주세요!!
                 </div>
             </form>
             {pdfFile && (
-                <Document file={pdfFile}>
-                    <Page pageNumber={1} />
-                </Document>
+                <div>
+                    <p>페이지 수: {numPages}</p>
+                    <button onClick={() => goToPage(currentPage - 1)} disabled={currentPage <= 1}>
+                        이전 페이지
+                    </button>
+                    <button onClick={() => goToPage(currentPage + 1)} disabled={currentPage >= numPages}>
+                        다음 페이지
+                    </button>
+                    <button onClick={shareHandler}>공유하기</button>
+                    <Document file={pdfFile} onLoadSuccess={onDocumentLoadSuccess}>
+                        <Page onClick={downloadPdf} pageNumber={currentPage} />
+                    </Document>
+                </div>
             )}
         </div>
     );
