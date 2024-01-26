@@ -14,13 +14,17 @@ import {AUTH_URL} from "../../config/host-config";
 import {getCurrentLoginUser} from "../util/login-util";
 
 const Crescendo_main = () => {
+    // 페이지 목차 인덱스
     const [pageId, setPageId] = useState(1);
+    // 시계 방향이냐 반시계 방향이냐
     const [isForward, setIsForward] = useState(true);
-    const [isLogin, setIsLogin] = useState(false);
+    // 로그인 유저의 정보
     const [loginInfo, setLoginInfo] = useState();
 
 
-
+    /*
+        움직여서
+     */
     const pageGetter = (id, getIsForward) => {
         setPageId(parseInt(id, 10));
         console.log("이동한 페이지는: ", id);
@@ -63,7 +67,6 @@ const Crescendo_main = () => {
     const LoginHandler = (check) => {
         console.log("전달된 로그인 성공여부: ", check);
         // localStorage.setItem("isLoggedIn", Session.get("login"));
-        setIsLogin(check);
         // console.log("dto: ", );
     }
 
@@ -108,7 +111,6 @@ const Crescendo_main = () => {
     // }
     const logoutHandler = async () => {
         localStorage.clear();
-        setIsLogin(false);
         setLoginInfo(undefined);
         setToken(null);
         // window.location.reload();
