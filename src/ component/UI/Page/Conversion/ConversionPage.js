@@ -80,6 +80,13 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
         });
 
         if (res.status === 200) {
+            // const idValue = res.headers['score-id'];
+            const idValue = res.headers.get("score-id");
+            // const idValue = res.headers;
+            // idValue.forEach((value, name) => {
+            //     console.log(`${name}: ${value}`);
+            // });
+            console.log("악보번호: ", idValue);
             const arrayBuffer = await res.arrayBuffer();
             const blob = new Blob([arrayBuffer], { type: 'application/pdf' });
             const file = new File([blob], 'example.pdf', { type: 'application/pdf' });
@@ -133,22 +140,45 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
             });
     }
 
+    // 비로그인시 엔터키방지
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // 엔터키 이벤트를 중지시킴
+        }
+    };
+
     const renderPage = () => {
         return (
             <>
                 <form className="form" onSubmit={submitHandler}>
-                    <Input
-                        error
-                        className="youtube-link"
-                        startDecorator={<FaYoutube />}
-                        endDecorator={<IoIosSend onClick={submitHandler} />}
-                        placeholder="유튜브 링크를 적어주세요!!"
-                        size="lg"
-                        color="danger"
-                        variant="outlined"
-                        onChange={youtubeLinkHandler}
-                        sx={{ color: 'error.main' }}
-                    />
+                    {
+                        loginInfo ?
+                        <Input
+                            error
+                            className="youtube-link"
+                            startDecorator={<FaYoutube style={{color:"red"}}/>}
+                            endDecorator={<IoIosSend onClick={submitHandler} style={{color:"skyblue"}}/>}
+                            placeholder="유튜브 링크를 적어주세요!!"
+                            size="lg"
+                            color="danger"
+                            variant="outlined"
+                            onChange={youtubeLinkHandler}
+                            sx={{ color: 'error.main' }}
+                        />
+                        :
+                        <Input
+                            error
+                            className="youtube-link"
+                            placeholder="로그인이 필요한 서비스입니다."
+                            size="lg"
+                            color="danger"
+                            variant="outlined"
+                            readOnly={true}
+                            sx={{ color: 'error.main' }}
+                            onKeyPress={handleKeyPress}
+                        />
+                    }
+
                     <div className={cn('error', { none: isValid })}>
                         <InfoOutlined />
                         링크 형식으로 적어주세요!!

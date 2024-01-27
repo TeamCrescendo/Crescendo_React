@@ -186,7 +186,7 @@ const PostMessageInfo = ({ loginInfo }) => {
                                     , sender: row.sender, messageId: row.messageId}} onClose={() => setModifyModalOpen(false)}
                                      onCheck={messageCheckHandler} modifyButtonClick={modifyButtonClick} />
                                 </div>
-                                <div><RiChatDeleteFill id={row.messageId} onClick={deleteCLickHandler} style={{cursor:"pointer"}}/></div>
+                                <div><RiChatDeleteFill id={row.messageId} onClick={deleteCLickHandler} style={{cursor:"pointer", fontSize:"30px"}}/></div>
                             </div>
                         ))}
                     </div>
