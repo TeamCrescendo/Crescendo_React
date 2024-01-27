@@ -33,7 +33,9 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
+    .sendButton:hover{
+      cursor: pointer;
+    }
     .youtube-link {
       width: 50%;
       height: 5%;
@@ -46,6 +48,10 @@
       width: 50%;
     }
   }
+  .form.none{
+    display: none;
+  }
+
 
 
   @keyframes slide-up-invitation {
@@ -69,6 +75,8 @@
     }
   }
 }
+
+
 
 .slide-up {
   animation: slide-up-invitation 1s;

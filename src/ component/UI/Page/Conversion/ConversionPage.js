@@ -14,6 +14,7 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
+import Score from "../../conversion/score/Score";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 
@@ -21,9 +22,8 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutHandler}) => {
     // pdf 파일
     const [pdfFile, setPdfFile] = useState(null);
-    const [numPages, setNumPages] = useState(0);
-    const [currentPage, setCurrentPage] = useState(1); // Current page state
     const [isLoading, setIsLoading] = useState(false);
+    const [isConversion, setIsConversion] = useState(false);
 
 
     const setAnimation = classNames({
@@ -71,6 +71,7 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
     const submitHandler = async (e) => {
         e.preventDefault();
         setIsLoading(true);
+        setIsConversion(true);
         const res = await fetch("http://localhost:8484/api/score/youtube", {
             method: "POST",
             headers: requestHeader,
@@ -91,57 +92,18 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
         }
     }
 
-    const onDocumentLoadSuccess = ({ numPages }) => {
-        setNumPages(numPages);
-    };
 
-    const goToPage = (page) => {
-        setCurrentPage(page);
-    };
 
-    const downloadPdf = () => {
-        const url = URL.createObjectURL(pdfFile);
-        console.log(url);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'example.pdf';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    };
-
-    const shareHandler = async (e) => {
-        const formData = new FormData();
-
-        formData.set("pdfFile", pdfFile, "example.pdf");
-
-        const headers = {
-            'Authorization': 'Bearer ' + token,
-        };
-
-        fetch("http://localhost:8484/api/score/share", {
-            method: "PUT",
-            headers: headers,
-            body: formData
-        })
-            .then(res => res.text())
-            .then(json => {
-                console.log(json);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }
 
     const renderPage = () => {
         return (
             <>
-                <form className="form" onSubmit={submitHandler}>
+                <form className={cn("form", {none:isConversion})} onSubmit={submitHandler}>
                     <Input
                         error
-                        className="youtube-link"
+                        className=" youtube-link"
                         startDecorator={<FaYoutube />}
-                        endDecorator={<IoIosSend onClick={submitHandler} />}
+                        endDecorator={<IoIosSend className="sendButton" onClick={submitHandler} />}
                         placeholder="유튜브 링크를 적어주세요!!"
                         size="lg"
                         color="danger"
@@ -155,19 +117,7 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
                     </div>
                 </form>
                 {pdfFile && (
-                    <div>
-                        <p>페이지 수: {numPages}</p>
-                        <button onClick={() => goToPage(currentPage - 1)} disabled={currentPage <= 1}>
-                            이전 페이지
-                        </button>
-                        <button onClick={() => goToPage(currentPage + 1)} disabled={currentPage >= numPages}>
-                            다음 페이지
-                        </button>
-                        <button onClick={shareHandler}>공유하기</button>
-                        <Document file={pdfFile} onLoadSuccess={onDocumentLoadSuccess}>
-                            <Page onClick={downloadPdf} pageNumber={currentPage} />
-                        </Document>
-                    </div>
+                   <Score pdfFile = {pdfFile}/>
                 )}
             </>
         )
