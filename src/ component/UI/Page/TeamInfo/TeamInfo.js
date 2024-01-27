@@ -35,18 +35,21 @@ const TeamInfo = ({ isForward }) => {
                         </p>
                     </div>
                     <div className="box">
-                        <img src={r} className="img1" alt="instruction1" />
-                        <h1 className="heading">Y.JAE!</h1>
+                        <div className="box-tool">
+                            <img src={b} className="img1" alt="instruction1"/>
+                        </div>
+                        <h1 className="heading">BACKEND</h1>
                         <div className="data">
-                            <span className="name">Won</span>
+                            <span className="name">on</span>
                         </div>
                         <p className="texts">
+                            abc
                         </p>
                     </div>
                 </div>
                 <div className="bottom">
                     <div className="box">
-                        <img src={r} className="img1" alt="instruction1" />
+                        <img src={r} className="img1" alt="instruction1"/>
                         <h1 className="heading">Y.JAE!</h1>
                         <div className="data">
                             <span className="name">Won</span>
@@ -55,7 +58,7 @@ const TeamInfo = ({ isForward }) => {
                         </p>
                     </div>
                     <div className="box">
-                        <img src={r} className="img1" alt="instruction1" />
+                    <img src={r} className="img1" alt="instruction1" />
                         <h1 className="heading">Y.JAE!</h1>
                         <div className="data">
                             <span className="name">Won</span>
