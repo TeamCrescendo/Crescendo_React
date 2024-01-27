@@ -23,7 +23,7 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
     const [pdfFile, setPdfFile] = useState(null);
     const [numPages, setNumPages] = useState(0);
     const [currentPage, setCurrentPage] = useState(1); // Current page state
-
+    const [isLoading, setIsLoading] = useState(false);
 
 
     const setAnimation = classNames({
@@ -68,7 +68,7 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
     }
     const submitHandler = async (e) => {
         e.preventDefault();
-        console.log("변환시작!")
+        setIsLoading(true);
         const res = await fetch("http://localhost:8484/api/score/youtube", {
             method: "POST",
             headers: requestHeader,
@@ -82,8 +82,10 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
             const blob = new Blob([arrayBuffer], { type: 'application/pdf' });
             const file = new File([blob], 'example.pdf', { type: 'application/pdf' });
             setPdfFile(file);
+            setIsLoading(false);
         } else {
             console.error("Failed to fetch PDF:", res.statusText);
+            setIsLoading(false);
         }
     }
 
@@ -129,44 +131,68 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
             });
     }
 
+    const renderPage = () => {
+        return (
+            <>
+                <form className="form" onSubmit={submitHandler}>
+                    <Input
+                        error
+                        className="youtube-link"
+                        startDecorator={<FaYoutube />}
+                        endDecorator={<IoIosSend onClick={submitHandler} />}
+                        placeholder="유튜브 링크를 적어주세요!!"
+                        size="lg"
+                        color="danger"
+                        variant="outlined"
+                        onChange={youtubeLinkHandler}
+                        sx={{ color: 'error.main' }}
+                    />
+                    <div className={cn('error', { none: isValid })}>
+                        <InfoOutlined />
+                        링크 형식으로 적어주세요!!
+                    </div>
+                </form>
+                {pdfFile && (
+                    <div>
+                        <p>페이지 수: {numPages}</p>
+                        <button onClick={() => goToPage(currentPage - 1)} disabled={currentPage <= 1}>
+                            이전 페이지
+                        </button>
+                        <button onClick={() => goToPage(currentPage + 1)} disabled={currentPage >= numPages}>
+                            다음 페이지
+                        </button>
+                        <button onClick={shareHandler}>공유하기</button>
+                        <Document file={pdfFile} onLoadSuccess={onDocumentLoadSuccess}>
+                            <Page onClick={downloadPdf} pageNumber={currentPage} />
+                        </Document>
+                    </div>
+                )}
+            </>
+        )
+    }
+
+    const loadingPage = () => {
+        return (
+            <>
+                <div className="loading-container">
+                    <span>유튜브 링크를 악보로 변환중입니다...</span>
+                    <img src="img/write.gif" alt="베토벤 로딩" />
+                </div>
+            </>
+        )
+    }
 
 
 //{`mainContainer ${setAnimation}`}
     return (
         <div className='conversion-page'>
-            <form className="form" onSubmit={submitHandler}>
-                <Input
-                    error
-                    className="youtube-link"
-                    startDecorator={<FaYoutube />}
-                    endDecorator={<IoIosSend onClick={submitHandler} />}
-                    placeholder="유튜브 링크를 적어주세요!!"
-                    size="lg"
-                    color="danger"
-                    variant="outlined"
-                    onChange={youtubeLinkHandler}
-                    sx={{ color: 'error.main' }}
-                />
-                <div className={cn('error', { none: isValid })}>
-                    <InfoOutlined />
-                    링크 형식으로 적어주세요!!
-                </div>
-            </form>
-            {pdfFile && (
-                <div>
-                    <p>페이지 수: {numPages}</p>
-                    <button onClick={() => goToPage(currentPage - 1)} disabled={currentPage <= 1}>
-                        이전 페이지
-                    </button>
-                    <button onClick={() => goToPage(currentPage + 1)} disabled={currentPage >= numPages}>
-                        다음 페이지
-                    </button>
-                    <button onClick={shareHandler}>공유하기</button>
-                    <Document file={pdfFile} onLoadSuccess={onDocumentLoadSuccess}>
-                        <Page onClick={downloadPdf} pageNumber={currentPage} />
-                    </Document>
-                </div>
-            )}
+            {
+                isLoading ? (
+                    loadingPage()
+                ) : (
+                    renderPage()
+                )
+            }
         </div>
     );
 };
