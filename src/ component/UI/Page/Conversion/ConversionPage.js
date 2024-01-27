@@ -66,6 +66,8 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
         // console.log(match);
         // setIsValid(match);
     }
+
+    // 검색 했을 때 이벤트
     const submitHandler = async (e) => {
         e.preventDefault();
         console.log("변환시작!")
@@ -131,10 +133,9 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
 
 
 
-//{`mainContainer ${setAnimation}`}
     return (
         <div className='conversion-page'>
-            <form className="form" onSubmit={submitHandler}>
+            <form className="form"  onSubmit={submitHandler}>
                 <Input
                     error
                     className="youtube-link"
