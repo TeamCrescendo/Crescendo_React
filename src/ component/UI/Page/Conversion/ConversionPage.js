@@ -66,6 +66,8 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
         // console.log(match);
         // setIsValid(match);
     }
+
+    // 검색 했을 때 이벤트
     const submitHandler = async (e) => {
         e.preventDefault();
         setIsLoading(true);
