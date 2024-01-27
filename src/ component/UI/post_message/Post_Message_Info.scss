@@ -1,20 +1,61 @@
 
+
 .post-message-info-container {
   width: 96%;
-  //height: 60%;
-  height: 400px;
-  //min-height: 370px;
-  max-height: 400px;
-  overflow-x: hidden;
-  overflow-y: scroll;
+  height: 500px;
+  max-height: 500px;
+  background: white;
+  overflow: hidden;
 
-  .tHead {
+  .table-container {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #ccc;
 
-  }
-  .tBody {
+    .table-row {
+      width: 99%;
+      display: flex;
+      align-items: center;
+      padding: 8px;
+      font-weight: bold;
+      border-bottom: 1px solid #ccc;
 
-    .mail-icon {
-      font-size: 40px;
+      div {
+        flex: 1;
+        text-align: center;
+        margin-bottom: 5px;
+        margin-top: 5px;
+      }
+    }
+
+    .pm-scroll-container {
+      height: 449px;
+      overflow-x: hidden;
+      overflow-y: scroll;
+
+      .table-data {
+        display: flex;
+        align-items: center;
+        padding: 8px;
+
+        .status {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+        }
+
+        div {
+          flex: 1;
+          text-align: center;
+          margin-bottom: 5px;
+          margin-top: 5px;
+        }
+
+        &:hover {
+          background-color: #f5f5f5;
+        }
+      }
     }
   }
 }
