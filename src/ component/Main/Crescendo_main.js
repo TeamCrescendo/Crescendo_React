@@ -3,7 +3,6 @@ import React, {useEffect, useState} from "react";
 import { MdAdd, MdDelete, MdDone } from "react-icons/md";
 
 import './Crescendo_main.scss';
-import Conversion from "../UI/Page/Conversion/Conversion";
 import MyPage from "../UI/Page/MyPage/MyPage";
 import RecordBar from "../UI/RecordBar/RecordBar";
 import TeamInfo from "../UI/Page/TeamInfo/TeamInfo";

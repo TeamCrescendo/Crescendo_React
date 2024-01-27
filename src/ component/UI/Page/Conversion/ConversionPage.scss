@@ -1,3 +1,4 @@
+
 .conversion-page {
   font-family: "Noto Sans KR", sans-serif;
   width: 100%;
@@ -10,6 +11,19 @@
 
   border-bottom-left-radius: 100px;
   border-top-left-radius: 100px;
+
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    span {
+      font-weight: bold;
+      font-size: 40px;
+    }
+  }
+
 
   .form {
     display: flex;
