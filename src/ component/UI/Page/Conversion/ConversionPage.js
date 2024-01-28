@@ -22,6 +22,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutHandler}) => {
     // pdf 파일
     const [pdfFile, setPdfFile] = useState(null);
+    const [scoreId, setScoreId] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [isConversion, setIsConversion] = useState(false);
 
@@ -82,12 +83,17 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
 
         if (res.status === 200) {
             const arrayBuffer = await res.arrayBuffer();
+            const idValue = res.headers.get("score-id");
+            console.log("악보번호: ", idValue);
             const blob = new Blob([arrayBuffer], { type: 'application/pdf' });
             const file = new File([blob], 'example.pdf', { type: 'application/pdf' });
+            console.log("악보번호: ", idValue);
+            setScoreId(idValue);
             setPdfFile(file);
             setIsLoading(false);
         } else {
-            console.error("Failed to fetch PDF:", res.statusText);
+            console.log("변환 실패.")
+            console.error("Failed to fetch PDF:", res.body);
             setIsLoading(false);
         }
     }
@@ -117,7 +123,7 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
                     </div>
                 </form>
                 {pdfFile && (
-                   <Score pdfFile = {pdfFile}/>
+                   <Score pdfFile = {pdfFile} scoreId={scoreId}/>
                 )}
             </>
         )
