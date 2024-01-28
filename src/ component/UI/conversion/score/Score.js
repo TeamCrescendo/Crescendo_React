@@ -76,7 +76,8 @@ const Score = ({pdfFile, scoreId}) => {
         //     method: "PUT",
         //     headers: headers,
         //     body: {
-        //
+        //        scoreNo : scoreId,
+        //        boardTitle: boardTitle
         //     }
         // })
         //     .then(res => res.text())
