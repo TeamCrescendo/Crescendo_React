@@ -9,7 +9,7 @@ import { IoIosSend } from "react-icons/io";
 import {FormControl, FormHelperText, FormLabel} from "@mui/joy";
 import {InfoOutlined} from "@mui/icons-material";
 import cn from "classnames";
-import {getCurrentLoginUser} from "../../../util/login-util";
+import {getCurrentLoginUser, isLogin} from "../../../util/login-util";
 import { Document, Page, pdfjs } from 'react-pdf';
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 import 'react-pdf/dist/Page/TextLayer.css';
@@ -110,12 +110,13 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
                         className=" youtube-link"
                         startDecorator={<FaYoutube />}
                         endDecorator={<IoIosSend className="sendButton" onClick={submitHandler} />}
-                        placeholder="유튜브 링크를 적어주세요!!"
+                        placeholder={isLogin()?"유튜브 링크를 적어주세요!!":"로그인이 필요한 기능입니다."}
                         size="lg"
                         color="danger"
                         variant="outlined"
                         onChange={youtubeLinkHandler}
                         sx={{ color: 'error.main' }}
+                        disabled={!isLogin()}
                     />
                     <div className={cn('error', { none: isValid })}>
                         <InfoOutlined />
