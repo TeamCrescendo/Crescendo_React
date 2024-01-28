@@ -72,21 +72,21 @@ const Score = ({pdfFile, scoreId}) => {
             'Authorization': 'Bearer ' + token,
         };
 
-        // fetch("http://localhost:8484/api/score/share", {
-        //     method: "PUT",
-        //     headers: headers,
-        //     body: {
-        //        scoreNo : scoreId,
-        //        boardTitle: boardTitle
-        //     }
-        // })
-        //     .then(res => res.text())
-        //     .then(json => {
-        //         console.log(json);
-        //     })
-        //     .catch(error => {
-        //         console.error('Error:', error);
-        //     }); 222
+        fetch("http://localhost:8484/api/board/createBoard", {
+            method: "POST",
+            headers: headers,
+            body: {
+                scoreNo : scoreId,
+                boardTitle: boardTitle
+            }
+        })
+            .then(res => res.text())
+            .then(json => {
+                console.log(json);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
     }
 
     const titleModifyHandler = e =>{
