@@ -85,7 +85,7 @@ const Score = ({pdfFile, scoreId}) => {
         //     })
         //     .catch(error => {
         //         console.error('Error:', error);
-        //     });
+        //     }); 222
     }
 
     const titleModifyHandler = e =>{
