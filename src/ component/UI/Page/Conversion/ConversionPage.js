@@ -9,11 +9,12 @@ import { IoIosSend } from "react-icons/io";
 import {FormControl, FormHelperText, FormLabel} from "@mui/joy";
 import {InfoOutlined} from "@mui/icons-material";
 import cn from "classnames";
-import {getCurrentLoginUser} from "../../../util/login-util";
+import {getCurrentLoginUser, isLogin} from "../../../util/login-util";
 import { Document, Page, pdfjs } from 'react-pdf';
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
+import Score from "../../conversion/score/Score";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 
@@ -21,9 +22,9 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutHandler}) => {
     // pdf 파일
     const [pdfFile, setPdfFile] = useState(null);
-    const [numPages, setNumPages] = useState(0);
-    const [currentPage, setCurrentPage] = useState(1); // Current page state
+    const [scoreId, setScoreId] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
+    const [isConversion, setIsConversion] = useState(false);
 
 
     const setAnimation = classNames({
@@ -71,6 +72,7 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
     const submitHandler = async (e) => {
         e.preventDefault();
         setIsLoading(true);
+        setIsConversion(true);
         const res = await fetch("http://localhost:8484/api/score/youtube", {
             method: "POST",
             headers: requestHeader,
@@ -88,57 +90,23 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
             // });
             console.log("악보번호: ", idValue);
             const arrayBuffer = await res.arrayBuffer();
+            const idValue = res.headers.get("score-id");
+            console.log("악보번호: ", idValue);
             const blob = new Blob([arrayBuffer], { type: 'application/pdf' });
             const file = new File([blob], 'example.pdf', { type: 'application/pdf' });
+            console.log("악보번호: ", idValue);
+            setScoreId(idValue);
             setPdfFile(file);
             setIsLoading(false);
         } else {
-            console.error("Failed to fetch PDF:", res.statusText);
+            console.log("변환 실패.")
+            console.error("Failed to fetch PDF:", res.body);
             setIsLoading(false);
         }
     }
 
-    const onDocumentLoadSuccess = ({ numPages }) => {
-        setNumPages(numPages);
-    };
 
-    const goToPage = (page) => {
-        setCurrentPage(page);
-    };
 
-    const downloadPdf = () => {
-        const url = URL.createObjectURL(pdfFile);
-        console.log(url);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'example.pdf';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    };
-
-    const shareHandler = async (e) => {
-        const formData = new FormData();
-
-        formData.set("pdfFile", pdfFile, "example.pdf");
-
-        const headers = {
-            'Authorization': 'Bearer ' + token,
-        };
-
-        fetch("http://localhost:8484/api/score/share", {
-            method: "PUT",
-            headers: headers,
-            body: formData
-        })
-            .then(res => res.text())
-            .then(json => {
-                console.log(json);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }
 
     // 비로그인시 엔터키방지
     const handleKeyPress = (event) => {
@@ -153,54 +121,27 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
                 <div className="head">
                     <UserInfomation logoutHandler={logoutHandler} loginInfo={loginInfo}/>
                 </div>
-                <form className="form" onSubmit={submitHandler}>
-                    {
-                        loginInfo ?
-                        <Input
-                            error
-                            className="youtube-link"
-                            startDecorator={<FaYoutube style={{color:"red"}}/>}
-                            endDecorator={<IoIosSend onClick={submitHandler} style={{color:"skyblue"}}/>}
-                            placeholder="유튜브 링크를 적어주세요!!"
-                            size="lg"
-                            color="danger"
-                            variant="outlined"
-                            onChange={youtubeLinkHandler}
-                            sx={{ color: 'error.main' }}
-                        />
-                        :
-                        <Input
-                            error
-                            className="youtube-link"
-                            placeholder="로그인이 필요한 서비스입니다."
-                            size="lg"
-                            color="danger"
-                            variant="outlined"
-                            readOnly={true}
-                            sx={{ color: 'error.main' }}
-                            onKeyPress={handleKeyPress}
-                        />
-                    }
-
+                <form className={cn("form", {none:isConversion})} onSubmit={submitHandler}>
+                    <Input
+                        error
+                        className=" youtube-link"
+                        startDecorator={<FaYoutube />}
+                        endDecorator={<IoIosSend className="sendButton" onClick={submitHandler} />}
+                        placeholder={isLogin()?"유튜브 링크를 적어주세요!!":"로그인이 필요한 기능입니다."}
+                        size="lg"
+                        color="danger"
+                        variant="outlined"
+                        onChange={youtubeLinkHandler}
+                        sx={{ color: 'error.main' }}
+                        disabled={!isLogin()}
+                    />
                     <div className={cn('error', { none: isValid })}>
                         <InfoOutlined />
                         링크 형식으로 적어주세요!!
                     </div>
                 </form>
                 {pdfFile && (
-                    <div>
-                        <p>페이지 수: {numPages}</p>
-                        <button onClick={() => goToPage(currentPage - 1)} disabled={currentPage <= 1}>
-                            이전 페이지
-                        </button>
-                        <button onClick={() => goToPage(currentPage + 1)} disabled={currentPage >= numPages}>
-                            다음 페이지
-                        </button>
-                        <button onClick={shareHandler}>공유하기</button>
-                        <Document file={pdfFile} onLoadSuccess={onDocumentLoadSuccess}>
-                            <Page onClick={downloadPdf} pageNumber={currentPage} />
-                        </Document>
-                    </div>
+                   <Score pdfFile = {pdfFile} scoreId={scoreId}/>
                 )}
             </>
         )
