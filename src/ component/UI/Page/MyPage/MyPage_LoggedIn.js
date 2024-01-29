@@ -21,9 +21,6 @@ const MyPageLoggedIn = ({ loginInfo, logoutHandler }) => {
                     <div className="mypage-info-div">
                         <img className="imgtest" src={`http://localhost:8484/local${url}`} alt="프로필" />
                         <UserInfo loginInfo={loginInfo} logoutHandler={logoutHandler}/>
-                        {/*<div className="note-div">*/}
-                        {/*    쪽지보관함*/}
-                        {/*</div>*/}
                     </div>
                 </div>
                 <div className="mypageMain-bottom">

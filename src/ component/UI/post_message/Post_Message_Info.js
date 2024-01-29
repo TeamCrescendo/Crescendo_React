@@ -127,28 +127,38 @@ const PostMessageInfo = ({ loginInfo }) => {
             })
     }
 
+
     const deleteMessage = (id) => {
         fetch(`${MESSAGE_URL}/${id}`, {
             method: "DELETE",
             headers: requestHeader,
         })
             .then(res => {
-                if (res.status === 200) return res.json();
+                if (res.ok) return res.json();
                 else {
-                    alert("쪽지 삭제에 실패했습니다!");
+                    throw new Error('쪽지 삭제에 실패했습니다!'); // 요청이 실패한 경우 에러를 throw
                 }
             })
             .then(json => {
-                    selectMyPostMessage();
-                    alert("쪽지가 성공적으로 삭제되었습니다!");
+                // 성공적인 응답 처리
+                selectMyPostMessage();
+                alert("쪽지가 성공적으로 삭제되었습니다!");
             })
+            .catch(error => {
+                // 요청이 실패한 경우 에러 처리
+                console.error('쪽지 삭제에 실패했습니다!', error);
+                alert("쪽지 삭제에 실패했습니다!");
+            });
     }
     const deleteCLickHandler = e => {
-        const id = e.target.id;
+        const id = e.target.closest('.table-data');
+        const dataInfo = id.getAttribute('data-id');
+        console.log(dataInfo);
         if (window.confirm("해당 쪽지를 삭제하시겠습니까?")) {
-            deleteMessage(id);
+            deleteMessage(dataInfo);
         }
     }
+
 
     useEffect(() => {
         selectMyPostMessage();
@@ -168,7 +178,7 @@ const PostMessageInfo = ({ loginInfo }) => {
                     </div>
                     <div className="pm-scroll-container">
                         {rows.map((row) => (
-                            <div className="table-data" key={row.messageId}>
+                            <div className="table-data" key={row.messageId} data-id={row.messageId}>
                                 <div className="status">
                                     {
                                     row.status === "미확인" ? <IoIosMail className="mail-icon" style={{color:"red", fontSize:"40px"}}/> :
@@ -186,7 +196,7 @@ const PostMessageInfo = ({ loginInfo }) => {
                                     , sender: row.sender, messageId: row.messageId}} onClose={() => setModifyModalOpen(false)}
                                      onCheck={messageCheckHandler} modifyButtonClick={modifyButtonClick} />
                                 </div>
-                                <div><RiChatDeleteFill id={row.messageId} onClick={deleteCLickHandler} style={{cursor:"pointer", fontSize:"30px"}}/></div>
+                                <div><RiChatDeleteFill id={row.messageId} onClick={deleteCLickHandler} style={{color:"red", cursor:"pointer", fontSize:"30px"}}/></div>
                             </div>
                         ))}
                     </div>

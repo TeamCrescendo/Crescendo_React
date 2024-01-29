@@ -1,25 +1,82 @@
 
-.post-message-info-container {
+
+.inquiry-info-container {
   width: 96%;
-  height: 60%;
-  min-height: 370px;
-  //width: 600px;
-  //height: 214px;
-  overflow-x: hidden;
-  overflow-y: scroll;
+  height: 500px;
+  max-height: 500px;
   background: white;
-  margin-top: 20px;
-  div {
-    border-radius: 0;
-  }
-  .tHead {
-    th{
+  overflow: hidden;
+  margin-top: 0;
+
+  .table-container {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #ccc;
+
+    .table-row {
+      width: 100%;
+      display: flex;
+      align-items: center;
       font-weight: bold;
-      font-size: 30px;
+      border-bottom: 1px solid #ccc;
+      box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+      padding: 8px 17px 8px 8px;
+
+
+      .content {
+        flex: 2;
+      }
+      div {
+        flex: 1;
+        text-align: center;
+        margin-bottom: 5px;
+        margin-top: 5px;
+      }
     }
 
-  }
-  .tBody {
+    /* 짝수 번째 table-data 요소 */
+    .table-data:nth-of-type(even) {
+      background-color: rgba(211, 211, 211, 0.31);
+    }
 
+    /* 홀수 번째 table-data 요소 */
+    .table-data:nth-of-type(odd) {
+      background-color: rgba(246, 251, 253, 0.41);
+    }
+
+    .inquiry-scroll-container {
+      height: 449px;
+      overflow-x: hidden;
+      overflow-y: scroll;
+
+      .table-data {
+        display: flex;
+        align-items: center;
+        padding: 8px;
+
+        .status {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+        }
+
+
+        .content {
+          flex: 2;
+        }
+        div {
+          flex: 1;
+          text-align: center;
+          margin-bottom: 5px;
+          margin-top: 5px;
+        }
+
+
+        &:hover {
+          background-color: #dedddd;
+        }
+      }
+    }
   }
 }
