@@ -59,7 +59,7 @@ const Score = ({pdfFile, scoreId}) => {
     // 악보 제목 작성하는 핸들러
     const titleHandler = async (e)  =>{
         e.preventDefault();
-        console.log(boardTitle);
+        // console.log(boardTitle);
 
         // 악보 아이디
         //scoreId
@@ -68,17 +68,21 @@ const Score = ({pdfFile, scoreId}) => {
 
         // 악보 제목
 
-        const headers = {
-            'Authorization': 'Bearer ' + token,
+        const requestHeader = {
+            'content-type': 'application/json',
+            'Authorization': 'Bearer ' + token
         };
-
+        const requestBody = {
+            scoreNo: scoreId,
+            boardTitle: boardTitle
+        };
+        console.log(scoreId);
+        console.log(boardTitle);
+        console.log(requestHeader);
         fetch("http://localhost:8484/api/board/createBoard", {
             method: "POST",
-            headers: headers,
-            body: {
-                scoreNo : scoreId,
-                boardTitle: boardTitle
-            }
+            headers: requestHeader,
+            body: JSON.stringify(requestBody)
         })
             .then(res => res.text())
             .then(json => {
@@ -148,7 +152,7 @@ const Score = ({pdfFile, scoreId}) => {
                     <Typography id="modal-desc" textColor="text.tertiary">
                         <form onSubmit={titleHandler}>
                             <Input onChange={titleModifyHandler} color="success" endDecorator={
-                                <Button endDecorator={<KeyboardArrowRight/>} color="success">
+                                <Button endDecorator={<KeyboardArrowRight/>} color="success" onClick={titleHandler}>
                                     전송
                                 </Button>
                             }/>
