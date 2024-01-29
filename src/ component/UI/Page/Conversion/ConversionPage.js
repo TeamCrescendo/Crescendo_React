@@ -150,6 +150,9 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
     const renderPage = () => {
         return (
             <>
+                <div className="head">
+                    <UserInfomation logoutHandler={logoutHandler} loginInfo={loginInfo}/>
+                </div>
                 <form className="form" onSubmit={submitHandler}>
                     {
                         loginInfo ?
