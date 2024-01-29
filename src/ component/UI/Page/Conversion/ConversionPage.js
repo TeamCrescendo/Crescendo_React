@@ -82,19 +82,12 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
         });
 
         if (res.status === 200) {
-            // const idValue = res.headers['score-id'];
-            const idValue = res.headers.get("score-id");
-            // const idValue = res.headers;
-            // idValue.forEach((value, name) => {
-            //     console.log(`${name}: ${value}`);
-            // });
-            console.log("악보번호: ", idValue);
+
             const arrayBuffer = await res.arrayBuffer();
             const idValue = res.headers.get("score-id");
             console.log("악보번호: ", idValue);
             const blob = new Blob([arrayBuffer], { type: 'application/pdf' });
             const file = new File([blob], 'example.pdf', { type: 'application/pdf' });
-            console.log("악보번호: ", idValue);
             setScoreId(idValue);
             setPdfFile(file);
             setIsLoading(false);
@@ -125,8 +118,8 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
                     <Input
                         error
                         className=" youtube-link"
-                        startDecorator={<FaYoutube />}
-                        endDecorator={<IoIosSend className="sendButton" onClick={submitHandler} />}
+                        startDecorator={<FaYoutube style={{color:"red"}}/>}
+                        endDecorator={<IoIosSend style={{color:"skyblue"}} className="sendButton" onClick={submitHandler} />}
                         placeholder={isLogin()?"유튜브 링크를 적어주세요!!":"로그인이 필요한 기능입니다."}
                         size="lg"
                         color="danger"
