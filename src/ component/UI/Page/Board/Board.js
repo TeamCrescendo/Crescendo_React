@@ -10,9 +10,17 @@ const Board = ({ isForward }) => {
     });
 
     return (
-        <div className={`boardContainer ${setAnimation}`}>
-            게시물 페이지 입니다.
-        </div>
+        <>
+            <header className="hhh1">
+                <h1>
+                    Bulletin Board
+                </h1>
+                <div className={`boardContainer ${setAnimation}`}>
+                </div>
+            </header>
+
+        </>
+
     );
 };
 

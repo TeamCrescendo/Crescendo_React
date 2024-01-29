@@ -9,9 +9,19 @@ const MyPage = ({ isForward }) => {
     });
 
     return (
-        <div className={`mypageContainer ${setAnimation}`}>
+        <>
+            <header className="hhh">
+                <h1>
+                    My Page
+                </h1>
+                <div className={`webinfoContainer ${setAnimation}`}>
+                    <h2>
+                    </h2>
+                </div>
+            </header>
+        </>
 
-        </div>
+
     );
 };
 
