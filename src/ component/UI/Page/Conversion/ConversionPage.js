@@ -82,7 +82,6 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
         });
 
         if (res.status === 200) {
-
             const arrayBuffer = await res.arrayBuffer();
             const idValue = res.headers.get("score-id");
             console.log("악보번호: ", idValue);

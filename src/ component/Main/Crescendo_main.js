@@ -6,7 +6,7 @@ import './Crescendo_main.scss';
 import MyPage from "../UI/Page/MyPage/MyPage";
 import RecordBar from "../UI/RecordBar/RecordBar";
 import TeamInfo from "../UI/Page/TeamInfo/TeamInfo";
-import WebInfo from "../UI/Page/WebInfo/WebInfo";
+import Ai_Music from "../UI/Page/ai-music/Ai_Music";
 import Board from "../UI/Page/Board/Board";
 import Session from "react-session-api/src";
 import {AUTH_URL} from "../../config/host-config";
@@ -44,16 +44,17 @@ const Crescendo_main = () => {
                                    LoginCheck={LoginCheck}
                                    logoutHandler={logoutHandler}/>;
             case 2:
-                return <MyPage isForward={isForward} LoginHandler={LoginHandler}
-                               loginInfo={loginInfo}
-                               loginSessionCheck={LoginCheck}
-                               logoutHandler={logoutHandler}/>;
+                return <Ai_Music isForward={isForward} LoginHandler={LoginHandler}
+                                 loginInfo={loginInfo}/>;
             case 3:
                 return <Board isForward={isForward} LoginHandler={LoginHandler}
                               loginInfo={loginInfo}/>;
             case 4:
-                return <WebInfo isForward={isForward} LoginHandler={LoginHandler}
-                                loginInfo={loginInfo}/>;
+
+                return <MyPage isForward={isForward} LoginHandler={LoginHandler}
+                               loginInfo={loginInfo}
+                               loginSessionCheck={LoginCheck}
+                               logoutHandler={logoutHandler}/>;
             case 5:
                 return <TeamInfo isForward={isForward} LoginHandler={LoginHandler}
                                  loginInfo={loginInfo}/>;
