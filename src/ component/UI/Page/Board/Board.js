@@ -86,13 +86,15 @@ const Board = ({ isForward }) => {
 
     return (
         <div className={`boardContainer ${setAnimation}`}>
-            <ImageList sx={{width:800, height:600}} cols = {3} rowHeight={400}>
+            <ImageList sx={{width:800, height:600}} cols = {3} rowHeight={400} gap={10}>
                 {itemData.map((item) => (
                     <ImageListItem key={item.img} className="image-list-item" sx={{
                         border:1,
-                        boardColor: 'primary.main',
-                        boardRadius: 12,
-                        gap: 1
+                        borderColor: 'primary.main',
+                        // m:0.5
+                        // gap: 3
+                        // borderRadius: 2,
+                        // borderRadiusColor: 'primary.main',
                     }}>
                         <img
                             className="score-img"
