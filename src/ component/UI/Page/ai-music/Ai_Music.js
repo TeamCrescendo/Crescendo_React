@@ -1,12 +1,17 @@
-import React, {useState} from 'react';
+import React, {StrictMode, useState} from 'react';
 
 import './Ai_Music.scss';
 import classNames from "classnames";
 import {getCurrentLoginUser} from "../../../util/login-util";
+import Score from "../../conversion/score/Score";
+import MusicApp from "./waveform/MusicApp";
 
 const Ai_Music = ({ isForward }) => {
     const [prompt, setPrompt] = useState("");
     const [duration, setDuration] = useState(10);
+    const [pdfFile, setPdfFile] = useState(null);
+    const [scoreId, setScoreId] = useState(0);
+    const [isLoading, setIsLoading] = useState(false);
 
     const setAnimation = classNames({
         'slide-up': isForward,
@@ -28,26 +33,23 @@ const Ai_Music = ({ isForward }) => {
         'content-type': 'application/json',
         'Authorization': 'Bearer ' + token
     };
-    const makeAiMusic = () => {
-        fetch("http://localhost:8484/api/score/ai", {
+    const makeAiMusic = async () => {
+        const res = await fetch("http://localhost:8484/api/score/ai", {
             method: 'POST',
-            header: requestHeader,
+            headers: requestHeader,
             body: JSON.stringify({  // 요청 본문을 JSON 문자열로 변환
                 prompt: prompt,
                 duration: duration
             })
         })
-            .then(res => {
-                if (res.status === 200) {
-                    return res.json(); // JSON 데이터를 파싱하여 사용할 수 있도록 처리
-                }
-            })
-            .then(data => {
-                console.log("idvalue=", data); // 응답 데이터를 처리
-            })
-            .catch(error => {
-                console.error('Error:', error); // 에러 처리
-            });
+        if (res.status === 200) {
+
+            // setIsLoading(false);
+        } else {
+            console.log("변환 실패.")
+            console.error("Failed to fetch PDF:", res.body);
+            // setIsLoading(false);
+        }
     }
 
     const aiMusicMakeHanlder = e => {
@@ -64,11 +66,13 @@ const Ai_Music = ({ isForward }) => {
                 <span>초)음악 최대 길이 (10초)</span>
                 <input className="music_duration" type="number" min="0" max="10" placeholder="재생시간" style={{width:"100px"}}/>
                 <button type="button" onClick={aiMusicMakeHanlder}>생성시작</button>
+                <MusicApp />
             </div>
 
-            <audio controls>
-                <source src="" type="audio/mpeg" />
-            </audio>
+            {/*<StrictMode>*/}
+
+            {/*</StrictMode>*/}
+
         </div>
     );
 };

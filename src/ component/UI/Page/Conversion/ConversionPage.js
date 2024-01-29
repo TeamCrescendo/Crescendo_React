@@ -45,7 +45,7 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
     const[token, setToken] = useState(getCurrentLoginUser().token);
     // 요청 헤더 객체
     const requestHeader = {
-        'content-type': 'application/json',
+        'Content-type': 'application/json',
         'Authorization': 'Bearer ' + token
     };
 

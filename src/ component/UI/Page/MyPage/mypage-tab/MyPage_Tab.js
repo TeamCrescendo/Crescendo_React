@@ -25,7 +25,7 @@ function MyPageTab({ loginInfo }) {
             <Tab eventKey="longer-tab" title="문의목록">
                 <InquiryInfo loginInfo={loginInfo}/>
             </Tab>
-            <Tab eventKey="contact" title="" disabled>
+            <Tab eventKey="contact" title="플레이리스트">
                 Tab content for Contact
             </Tab>
         </Tabs>
