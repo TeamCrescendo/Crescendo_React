@@ -8,6 +8,7 @@ import KakaoLoginButton from "../../button/login/kakao_login/Kakao_Login_Button"
 import RegisterButton from "../../button/register/Register_Button";
 import {AUTH_URL} from "../../../../config/host-config";
 import Form from 'react-bootstrap/Form';
+import {getCurrentLoginUser} from "../../../util/login-util";
 
 
 const RegisterModal = ({ onClose }) => {
@@ -322,6 +323,10 @@ const RegisterModal = ({ onClose }) => {
     //         })
     // }
 
+    const[token, setToken] = useState(getCurrentLoginUser().token);
+    const headers = {
+        'Authorization': 'Bearer ' + token,
+    };
     const registerSubmit = () => {
         const formData = new FormData();
         formData.append('profileImage', profileIMG);
@@ -334,8 +339,14 @@ const RegisterModal = ({ onClose }) => {
             method: 'POST',
             body: formData,
         })
-            .then(response => response.json())
-            .then(data => console.log(data))
+            .then(response => {
+                if (response.status === 200) return response.json();
+                else if (response.status === 400) console.log("회원가입 400오류");
+            })
+            .then(data => {
+                console.log(data);
+                onClose();
+            })
             .catch(error => console.error('Error uploading file:', error));
     };
 
@@ -472,7 +483,7 @@ const RegisterModal = ({ onClose }) => {
                         <div className="img-title">
                             프로필 사진
                         </div>
-                        <RegisterButton />
+                        <RegisterButton registerSubmit={registerSubmit}/>
                     </div>
                 </div>
             </form>

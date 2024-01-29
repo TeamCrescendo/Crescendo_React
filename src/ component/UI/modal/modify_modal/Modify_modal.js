@@ -8,6 +8,7 @@ import ModifyButton from "../../button/modify/Modify_Button";
 import QuitButton from "../../button/quit/Quit_Button";
 import {AUTH_URL, MEMBER_URL} from "../../../../config/host-config";
 import Form from "react-bootstrap/Form";
+import {getCurrentLoginUser} from "../../../util/login-util";
 
 
 const ModifyModal = ({ onClose, loginInfo }) => {
@@ -257,6 +258,11 @@ const ModifyModal = ({ onClose, loginInfo }) => {
         onClose();
     }
 
+    const[token, setToken] = useState(getCurrentLoginUser().token);
+    const headers = {
+        'Authorization': 'Bearer ' + token,
+    };
+
     // 회원정보 수정 버튼을 눌렀을 때
     const modifySubmit = e => {
         e.preventDefault();
@@ -270,19 +276,24 @@ const ModifyModal = ({ onClose, loginInfo }) => {
         }
 
         const formData = new FormData();
-        formData.append('account', loginInfo.account,);
+        formData.append('account', loginInfo.account);
         formData.append('userName', userValue.userName);
         formData.append('email', userValue.email);
         formData.append('password', userValue.password);
         if (imgChange) {
             formData.append('profileImage', profileIMG);
         }
+        console.log(profileIMG);
 
-        fetch(MEMBER_URL + "/modify", {
+        fetch(MEMBER_URL + '/modify', {
             method: 'PATCH',
+            // header: headers,
             body: formData,
         })
-            .then(response => response.json())
+            .then(response => {
+                if (response.status === 200) return response.json();
+                else if (response.status === 400) console.log("회원수정 400에러");
+            })
             .then(flag => {
                 console.log(flag);
                 if (flag) {
@@ -293,40 +304,6 @@ const ModifyModal = ({ onClose, loginInfo }) => {
                 }
             })
             .catch(error => console.error('Error uploading file:', error));
-
-            // fetch(MEMBER_URL + "/modify", {
-            //     method: 'PATCH',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //     },
-            //     body: JSON.stringify({
-            //         account: loginInfo.account,
-            //         userName: userValue.userName,
-            //         password: userValue.password,
-            //         email: userValue.email,
-            //         profileImage: profileIMG
-            //     }),
-            //     credentials: 'include',
-            // })
-            //     .then(res => {
-            //         if (!res.ok) {
-            //             throw new Error(`HTTP error! Status: ${res.status}`);
-            //         }
-            //         return res.json();
-            //     })
-            //     .then(flag => {
-            //         console.log(flag);
-            //         if (flag) {
-            //             alert("회원정보가 성공적으로 변경되었습니다!");
-            //             onClose();
-            //         } else {
-            //             alert("회원정보 변경에 실패했습니다!");
-            //         }
-            //     })
-            //     .catch(error => {
-            //         console.error('Error during request:', error);
-            //     });
-
     }
 
     // 회원 탈퇴 버튼을 눌렀을 때

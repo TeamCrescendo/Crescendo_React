@@ -79,7 +79,7 @@ const PostMessageInfo = ({ loginInfo }) => {
                 const updatedRows = json.map(message => {
                     let formatPost = "";
                     if (message.sender === loginInfo.account){
-                        formatPost = "발신";
+                        formatPost = "발송완료";
                     } else if (message.receiver === loginInfo.account) {
                         if (!message.check) {
                             formatPost = "미확인";
@@ -91,7 +91,7 @@ const PostMessageInfo = ({ loginInfo }) => {
                     const receiverFormat = "" + message.receiverNickname + "(" + message.receiver + ")";
 
                     const formatTime = formatDate(message.writtenTime);
-                    return createData(formatPost, sender, receiverFormat, message.receiver
+                    return createData(formatPost, message.senderNickName, message.receiverNickname, message.receiver
                         ,message.content, formatTime, message.messageId, message.check);
                 });
                 setRows(updatedRows);
@@ -127,6 +127,29 @@ const PostMessageInfo = ({ loginInfo }) => {
             })
     }
 
+    const deleteMessage = (id) => {
+        fetch(`${MESSAGE_URL}/${id}`, {
+            method: "DELETE",
+            headers: requestHeader,
+        })
+            .then(res => {
+                if (res.status === 200) return res.json();
+                else {
+                    alert("쪽지 삭제에 실패했습니다!");
+                }
+            })
+            .then(json => {
+                    selectMyPostMessage();
+                    alert("쪽지가 성공적으로 삭제되었습니다!");
+            })
+    }
+    const deleteCLickHandler = e => {
+        const id = e.target.id;
+        if (window.confirm("해당 쪽지를 삭제하시겠습니까?")) {
+            deleteMessage(id);
+        }
+    }
+
     useEffect(() => {
         selectMyPostMessage();
     }, [modifyModalOpen]);
@@ -134,48 +157,40 @@ const PostMessageInfo = ({ loginInfo }) => {
     return (
         <>
             <div className="post-message-info-container">
-                <TableContainer component={Paper}>
-                    <Table sx={{ minWidth: 300 }} aria-label="simple table">
-                        <TableHead className="tHead">
-                            <TableRow>
-                                <TableCell>상태</TableCell>
-                                <TableCell align="right">발신자</TableCell>
-                                <TableCell align="right">수신자</TableCell>
-                                <TableCell align="right">발송시간</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody className="tBody">
-                            {rows.map((row) => (
-                                <TableRow
-                                    key={row.messageId}
-                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                >
-                                    <TableCell component="th" scope="row">
-                                        {
-                                            row.status === "미확인" ? <IoIosMail className="mail-icon" style={{color:"red"}}/> :
-                                                row.status === "확인완료" ? <IoIosMailOpen className="mail-icon" style={{color:"green"}}/> :
-                                                    row.status === "발신" ? <RiMailSendFill className="mail-icon"/> :
-                                                        null
-                                        }
-                                        ㅡ {row.status}
-                                    </TableCell>
-                                    <TableCell align="right">{row.sender}</TableCell>
-                                    <TableCell align="right">{row.receiverFormat}</TableCell>
-                                    <TableCell align="right">{row.post_time}</TableCell>
-                                    <TableCell align="right" id={row.messageId}>
-                                        <MessageModalButton row={{content: row.content, receiver: row.receiver, receiverFormat: row.receiverFormat
-                                                            , sender: row.sender, messageId: row.messageId}}
-                                                            onClose={() => setModifyModalOpen(false)}
-                                                            onCheck={messageCheckHandler}
-                                                            modifyButtonClick={modifyButtonClick} />
-
-                                    </TableCell>
-                                    <TableCell align="right"><RiChatDeleteFill style={{cursor:"pointer"}}/></TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                <div className="table-container">
+                    <div className="table-row">
+                        <div>상태</div>
+                        <div>발신자</div>
+                        <div>수신자</div>
+                        <div>발송시간</div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <div className="pm-scroll-container">
+                        {rows.map((row) => (
+                            <div className="table-data" key={row.messageId}>
+                                <div className="status">
+                                    {
+                                    row.status === "미확인" ? <IoIosMail className="mail-icon" style={{color:"red", fontSize:"40px"}}/> :
+                                        row.status === "확인완료" ? <IoIosMailOpen className="mail-icon" style={{color:"green", fontSize:"40px"}}/> :
+                                            row.status === "발송완료" ? <RiMailSendFill className="mail-icon" style={{fontSize:"40px"}}/> :
+                                                null
+                                    }
+                                    {row.status}
+                                </div>
+                                <div>{row.sender}</div>
+                                <div>{row.receiverFormat}</div>
+                                <div>{row.post_time}</div>
+                                <div>
+                                    <MessageModalButton row={{content: row.content, receiver: row.receiver, receiverFormat: row.receiverFormat
+                                    , sender: row.sender, messageId: row.messageId}} onClose={() => setModifyModalOpen(false)}
+                                     onCheck={messageCheckHandler} modifyButtonClick={modifyButtonClick} />
+                                </div>
+                                <div><RiChatDeleteFill id={row.messageId} onClick={deleteCLickHandler} style={{cursor:"pointer", fontSize:"30px"}}/></div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
 
             {modifyModalOpen && <MessageModal row={data}  onClose={() => setModifyModalOpen(false)}/>}

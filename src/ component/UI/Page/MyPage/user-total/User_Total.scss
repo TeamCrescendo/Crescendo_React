@@ -1,7 +1,23 @@
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+}
 .user-total-container {
   width: 96%;
-  height: 400px;
-  max-height: 400px;
+  height: 500px;
+  max-height: 500px;
   background: white;
   //overflow: auto;
 
@@ -11,19 +27,24 @@
     border-bottom: 1px solid #ccc;
 
     .table-row {
+      width: 100%;
       display: flex;
       align-items: center;
-      padding: 8px;
       font-weight: bold;
       border-bottom: 1px solid #ccc;
+      box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+      padding: 8px 17px 8px 8px;
 
       div {
         flex: 1;
         text-align: center;
+        margin-bottom: 5px;
+        margin-top: 5px;
       }
     }
 
     .scroll-container {
+      height: 449px;
       overflow-x: hidden;
       overflow-y: scroll;
 
@@ -35,6 +56,8 @@
         div {
           flex: 1;
           text-align: center;
+          margin-bottom: 10px;
+          margin-top: 10px;
         }
 
         &:hover {

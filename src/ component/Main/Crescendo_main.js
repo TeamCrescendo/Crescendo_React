@@ -83,13 +83,16 @@ const Crescendo_main = () => {
             method: "GET",
             headers: requestHeader,
         })
-            .then(res => res.json())
+            .then(res => {
+                if (res.status === 200) return res.json();
+                else if (res.status === 400) console.log("로그인체크 400error");
+            })
             .then(json => {
                 if (json != null) {
                     // setIsLogin(true);
                     setLoginInfo(json);
                     console.log("로그인 검증 성공");
-                    console.log(loginInfo);
+                    console.log(json);
                 } else {
                     console.log("로그인 검증 실패");
                 }

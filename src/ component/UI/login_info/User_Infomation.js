@@ -3,6 +3,8 @@ import { IoSettingsSharp } from "react-icons/io5";
 
 import './User_Infomaion.scss';
 import {getCurrentLoginUser} from "../../util/login-util";
+import {CircularProgress} from "@mui/material";
+import Login_modal_Button from "../button/login_modal_btn/Login_modal_Button";
 
 const UserInfomation = ({ loginInfo, logoutHandler }) =>
 {const [dropdownView, setDropdownView] = useState(false);
@@ -10,11 +12,12 @@ const UserInfomation = ({ loginInfo, logoutHandler }) =>
     const deleteLoginCookie = () => {
         logoutHandler();
     };
-    const test = () => {
-        console.log(loginInfo);
-    }
+    // const test = () => {
+    //     console.log(loginInfo);
+    // }
+
     return (
-        <div className="user-info-div" onClick={test}>
+        <div className="user-info-div">
             {loginInfo
                 ? ( // loginInfo가 존재하는 경우에만 렌더링
                 <>
@@ -22,7 +25,7 @@ const UserInfomation = ({ loginInfo, logoutHandler }) =>
 
                     <div className="user-info-subdiv" >
                         <span className="user-info-name">{loginInfo.userName}</span>
-                        <span className="downloadCount">남은 기회: {loginInfo.userDownloadChance}</span>
+                        <span className="downloadCount">변환 기회: {loginInfo.userDownloadChance}</span>
                     </div>
 
                     <span className="user-info-setting" onClick={() => {setDropdownView(!dropdownView)}}><IoSettingsSharp /></span>
@@ -36,7 +39,11 @@ const UserInfomation = ({ loginInfo, logoutHandler }) =>
             )
             : (
                 // loginInfo가 undefined인 경우에 대한 처리
-                <p>로딩중</p>
+                    <>
+                        {
+                            !loginInfo && <Login_modal_Button />
+                        }
+                    </>
                 // <img src="/img/write.gif" alt="" />
             )}
         </div>

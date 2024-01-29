@@ -82,6 +82,13 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
         });
 
         if (res.status === 200) {
+            // const idValue = res.headers['score-id'];
+            const idValue = res.headers.get("score-id");
+            // const idValue = res.headers;
+            // idValue.forEach((value, name) => {
+            //     console.log(`${name}: ${value}`);
+            // });
+            console.log("악보번호: ", idValue);
             const arrayBuffer = await res.arrayBuffer();
             const idValue = res.headers.get("score-id");
             console.log("악보번호: ", idValue);
@@ -101,9 +108,19 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
 
 
 
+    // 비로그인시 엔터키방지
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // 엔터키 이벤트를 중지시킴
+        }
+    };
+
     const renderPage = () => {
         return (
             <>
+                <div className="head">
+                    <UserInfomation logoutHandler={logoutHandler} loginInfo={loginInfo}/>
+                </div>
                 <form className={cn("form", {none:isConversion})} onSubmit={submitHandler}>
                     <Input
                         error
