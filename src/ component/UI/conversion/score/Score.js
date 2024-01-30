@@ -18,6 +18,7 @@ const Score = ({pdfFile, scoreId}) => {
     const [currentPage, setCurrentPage] = useState(1); // Current page state
     const [open, setOpen] = useState(false);
     const [boardTitle, setBoardTitle] = useState('');
+    const [share, setShare] = useState(false);
 
 
     // 토큰 가져오기
@@ -40,8 +41,6 @@ const Score = ({pdfFile, scoreId}) => {
     // 악보 공유 하는 함수
     const shareHandler = async (e) => {
         setOpen(true);
-
-
     }
 
     //
@@ -84,8 +83,9 @@ const Score = ({pdfFile, scoreId}) => {
             headers: requestHeader,
             body: JSON.stringify(requestBody)
         })
-            .then(res => res.text())
+            .then(res => res.json())
             .then(json => {
+                setShare(true);
                 console.log(json);
             })
             .catch(error => {
@@ -110,7 +110,7 @@ const Score = ({pdfFile, scoreId}) => {
                     // fullWidth={true}
                 >
                     <Button onClick={downloadHandler}>저장하기</Button>
-                    <Button onClick={shareHandler}>공유하기</Button>
+                    <Button onClick={shareHandler} disabled={share}>공유하기</Button>
                 </ButtonGroup>
                 <Pagination
                     className="pagination"
