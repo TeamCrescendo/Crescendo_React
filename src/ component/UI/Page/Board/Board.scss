@@ -15,13 +15,23 @@
 
   .image-list-item{
     position: relative;
+    //padding: 30px;
+    //margin: px;
     cursor: pointer;
-    &:hover .score-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover .score-img{
       filter: brightness(60%);
     }
     &:hover .image-text {
       opacity: 1;
     }
+    //.score-img{
+    //  width: 100%;
+    //  height: 100%;
+    //  object-fit: cover;
+    //}
   }
 
   .image-text {
@@ -54,9 +64,8 @@
     }
   }
 
-  .image-text:hover{
 
-  }
+
   @keyframes slide-up-invitation {
     0% {
       opacity: 0;
