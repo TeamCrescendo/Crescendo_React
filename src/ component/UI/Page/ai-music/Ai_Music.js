@@ -7,11 +7,9 @@ import Score from "../../conversion/score/Score";
 import MusicApp from "./waveform/MusicApp";
 
 const Ai_Music = ({ isForward }) => {
-    const [prompt, setPrompt] = useState("");
-    const [duration, setDuration] = useState(10);
-    const [pdfFile, setPdfFile] = useState(null);
     const [scoreId, setScoreId] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
+    const [isDone, setIsDone] = useState(false);
 
     const setAnimation = classNames({
         'slide-up': isForward,
@@ -33,46 +31,85 @@ const Ai_Music = ({ isForward }) => {
         'content-type': 'application/json',
         'Authorization': 'Bearer ' + token
     };
-    const makeAiMusic = async () => {
-        const res = await fetch("http://localhost:8484/api/score/ai", {
-            method: 'POST',
-            headers: requestHeader,
-            body: JSON.stringify({  // 요청 본문을 JSON 문자열로 변환
-                prompt: prompt,
-                duration: duration
-            })
-        })
-        if (res.status === 200) {
+    const [audioUrl, setAudioUrl] = useState(null);
+    const makeAiMusic = async (prompt, duration) => {
+        try {
+            const res = await fetch("http://localhost:8484/api/score/ai", {
+                method: 'POST',
+                headers: requestHeader,
+                body: JSON.stringify({
+                    prompt: prompt,
+                    duration: duration
+                })
+            });
 
-            // setIsLoading(false);
-        } else {
-            console.log("변환 실패.")
-            console.error("Failed to fetch PDF:", res.body);
-            // setIsLoading(false);
+            if (res.ok) {
+                // MP3 파일을 받기 위해 Blob 객체로 변환
+                const blob = await res.blob();
+
+                // Blob 객체를 이용하여 URL 생성
+                const url = URL.createObjectURL(blob);
+
+                // URL을 상태로 설정하여 자식 컴포넌트에게 전달
+                setAudioUrl(url);
+                setIsDone(true);
+            } else {
+                console.error("Failed to fetch MP3:", res.statusText);
+            }
+        } catch (error) {
+            console.error("Error fetching MP3:", error);
         }
+        setIsLoading(false);
     }
 
     const aiMusicMakeHanlder = e => {
-        setPrompt(document.querySelector('.music_prompt').value);
-        setDuration(document.querySelector('.music_duration').value);
-        makeAiMusic();
+        let promptValue = document.querySelector('.music_prompt').value;
+        if (promptValue === null) promptValue = "무제";
+        let durationValue = document.querySelector('.music_duration').value;
+        if (durationValue === null) durationValue = 10;
+        setIsLoading(true);
+        setIsDone(false);
+        makeAiMusic(promptValue, durationValue);
+    }
+
+    const loadingPage = () => {
+        return (
+            <>
+                <div className="loading-container">
+                    <span>프롬프트를 음악으로 변환중입니다...</span>
+                    <img src="img/write.gif" alt="베토벤 로딩" />
+                </div>
+            </>
+        )
+    }
+
+    const renderPage = () => {
+        return (
+            <>
+                <span>프롬프트</span>
+                <input className="music_prompt" type="text" placeholder="여기에 입력하세요."/>
+                <span>초)음악 최대 길이 (10초)</span>
+                <input className="music_duration" type="number" min="0" max="10" placeholder="재생시간"
+                       style={{width: "100px"}}/>
+                <button type="button" onClick={aiMusicMakeHanlder}>생성시작</button>
+            </>
+        );
     }
 
     return (
         <div className={`ai-music-container ${setAnimation}`}>
             <div className="ai-music-div">
-                <span>프롬프트</span>
-                <input className="music_prompt" type="text" placeholder="여기에 입력하세요." />
-                <span>초)음악 최대 길이 (10초)</span>
-                <input className="music_duration" type="number" min="0" max="10" placeholder="재생시간" style={{width:"100px"}}/>
-                <button type="button" onClick={aiMusicMakeHanlder}>생성시작</button>
-                <MusicApp />
+                <h1>나만의 AI 음악</h1>
+
+                {
+                    isDone && <MusicApp url={audioUrl}/>
+                }
+                {
+                    isLoading
+                        ? loadingPage()
+                        : renderPage()
+                }
             </div>
-
-            {/*<StrictMode>*/}
-
-            {/*</StrictMode>*/}
-
         </div>
     );
 };

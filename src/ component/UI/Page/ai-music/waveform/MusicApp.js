@@ -1,8 +1,8 @@
-import { useRef, useState } from "react";
+import {useEffect, useRef, useState} from "react";
 import './styles.css';
 import WaveForm from "./WaveForm";
 
-export default function MusicApp() {
+export default function MusicApp({ url }) {
     const [audioUrl, setAudioUrl] = useState();
     const [analyzerData, setAnalyzerData] = useState(null);
     const audioElmRef = useRef(null);
@@ -24,16 +24,20 @@ export default function MusicApp() {
         setAnalyzerData({ analyzer, bufferLength, dataArray });
     };
 
-    const onFileChange = (e) => {
-        const file = e.target.files?.[0];
-        if (!file) return;
-        setAudioUrl(URL.createObjectURL(file));
+    // const onFileChange = (e) => {
+    //     const file = e.target.files?.[0];
+    //     if (!file) return;
+    //     setAudioUrl(URL.createObjectURL(file));
+    //     audioAnalyzer();
+    // };
+
+    useEffect(() => {
+        setAudioUrl(url);
         audioAnalyzer();
-    };
+    }, []);
 
     return (
         <div className="musicApp">
-            <h1>Audio Visualizer</h1>
             {analyzerData && <WaveForm analyzerData={analyzerData} />}
             <div
                 style={{
@@ -43,7 +47,7 @@ export default function MusicApp() {
                     alignItems: "center"
                 }}
             >
-                <input type="file" accept="audio/*" onChange={onFileChange} />
+                {/*<input type="file" accept="audio/*" onChange={onFileChange} />*/}
                 <audio src={audioUrl ?? ""} controls ref={audioElmRef} />
             </div>
         </div>

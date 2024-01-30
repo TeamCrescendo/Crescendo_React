@@ -11,7 +11,7 @@ import Form from "react-bootstrap/Form";
 import {getCurrentLoginUser} from "../../../util/login-util";
 
 
-const ModifyModal = ({ onClose, loginInfo }) => {
+const ModifyModal = ({ onClose, loginInfo, loginCheck }) => {
     const modalBackground = useRef();
     // const url = loginInfo.profileImageUrl;
     const [profileIMG, setProfileIMG] = useState(loginInfo.profileImageUrl);
@@ -287,7 +287,7 @@ const ModifyModal = ({ onClose, loginInfo }) => {
 
         fetch(MEMBER_URL + '/modify', {
             method: 'PATCH',
-            // header: headers,
+            headers: headers,
             body: formData,
         })
             .then(response => {
@@ -298,6 +298,7 @@ const ModifyModal = ({ onClose, loginInfo }) => {
                 console.log(flag);
                 if (flag) {
                     alert("회원정보가 성공적으로 변경되었습니다!");
+                    loginCheck();
                     onClose();
                 } else {
                     alert("회원정보 변경에 실패했습니다!");

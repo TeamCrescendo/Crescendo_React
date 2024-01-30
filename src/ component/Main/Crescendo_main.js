@@ -53,7 +53,7 @@ const Crescendo_main = () => {
 
                 return <MyPage isForward={isForward} LoginHandler={LoginHandler}
                                loginInfo={loginInfo}
-                               loginSessionCheck={LoginCheck}
+                               loginCheck={LoginCheck}
                                logoutHandler={logoutHandler}/>;
             case 5:
                 return <TeamInfo isForward={isForward} LoginHandler={LoginHandler}
@@ -116,6 +116,7 @@ const Crescendo_main = () => {
         setToken(null);
         // window.location.reload();
     };
+
 
     useEffect(() => {
         // LoginCheck();
