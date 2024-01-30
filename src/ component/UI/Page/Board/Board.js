@@ -1,8 +1,9 @@
 import * as React from 'react';
 import './Board.scss';
 import classNames from "classnames";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {ImageList, ImageListItem} from "@mui/material";
+import {getCurrentLoginUser} from "../../../util/login-util";
 
 const Board = ({ isForward }) => {
     const [scoreDetailOpen ,setScoreDetailOpen] = useState(false);
@@ -12,7 +13,22 @@ const Board = ({ isForward }) => {
         'slide-up': isForward,
         'slide-down': !isForward,
     });
-    
+
+    // 토큰 가져오기
+    const[token, setToken] = useState(getCurrentLoginUser().token);
+
+
+    useEffect(async () => {
+        const res = await fetch("http://localhost:8484/api/board/", {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        });
+        const json = await res.json();
+        console.log(json)
+
+    }, []);
 
     const itemData = [
         {
