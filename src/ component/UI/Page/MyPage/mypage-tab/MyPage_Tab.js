@@ -6,6 +6,7 @@ import InquiryInfo from "../../../inquiry/Inquiry_Info";
 
 import './MyPage_Tab.scss';
 import PostMessageInfo from "../../../post_message/Post_Message_Info";
+import PlaylistInfo from "../playlist_info/playlist_Info";
 
 
 function MyPageTab({ loginInfo }) {
@@ -26,7 +27,7 @@ function MyPageTab({ loginInfo }) {
                 <InquiryInfo loginInfo={loginInfo}/>
             </Tab>
             <Tab eventKey="contact" title="플레이리스트">
-                Tab content for Contact
+                <PlaylistInfo loginInfo={loginInfo}/>
             </Tab>
         </Tabs>
     );
