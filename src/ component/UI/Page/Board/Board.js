@@ -10,6 +10,9 @@ const Board = ({ isForward }) => {
     const [scoreDetailOpen ,setScoreDetailOpen] = useState(false);
     const [scoreId, setScoreId] = useState(null);
     const [boards, setBoards] = useState([]);
+    // const [useState1] = useState();
+
+
     // 보드 로딩 참 거짓
     const [boardsLoading, setBoardsLoading] = useState(false);
 
@@ -111,7 +114,9 @@ const Board = ({ isForward }) => {
     ];
 
     const detailHandler = (e) => {
-
+        // 디테일 클릭함
+        console.log(e.target.id-1);
+        console.log(itemData[0]);
     }
 
     // PDF파일 잘 불러오면 하는 함수
