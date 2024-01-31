@@ -4,11 +4,11 @@ import Button from 'react-bootstrap/Button';
 
 const PlaylistModalButton = ({ modifyButtonClick, row }) => {
     const clickHandler = () => {
-        modifyButtonClick();
+        modifyButtonClick(row);
     }
 
     return (
-        <Button variant="primary" onClick={clickHandler}>재생목록</Button>
+        <Button variant="primary" onClick={clickHandler}>목록확인</Button>
     );
 };
 

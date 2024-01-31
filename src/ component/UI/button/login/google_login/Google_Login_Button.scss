@@ -1,11 +1,11 @@
 
-.KakaologinBtn {
+.GoogleloginBtn {
   width: 314px;
   height: 40px;
   font-size: 15px;
   cursor: pointer;
   border: 0;
-  background: #ffdc2b;
+  background: #dadada;
   color: black;
   border-radius: 5px;
   font-weight: bold;
@@ -14,13 +14,11 @@
   justify-content: left;
   align-items: center;
 
-  margin-bottom: 10px;
-
-  .kakaoIcon {
+  .googleIcon {
     width: 100px;
-    margin-right: 9px;
+    margin-right: 15px;
 
-    .kakaoImg {
+    .googleImg {
       width: 30px;
       height: 30px;
     }

@@ -5,6 +5,7 @@ import LoginButton from "../../button/login/original_login/Login_Button";
 import KakaoLoginButton from "../../button/login/kakao_login/Kakao_Login_Button";
 import {AUTH_URL} from "../../../../config/host-config";
 import {TOKEN, USERNAME} from "../../../util/login-util";
+import GoogleLoginButton from "../../button/login/google_login/Google_Login_Button";
 
 
 const LoginModal = ({onClose, registerHandler, isLogin, LoginCheck}) => {
@@ -131,6 +132,7 @@ const LoginModal = ({onClose, registerHandler, isLogin, LoginCheck}) => {
                 </form>
 
                 <KakaoLoginButton/>
+                <GoogleLoginButton/>
 
                 <div className="registerContainer">
                     <span>회원이 아니신가요?</span> <span className="registerSpan" onClick={setRegisterModal}>회원가입</span>

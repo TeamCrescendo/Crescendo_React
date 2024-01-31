@@ -1,23 +1,8 @@
 
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background-color: #f1f1f1;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #888;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #888;
-}
 .playlist-container {
   width: 96%;
-  height: 500px;
-  max-height: 500px;
+  height: 270px;
+  max-height: 270px;
   background: white;
   overflow: hidden;
 
@@ -56,9 +41,29 @@
 
     .scroll-container {
       height: 449px;
-      overflow-x: hidden;
-      overflow-y: scroll;
+      //overflow-y: scroll;
 
+      .add-playlist {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 70px;
+
+        .add-btn {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: #6db27a;
+          border-radius: 50%;
+          color: #ffffff;
+          font-weight: bold;
+          width: 60px;
+          height: 60px;
+          font-size: 60px;
+          cursor: pointer;
+        }
+      }
       .table-data {
         display: flex;
         align-items: center;

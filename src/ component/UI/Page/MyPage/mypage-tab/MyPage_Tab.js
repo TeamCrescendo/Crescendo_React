@@ -20,14 +20,14 @@ function MyPageTab({ loginInfo }) {
             <Tab eventKey="list" title="공유목록">
                 <UserTotal />
             </Tab>
+            <Tab eventKey="contact" title="플레이리스트">
+                <PlaylistInfo loginInfo={loginInfo}/>
+            </Tab>
             <Tab eventKey="profile" title="쪽지목록">
                 <PostMessageInfo loginInfo={loginInfo}/>
             </Tab>
             <Tab eventKey="longer-tab" title="문의목록">
                 <InquiryInfo loginInfo={loginInfo}/>
-            </Tab>
-            <Tab eventKey="contact" title="플레이리스트">
-                <PlaylistInfo loginInfo={loginInfo}/>
             </Tab>
         </Tabs>
     );
