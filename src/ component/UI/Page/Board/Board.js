@@ -5,11 +5,20 @@ import {useEffect, useState} from "react";
 import {ImageList, ImageListItem, Skeleton} from "@mui/material";
 import {getCurrentLoginUser} from "../../../util/login-util";
 import {Document, Page} from "react-pdf";
+import BoardDetail from "../../board/board_list/board_detail/BoardDetail";
 
-const Board = ({ isForward }) => {
-    const [scoreDetailOpen ,setScoreDetailOpen] = useState(false);
+const Board = ({isForward}) => {
+    const [scoreDetailOpen, setScoreDetailOpen] = useState(false);
     const [scoreId, setScoreId] = useState(null);
     const [boards, setBoards] = useState([]);
+    const [detailClick, setDetailClick] = useState(false);
+
+    // 보드 디테일에 들어갈 정보들
+    const [boardDetailInfo, setBoardDetailInfo] = useState({
+       pdfFile: "pdfFile",
+       scoreNo: "scoreNo",
+       scoreTitle: "scoreTitle",
+    });
     // const [useState1] = useState();
 
 
@@ -22,17 +31,17 @@ const Board = ({ isForward }) => {
     });
 
     // 토큰 가져오기
-    const[token, setToken] = useState(getCurrentLoginUser().token);
+    const [token, setToken] = useState(getCurrentLoginUser().token);
 
     // 보드 정보 가져오기
-    useEffect( async() => {
-        const res =   await fetch("http://localhost:8484/api/board/", {
+    useEffect(async () => {
+        const res = await fetch("http://localhost:8484/api/board/", {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + token
             }
         });
-        const json =  await res.json();
+        const json = await res.json();
         setBoards([...json.boards]);
         console.log(boards)
     }, []);
@@ -40,11 +49,10 @@ const Board = ({ isForward }) => {
     // 보드 배열 받아오면 실행하는 effect
     useEffect(() => {
         console.log(boards)
-        if(boards.length !==0){
+        if (boards.length !== 0) {
             setBoards(true);
         }
     }, [boards]);
-
 
 
     const itemData = [
@@ -115,55 +123,63 @@ const Board = ({ isForward }) => {
 
     const detailHandler = (e) => {
         // 디테일 클릭함
-        console.log(e.target.id-1);
-        console.log(itemData[0]);
+        console.log(itemData[e.target.id - 1]);
+        setBoardDetailInfo({
+            pdfFile: itemData[e.target.id-1].img,
+            scoreNo: itemData[e.target.id-1].score_no,
+            scoreTitle: itemData[e.target.id-1].title
+        })
+        setDetailClick(true);
+
     }
 
+
     // PDF파일 잘 불러오면 하는 함수
-    const onDocumentLoadSuccess = () =>{
+    const onDocumentLoadSuccess = () => {
 
     }
 
     return (
         <div className={`boardContainer ${setAnimation}`}>
-            {!boardsLoading?
-            <ImageList sx={{width:1105, height:800, p:2}} cols = {2} rowHeight={800}
-                       gap={25}
-            >
-                {itemData.map((item) => (
-                    <ImageListItem key={item.img} className="image-list-item" sx={{
-                        border:1,
-                        borderColor: 'primary.main',
-                        // p:3,
-                        // m:-1
-                        // gap: 10
-                        // borderRadius: 2,
-                        // borderRadiusColor: 'primary.main',
-                    }}>
-                        <img
-                            className="score-img"
-                            srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                            src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                            alt={item.title}
-                            loading="lazy"
-                        />
-                        {/* pdfFile은 이제 받아와야함*/}
-                        {/*<Document file={pdfFile} onLoadSuccess={onDocumentLoadSuccess}>*/}
-                        {/*    <Page pageNumber={1}/>*/}
-                        {/*</Document>*/}
-                        <div className="image-text" onClick={detailHandler}  id={item.score_no}>
-                            곡명
-                            <span className="score-title">{item.title}</span>
-                            <div className="score-info"><span>자세히 보기</span></div>
-                        </div>
-                    </ImageListItem>
-                ))}
-            </ImageList>
-                :
-                <Skeleton variant="rectangular" width={1105} height={800} />
-            }
+            {!detailClick && !boardsLoading && (
+                <ImageList sx={{width: 1105, height: 800, p: 2}} cols={2} rowHeight={800}
+                           gap={25}
+                >
+                    {itemData.map((item) => (
+                        <ImageListItem key={item.img} className="image-list-item" sx={{
+                            border: 1,
+                            borderColor: 'primary.main',
+                            // p:3,
+                            // m:-1
+                            // gap: 10
+                            // borderRadius: 2,
+                            // borderRadiusColor: 'primary.main',
+                        }}>
+                            <img
+                                className="score-img"
+                                srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                                src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
+                                alt={item.title}
+                                loading="lazy"
+                            />
+                            {/* pdfFile은 이제 받아와야함*/}
+                            {/*<Document file={pdfFile} onLoadSuccess={onDocumentLoadSuccess}>*/}
+                            {/*    <Page pageNumber={1}/>*/}
+                            {/*</Document>*/}
+                            <div className="image-text" onClick={detailHandler} id={item.score_no}>
+                                곡명
+                                <span className="score-title">{item.title}</span>
+                                <div className="score-info"><span>자세히 보기</span></div>
+                            </div>
+                        </ImageListItem>
+                    ))}
+                </ImageList>
+            )}
+            {detailClick && <BoardDetail boardDetailInfo={boardDetailInfo}/>}
+            {boardsLoading && <Skeleton variant="rectangular" width={1105} height={800}/>}
         </div>
-    );
+    )
+        ;
 };
 
 export default Board;
