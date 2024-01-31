@@ -13,7 +13,7 @@ import Button from "@mui/material/Button";
 import Pagination from "@mui/material/Pagination";
 import {IoMdClose} from "react-icons/io";
 
-const  BoardDetail = ({boardDetailInfo}) => {
+const  BoardDetail = ({boardDetailInfo, detailCloseHandler}) => {
 
     const [scoreInfo, setScoreInfo] = useState({
         scoreImgUrl: '',
@@ -58,7 +58,7 @@ const  BoardDetail = ({boardDetailInfo}) => {
     return (
         <div className="board-detail-container">
             <div className="document">
-                <div className="closeButton"><IoMdClose/></div>
+                <div className="closeButton" onClick={detailCloseHandler}><IoMdClose/></div>
                 <Document file={boardDetailInfo.pdfFile} onLoadSuccess={onDocumentLoadSuccess}>
                     <Page pageNumber={currentPage}/>
                 </Document>

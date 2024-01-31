@@ -132,7 +132,9 @@ const Board = ({isForward}) => {
         setDetailClick(true);
 
     }
-
+    const detailCloseHandler = (e) => {
+        setDetailClick(false);
+    }
 
     // PDF파일 잘 불러오면 하는 함수
     const onDocumentLoadSuccess = () => {
@@ -175,7 +177,7 @@ const Board = ({isForward}) => {
                     ))}
                 </ImageList>
             )}
-            {detailClick && <BoardDetail boardDetailInfo={boardDetailInfo}/>}
+            {detailClick && <BoardDetail boardDetailInfo={boardDetailInfo} detailCloseHandler={detailCloseHandler}/>}
             {boardsLoading && <Skeleton variant="rectangular" width={1105} height={800}/>}
         </div>
     )
