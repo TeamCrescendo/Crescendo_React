@@ -12,43 +12,32 @@
   .detail-header {
     width: 100%;
     display: flex;
-    justify-content: left;
+    justify-content: right;
     align-items: center;
     .close {
       font-size: 40px;
     }
   }
+  // 제목 컨테이너
   .detail-title {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
+    // 곡명
     .subTitle {
       font-size: 20px;
     }
+    // 보드 게시판 타이틀
     .mainTitle {
       font-size: 25px;
       font-weight: bold;
     }
   }
 
-  .img-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
 
-    .detail-img {
-      height: 700px;
-      user-drag: none;
-      user-select: none;
-      -moz-user-select: none;
-      -webkit-user-drag: none;
-      -webkit-user-select: none;
-      -ms-user-select: none;
-    }
-    .detail-side {
+
+    .detail-side{
       display: flex;
       justify-content: start;
       align-items: center;
@@ -70,8 +59,6 @@
         margin-top: auto;
       }
     }
-  }
-
 }
 
 //
