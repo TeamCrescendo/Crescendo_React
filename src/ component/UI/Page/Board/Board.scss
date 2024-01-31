@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'KIMM_Bold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KIMM_Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
 header
 {
   width: 100%;
@@ -19,6 +25,46 @@ header
   background-size: cover;
   font-size: 35px;
 }
+.box2{
+  width: 500px;
+  margin: 0 0 200px 0;
+  border: #282c34 solid 5px;
+  background: url("https://cdn.pixabay.com/photo/2018/02/15/14/37/paper-3155438_1280.jpg");
+  background-size: cover;
+  font-family: 'KIMM_Bold';
+  color: #2E2E2E;
+}
+.boot-strap2{
+  background: whitesmoke;
+  height: 150px;
+}
+hr{
+  border: #282c34 solid 5px;
+}
+.title2{
+  background: #2E2E2E;
+  background-size: cover;
+
+}
+.input.content2 {
+  // input 요소의 스타일을 여기에 추가하세요
+  padding: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  &:focus {
+    outline: none;
+    border-color: #007bff; // 포커스 상태일 때의 색상
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); // 포커스 상태일 때의 그림자 효과
+  }
+}
+.heading2 {
+  background: whitesmoke;
+  color: #2E2E2E;
+  height: 350px;
+}
+
 .boardContainer {
   font-family: "Noto Sans KR", sans-serif;
   width: 100%;

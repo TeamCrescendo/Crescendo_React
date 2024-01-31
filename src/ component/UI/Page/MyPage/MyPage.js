@@ -21,7 +21,7 @@ const MyPage = ({ isForward }) => {
                             <div className="card-head">
                                 <span className="close-logo"><SlClose/></span>
                                 <h4>
-                                    Information
+                                    Alarm
                                 </h4>
                                 <h3 className="card-title">
                                     앗 잠시만요!

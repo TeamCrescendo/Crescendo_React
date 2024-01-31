@@ -97,9 +97,6 @@ header
     background-color: #A9BCF5;
     font-family: 'Oswald', sans-serif;
   }
-  .btn-primary:hover{
-    background-color: #637ad3;
-  }
   a{
     text-decoration: none;
   }
@@ -110,6 +107,9 @@ header
    text-align: center;
    margin: 0 10px 50px 10px;
  }
+  .btn-primary:hover{
+    background-color: #637ad3;
+  }
   .join-text:hover{
     color: #2E64FE;
   }
