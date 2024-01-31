@@ -8,7 +8,7 @@ import {TOKEN, USERNAME} from "../../../util/login-util";
 import GoogleLoginButton from "../../button/login/google_login/Google_Login_Button";
 
 
-const LoginModal = ({onClose, registerHandler, isLogin, LoginCheck}) => {
+const LoginModal = ({onClose, registerHandler, isLogin, LoginCheck, googleLogin}) => {
     const modalBackground = useRef();
     // 상태변수 관리
     const [account, setAccount] = useState('');
@@ -131,8 +131,8 @@ const LoginModal = ({onClose, registerHandler, isLogin, LoginCheck}) => {
                     <LoginButton loginSubmit={loginSubmit}/>
                 </form>
 
-                <KakaoLoginButton/>
-                <GoogleLoginButton/>
+                <KakaoLoginButton />
+                <GoogleLoginButton googleLogin={googleLogin}/>
 
                 <div className="registerContainer">
                     <span>회원이 아니신가요?</span> <span className="registerSpan" onClick={setRegisterModal}>회원가입</span>

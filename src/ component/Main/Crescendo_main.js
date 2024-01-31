@@ -40,7 +40,7 @@ const Crescendo_main = () => {
         switch (pageId) {
             case 1:
                 return <ConversionPage isForward={isForward} LoginHandler={LoginHandler}
-                                   loginInfo={loginInfo}
+                                   loginInfo={loginInfo} googleLogin={googleLogin}
                                    LoginCheck={LoginCheck}
                                    logoutHandler={logoutHandler}/>;
             case 2:
@@ -52,7 +52,7 @@ const Crescendo_main = () => {
             case 4:
 
                 return <MyPage isForward={isForward} LoginHandler={LoginHandler}
-                               loginInfo={loginInfo}
+                               loginInfo={loginInfo} googleLogin={googleLogin}
                                loginCheck={LoginCheck}
                                logoutHandler={logoutHandler}/>;
             case 5:
@@ -116,6 +116,15 @@ const Crescendo_main = () => {
         setToken(null);
         // window.location.reload();
     };
+
+    const googleLogin = () => {
+        fetch("http://localhost:8484/api/auth/oauth2/google", {
+            method: 'GET',
+        })
+            .then(res => {
+                if (res.status === 200) alert("구글로그인!");
+            })
+    }
 
 
     useEffect(() => {
