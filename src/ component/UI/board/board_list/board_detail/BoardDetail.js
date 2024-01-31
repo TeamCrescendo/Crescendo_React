@@ -56,7 +56,6 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler}) => {
     // });
 
     return (
-        <>
             <div className="board-detail-container">
                 <div className="document">
                     <div className="closeButton" onClick={detailCloseHandler}><IoMdClose/></div>
@@ -70,33 +69,33 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler}) => {
                         size={"large"}
                     />
                 </div>
-            </div>
-            <div className="detail-title">
-                <span className="subTitle">곡명</span>
-                <span className="mainTitle">[ {scoreInfo.scoreTitle} ]</span>
-            </div>
-            <div className="img-container">
-                <img className="detail-img" src={scoreInfo.scoreImgUrl} alt={scoreInfo.scoreTitle}/>
-                <div className="detail-side">
-                    {
-                        likeClicked
-                            ?
-                            <FaHeart className="like-btn" onClick={likeClickHandler}
-                                     style={{cursor: "pointer", color: "red"}}/>
-                            : <FaRegHeart className="like-btn" onClick={likeClickHandler} style={{cursor: "pointer"}}/>
-                    }
-                    {
-                        dislikeClicked
-                            ? <BsHeartbreakFill className="dislike-btn" onClick={dislikeClickHandler}
-                                                style={{cursor: "pointer", color: "purple"}}/>
-                            : <BsHeartbreak className="dislike-btn" onClick={dislikeClickHandler}
-                                            style={{cursor: "pointer"}}/>
-                    }
-                    <MdFormatListBulletedAdd style={{cursor: "pointer"}}/>
-                    <GiSaveArrow className="download-btn" style={{cursor: "pointer"}}/>
+                <div className="detail-title">
+                    <span className="subTitle">곡명</span>
+                    <span className="mainTitle">[ {scoreInfo.scoreTitle} ]</span>
+                </div>
+                <div className="img-container">
+                    <img className="detail-img" src={scoreInfo.scoreImgUrl} alt={scoreInfo.scoreTitle}/>
+                    <div className="detail-side">
+                        {
+                            likeClicked
+                                ?
+                                <FaHeart className="like-btn" onClick={likeClickHandler}
+                                         style={{cursor: "pointer", color: "red"}}/>
+                                : <FaRegHeart className="like-btn" onClick={likeClickHandler}
+                                              style={{cursor: "pointer"}}/>
+                        }
+                        {
+                            dislikeClicked
+                                ? <BsHeartbreakFill className="dislike-btn" onClick={dislikeClickHandler}
+                                                    style={{cursor: "pointer", color: "purple"}}/>
+                                : <BsHeartbreak className="dislike-btn" onClick={dislikeClickHandler}
+                                                style={{cursor: "pointer"}}/>
+                        }
+                        <MdFormatListBulletedAdd style={{cursor: "pointer"}}/>
+                        <GiSaveArrow className="download-btn" style={{cursor: "pointer"}}/>
+                    </div>
                 </div>
             </div>
-        </>
     );
 };
 
