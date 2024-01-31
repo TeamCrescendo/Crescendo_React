@@ -13,7 +13,7 @@ const PlaylistInfo = ({ loginInfo }) => {
     const [modifyModalOpen, setModifyModalOpen] = useState(false);
     const [data, setData] = useState();
     const [playlistCount, setPlaylistCount] = useState(0);
-    // const [rows, setRows] = useState([]);
+    const [rows, setRows] = useState([]);
 
 
     // 토큰 가져오기
@@ -28,11 +28,11 @@ const PlaylistInfo = ({ loginInfo }) => {
         return { title, scoreCount, plId };
     }
 
-    const rows = [
-        createData('감성돋는 1번 리스트', 24, 1),
-        createData('역동적인 2번 리스트', 5, 2),
-        // createData('고요한 3번 리스트', 117, 3)
-    ];
+    // const rows = [
+    //     createData('감성돋는 1번 리스트', 24, 1),
+    //     createData('역동적인 2번 리스트', 5, 2),
+    //     // createData('고요한 3번 리스트', 117, 3)
+    // ];
 
     const modifyButtonClick = rowdata => {
         setModifyModalOpen(true);
@@ -40,20 +40,25 @@ const PlaylistInfo = ({ loginInfo }) => {
     };
 
     // ALL재생목록 확인
-    // const selectAllPlaylist = () => {
-    //     fetch(ALL_PLAYLIST_URL, {
-    //         method: 'GET',
-    //         headers: requestHeader,
-    //         credentials: 'include',
-    //     })
-    //         .then(res => res.json())
-    //         .then(json => {
-    //             const updatedRows = json.map(playlist => {
-    //                 return createData(playlist.title, playlist.scoreCount, playlist.plId);
-    //             });
-    //             setRows(updatedRows);
-    //         })
-    // }
+    const selectAllPlaylist = () => {
+        fetch(ALL_PLAYLIST_URL, {
+            method: 'GET',
+            headers: requestHeader,
+            credentials: 'include',
+        })
+            .then(res => res.json())
+            .then(json => {
+                console.log(json);
+                if (json && json.allPlayLists && Array.isArray(json.allPlayLists)) {
+                    const updatedRows = json.allPlayLists.map(playlist => {
+                        return createData(playlist.plName, playlist.scoreCount, playlist.plId);
+                    });
+                    setRows(updatedRows);
+                } else {
+                    console.error("Invalid JSON format or missing 'allPlayLists' array");
+                }
+            })
+    }
 
     const addAllPlayList = () => {
             fetch(ALL_PLAYLIST_URL + "/createAllPlayList", {
@@ -77,7 +82,7 @@ const PlaylistInfo = ({ loginInfo }) => {
     }
 
     useEffect(() => {
-        // selectAllPlaylist();
+        selectAllPlaylist();
     }, []);
     useEffect(() => {
         setPlaylistCount(rows.length);
