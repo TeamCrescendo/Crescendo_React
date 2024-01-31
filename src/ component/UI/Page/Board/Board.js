@@ -2,12 +2,16 @@ import * as React from 'react';
 import './Board.scss';
 import classNames from "classnames";
 import {useEffect, useState} from "react";
-import {ImageList, ImageListItem} from "@mui/material";
+import {ImageList, ImageListItem, Skeleton} from "@mui/material";
 import {getCurrentLoginUser} from "../../../util/login-util";
+import {Document, Page} from "react-pdf";
 
 const Board = ({ isForward }) => {
     const [scoreDetailOpen ,setScoreDetailOpen] = useState(false);
     const [scoreId, setScoreId] = useState(null);
+    const [boards, setBoards] = useState([]);
+    // 보드 로딩 참 거짓
+    const [boardsLoading, setBoardsLoading] = useState(false);
 
     const setAnimation = classNames({
         'slide-up': isForward,
@@ -17,18 +21,28 @@ const Board = ({ isForward }) => {
     // 토큰 가져오기
     const[token, setToken] = useState(getCurrentLoginUser().token);
 
-
-    useEffect(async () => {
-        const res = await fetch("http://localhost:8484/api/board/", {
+    // 보드 정보 가져오기
+    useEffect( async() => {
+        const res =   await fetch("http://localhost:8484/api/board/", {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + token
             }
         });
-        const json = await res.json();
-        console.log(json)
-
+        const json =  await res.json();
+        setBoards([...json.boards]);
+        console.log(boards)
     }, []);
+
+    // 보드 배열 받아오면 실행하는 effect
+    useEffect(() => {
+        console.log(boards)
+        if(boards.length !==0){
+            setBoards(true);
+        }
+    }, [boards]);
+
+
 
     const itemData = [
         {
@@ -100,8 +114,14 @@ const Board = ({ isForward }) => {
 
     }
 
+    // PDF파일 잘 불러오면 하는 함수
+    const onDocumentLoadSuccess = () =>{
+
+    }
+
     return (
         <div className={`boardContainer ${setAnimation}`}>
+            {!boardsLoading?
             <ImageList sx={{width:1105, height:800, p:2}} cols = {2} rowHeight={800}
                        gap={25}
             >
@@ -122,6 +142,10 @@ const Board = ({ isForward }) => {
                             alt={item.title}
                             loading="lazy"
                         />
+                        {/* pdfFile은 이제 받아와야함*/}
+                        {/*<Document file={pdfFile} onLoadSuccess={onDocumentLoadSuccess}>*/}
+                        {/*    <Page pageNumber={1}/>*/}
+                        {/*</Document>*/}
                         <div className="image-text" onClick={detailHandler}  id={item.score_no}>
                             곡명
                             <span className="score-title">{item.title}</span>
@@ -130,6 +154,9 @@ const Board = ({ isForward }) => {
                     </ImageListItem>
                 ))}
             </ImageList>
+                :
+                <Skeleton variant="rectangular" width={1105} height={800} />
+            }
         </div>
     );
 };
