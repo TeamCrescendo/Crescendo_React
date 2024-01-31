@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Lobster&display=swap');
-
+@font-face {
+  font-family: 'GangwonState';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/GangwonState.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Lobster&family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Lobster&family=Oswald:wght@500&family=Pacifico&display=swap');
 header
 {
   width: 100%;
@@ -20,6 +27,92 @@ header
   background: url(https://cdn.pixabay.com/photo/2016/11/19/09/57/violins-1838390_1280.jpg);
   background-size: cover;
   font-size: 35px;
+}
+.card{
+  width: 650px;
+  //border: 1px solid black;
+  flex-direction: column;
+  background: url("https://cdn.pixabay.com/photo/2021/11/30/00/54/sweden-6834164_1280.jpg");
+  background-size:contain;
+  box-shadow: 0px 0px 20px black;
+  margin: 350px 0 550px 0;
+}
+.card-img {
+  height: 350px;
+  display: flex;
+  background: url("https://cdn.pixabay.com/photo/2021/11/30/00/54/sweden-6834164_1280.jpg");
+  background-size:cover
+}
+.card-head{
+  height: 50px;
+  background: url("https://cdn.pixabay.com/photo/2021/11/30/00/54/sweden-6834164_1280.jpg");
+  background-size:cover;
+  .close-logo {
+    position: relative;
+    right: auto; /* 기본값으로 설정 */
+    left: 0; /* 오른쪽으로 이동합니다. */
+    cursor: pointer; /* 로고를 클릭 가능하게 만들기 위해 (선택사항) */
+    margin: 20px 0 0 600px;
+  }
+  h3{
+    color: white;
+    text-align: center;
+    font-family: 'GangwonState';
+    margin: 20px 0 0 0;
+
+  }
+  h4{
+    color: white;
+    font-family: 'Pacifico', cursive;
+    font-size: 90px;
+    //text-shadow: 5px 5px 4px skyblue;
+    margin: 10px 0 0 0;
+  }
+
+}
+.card-text {
+  margin: -10px 35px 0 55px;
+  color: #2E2E2E;
+  font-family: 'GangwonState';
+  font-size: 30px;
+}
+.card-main{
+  height: 100px;
+  background: whitesmoke;
+}
+.card-footer{
+  height: 150px;
+  background: whitesmoke;
+  .btn {
+    font-size: 30px;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 5px;
+    color: #fff;
+    text-align: center;
+  }
+  .btn-primary {
+    margin: -10px 35px 40px 20px;
+    background-color: #A9BCF5;
+    font-family: 'Oswald', sans-serif;
+  }
+  a{
+    text-decoration: none;
+  }
+  .join-text{
+    color: #2E2E2E;
+    font-family: 'GangwonState';
+    font-size: 20px;
+    text-align: center;
+    margin: 0 10px 50px 10px;
+  }
+  .btn-primary:hover{
+    background-color: #637ad3;
+  }
+  .join-text:hover{
+    color: #2E64FE;
+  }
 }
 
 .mypageContainer {
