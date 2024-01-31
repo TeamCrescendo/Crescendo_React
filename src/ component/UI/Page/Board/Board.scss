@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'KIMM_Bold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KIMM_Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
 header
 {
   width: 100%;
@@ -18,6 +24,88 @@ header
   background: url(https://cdn.pixabay.com/photo/2015/05/07/11/02/guitar-756326_1280.jpg);
   background-size: cover;
   font-size: 35px;
+}
+
+.box2{
+  width: 500px;
+  margin: 0 0 200px 0;
+  border: #282c34 solid 5px;
+  background: url("https://cdn.pixabay.com/photo/2018/02/15/14/37/paper-3155438_1280.jpg");
+  background-size: cover;
+  font-family: 'KIMM_Bold';
+  color: #2E2E2E;
+}
+.imog2{
+  margin: 30px 0 200px 430px ;
+}
+.boot-strap2{
+  background: whitesmoke;
+  height: 150px;
+}
+hr{
+  border: #282c34 solid 5px;
+}
+.title2{
+  background: #2E2E2E;
+
+}
+.content2 {
+  // input 요소의 스타일을 여기에 추가하세요
+  padding: 8px;
+  width: 450px;
+  height: 100px;
+  border: 1px solid #ccc;
+  &:focus {
+    outline: none;
+    border-color: #007bff; // 포커스 상태일 때의 색상
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); // 포커스 상태일 때의 그림자 효과
+  }
+}
+.heading2 {
+  background: whitesmoke;
+  color: #2E2E2E;
+  height: 350px;
+  font-size: 20px;
+
+}
+
+input[type="file"]::file-selector-button {
+  border: 2px solid #6c5ce7;
+  padding: 0.2em 0.4em;
+  border-radius: 0.2em;
+  background-color: #a29bfe;
+  transition: 1s;
+}
+
+.upload2 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border: 2px dashed #ddd;
+  cursor: pointer;
+  height: 95px;
+  margin: 0 0 0 30px;
+  &:hover {
+    border-color: #333;
+  }
+}
+//.file-name {
+//  margin-left: 10px;
+//  overflow: hidden;
+//  text-overflow: ellipsis;
+//  white-space: nowrap;
+//}
+.button2{
+  border: #282c34 solid 5px;
+  border-radius: 15px;
+  width: 150px;
+  height: 50px;
+  margin: 30px 0 0 0;
+  background-color: #F5D0A9;
+}
+.button2:hover{
+  background: #FAAC58;
 }
 .boardContainer {
   font-family: "Noto Sans KR", sans-serif;
