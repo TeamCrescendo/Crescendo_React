@@ -6,6 +6,7 @@
   max-height: 500px;
   background: white;
   overflow: hidden;
+  margin-top: 0;
 
   .table-container {
     display: flex;
@@ -65,7 +66,7 @@
 
 
         &:hover {
-          background-color: #b2b2b2;
+          background-color: #dedddd;
         }
       }
     }

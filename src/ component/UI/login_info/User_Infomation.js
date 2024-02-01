@@ -6,7 +6,7 @@ import {getCurrentLoginUser} from "../../util/login-util";
 import {CircularProgress} from "@mui/material";
 import Login_modal_Button from "../button/login_modal_btn/Login_modal_Button";
 
-const UserInfomation = ({ loginInfo, logoutHandler }) =>
+const UserInfomation = ({ loginInfo, logoutHandler, googleLogin }) =>
 {const [dropdownView, setDropdownView] = useState(false);
 
     const deleteLoginCookie = () => {
@@ -41,7 +41,7 @@ const UserInfomation = ({ loginInfo, logoutHandler }) =>
                 // loginInfo가 undefined인 경우에 대한 처리
                     <>
                         {
-                            !loginInfo && <Login_modal_Button />
+                            !loginInfo && <Login_modal_Button googleLogin={googleLogin} />
                         }
                     </>
                 // <img src="/img/write.gif" alt="" />

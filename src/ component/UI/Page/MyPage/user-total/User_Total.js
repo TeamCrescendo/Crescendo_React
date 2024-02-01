@@ -36,12 +36,12 @@ const UserTotal = () => {
                 <div className="scroll-container">
                     {rows.map((row) => (
                         <div className="table-data" key={row.title}>
-                            <div>{row.title}</div>
+                            <div style={{cursor:"pointer", color:"deepskyblue", fontWeight:"bold"}}>{row.title}</div>
                             <div>{row.viewCount}회</div>
                             <div>{row.like}개</div>
                             <div>{row.dislike}개</div>
                             <div>{row.downloadCount}번</div>
-                            <div><RiChatDeleteFill style={{cursor:"pointer"}}/></div>
+                            <div><RiChatDeleteFill style={{color:"red", cursor:"pointer", fontSize:"30px"}}/></div>
                         </div>
                     ))}
                 </div>

@@ -15,13 +15,22 @@ import InquiryModalButton from "../button/inquiry_modal_btn/Inquiry_modal_Button
 import {AUTH_URL, INQUIRY_URL} from "../../../config/host-config";
 import {getCurrentLoginUser} from "../../util/login-util";
 import {RiChatDeleteFill} from "react-icons/ri";
+import MessageModalButton from "../button/message_modal_btn/message_modal_button";
+import InquiryContentModalButton from "../button/inquirt_content_modal_button/Inquiry_Content_Modal_Button";
+import InquiryContentModal from "../modal/inquiry_content_modal/Inquiry_Content_Modal";
 
 const InquiryInfo = ({ loginInfo }) => {
-    const [modifyModalOpen, setModifyModalOpen] = useState(false);
+    const [contentModalOpen, setContentModalOpen] = useState(false);
+    const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
     const [rows, setRows] = useState([]);
+    const [data, setData] = useState();
 
-    const modifyButtonClick = () => {
-        setModifyModalOpen(true);
+    const contentButtonClick = (row) => {
+        setContentModalOpen(true);
+        setData(row);
+    };
+    const inquiryButtonClick = e => {
+        setInquiryModalOpen(true);
     };
 
     function createData(title, content, inquiry_time, inquiryId) {
@@ -107,42 +116,39 @@ const InquiryInfo = ({ loginInfo }) => {
 
     useEffect(() => {
         selectMyInquiry();
-    }, [modifyModalOpen]);
+    }, [contentModalOpen, inquiryModalOpen]);
 
     return (
         <>
-            <div className="post-message-info-container">
-                <TableContainer component={Paper}>
-                    <Table sx={{ minWidth: 300 }} aria-label="simple table">
-                        <TableHead className="tHead">
-                            <TableRow>
-                                <TableCell>문의제목</TableCell>
-                                <TableCell align="right">문의내용</TableCell>
-                                <TableCell align="right">문의시각</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody className="tBody">
-                            {rows.map((row) => (
-                                <TableRow
-                                    key={row.title}
-                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                >
-                                    <TableCell component="th" scope="row">
-                                        {row.title}
-                                    </TableCell>
-                                    <TableCell align="right">{row.content}</TableCell>
-                                    <TableCell align="right">{row.inquiry_time}</TableCell>
-                                    <TableCell align="right"><RiChatDeleteFill onClick={() => deleteInqHandler(row.inquiryId)} style={{cursor:"pointer"}}/></TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+            <div className="inquiry-info-container">
+                <div className="table-container">
+                    <div className="table-row">
+                        <div>문의제목</div>
+                        <div className="content">문의내용</div>
+                        <div>문의시각</div>
+                        <div></div>
+                        <div><InquiryModalButton inquiryButtonClick={inquiryButtonClick} onClose={() => setContentModalOpen(false)}/></div>
+                    </div>
+                    <div className="inquiry-scroll-container">
+                        {rows.map((row) => (
+                            <div className="table-data" key={row.inquiryId}>
+                                <div> {row.title}</div>
+                                <div className="content">{row.content}</div>
+                                <div>{row.inquiry_time}</div>
+                                <div>
+                                    <InquiryContentModalButton row={{ content: row.content, title: row.title, inquiryId: row.inquiryId
+                                            , time: row.inquiry_time }} onClose={() => setContentModalOpen(false)}
+                                                        modifyButtonClick={contentButtonClick} />
+                                </div>
+                                <div><RiChatDeleteFill onClick={() => deleteInqHandler(row.inquiryId)} style={{color:"red", cursor:"pointer", fontSize:"30px"}}/></div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
 
-            <InquiryModalButton onClose={() => setModifyModalOpen(false)}
-                            modifyButtonClick={modifyButtonClick} />
-            {modifyModalOpen && <InquiryModal loginInfo={loginInfo} onClose={() => setModifyModalOpen(false)}/>}
+            {contentModalOpen && <InquiryContentModal row={data}  onClose={() => setContentModalOpen(false)}/>}
+            {inquiryModalOpen && <InquiryModal onClose={() => setInquiryModalOpen(false)} loginInfo={loginInfo}/>}
         </>
     );
 };

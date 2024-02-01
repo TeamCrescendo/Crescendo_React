@@ -7,7 +7,7 @@ import './User_Info.scss';
 import LoginModal from "../../../modal/login_modal/Login_modal";
 import ModifyModal from "../../../modal/modify_modal/Modify_modal";
 
-const UserInfo = ({ logoutHandler, loginInfo }) => {
+const UserInfo = ({ logoutHandler, loginInfo, loginCheck }) => {
     const [modifyModalOpen, setModifyModalOpen] = useState(false);
 
     const modifyButtonClick = () => {
@@ -25,7 +25,7 @@ const UserInfo = ({ logoutHandler, loginInfo }) => {
                         onClick={modifyButtonClick}>
                     회원정보 수정
                 </Button>
-                {modifyModalOpen && <ModifyModal loginInfo={loginInfo} onClose={() => setModifyModalOpen(false)}/>}
+                {modifyModalOpen && <ModifyModal loginInfo={loginInfo} loginCheck={loginCheck} onClose={() => setModifyModalOpen(false)}/>}
                 {/*<Button variant="primary">로그아웃</Button>*/}
                 <LogoutButton logoutHandler={logoutHandler}/>
             </Card.Body>

@@ -30,7 +30,7 @@ const PageIndex = ({ pageId, clickPageGetter, indexClickPageId }) => {
                             <BsCircleFill />
                         </div>
                         <div className="index-name" style={{ color: getColor(2) }}>
-                            개인서비스
+                            나만의 AI음악
                         </div>
                     </li>
                     <li className="index-third" onClick={pageClick} id="3">
@@ -46,7 +46,7 @@ const PageIndex = ({ pageId, clickPageGetter, indexClickPageId }) => {
                             <BsCircleFill />
                         </div>
                         <div className="index-name" style={{ color: getColor(4) }}>
-                            사이트 소개
+                            개인서비스
                         </div>
                     </li>
                     <li className="index-fifth" onClick={pageClick} id="5">

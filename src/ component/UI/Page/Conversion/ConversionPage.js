@@ -19,7 +19,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 
 
 
-const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutHandler}) => {
+const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutHandler, googleLogin}) => {
     // pdf 파일
     const [pdfFile, setPdfFile] = useState(null);
     const [scoreId, setScoreId] = useState(0);
@@ -45,7 +45,7 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
     const[token, setToken] = useState(getCurrentLoginUser().token);
     // 요청 헤더 객체
     const requestHeader = {
-        'content-type': 'application/json',
+        'Content-type': 'application/json',
         'Authorization': 'Bearer ' + token
     };
 
@@ -82,7 +82,6 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
         });
 
         if (res.status === 200) {
-
             const arrayBuffer = await res.arrayBuffer();
             const idValue = res.headers.get("score-id");
             console.log("악보번호: ", idValue);
@@ -112,7 +111,7 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
         return (
             <>
                 <div className="head">
-                    <UserInfomation logoutHandler={logoutHandler} loginInfo={loginInfo}/>
+                    <UserInfomation googleLogin={googleLogin} logoutHandler={logoutHandler} loginInfo={loginInfo}/>
                 </div>
                 <form className={cn("form", {none:isConversion})} onSubmit={submitHandler}>
                     <Input

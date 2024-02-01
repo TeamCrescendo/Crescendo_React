@@ -1,0 +1,27 @@
+
+.GoogleloginBtn {
+  width: 314px;
+  height: 40px;
+  font-size: 15px;
+  cursor: pointer;
+  border: 0;
+  background: #dadada;
+  color: black;
+  border-radius: 5px;
+  font-weight: bold;
+
+  display: flex;
+  justify-content: left;
+  align-items: center;
+
+  .googleIcon {
+    width: 100px;
+    margin-right: 15px;
+
+    .googleImg {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+}

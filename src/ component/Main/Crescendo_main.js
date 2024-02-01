@@ -6,7 +6,7 @@ import './Crescendo_main.scss';
 import MyPage from "../UI/Page/MyPage/MyPage";
 import RecordBar from "../UI/RecordBar/RecordBar";
 import TeamInfo from "../UI/Page/TeamInfo/TeamInfo";
-import WebInfo from "../UI/Page/WebInfo/WebInfo";
+import Ai_Music from "../UI/Page/ai-music/Ai_Music";
 import Board from "../UI/Page/Board/Board";
 import Session from "react-session-api/src";
 import {AUTH_URL} from "../../config/host-config";
@@ -40,20 +40,21 @@ const Crescendo_main = () => {
         switch (pageId) {
             case 1:
                 return <ConversionPage isForward={isForward} LoginHandler={LoginHandler}
-                                   loginInfo={loginInfo}
+                                   loginInfo={loginInfo} googleLogin={googleLogin}
                                    LoginCheck={LoginCheck}
                                    logoutHandler={logoutHandler}/>;
             case 2:
-                return <MyPage isForward={isForward} LoginHandler={LoginHandler}
-                               loginInfo={loginInfo}
-                               loginSessionCheck={LoginCheck}
-                               logoutHandler={logoutHandler}/>;
+                return <Ai_Music isForward={isForward} LoginHandler={LoginHandler}
+                                 loginInfo={loginInfo}/>;
             case 3:
                 return <Board isForward={isForward} LoginHandler={LoginHandler}
                               loginInfo={loginInfo}/>;
             case 4:
-                return <WebInfo isForward={isForward} LoginHandler={LoginHandler}
-                                loginInfo={loginInfo}/>;
+
+                return <MyPage isForward={isForward} LoginHandler={LoginHandler}
+                               loginInfo={loginInfo} googleLogin={googleLogin}
+                               loginCheck={LoginCheck}
+                               logoutHandler={logoutHandler}/>;
             case 5:
                 return <TeamInfo isForward={isForward} LoginHandler={LoginHandler}
                                  loginInfo={loginInfo}/>;
@@ -115,6 +116,16 @@ const Crescendo_main = () => {
         setToken(null);
         // window.location.reload();
     };
+
+    const googleLogin = () => {
+        fetch("http://localhost:8484/api/auth/oauth2/google", {
+            method: 'GET',
+        })
+            .then(res => {
+                if (res.status === 200) alert("구글로그인!");
+            })
+    }
+
 
     useEffect(() => {
         // LoginCheck();

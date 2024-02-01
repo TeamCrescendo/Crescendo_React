@@ -6,6 +6,7 @@ import InquiryInfo from "../../../inquiry/Inquiry_Info";
 
 import './MyPage_Tab.scss';
 import PostMessageInfo from "../../../post_message/Post_Message_Info";
+import PlaylistInfo from "../playlist_info/playlist_Info";
 
 
 function MyPageTab({ loginInfo }) {
@@ -19,14 +20,14 @@ function MyPageTab({ loginInfo }) {
             <Tab eventKey="list" title="공유목록">
                 <UserTotal />
             </Tab>
+            <Tab eventKey="contact" title="플레이리스트">
+                <PlaylistInfo loginInfo={loginInfo}/>
+            </Tab>
             <Tab eventKey="profile" title="쪽지목록">
                 <PostMessageInfo loginInfo={loginInfo}/>
             </Tab>
             <Tab eventKey="longer-tab" title="문의목록">
                 <InquiryInfo loginInfo={loginInfo}/>
-            </Tab>
-            <Tab eventKey="contact" title="공란" disabled>
-                Tab content for Contact
             </Tab>
         </Tabs>
     );
