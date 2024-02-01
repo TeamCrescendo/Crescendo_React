@@ -1,7 +1,6 @@
 
 import React, {useEffect, useState} from "react";
 import { MdAdd, MdDelete, MdDone } from "react-icons/md";
-
 import './Crescendo_main.scss';
 import MyPage from "../UI/Page/MyPage/MyPage";
 import RecordBar from "../UI/RecordBar/RecordBar";
@@ -14,6 +13,9 @@ import {getCurrentLoginUser} from "../util/login-util";
 import ConversionPage from "../UI/Page/Conversion/ConversionPage";
 
 const Crescendo_main = () => {
+
+
+
     // 페이지 목차 인덱스
     const [pageId, setPageId] = useState(1);
     // 시계 방향이냐 반시계 방향이냐
@@ -117,13 +119,14 @@ const Crescendo_main = () => {
         // window.location.reload();
     };
 
-    const googleLogin = () => {
-        fetch("http://localhost:8484/api/auth/oauth2/google", {
-            method: 'GET',
-        })
-            .then(res => {
-                if (res.status === 200) alert("구글로그인!");
-            })
+    const googleLogin = async () => {
+        console.log('눌러지나요?')
+
+       window.location.href='http://localhost:8484/api/auth/oauth2/google';
+        //여기로 보내면 여기안에서 전부 처리해야할것 같다..
+        const res=await fetch('http://localhost:8484/api/auth/oauth2/googleInfo');
+        console.log(res.json())
+
     }
 
 
