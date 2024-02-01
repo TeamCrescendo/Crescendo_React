@@ -86,7 +86,8 @@ const Score = ({pdfFile, scoreId}) => {
             .then(res => res.json())
             .then(json => {
                 setShare(true);
-                console.log(json);
+                setOpen(false);
+                // console.log(json);
             })
             .catch(error => {
                 console.error('Error:', error);
