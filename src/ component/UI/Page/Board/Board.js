@@ -15,9 +15,9 @@ const Board = ({isForward}) => {
 
     // 보드 디테일에 들어갈 정보들
     const [boardDetailInfo, setBoardDetailInfo] = useState({
-       pdfFile: "pdfFile",
-       scoreNo: "scoreNo",
-       scoreTitle: "scoreTitle",
+        pdfFile: "pdfFile",
+        scoreNo: "scoreNo",
+        scoreTitle: "scoreTitle",
     });
     // const [useState1] = useState();
 
@@ -33,8 +33,7 @@ const Board = ({isForward}) => {
     // 토큰 가져오기
     const [token, setToken] = useState(getCurrentLoginUser().token);
 
-    // 보드 정보 가져오기
-    useEffect(async () => {
+    const getBoard =  async ()=>{
         const res = await fetch("http://localhost:8484/api/board/", {
             method: 'GET',
             headers: {
@@ -44,16 +43,28 @@ const Board = ({isForward}) => {
         const json = await res.json();
         setBoards([...json.boards]);
         console.log(boards)
+    }
+
+    // 보드 정보 가져오기
+    useEffect(() => {
+        getBoard();
     }, []);
 
     // 보드 배열 받아오면 실행하는 effect
     useEffect(() => {
-        console.log(boards)
         if (boards.length !== 0) {
-            setBoards(true);
+            console.log(boards);
+            boards.map(board=>{
+                console.log(board.boardNo);
+
+            })
+            // boards.forEach(board => {
+            //     console.log(board)
+            // })
         }
     }, [boards]);
 
+    
 
     const itemData = [
         {
@@ -125,9 +136,9 @@ const Board = ({isForward}) => {
         // 디테일 클릭함
         console.log(itemData[e.target.id - 1]);
         setBoardDetailInfo({
-            pdfFile: itemData[e.target.id-1].img,
-            scoreNo: itemData[e.target.id-1].score_no,
-            scoreTitle: itemData[e.target.id-1].title
+            pdfFile: itemData[e.target.id - 1].img,
+            scoreNo: itemData[e.target.id - 1].score_no,
+            scoreTitle: itemData[e.target.id - 1].title
         })
         setDetailClick(true);
 
