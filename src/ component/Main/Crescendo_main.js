@@ -119,15 +119,58 @@ const Crescendo_main = () => {
         // window.location.reload();
     };
 
-    const googleLogin = async () => {
-        console.log('눌러지나요?')
+    
+    useEffect(() => {
+        // URL 파라미터에서 액세스 토큰을 추출
+        const searchParams = new URLSearchParams(window.location.hash.substring(1));
+        const accessToken = searchParams.get('access_token');
 
-       window.location.href='http://localhost:8484/api/auth/oauth2/google';
-        //여기로 보내면 여기안에서 전부 처리해야할것 같다..
-        const res=await fetch('http://localhost:8484/api/auth/oauth2/googleInfo');
-        console.log(res.json())
+        // 액세스 토큰이 있는 경우 백엔드로 전송
+        if (accessToken) {
+            fetch('http://localhost:8484/api/auth/oauth2/google/info',{
+                method: 'POST', // 요청 메서드
+                headers: {
+                'Content-Type': 'application/json' // 요청 헤더
+                },
+            body: JSON.stringify(accessToken) // 요청 본문
+            }).then(res=>{
+                if(res.status===200){
+                    return res.json();
+                }
+            })
+            .then(json=>{
+      
+                
+            })
 
+            LoginCheck();
+        } else {
+            return;
+        }
+    }, []);
+
+
+    const googleLogin =  () => {
+       // Google's OAuth 2.0 endpoint for requesting an access token
+        const oauth2Endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
+
+        const params = {
+            'client_id': '890304175366-cg7t8bjavr2dt1ttf4ma2atl077n8i4r.apps.googleusercontent.com',
+            'redirect_uri': 'http://localhost:3000',
+            'response_type': 'token',
+            'scope': 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
+            'state': 'pass-through value'
+        };
+        const queryString = Object.keys(params).map(key => key + '=' + encodeURIComponent(params[key])).join('&');
+
+    // Redirect to Google OAuth 2.0 endpoint
+        window.location.href = `${oauth2Endpoint}?${queryString}`;
+      
     }
+   
+
+
+
 
 
     useEffect(() => {
