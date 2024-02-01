@@ -12,6 +12,12 @@ const Board = ({isForward}) => {
     const [scoreId, setScoreId] = useState(null);
     const [boards, setBoards] = useState([]);
     const [detailClick, setDetailClick] = useState(false);
+    // 보드 로딩 참 거짓
+    const [boardsLoading, setBoardsLoading] = useState(false);
+    // 토큰 가져오기
+    const [token, setToken] = useState(getCurrentLoginUser().token);
+    // 보드들을 담아두는 배열
+    const itemData = [];
 
     // 보드 디테일에 들어갈 정보들
     const [boardDetailInfo, setBoardDetailInfo] = useState({
@@ -19,20 +25,18 @@ const Board = ({isForward}) => {
         scoreNo: "scoreNo",
         scoreTitle: "scoreTitle",
     });
-    // const [useState1] = useState();
-
-
-    // 보드 로딩 참 거짓
-    const [boardsLoading, setBoardsLoading] = useState(false);
 
     const setAnimation = classNames({
         'slide-up': isForward,
         'slide-down': !isForward,
     });
 
-    // 토큰 가져오기
-    const [token, setToken] = useState(getCurrentLoginUser().token);
+    // 모든 보드 정보 불러오기
+    useEffect(() => {
+        getBoard();
+    }, []);
 
+    // 서버에서 모든 보드 불러오기
     const getBoard =  async ()=>{
         const res = await fetch("http://localhost:8484/api/board/", {
             method: 'GET',
@@ -42,96 +46,45 @@ const Board = ({isForward}) => {
         });
         const json = await res.json();
         setBoards([...json.boards]);
-        console.log(boards)
-    }
 
-    // 보드 정보 가져오기
-    useEffect(() => {
-        getBoard();
-    }, []);
+    }
 
     // 보드 배열 받아오면 실행하는 effect
     useEffect(() => {
         if (boards.length !== 0) {
             console.log(boards);
-            boards.map(board=>{
-                console.log(board.boardNo);
-
+            boards.forEach(board =>{
+                getPdf(board.boardNo, board.scoreTitle, board.scoreNo);
             })
-            // boards.forEach(board => {
-            //     console.log(board)
-            // })
         }
     }, [boards]);
 
-    
+    // 보드 byte 배열 받아오는 함수
+    const getPdf = async (boardNo, scoreTitle, scoreNo) => {
+        console.log(`http://localhost:8484/api/board/${boardNo}`)
+        const res = await fetch(`http://localhost:8484/api/board/${boardNo}`, {
+            method:"GET",
+            headers: {
+                'Authorization': 'Bearer ' + token
+            },
+        });
 
-    const itemData = [
-        {
-            img: 'https://cdn.mapianist.com/preview-v2/0a0494b7-1db8-44b1-a0a1-175d076bd400-1675072813.jpg',
-            title: 'Fern',
-            score_no: 1,
-        },
-        {
-            img: 'https://cdn.mapianist.com/preview-v2/0a0494b7-1db8-44b1-a0a1-175d076bd400-1675072813.jpg',
-            title: 'Snacks',
-            score_no: 2,
-        },
-        {
-            img: 'https://cdn.mapianist.com/preview-v2/0a0494b7-1db8-44b1-a0a1-175d076bd400-1675072813.jpg',
-            title: 'Mushrooms',
-            score_no: 3,
-        },
-        {
-            img: 'https://cdn.mapianist.com/preview-v2/0a0494b7-1db8-44b1-a0a1-175d076bd400-1675072813.jpg',
-            title: 'Tower',
-        },
-        {
-            img: 'https://cdn.mapianist.com/preview-v2/0a0494b7-1db8-44b1-a0a1-175d076bd400-1675072813.jpg',
-            title: 'Sea star',
-        },
-        {
-            img: 'https://cdn.mapianist.com/preview-v2/0a0494b7-1db8-44b1-a0a1-175d076bd400-1675072813.jpg',
-            title: 'Honey',
-        },
-        {
-            img: 'https://cdn.mapianist.com/preview-v2/0a0494b7-1db8-44b1-a0a1-175d076bd400-1675072813.jpg',
-            title: 'Basketball',
-        },
-        {
-            img: 'https://cdn.mapianist.com/preview-v2/0a0494b7-1db8-44b1-a0a1-175d076bd400-1675072813.jpg',
-            title: 'Breakfast',
-        },
-        {
-            img: 'https://cdn.mapianist.com/preview-v2/0a0494b7-1db8-44b1-a0a1-175d076bd400-1675072813.jpg',
-            title: 'Tree',
-        },
-        {
-            img: 'https://cdn.mapianist.com/preview-v2/0a0494b7-1db8-44b1-a0a1-175d076bd400-1675072813.jpg',
-            title: 'Burger',
-        },
-        {
-            img: 'https://cdn.mapianist.com/preview-v2/0a0494b7-1db8-44b1-a0a1-175d076bd400-1675072813.jpg',
-            title: 'Camera',
-        },
-        {
-            img: 'https://cdn.mapianist.com/preview-v2/0a0494b7-1db8-44b1-a0a1-175d076bd400-1675072813.jpg',
-            title: 'Coffee',
-        },
-        {
-            img: 'https://cdn.mapianist.com/preview-v2/0a0494b7-1db8-44b1-a0a1-175d076bd400-1675072813.jpg',
-            title: 'Camping Car',
-        },
-        {
-            img: 'https://cdn.mapianist.com/preview-v2/0a0494b7-1db8-44b1-a0a1-175d076bd400-1675072813.jpg',
-            title: 'Hats',
-        },
-        {
-            img: 'https://cdn.mapianist.com/preview-v2/0a0494b7-1db8-44b1-a0a1-175d076bd400-1675072813.jpg',
-            title: 'Tomato basil',
-        },
-    ];
+        const arrayBuffer = await res.arrayBuffer();
+        const blob = new Blob([arrayBuffer], { type: 'application/pdf' });
+        const file = new File([blob], 'example.pdf', { type: 'application/pdf' });
+        setBoardDetailInfo({...boardDetailInfo, pdfFile: file, scoreNo: scoreNo, scoreTitle: scoreTitle});
+    }
 
+    useEffect(() => {
+
+    }, []);
+
+    useEffect(() => {
+        itemData.push(boardDetailInfo);
+        console.log(itemData);
+    }, [boardDetailInfo]);
+
+    // 디테일 클릭하는 함수
     const detailHandler = (e) => {
         // 디테일 클릭함
         console.log(itemData[e.target.id - 1]);
@@ -141,8 +94,9 @@ const Board = ({isForward}) => {
             scoreTitle: itemData[e.target.id - 1].title
         })
         setDetailClick(true);
-
     }
+
+    // 디테일 끄는 함수
     const detailCloseHandler = (e) => {
         setDetailClick(false);
     }
