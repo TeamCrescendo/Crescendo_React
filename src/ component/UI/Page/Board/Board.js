@@ -4,8 +4,13 @@ import classNames from "classnames";
 import {useEffect, useState} from "react";
 import {ImageList, ImageListItem, Skeleton} from "@mui/material";
 import {getCurrentLoginUser} from "../../../util/login-util";
-import {Document, Page} from "react-pdf";
+import {Document, Page, pdfjs} from "react-pdf";
 import BoardDetail from "../../board/board_list/board_detail/BoardDetail";
+import '@react-pdf-viewer/default-layout/lib/styles/index.css';
+import 'react-pdf/dist/Page/TextLayer.css';
+import 'react-pdf/dist/Page/AnnotationLayer.css';
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+
 
 const Board = ({isForward}) => {
     const [scoreDetailOpen, setScoreDetailOpen] = useState(false);
@@ -17,6 +22,8 @@ const Board = ({isForward}) => {
     const [token, setToken] = useState(getCurrentLoginUser().token);
     // 보드들을 담아두는 배열
     const [itemData, setItemData] = useState([]);
+    // 처음 시작 확인
+    const [first, setFirst] = useState(false);
 
 
     const setAnimation = classNames({
@@ -26,8 +33,11 @@ const Board = ({isForward}) => {
 
     // 모든 보드 정보 불러오기
     useEffect(() => {
-        getBoard();
-    }, []);
+        if (!first) {
+            getBoard();
+            setFirst(true);
+        }
+    }, [first]);
 
     // 서버에서 모든 보드 불러오기
     const getBoard = async () => {
@@ -37,8 +47,9 @@ const Board = ({isForward}) => {
                 'Authorization': 'Bearer ' + token
             }
         });
-
         const json = await res.json();
+        console.log(json.boards);
+        console.log(json.pdfFile);
         renderingBoard(json);
     }
 
@@ -46,16 +57,25 @@ const Board = ({isForward}) => {
     const renderingBoard = ({boards, pdfFile}) => {
         // console.log(boards);
         console.log("배열의 길이", boards.length);
+        const blobList = pdfFile.map((pdfFiles, i) => ({
+            blob: new Blob([pdfFiles[i]], {type: 'application/pdf'})
+        }));
+        const fileList = blobList.map((blob, i)=>({
+            file : new File([blob[i]], 'example.pdf', { type: 'application/pdf' })
+        }));
+        console.log(fileList)
         const newItems = boards.map((board, i) => ({
             boardTitle: board.boardTitle,
             boardNo: board.boardNo,
-            boardPdf: pdfFile[i]
+            boardPdf: fileList[i].file
         }));
         setItemData(prevData => [...prevData, ...newItems]);
+    }
+
+    useEffect(() => {
         console.log(itemData);
         setBoardsLoading(false);
-    }
-    
+    }, [itemData])
 
     // 디테일 클릭하는 함수
     const detailHandler = (e) => {
@@ -91,7 +111,7 @@ const Board = ({isForward}) => {
                     </div>
                 ))
             )}
-            {detailClick && <BoardDetail boardDetailInfo={boardDetailInfo} detailCloseHandler={detailCloseHandler}/>}
+            {/*{detailClick && <BoardDetail boardDetailInfo={} detailCloseHandler={detailCloseHandler}/>}*/}
             {boardsLoading && <Skeleton variant="rectangular" width={1105} height={800}/>}
         </div>
     )

@@ -90,6 +90,7 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
             setScoreId(idValue);
             setPdfFile(file);
             setIsLoading(false);
+            console.log(file);
         } else {
             console.log("변환 실패.")
             console.error("Failed to fetch PDF:", res.body);

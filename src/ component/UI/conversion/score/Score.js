@@ -46,8 +46,10 @@ const Score = ({pdfFile, scoreId}) => {
     //
     const onDocumentLoadSuccess = (document) => {
         console.log(document);
+        console.log(pdfFile);
         setNumPages(document.numPages);
     };
+
     const pageClickHandler = (event, page) => {
         console.log(page);
         // console.log(event);
