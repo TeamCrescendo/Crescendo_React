@@ -51,12 +51,24 @@ const Board = ({isForward}) => {
 
     // 보드 배열 받아오면 실행하는 effect
     useEffect(() => {
-        if (boards.length !== 0) {
-            console.log(boards);
-            boards.forEach(board =>{
-                getPdf(board.boardNo, board.scoreTitle, board.scoreNo);
-            })
-        }
+        const fetchPdfForBoards = async () => {
+            if (boards.length !== 0) {
+                console.log(boards);
+
+                // 각각의 getPdf 호출을 Promise로 감싸고 배열에 저장
+                const pdfPromises = boards.map(board =>
+                    getPdf(board.boardNo, board.scoreTitle, board.scoreNo)
+                );
+
+                // 모든 getPdf 호출이 완료될 때까지 기다림
+                await Promise.all(pdfPromises);
+
+                // 모든 getPdf 호출이 완료되면 itemData 업데이트
+                itemData.push(boardDetailInfo);
+                console.log(itemData);
+            }
+        };
+        fetchPdfForBoards();
     }, [boards]);
 
     // 보드 byte 배열 받아오는 함수
@@ -75,9 +87,6 @@ const Board = ({isForward}) => {
         setBoardDetailInfo({...boardDetailInfo, pdfFile: file, scoreNo: scoreNo, scoreTitle: scoreTitle});
     }
 
-    useEffect(() => {
-
-    }, []);
 
     useEffect(() => {
         itemData.push(boardDetailInfo);
