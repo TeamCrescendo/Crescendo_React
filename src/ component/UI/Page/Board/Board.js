@@ -44,9 +44,7 @@ const Board = ({ isForward }) => {
                         <span className="imog2"><IoCloseCircleOutline /></span>
                         <p className="texts2">
                             자유롭게 적어 주세요!
-
                         </p>
-
                         <div className="boot-strap2">
                             <hr/>
                             <input
@@ -60,13 +58,15 @@ const Board = ({ isForward }) => {
                         <div className="title2">
                         </div>
                         <div className="heading2">
-                            <input
-                                className="upload2"
-                                type="file"
-                                onChange={handlePdfUpload}
-                                accept=".pdf"
-                            />
-                            <p><FaFileUpload /> 파일을 업로드 하세요!</p>
+                            <div className="file-upload2">
+                                <input
+                                    className="upload2"
+                                    type="file"
+                                    onChange={handlePdfUpload}
+                                    accept=".pdf"
+                                />
+                                <p><FaFileUpload /> 파일을 업로드 하세요!</p>
+                            </div>
                             <button className="button2">UPLOAD</button>
                         </div>
 

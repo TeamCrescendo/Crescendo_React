@@ -24,6 +24,7 @@ header
   background: url(https://cdn.pixabay.com/photo/2014/12/17/22/36/piano-571968_1280.jpg);
   background-size: cover;
   font-family: 'Playfair Display', serif;
+  position: fixed;
   font-size: 30px;
 }
 .webinfoContainer {
@@ -36,6 +37,7 @@ header
   border-bottom-left-radius: 100px;
   border-top-left-radius: 100px;
   padding: 20px; /* 내용과 테두리 사이 간격 */
+
 
   @keyframes slide-up-invitation {
     0% {
@@ -69,13 +71,13 @@ header
 
   h2 {
 
-    h3{
+    .h3-title{
       font-size: 35px;
       font-family: 'KNUTRUTHTTF';
       color: #5882FA;
       margin: 50px 0 0 0;
     }
-    span{
+    .span-title{
       font-family: 'Lobster', sans-serif;
       font-size: 35px;
       color: #D8D8D8;
