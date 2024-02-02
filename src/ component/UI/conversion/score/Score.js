@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Document, Page} from "react-pdf";
 import {getCurrentLoginUser} from "../../../util/login-util";
 import "./Score.scss";
@@ -95,6 +95,11 @@ const Score = ({pdfFile, scoreId}) => {
                 console.error('Error:', error);
             });
     }
+
+    useEffect(() => {
+        const binaryArray=new Uint8Array(pdfFile);
+        console.log(binaryArray);
+    }, []);
 
     const titleModifyHandler = e =>{
         setBoardTitle(e.target.value);
