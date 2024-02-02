@@ -5,11 +5,13 @@ import classNames from "classnames";
 import {getCurrentLoginUser} from "../../../util/login-util";
 import Score from "../../conversion/score/Score";
 import MusicApp from "./waveform/MusicApp";
+import {Slider} from "@mui/material";
 
 const Ai_Music = ({ isForward }) => {
     const [scoreId, setScoreId] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [isDone, setIsDone] = useState(false);
+    const [sliderValue, setSliderValue] = useState(5);
 
     const setAnimation = classNames({
         'slide-up': isForward,
@@ -65,11 +67,11 @@ const Ai_Music = ({ isForward }) => {
     const aiMusicMakeHanlder = e => {
         let promptValue = document.querySelector('.music_prompt').value;
         if (promptValue === null) promptValue = "무제";
-        let durationValue = document.querySelector('.music_duration').value;
-        if (durationValue === null) durationValue = 10;
         setIsLoading(true);
+
+
         setIsDone(false);
-        makeAiMusic(promptValue, durationValue);
+        makeAiMusic(promptValue, sliderValue);
     }
 
     const loadingPage = () => {
@@ -83,14 +85,30 @@ const Ai_Music = ({ isForward }) => {
         )
     }
 
+    const handleSliderChange = (event, newValue) => {
+        setSliderValue(newValue); // Slider 값 변경 시 상태 업데이트
+    };
+
     const renderPage = () => {
         return (
             <>
                 <span>프롬프트</span>
                 <input className="music_prompt" type="text" placeholder="여기에 입력하세요."/>
-                <span>초)음악 최대 길이 (10초)</span>
-                <input className="music_duration" type="number" min="0" max="10" placeholder="재생시간"
-                       style={{width: "100px"}}/>
+                <span>재생시간</span>
+                <Slider
+                    className="music_duration"
+                    aria-label="time"
+                    defaultValue={5}
+                    // getAriaValueText={valuetext}
+                    onChange={handleSliderChange}
+                    valueLabelDisplay="auto"
+                    step={1}
+                    marks
+                    min={1}
+                    max={10}
+                />
+                {/*<input className="music_duration" type="number" min="0" max="10" placeholder="재생시간"*/}
+                {/*       style={{width: "100px"}}/>*/}
                 <button type="button" onClick={aiMusicMakeHanlder}>생성시작</button>
             </>
         );

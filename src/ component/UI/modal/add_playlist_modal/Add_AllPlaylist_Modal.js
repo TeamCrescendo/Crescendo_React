@@ -68,6 +68,7 @@ const AddAllPlaylistModal = ({ onClose, loginInfo, }) => {
             })
             .then(data => {
                 alert("신규 악보목록을 생성합니다!");
+                onClose();
             })
             .catch(error => {
                 alert(error.message);

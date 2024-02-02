@@ -80,7 +80,10 @@ const PlaylistInfo = ({ loginInfo }) => {
             headers: requestHeader
         })
             .then(res => {
-                if (res.ok) alert("악보목록이 성공적으로 삭제되었습니다!");
+                if (res.ok) {
+                    alert("악보목록이 성공적으로 삭제되었습니다!");
+                    selectAllPlaylist();
+                }
                 else alert("악보목록 삭제가 실패했습니다!");
             })
     }

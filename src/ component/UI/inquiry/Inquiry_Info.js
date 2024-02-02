@@ -123,17 +123,17 @@ const InquiryInfo = ({ loginInfo }) => {
             <div className="inquiry-info-container">
                 <div className="table-container">
                     <div className="table-row">
-                        <div>문의제목</div>
-                        <div className="content">문의내용</div>
+                        <div className="content">문의제목</div>
+                        {/*<div></div>*/}
                         <div>문의시각</div>
-                        <div></div>
+                        <div>문의내용</div>
                         <div><InquiryModalButton inquiryButtonClick={inquiryButtonClick} onClose={() => setContentModalOpen(false)}/></div>
                     </div>
                     <div className="inquiry-scroll-container">
                         {rows.map((row) => (
                             <div className="table-data" key={row.inquiryId}>
-                                <div> {row.title}</div>
-                                <div className="content">{row.content}</div>
+                                <div className="content"> {row.title}</div>
+                                {/*<div className="content">{row.content}</div>*/}
                                 <div>{row.inquiry_time}</div>
                                 <div>
                                     <InquiryContentModalButton row={{ content: row.content, title: row.title, inquiryId: row.inquiryId
