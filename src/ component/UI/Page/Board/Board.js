@@ -40,36 +40,21 @@ const Board = ({ isForward }) => {
                     Bulletin Board
                 </h1>
                 <div className={`boardContainer ${setAnimation}`}>
-                    <div className="box2">
-                        <span className="imog2"><IoCloseCircleOutline /></span>
-                        <p className="texts2">
-                            자유롭게 적어 주세요!
-                        </p>
-                        <div className="boot-strap2">
-                            <hr/>
-                            <input
-                                type="text"
-                                className="content2"
-                                placeholder="음악 혹은 악보관련 이야기를 작성해주세요!"
-                                value={content}
-                                onChange={handleContentChange}
-                            />
-                        </div>
-                        <div className="title2">
-                        </div>
-                        <div className="heading2">
-                            <div className="file-upload2">
-                                <input
-                                    className="upload2"
-                                    type="file"
-                                    onChange={handlePdfUpload}
-                                    accept=".pdf"
-                                />
-                                <p><FaFileUpload /> 파일을 업로드 하세요!</p>
-                            </div>
-                            <button className="button2">UPLOAD</button>
-                        </div>
-
+                    <div className="body-div">
+                        <article className="article-01">
+                           <div className="cont1">
+                               <h2>AUDIO</h2>
+                               <div className="cont2">
+                                   <time className="time">February 02 , 2024</time>
+                               </div>
+                               <audio className="audio" controls="controls">
+                                   <source type="audio/mpeg"
+                                           src="http://media.blubrry.com/codepen_
+                                        radio/p/codepen-podcast.s3.amazonaws.com/100.mp3?_=1"
+                                   />
+                               </audio>
+                           </div>
+                        </article>
                     </div>
                 </div>
             </header>
