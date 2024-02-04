@@ -2,7 +2,7 @@ import * as React from 'react';
 import './Board.scss';
 import classNames from "classnames";
 import {useEffect, useState} from "react";
-import {ImageList, ImageListItem, Skeleton} from "@mui/material";
+import {Grid, ImageList, ImageListItem, Skeleton} from "@mui/material";
 import {getCurrentLoginUser} from "../../../util/login-util";
 import {Document, Page, pdfjs} from "react-pdf";
 import BoardDetail from "../../board/board_list/board_detail/BoardDetail";
@@ -148,24 +148,36 @@ const Board = ({isForward}) => {
 
     return (
         <div className={`boardContainer ${setAnimation}`}>
-            {!detailClick && !boardsLoading && (
-                pdfFiles.map((item) => (
-                    <div className="image-list-item">
-                        <Document file={item} onLoadSuccess={onDocumentLoadSuccess}>
-                            <Page pageNumber={1}/>
-                        </Document>
-                        <div className="image-text" onClick={detailHandler} id={item.scoreNo}>
-                            곡명
-                            <span className="score-title">{item.boardTitle}</span>
-                            <div className="score-info"><span>자세히 보기</span></div>
-                        </div>
-                    </div>
-                ))
-            )}
+            {
+                !detailClick && !boardsLoading &&
+                (
+                    <Grid container spacing={2}  className="grid" >
+                        {
+                            pdfFiles.map((item) =>
+                                    (
+                                        <Grid xs={6} key={item.scoreNo} className="grid-item">
+                                            <Document file={item} onLoadSuccess={onDocumentLoadSuccess}>
+                                                <Page pageNumber={1}/>
+                                            </Document>
+                                            <div className="image-text" onClick={detailHandler} id={item.scoreNo}>
+                                                곡명
+                                                <span className="score-title">{item.boardTitle}</span>
+                                                <div className="score-info"><span>자세히 보기</span></div>
+                                            </div>
+                                        </Grid>
+                                    )
+                            )
+                        }
+                    </Grid>
+                )
+            }
             {detailClick && <BoardDetail
                 // boardDetailInfo={}
-                detailCloseHandler={detailCloseHandler}/>}
-            {boardsLoading && <Skeleton variant="rectangular" width={1105} height={800}/>}
+                detailCloseHandler={detailCloseHandler}/>
+            }
+            {
+                boardsLoading && <Skeleton variant="rectangular" width={1105} height={800}/>
+            }
         </div>
     )
         ;
