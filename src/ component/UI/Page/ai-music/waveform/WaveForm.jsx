@@ -9,10 +9,10 @@ function animateBars(analyser, canvas, canvasCtx, dataArray, bufferLength) {
     canvasCtx.fillStyle = '#000';
 
     // Calculate the height of the canvas.
-    const HEIGHT = canvas.height / 2;
+    const HEIGHT = canvas.height;
 
     // Calculate the width of each bar in the waveform based on the canvas width and the buffer length.
-    var barWidth = Math.ceil(canvas.width / bufferLength) * 2.5;
+    var barWidth = Math.ceil(canvas.width / (bufferLength / 10)) * 2.6;
 
     // Initialize variables for the bar height and x-position.
     let barHeight;
@@ -23,18 +23,18 @@ function animateBars(analyser, canvas, canvasCtx, dataArray, bufferLength) {
         // Calculate the height of the current bar based on the audio data and the canvas height.
         barHeight = (dataArray[i] / 255) * HEIGHT;
 
-        // Generate random RGB values for each bar.
-        const maximum = 10;
-        const minimum = -10;
-        var r = 242 + Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
-        var g = 104 + Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
-        var b = 65 + Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+// Generate random RGB values for each bar in the blue color range.
+        const maximum = 50; // 최대값을 50으로 설정
+        const minimum = 0; // 최소값을 0으로 설정
+        var r = 0 + Math.floor(Math.random() * (maximum - minimum + 1)) + minimum; // Red component
+        var g = 100 + Math.floor(Math.random() * (maximum - minimum + 1)) + minimum; // Green component
+        var b = 200 + Math.floor(Math.random() * (maximum - minimum + 1)) + minimum; // Blue component
 
         // Set the canvas fill style to the random RGB values.
         canvasCtx.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')';
 
         // Draw the bar on the canvas at the current x-position and with the calculated height and width.
-        canvasCtx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
+        canvasCtx.fillRect(x, HEIGHT, barWidth, -barHeight);
 
         // Update the x-position for the next bar.
         x += barWidth + 1;

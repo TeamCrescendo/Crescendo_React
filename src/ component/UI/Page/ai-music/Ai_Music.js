@@ -1,5 +1,4 @@
 import React, {StrictMode, useState} from 'react';
-
 import './Ai_Music.scss';
 import classNames from "classnames";
 import {getCurrentLoginUser} from "../../../util/login-util";
@@ -7,11 +6,14 @@ import Score from "../../conversion/score/Score";
 import MusicApp from "./waveform/MusicApp";
 import {Slider} from "@mui/material";
 
-const Ai_Music = ({ isForward }) => {
+import Textarea from '@mui/joy/Textarea';
+import {Typography} from "@mui/joy";
+const Ai_Music = ({ isForward, loginInfo }) => {
     const [scoreId, setScoreId] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [isDone, setIsDone] = useState(false);
     const [sliderValue, setSliderValue] = useState(5);
+    const [text, setText] = React.useState('');
 
     const setAnimation = classNames({
         'slide-up': isForward,
@@ -65,13 +67,11 @@ const Ai_Music = ({ isForward }) => {
     }
 
     const aiMusicMakeHanlder = e => {
-        let promptValue = document.querySelector('.music_prompt').value;
-        if (promptValue === null) promptValue = "무제";
+        if (text === '') setText("무제");
         setIsLoading(true);
 
-
         setIsDone(false);
-        makeAiMusic(promptValue, sliderValue);
+        makeAiMusic(text, sliderValue);
     }
 
     const loadingPage = () => {
@@ -92,9 +92,8 @@ const Ai_Music = ({ isForward }) => {
     const renderPage = () => {
         return (
             <>
-                <span>프롬프트</span>
-                <input className="music_prompt" type="text" placeholder="여기에 입력하세요."/>
-                <span>재생시간</span>
+                {/*<span>프롬프트</span>*/}
+                <span>음악 길이 설정</span>
                 <Slider
                     className="music_duration"
                     aria-label="time"
@@ -107,6 +106,21 @@ const Ai_Music = ({ isForward }) => {
                     min={1}
                     max={10}
                 />
+                <Textarea
+                    className="music_prompt"
+                    placeholder="원하는 음악을 설명해주세요."
+                    value={text}
+                    onChange={(event) => setText(event.target.value)}
+                    minRows={5}
+                    maxRows={7}
+                    endDecorator={
+                        <Typography level="body-xs" sx={{ ml: 'auto' }}>
+                            {text.length} character(s)
+                        </Typography>
+                    }
+                    sx={{ minWidth: 500 }}
+                />
+
                 {/*<input className="music_duration" type="number" min="0" max="10" placeholder="재생시간"*/}
                 {/*       style={{width: "100px"}}/>*/}
                 <button type="button" onClick={aiMusicMakeHanlder}>생성시작</button>
@@ -114,13 +128,31 @@ const Ai_Music = ({ isForward }) => {
         );
     }
 
+    const backHandler = () => {
+        setIsDone(false);
+
+    }
+
     return (
         <div className={`ai-music-container ${setAnimation}`}>
-            <div className="ai-music-div">
+            <div className="ai-music-header">
                 <h1>나만의 AI 음악</h1>
+            </div>
+            <div className="ai-music-div">
 
                 {
-                    isDone && <MusicApp url={audioUrl}/>
+                    isDone &&
+                    (
+                        <>
+                            <MusicApp url={audioUrl}/>
+                            <div className="btn-container">
+                                <div className="returnBtn" onClick={backHandler}>돌아가기</div>
+                                <a href={audioUrl} download={`${loginInfo.userName + "의 음악"}.mp3`} className="downloadBtn">
+                                    다운로드
+                                </a>
+                            </div>
+                        </>
+                    )
                 }
                 {
                     isLoading

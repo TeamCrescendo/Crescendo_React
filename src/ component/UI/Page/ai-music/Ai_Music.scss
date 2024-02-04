@@ -3,47 +3,96 @@
   font-family: "Noto Sans KR", sans-serif;
   width: 100%;
   height: 100%;
-  background: #e4daea;
+  background: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* 헤더를 컨테이너의 맨 위에 위치시킵니다. */
+  align-items: center;
+  padding-top: 50px; /* 헤더와 상단 간격을 조절합니다. */
+  border-bottom-left-radius: 100px;
+  border-top-left-radius: 100px;
+}
+
+.ai-music-header {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  //background: #9b3535;
+  width: 100%;
+}
+
+.ai-music-div {
+  display: flex;
+  justify-content: start;
+  align-items: center;
   flex-direction: column;
+  width: 100%;
+  height: 100%;
+  margin-top: 100px;
 
-  border-bottom-left-radius: 100px;
-  border-top-left-radius: 100px;
 
-  .ai-music-div {
+  .music_duration {
+    width: 300px;
+    margin-bottom: 20px;
+  }
+  .music_prompt {
+    margin-bottom: 20px;
+
+  }
+
+  .btn-container {
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
-    flex-direction: column;
-  }
+    flex-direction: row;
 
-  @keyframes slide-up-invitation {
-    0% {
-      opacity: 0;
-      transform: translateY(100%);
+    .returnBtn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 100px;
+      height: 30px;
+      background: #9b3535;
+      margin-top: 10px;
+
+      cursor: pointer;
     }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  @keyframes slide-down-invitation {
-    0% {
-      opacity: 0;
-      transform: translateY(-100%);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
+    .downloadBtn {
+
     }
   }
 }
+
+@keyframes slide-up-invitation {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-down-invitation {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
 
 .slide-up {
   animation: slide-up-invitation 1s;
 }
+
 .slide-down {
   animation: slide-down-invitation 1s;
 }
