@@ -4,6 +4,7 @@ import classNames from "classnames";
 import {useEffect, useState} from "react";
 import {Grid, ImageList, ImageListItem, Skeleton} from "@mui/material";
 import {getCurrentLoginUser} from "../../../util/login-util";
+import Pagination from "@mui/material/Pagination";
 import {Document, Page, pdfjs} from "react-pdf";
 import BoardDetail from "../../board/board_list/board_detail/BoardDetail";
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
@@ -95,10 +96,14 @@ const Board = ({isForward}) => {
 
     // 디테일 클릭하는 함수
     const detailHandler = (e) => {
-        console.log(e.target.classList[1]);
+        // 어떤 보드인지
+        console.log(boards[e.target.classList[1]]);
+
         // 디테일 클릭함
         setBoardDetail({
             pdfFile: pdfFiles[e.target.classList[1]],
+            boardTitle: boards[e.target.classList[1]].boardTitle,
+            boardNo: boards[e.target.classList[1]].boardNo,
         });
         setDetailClick(true);
     }
@@ -119,24 +124,34 @@ const Board = ({isForward}) => {
             {
                 !detailClick && !boardsLoading &&
                 (
-                    <Grid container spacing={15}  className="grid" sx={{width: 1220, height:900, p:2}}>
-                        {
-                            pdfFiles.map((item, i) =>
+                    <>
+                        <Grid container spacing={15} className="grid" sx={{width: 1220, height: 900, p: 2}}>
+                            {
+                                pdfFiles.map((item, i) =>
                                     (
                                         <Grid xs={6} key={item.scoreNo} className="grid-item">
-                                            <Document file={item} onLoadSuccess={onDocumentLoadSuccess} className="document">
+                                            <Document file={item} onLoadSuccess={onDocumentLoadSuccess}
+                                                      className="document">
                                                 <Page pageNumber={1}/>
                                             </Document>
-                                            <div className={`image-text ${i}`}  onClick={detailHandler} id={item.scoreNo}>
+                                            <div className={`image-text ${i}`} onClick={detailHandler}
+                                                 id={item.scoreNo}>
                                                 곡명
                                                 <span className={`score-title ${i}`}>{item.boardTitle}</span>
                                                 <div className={`score-info ${i}`}><span>자세히 보기</span></div>
                                             </div>
                                         </Grid>
                                     )
-                            )
-                        }
-                    </Grid>
+                                )
+                            }
+                        </Grid>
+                        <Pagination
+                            className="pagination"
+                            // count={numPages}
+                            // onChange={pageClickHandler}
+                            size={"large"}
+                        />
+                    </>
                 )
             }
             {detailClick && <BoardDetail
