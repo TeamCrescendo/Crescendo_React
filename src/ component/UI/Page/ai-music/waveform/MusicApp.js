@@ -2,6 +2,7 @@ import WaveForm from "./WaveForm";
 import { useEffect, useRef, useState } from "react";
 import { BsFillTriangleFill } from "react-icons/bs";
 import { FaPause } from "react-icons/fa6";
+import './MusicApp.scss';
 
 export default function MusicApp({ url }) {
     const [audioUrl, setAudioUrl] = useState();
@@ -93,7 +94,9 @@ export default function MusicApp({ url }) {
 
     return (
         <div className="musicApp">
-            {analyzerData && <WaveForm analyzerData={analyzerData} />}
+            <div className="wave">
+                {analyzerData && <WaveForm analyzerData={analyzerData} />}
+            </div>
             <div
                 style={{
                     height: 40,
@@ -104,16 +107,25 @@ export default function MusicApp({ url }) {
             >
                 <div className="audio-player">
                     <audio ref={audioElmRef} id="audio" src={audioUrl}></audio>
-                    <button onClick={togglePlay}>
-                        {isPlaying ? <FaPause /> : <BsFillTriangleFill style={{transform: "rotate(90deg)"}}/>}
-                    </button>
-                    <span>{formatTime(currentTime)} / {formatTime(duration)}</span>
-                    <input
-                        type="range"
-                        value={currentTime}
-                        max={duration}
-                        onChange={handleSeek}
-                    />
+
+                    <div className="runTime">
+                        <span>{formatTime(currentTime)}</span>
+                        <span>{formatTime(duration)}</span>
+                    </div>
+                    <div className="runTimeBar">
+                        <input
+                            className="Bar"
+                            type="range"
+                            value={currentTime}
+                            max={duration}
+                            onChange={handleSeek}
+                        />
+                    </div>
+                    <div className="audioBtn">
+                        <button className="startAndPause" onClick={togglePlay}>
+                            {isPlaying ? <FaPause /> : <BsFillTriangleFill style={{transform: "rotate(90deg)"}}/>}
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

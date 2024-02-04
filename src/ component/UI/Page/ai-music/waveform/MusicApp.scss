@@ -1,0 +1,51 @@
+
+.musicApp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .wave {
+    height: 300px;
+    width: 500px;
+    background: #6db27a;
+  }
+
+  .audio-player {
+    background: #909fda;
+    width: 500px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    .runTime{
+      font-family: "Noto Sans KR", sans-serif;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      font-size: 20px;
+      padding: 0 50px 0 50px;
+    }
+    .runTimeBar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .Bar {
+        width: 400px;
+      }
+
+    }
+    .audioBtn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .startAndPause {
+        border: 0;
+        background: none;
+        font-size: 40px;
+      }
+    }
+  }
+}

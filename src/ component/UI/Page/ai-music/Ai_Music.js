@@ -125,7 +125,7 @@ const Ai_Music = ({ isForward }) => {
                 {
                     isLoading
                         ? loadingPage()
-                        : renderPage()
+                        : !isDone && renderPage()
                 }
             </div>
         </div>

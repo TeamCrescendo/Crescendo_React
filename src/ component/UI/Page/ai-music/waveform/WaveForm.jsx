@@ -77,13 +77,15 @@ const WaveForm = ({ analyzerData }) => {
     return (
         <canvas
             style={{
-                position: "absolute",
-                bottom: "-10%",
-                left: "0",
+                // background: "gray",
+                // position: "absolute",
+                // bottom: "-10%",
+                // left: "0",
                 // transform: "translateX(60%)",
                 zIndex: "0",
-                width: `${width}px`,
-                height: `${height/3}px`
+                width: `100%`,
+                height: `100%`,
+                // marginBottom: "14px"
             }}
             ref={canvasRef}
         />
