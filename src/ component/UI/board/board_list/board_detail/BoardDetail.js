@@ -55,6 +55,12 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler}) => {
     //     e.preventDefault();
     // });
 
+
+
+    useEffect(()=>{
+        console.log(boardDetailInfo);
+    }, []);
+
     return (
         <div className="board-detail-container">
             <div className="detail-header" onClick={detailCloseHandler}><IoMdClose className="close"/></div>

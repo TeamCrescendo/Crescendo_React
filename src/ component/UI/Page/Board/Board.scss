@@ -5,45 +5,31 @@
   height: 100%;
   background: rgb(255, 255, 255);
   display: flex;
-  //background: red;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   flex-direction: row;
-  flex-wrap: wrap;
-  overflow: scroll;
-  padding-top: 200px;
-
-  border-bottom-left-radius: 100px;
-  border-top-left-radius: 100px;
+  //border-bottom-left-radius: 100px;
+  //border-top-left-radius: 100px;
 
   .grid{
-    width: 80%;
     //padding: 10px;
+    overflow: scroll;
 
     .grid-item{
-      border: 1px solid black;
-      //margin: 20px;
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &:hover .document{
+        filter: brightness(60%);
+      }
+      &:hover .image-text {
+        opacity: 1;
+      }
     }
   }
-  .image-list-item{
-    //position: relative;
-    //padding: 30px;
-    //margin: px;
-    //margin:150px;
-    margin-top: 150px;
-    width: 35%;
-    height: 50%;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    &:hover .score-img{
-      filter: brightness(60%);
-    }
-    &:hover .image-text {
-      opacity: 1;
-    }
-  }
+
 
   .image-text {
     position: absolute;

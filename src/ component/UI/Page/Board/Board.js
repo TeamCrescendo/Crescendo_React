@@ -9,6 +9,7 @@ import BoardDetail from "../../board/board_list/board_detail/BoardDetail";
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
+import boardDetail from "../../board/board_list/board_detail/BoardDetail";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -21,8 +22,8 @@ const Board = ({isForward}) => {
     const [boardsLoading, setBoardsLoading] = useState(true);
     // 토큰 가져오기
     const [token, setToken] = useState(getCurrentLoginUser().token);
-    // 보드들을 담아두는 배열
-    const [itemData, setItemData] = useState([]);
+    // 보드 디테일 정보
+    const [boardDetail, setBoardDetail] = useState({});
     // 보드 정보 배열
     const [boards, setBoards] = useState([]);
     const [getBoards, setGetBoards] = useState(false);
@@ -91,54 +92,21 @@ const Board = ({isForward}) => {
         setBoardsLoading(false);
     }, [boards]);
 
-    // useEffect(()=>{
-    //     if(getPdfFiles && pdfFiles !==0){
-    //         console.log(pdfFiles);
-    //     }
-    // }, [getPdfFiles]);
-    // const getFetchPdfFiles = async () => {
-    //     const res = await fetch("http://localhost:8484/api/board/pdf", {
-    //         method: 'GET',
-    //         headers: {
-    //             'Authorization': 'Bearer ' + token
-    //         }
-    //     });
-    //     const json = await res.json();
-    //     console.log(json);
-    //     const file = new File([json[2]], 'example.pdf', { type: 'application/pdf' });
-    //     console.log(file)
-    //     setPdfFiles([...json]);
-    //
-    //     setGetPdfFiles(true);
-    // }
-    // useEffect(() => {
-    //     if(getPdfFiles && getBoards){
-    //         console.log("둘다 가져옴");
-    //         console.log(getBoards);
-    //         console.log(pdfFiles);
-    //         console.log(new Uint8Array(...pdfFiles[0]));
-    //         const pdfFilesBlob=pdfFiles.map((file)=> {
-    //             new Blob([new Uint8Array(file)], {type:"application/pdf"});
-    //         });
-    //         console.log(pdfFilesBlob);
-    //         const pdfFilesFile=pdfFilesBlob.map((blob)=>{
-    //             new File([blob], "example.pdf", {type: "application/pdf"});
-    //         });
-    //         console.log(pdfFilesFile);
-    //     }
-    // }, [pdfFiles]);
-
 
     // 디테일 클릭하는 함수
     const detailHandler = (e) => {
+        console.log(e.target.classList[1]);
         // 디테일 클릭함
-        console.log(itemData[e.target.id - 1]);
+        setBoardDetail({
+            pdfFile: pdfFiles[e.target.classList[1]],
+        });
         setDetailClick(true);
     }
 
     // 디테일 끄는 함수
     const detailCloseHandler = (e) => {
         setDetailClick(false);
+
     }
 
     // PDF파일 잘 불러오면 하는 함수
@@ -151,18 +119,18 @@ const Board = ({isForward}) => {
             {
                 !detailClick && !boardsLoading &&
                 (
-                    <Grid container spacing={2}  className="grid" >
+                    <Grid container spacing={15}  className="grid" sx={{width: 1220, height:900, p:2}}>
                         {
-                            pdfFiles.map((item) =>
+                            pdfFiles.map((item, i) =>
                                     (
                                         <Grid xs={6} key={item.scoreNo} className="grid-item">
-                                            <Document file={item} onLoadSuccess={onDocumentLoadSuccess}>
+                                            <Document file={item} onLoadSuccess={onDocumentLoadSuccess} className="document">
                                                 <Page pageNumber={1}/>
                                             </Document>
-                                            <div className="image-text" onClick={detailHandler} id={item.scoreNo}>
+                                            <div className={`image-text ${i}`}  onClick={detailHandler} id={item.scoreNo}>
                                                 곡명
-                                                <span className="score-title">{item.boardTitle}</span>
-                                                <div className="score-info"><span>자세히 보기</span></div>
+                                                <span className={`score-title ${i}`}>{item.boardTitle}</span>
+                                                <div className={`score-info ${i}`}><span>자세히 보기</span></div>
                                             </div>
                                         </Grid>
                                     )
@@ -172,7 +140,7 @@ const Board = ({isForward}) => {
                 )
             }
             {detailClick && <BoardDetail
-                // boardDetailInfo={}
+                boardDetailInfo={boardDetail}
                 detailCloseHandler={detailCloseHandler}/>
             }
             {
