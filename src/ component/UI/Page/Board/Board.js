@@ -47,38 +47,70 @@ const Board = ({isForward}) => {
     }, [first]);
 
     // 서버에서 모든 보드 불러오기
-    const getBoard = async () => {
-        const res = await fetch("http://localhost:8484/api/board/", {
+    const getBoard = () => {
+        fetch("http://localhost:8484/api/board/", {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + token
             }
+        }).then(res => {
+            return res.json();
+        }).then(json => {
+            console.log(json.boards);
+            setBoards([...json.boards]);
+            setGetBoards(true);
         });
-        const json = await res.json();
-        console.log(json);
-        console.log(json.boards);
-        setBoards([...json.boards]);
-        setGetBoards(true);
-        await getFetchPdfFiles();
-        // renderingBoard(json);
-
     }
+    // 보드 불러온 다음에
+    useEffect(() => {
+        const fetchData = async () => {
+            if (boards.length !== 0) {
+                console.log(boards);
+                for (let i = 0; i < boards.length; i++) {
+                    try {
+                        const res = await fetch(`http://localhost:8484/api/board/${boards[i].boardNo}`, {
+                            method: 'GET',
+                            headers: {
+                                'Authorization': 'Bearer ' + token
+                            }
+                        });
 
-    const getFetchPdfFiles = async () => {
-        const res = await fetch("http://localhost:8484/api/board/pdf", {
-            method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + token
+                        const blob = await res.blob();
+                        const file = new File([blob], "example.pdf", {type: "application/pdf"});
+
+                        // 이전 상태를 기반으로 새로운 상태를 업데이트
+                        setPdfFiles(prevFiles => [...prevFiles, file]);
+                    } catch (error) {
+                        console.error('Error fetching PDF file:', error);
+                    }
+                }
             }
-        });
-        const json = await res.json();
-        console.log(json);
-        const file = new File([json[2]], 'example.pdf', { type: 'application/pdf' });
-        console.log(file)
-        setPdfFiles([...json]);
+        };
 
-        setGetPdfFiles(true);
-    }
+        fetchData(); // async 함수를 호출
+        setBoardsLoading(false);
+    }, [boards]);
+
+    // useEffect(()=>{
+    //     if(getPdfFiles && pdfFiles !==0){
+    //         console.log(pdfFiles);
+    //     }
+    // }, [getPdfFiles]);
+    // const getFetchPdfFiles = async () => {
+    //     const res = await fetch("http://localhost:8484/api/board/pdf", {
+    //         method: 'GET',
+    //         headers: {
+    //             'Authorization': 'Bearer ' + token
+    //         }
+    //     });
+    //     const json = await res.json();
+    //     console.log(json);
+    //     const file = new File([json[2]], 'example.pdf', { type: 'application/pdf' });
+    //     console.log(file)
+    //     setPdfFiles([...json]);
+    //
+    //     setGetPdfFiles(true);
+    // }
     // useEffect(() => {
     //     if(getPdfFiles && getBoards){
     //         console.log("둘다 가져옴");
@@ -116,22 +148,23 @@ const Board = ({isForward}) => {
 
     return (
         <div className={`boardContainer ${setAnimation}`}>
-            {/*{!boardsLoading && <div className="ssibal">{itemData.length}</div>}*/}
             {!detailClick && !boardsLoading && (
                 pdfFiles.map((item) => (
-                    <div className="boardContainer">
+                    <div className="image-list-item">
                         <Document file={item} onLoadSuccess={onDocumentLoadSuccess}>
                             <Page pageNumber={1}/>
                         </Document>
-                        {/*<div className="image-text" onClick={detailHandler} id={item.scoreNo}>*/}
-                        {/*    곡명*/}
-                        {/*    <span className="score-title">{item.boardTitle}</span>*/}
-                        {/*    <div className="score-info"><span>자세히 보기</span></div>*/}
-                        {/*</div>*/}
+                        <div className="image-text" onClick={detailHandler} id={item.scoreNo}>
+                            곡명
+                            <span className="score-title">{item.boardTitle}</span>
+                            <div className="score-info"><span>자세히 보기</span></div>
+                        </div>
                     </div>
                 ))
             )}
-            {/*{detailClick && <BoardDetail boardDetailInfo={} detailCloseHandler={detailCloseHandler}/>}*/}
+            {detailClick && <BoardDetail
+                // boardDetailInfo={}
+                detailCloseHandler={detailCloseHandler}/>}
             {boardsLoading && <Skeleton variant="rectangular" width={1105} height={800}/>}
         </div>
     )
