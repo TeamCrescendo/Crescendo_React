@@ -32,8 +32,6 @@ const PlaylistModal = ({ onClose, loginInfo, data }) => {
 
     // 재생목록 확인
     const selectPlaylist = e => {
-        e.preventDefault();
-
         fetch(`${PLAYLIST_URL}/${loginInfo.account}/${data.plId}`, {
             method: 'GET',
             headers: requestHeader,

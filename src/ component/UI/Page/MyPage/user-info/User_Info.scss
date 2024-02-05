@@ -2,10 +2,10 @@
 .card {
   font-family: "Noto Sans KR", sans-serif;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: right;
+  align-items: start;
   flex-direction: row;
-  width: 100%;
+  width: 70%;
   min-width: 400px;
   height: 100%;
   background: white;
@@ -14,7 +14,9 @@
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   padding: 70px 10px 70px 60px;
-  border-right: 1px solid gray;
+  //border-right: 1px solid gray;
+
+  margin-left: auto;
 
   .info {
     margin-right: 10px;

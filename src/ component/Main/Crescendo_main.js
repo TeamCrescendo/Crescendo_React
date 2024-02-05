@@ -9,7 +9,7 @@ import Ai_Music from "../UI/Page/ai-music/Ai_Music";
 import Board from "../UI/Page/Board/Board";
 import Session from "react-session-api/src";
 import {AUTH_URL} from "../../config/host-config";
-import {getCurrentLoginUser} from "../util/login-util";
+import {getCurrentLoginUser, TOKEN, USERNAME} from "../util/login-util";
 import ConversionPage from "../UI/Page/Conversion/ConversionPage";
 
 const Crescendo_main = () => {
@@ -123,8 +123,7 @@ const Crescendo_main = () => {
         // window.location.reload();
     };
 
-    
-    useEffect(() => {
+    const googleCheck = () => {
         // URL 파라미터에서 액세스 토큰을 추출
         const searchParams = new URLSearchParams(window.location.hash.substring(1));
         const accessToken = searchParams.get('access_token');
@@ -134,23 +133,26 @@ const Crescendo_main = () => {
             fetch('http://localhost:8484/api/auth/oauth2/google/info',{
                 method: 'POST', // 요청 메서드
                 headers: {
-                'Content-Type': 'application/json' // 요청 헤더
+                    'Content-Type': 'application/json' // 요청 헤더
                 },
-            body: JSON.stringify(accessToken) // 요청 본문
+                body: JSON.stringify(accessToken) // 요청 본문
             }).then(res=>{
-                if(res.status===200){
-                    return res.json();
+                if(res.status === 200){
+                    const {token, userName, auth} = res.json();
+
+                    localStorage.setItem(TOKEN, token);
+                    localStorage.setItem(USERNAME, userName);
+
+                    window.location.reload();
                 }
             })
-            .then(json=>{
-      
-                
-            })
-
-            LoginCheck();
         } else {
             return;
         }
+    }
+    
+    useEffect(() => {
+
     }, []);
 
 
@@ -167,9 +169,8 @@ const Crescendo_main = () => {
         };
         const queryString = Object.keys(params).map(key => key + '=' + encodeURIComponent(params[key])).join('&');
 
-    // Redirect to Google OAuth 2.0 endpoint
+        // Redirect to Google OAuth 2.0 endpoint
         window.location.href = `${oauth2Endpoint}?${queryString}`;
-      
     }
    
 

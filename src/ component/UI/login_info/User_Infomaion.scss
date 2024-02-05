@@ -1,7 +1,7 @@
 
 .user-info-div {
   font-family: "Noto Sans KR", sans-serif;
-  width: 220px;
+  width: 250px;
   height: 70px;
   background: #d0ece2;
   border-bottom-left-radius: 100px;
@@ -16,7 +16,9 @@
 
   .imgtest {
     width: 50px;
+    max-width: 50px;
     height: 50px;
+    max-height: 50px;
     border-radius: 50%;
     margin-right: 10px  ;
   }
