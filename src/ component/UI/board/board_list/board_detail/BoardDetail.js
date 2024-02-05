@@ -41,6 +41,26 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token}) => {
         setCurrentPage(pageNum);
     }
 
+    // pdf 파일 다운로드
+    const downloadHandler = () => {
+        // 사용자로부터 파일 이름 입력 받기 (예: prompt 사용)
+        const fileName = prompt('파일 이름을 정해주세요:', 'example.pdf');
+
+        if (fileName) {
+            const url = URL.createObjectURL(boardDetailInfo.pdfFile);
+
+            const link = document.createElement('a');
+            link.href = url;
+
+            // 사용자가 입력한 파일 이름으로 설정
+            link.download = fileName;
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    };
+
     // 좋아요 버튼 클릭
     const likeClickHandler = () => {
         setLikeClicked(!likeClicked);
@@ -60,8 +80,8 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token}) => {
         }).then(json => {
             console.log(json);
         })
-
     }
+
     // 싫어요 버튼 클릭
     const dislikeClickHandler = () => {
         setDislikeClicked(!dislikeClicked);
@@ -71,10 +91,14 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token}) => {
                 'Authorization': 'Bearer ' + token,
                 "Content-Type":"application/json"
             },
-            body: {
+            body: JSON.stringify({
                 boardNo: boardDetailInfo.boardNo,
-                like: false
-            }
+                like: true
+            })
+        }).then(res => {
+            return res.json()
+        }).then(json => {
+            console.log(json);
         })
     }
 
@@ -125,7 +149,7 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token}) => {
                                             style={{cursor: "pointer"}}/>
                     }
                     <MdFormatListBulletedAdd style={{cursor: "pointer"}}/>
-                    <GiSaveArrow className="download-btn" style={{cursor: "pointer"}}/>
+                    <GiSaveArrow className="download-btn" style={{cursor: "pointer"}} onClick={downloadHandler}/>
                 </div>
             </div>
         </div>
