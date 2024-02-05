@@ -76,6 +76,9 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
 
     // 좋아요 버튼 클릭
     const likeClickHandler = () => {
+        if(dislikeClicked){
+            setDislikeClicked(!dislikeClicked);
+        }
         setLikeClicked(!likeClicked);
         fetch("http://localhost:8484/api/board/likeAndDislike", {
             method: "POST",
@@ -89,7 +92,7 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
                 like: true
             })
         }).then(res => {
-            return res.json()
+            return res.text()
         }).then(json => {
             console.log(json);
         })
@@ -97,6 +100,9 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
 
     // 싫어요 버튼 클릭
     const dislikeClickHandler = () => {
+        if(likeClicked){
+            setLikeClicked(!likeClicked);
+        }
         setDislikeClicked(!dislikeClicked);
         fetch("http://localhost:8484/api/board/likeAndDislike", {
             method: "POST",
@@ -106,10 +112,10 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
             },
             body: JSON.stringify({
                 boardNo: boardDetailInfo.boardNo,
-                like: true
+                like: false
             })
         }).then(res => {
-            return res.json()
+            return res.text()
         }).then(json => {
             console.log(json);
         })
