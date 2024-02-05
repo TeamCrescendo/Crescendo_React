@@ -1,27 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import TableContainer from "@mui/material/TableContainer";
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import TableCell from "@mui/material/TableCell";
-import TableBody from "@mui/material/TableBody";
 
-import './Inquiry_Info.scss';
-import InquiryButton from "../button/inquiry_modal_btn/Inquiry_modal_Button";
-import ModifyModal from "../modal/modify_modal/Modify_modal";
-import InquiryModal from "../modal/inquiry_modal/Inquiry_modal";
-import InquiryModalButton from "../button/inquiry_modal_btn/Inquiry_modal_Button";
-import {AUTH_URL, INQUIRY_URL} from "../../../config/host-config";
-import {getCurrentLoginUser} from "../../util/login-util";
-import {RiChatDeleteFill} from "react-icons/ri";
-import MessageModalButton from "../button/message_modal_btn/message_modal_button";
-import InquiryContentModalButton from "../button/inquirt_content_modal_button/Inquiry_Content_Modal_Button";
-import InquiryContentModal from "../modal/inquiry_content_modal/Inquiry_Content_Modal";
+
+import './Admin_Inquiry_Info.scss';
+import {getCurrentLoginUser} from "../../../util/login-util";
+import {INQUIRY_URL} from "../../../../config/host-config";
+import InquiryContentModalButton from "../../button/inquirt_content_modal_button/Inquiry_Content_Modal_Button";
 import {IconButton} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import InquiryContentModal from "../../modal/inquiry_content_modal/Inquiry_Content_Modal";
+import InquiryModal from "../../modal/inquiry_modal/Inquiry_modal";
 
-const InquiryInfo = ({ loginInfo }) => {
+
+const AdminInquiryInfo = ({ loginInfo }) => {
     const [contentModalOpen, setContentModalOpen] = useState(false);
     const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
     const [rows, setRows] = useState([]);
@@ -123,11 +113,12 @@ const InquiryInfo = ({ loginInfo }) => {
             <div className="inquiry-info-container">
                 <div className="table-container">
                     <div className="table-row">
-                        <div className="content">문의제목</div>
+                        <div className="content">문의내역</div>
                         {/*<div></div>*/}
                         <div>문의시각</div>
-                        <div>문의내용</div>
-                        <div><InquiryModalButton inquiryButtonClick={inquiryButtonClick} onClose={() => setContentModalOpen(false)}/></div>
+                        <div>문의접수</div>
+                        <div>문의유저</div>
+                        {/*<div><InquiryModalButton inquiryButtonClick={inquiryButtonClick} onClose={() => setContentModalOpen(false)}/></div>*/}
                     </div>
                     <div className="inquiry-scroll-container">
                         {rows.map((row) => (
@@ -137,8 +128,8 @@ const InquiryInfo = ({ loginInfo }) => {
                                 <div>{row.inquiry_time}</div>
                                 <div>
                                     <InquiryContentModalButton row={{ content: row.content, title: row.title, inquiryId: row.inquiryId
-                                            , time: row.inquiry_time }} onClose={() => setContentModalOpen(false)}
-                                                        modifyButtonClick={contentButtonClick} />
+                                        , time: row.inquiry_time }} onClose={() => setContentModalOpen(false)}
+                                                               modifyButtonClick={contentButtonClick} />
                                 </div>
                                 {/*<div><RiChatDeleteFill onClick={() => deleteInqHandler(row.inquiryId)} style={{color:"red", cursor:"pointer", fontSize:"30px"}}/></div>*/}
                                 <div>
@@ -158,4 +149,4 @@ const InquiryInfo = ({ loginInfo }) => {
     );
 };
 
-export default InquiryInfo;
+export default AdminInquiryInfo;

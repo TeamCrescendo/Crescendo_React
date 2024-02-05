@@ -13,7 +13,7 @@ import Button from "@mui/material/Button";
 import Pagination from "@mui/material/Pagination";
 import {IoMdClose} from "react-icons/io";
 
-const BoardDetail = ({boardDetailInfo, detailCloseHandler}) => {
+const BoardDetail = ({boardDetailInfo, detailCloseHandler, loginInfo}) => {
 
     const [scoreInfo, setScoreInfo] = useState({
         scoreImgUrl: '',
