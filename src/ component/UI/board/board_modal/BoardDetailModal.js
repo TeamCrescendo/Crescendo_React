@@ -19,6 +19,13 @@ const BoardDetailModal = ({onClose, scoreNo}) => {
 
     const account = getCurrentLoginUser().username;
 
+    // 토큰 가져오기
+    const [token, setToken] = useState(getCurrentLoginUser().token);
+    // 요청 헤더 객체
+    const requestHeader = {
+        'content-type': 'application/json',
+        'Authorization': 'Bearer ' + token
+    };
 
     // 서버로 보내야할 플레이리스트
     const [sendPlayList, setSendPlayList] = useState([]);
@@ -82,7 +89,7 @@ const BoardDetailModal = ({onClose, scoreNo}) => {
 
     const send = () =>{
         console.log(sendPlayList);
-        // console.log(scoreNo);
+        console.log(scoreNo);
         sendPlayList.forEach((item)=>{
             fetch("http://localhost:8484/api/playList", {
                 method: "POST",
@@ -91,7 +98,8 @@ const BoardDetailModal = ({onClose, scoreNo}) => {
                     'Authorization': 'Bearer ' + token
                 },
                 body:JSON.stringify({
-                    plId: item+0,
+                    account: "member5",
+                    plId: item,
                     scoreNo: scoreNo
                 })
             }).then(res=>res.json())
@@ -103,13 +111,7 @@ const BoardDetailModal = ({onClose, scoreNo}) => {
     }
 
 
-    // 토큰 가져오기
-    const [token, setToken] = useState(getCurrentLoginUser().token);
-    // 요청 헤더 객체
-    const requestHeader = {
-        'content-type': 'application/json',
-        'Authorization': 'Bearer ' + token
-    };
+
 
     const addAllPlayList = () => {
         console.log(title);

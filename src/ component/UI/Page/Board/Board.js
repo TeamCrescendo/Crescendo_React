@@ -104,6 +104,7 @@ const Board = ({isForward}) => {
             pdfFile: pdfFiles[e.target.classList[1]],
             boardTitle: boards[e.target.classList[1]].boardTitle,
             boardNo: boards[e.target.classList[1]].boardNo,
+            scoreNo: boards[e.target.classList[1]].scoreNo
         });
         setDetailClick(true);
     }
@@ -156,6 +157,7 @@ const Board = ({isForward}) => {
             }
             {detailClick && <BoardDetail
                 boardDetailInfo={boardDetail}
+                scoreNo={boardDetail.scoreNo}
                 detailCloseHandler={detailCloseHandler}
                 token={token}
             />

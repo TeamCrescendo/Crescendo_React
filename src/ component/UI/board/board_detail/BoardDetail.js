@@ -15,8 +15,9 @@ import {IoMdClose} from "react-icons/io";
 import AddAllPlaylistModal from "../../modal/add_playlist_modal/Add_AllPlaylist_Modal";
 import BoardDetailModal from "../board_modal/BoardDetailModal";
 import {getCurrentLoginUser} from "../../../util/login-util";
+import {json} from "react-router-dom";
 
-const BoardDetail = ({boardDetailInfo, detailCloseHandler, token}) => {
+const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo}) => {
 
     const [scoreInfo, setScoreInfo] = useState({
         scoreImgUrl: '',
@@ -112,13 +113,17 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token}) => {
 
     // 삭제 핸들러
     const deleteHandler = () =>{
+        console.log(`http://localhost:8484/api/board/${boardDetailInfo.boardNo}`);
         fetch(`http://localhost:8484/api/board/${boardDetailInfo.boardNo}`,{
             method:"DELETE",
             headers:{
                 'Authorization': 'Bearer ' + token,
                 "Content-Type":"application/json"
             }
-        });
+        }).then(res=>res.json())
+            .then(json=>{
+                console.log(json);
+            })
         detailCloseHandler();
     }
 
@@ -135,7 +140,7 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token}) => {
 
     useEffect(() => {
         console.log(boardDetailInfo);
-        console.log()
+        console.log(scoreNo);
     }, []);
 
     return (
@@ -174,11 +179,11 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token}) => {
                                             style={{cursor: "pointer"}}/>
                     }
                     <MdFormatListBulletedAdd style={{cursor: "pointer"}} onClick={clickPlayListButtonHandler}/>
-                    {boardDetailInfo.memberAccount=== account && < MdDelete onClick={deleteHandler} />}
+                    {boardDetailInfo.memberAccount !== account && < MdDelete onClick={deleteHandler} />}
                     <GiSaveArrow className="download-btn" style={{cursor: "pointer"}} onClick={downloadHandler}/>
                 </div>
             </div>
-            {addAllPlayModalOpen && <BoardDetailModal scoreNo={boardDetailInfo.scoreNo} onClose={() => setAddAllPlayModalOpen(false)}/>}
+            {addAllPlayModalOpen && <BoardDetailModal scoreNo={scoreNo} onClose={() => setAddAllPlayModalOpen(false)}/>}
         </div>
     );
 };
