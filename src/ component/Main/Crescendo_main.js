@@ -1,7 +1,6 @@
 
 import React, {useEffect, useState} from "react";
 import { MdAdd, MdDelete, MdDone } from "react-icons/md";
-
 import './Crescendo_main.scss';
 import MyPage from "../UI/Page/MyPage/MyPage";
 import RecordBar from "../UI/RecordBar/RecordBar";
@@ -14,6 +13,9 @@ import {getCurrentLoginUser} from "../util/login-util";
 import ConversionPage from "../UI/Page/Conversion/ConversionPage";
 
 const Crescendo_main = () => {
+
+
+
     // 페이지 목차 인덱스
     const [pageId, setPageId] = useState(1);
     // 시계 방향이냐 반시계 방향이냐
@@ -121,14 +123,58 @@ const Crescendo_main = () => {
         // window.location.reload();
     };
 
-    const googleLogin = () => {
-        fetch("http://localhost:8484/api/auth/oauth2/google", {
-            method: 'GET',
-        })
-            .then(res => {
-                if (res.status === 200) alert("구글로그인!");
+    
+    useEffect(() => {
+        // URL 파라미터에서 액세스 토큰을 추출
+        const searchParams = new URLSearchParams(window.location.hash.substring(1));
+        const accessToken = searchParams.get('access_token');
+
+        // 액세스 토큰이 있는 경우 백엔드로 전송
+        if (accessToken) {
+            fetch('http://localhost:8484/api/auth/oauth2/google/info',{
+                method: 'POST', // 요청 메서드
+                headers: {
+                'Content-Type': 'application/json' // 요청 헤더
+                },
+            body: JSON.stringify(accessToken) // 요청 본문
+            }).then(res=>{
+                if(res.status===200){
+                    return res.json();
+                }
             })
+            .then(json=>{
+      
+                
+            })
+
+            LoginCheck();
+        } else {
+            return;
+        }
+    }, []);
+
+
+    const googleLogin =  () => {
+       // Google's OAuth 2.0 endpoint for requesting an access token
+        const oauth2Endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
+
+        const params = {
+            'client_id': '890304175366-cg7t8bjavr2dt1ttf4ma2atl077n8i4r.apps.googleusercontent.com',
+            'redirect_uri': 'http://localhost:3000',
+            'response_type': 'token',
+            'scope': 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
+            'state': 'pass-through value'
+        };
+        const queryString = Object.keys(params).map(key => key + '=' + encodeURIComponent(params[key])).join('&');
+
+    // Redirect to Google OAuth 2.0 endpoint
+        window.location.href = `${oauth2Endpoint}?${queryString}`;
+      
     }
+   
+
+
+
 
 
     useEffect(() => {
