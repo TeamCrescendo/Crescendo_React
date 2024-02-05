@@ -8,12 +8,20 @@ import AddAllPlayListButton from "../../button/allplaylist/add_allplaylist_butto
 import {ALL_PLAYLIST_URL} from "../../../../config/host-config";
 import {getCurrentLoginUser} from "../../../util/login-util";
 
-const BoardDetailModal = ({ onClose}) => {
+const BoardDetailModal = ({onClose}) => {
     const modalBackground = useRef();
     const [title, setTitle] = useState("");
+    // 눌렀는지 풀었는지
     const [isChecked, setIsChecked] = useState(false);
+    const [buttonName, setButtonName] = useState("생성하기");
+    // 체크 버튼 누른거 확인
+    const [onCount, setOnCount] = useState(0);
 
 
+
+
+    // 내가 가진 플레이리스트 목록
+    const [playList, setPlayList] = useState([]);
     const handleModalClick = (e) => {
         if (e.target === modalBackground.current) {
             onClose();
@@ -28,8 +36,25 @@ const BoardDetailModal = ({ onClose}) => {
         setTitle(e.target.value);
     }
     const checkHandler = e => {
-        setIsChecked(e.target.value);
+        console.log(e.target.checked);
+        if(e.target.checked){
+            setOnCount(onCount+1);
+        }else{
+            setOnCount(onCount-1);
+        }
+        // console.log(isChecked);
+        // console.log(e.target.value);
+        // setButtonName("추가하기");
+        // setIsChecked(e.target.value);
     }
+
+    useEffect(() => {
+        if(onCount === 0){
+            setButtonName("생성하기");
+        }else{
+            setButtonName("추가하기");
+        }
+    }, [onCount]);
 
     const allplaylistSubmit = e => {
         e.preventDefault();
@@ -38,7 +63,7 @@ const BoardDetailModal = ({ onClose}) => {
     }
 
     // 토큰 가져오기
-    const[token, setToken] = useState(getCurrentLoginUser().token);
+    const [token, setToken] = useState(getCurrentLoginUser().token);
     // 요청 헤더 객체
     const requestHeader = {
         'content-type': 'application/json',
@@ -74,7 +99,7 @@ const BoardDetailModal = ({ onClose}) => {
             });
 
     }
-
+    const [loading, setLoading] = useState(false);
     useEffect(() => {
         fetch("http://localhost:8484/api/allPlayList", {
             method: "GET",
@@ -82,9 +107,11 @@ const BoardDetailModal = ({ onClose}) => {
                 'Authorization': 'Bearer ' + token,
                 "Content-Type": "application/json"
             }
-        }).then(res=>res.json()).then(
-            json=>{
-                console.log(json);
+        }).then(res => res.json()).then(
+            json => {
+                console.log(json.allPlayLists);
+                setPlayList([...json.allPlayLists]);
+                setLoading(true);
             }
         )
     }, []);
@@ -100,7 +127,7 @@ const BoardDetailModal = ({ onClose}) => {
                 </div>
 
                 <div className="allplaylist-container">
-                    <form className="allplaylist-input-form" >
+                    <form className="allplaylist-input-form">
 
                         <div className="exDiv">
                             <span>신규 악보목록 이름
@@ -112,17 +139,29 @@ const BoardDetailModal = ({ onClose}) => {
                             type="text"
                             className="input-title"
                             onChange={titleHandler}
-                            style={{
-                            }}
+                            style={{}}
                         />
                         <div className="exDiv">
-                            <span style={{marginRight:"5px"}}>공유여부</span>
+                            <span style={{marginRight: "5px"}}>공유여부</span>
                             <input type="checkbox" onChange={checkHandler} disabled={true}>
 
                             </input>
                         </div>
+                        <div className="my-playlist">나의 플레이리스트</div>
+                        {
+                            loading && playList.map((item) =>
+                                (
+                                    <div className="playlist-item">
+                                        <div className="plName2">{item.plName}</div>
+                                        <input className="plName-check2" type="checkbox" onChange={checkHandler} disabled={false}>
 
-                        <AddAllPlayListButton allplaylistSubmit={allplaylistSubmit}/>
+                                        </input>
+                                    </div>
+                                ))
+                        }
+                        <button className="addallplaylist-btn" type="submit" onClick={allplaylistSubmit}>
+                            {buttonName}
+                        </button>
 
                     </form>
 
