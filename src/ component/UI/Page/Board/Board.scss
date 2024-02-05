@@ -57,51 +57,51 @@ header
     }
   }
 }
-.body-div{
-  width: 0;
-  height: 0;
-  overflow: hidden;
-  z-index: 1;
-  content: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/163884/play.svg)
-  url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/163884/pause.svg);
-}
-.article-01{
-  position: absolute;
-  background: url("https://cdn.pixabay.com/photo/2016/08/27/14/38/mountains-1624284_1280.jpg");
-  background-size: cover;
-  width: 950px;
-  height: 500px;
-  top: 40px;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  margin: 200px 0 0 500px;
-  text-align: center;
-  padding: 50px 5%;
-  box-sizing: border-box;
-  box-shadow: 0 0 21px 0px rgba(0,0,0,0.3);
-  border: 10px solid #2E2E2E;
-}
-.cont1{
-  width: 750px;
-  height: 400px;
-  border-radius: 20px;
-  align-content: center;
-  text-align: center;
-  background: rgba(0, 0, 0, 0.7); /* 흐린 검정색 배경 */
-}
-.cont1 h2{
-  font-size: 65px;
-  margin: 0 0 10px 0;
-  color: #ffffff;
-}
-.audio{
-  margin: 40px 0 0 0;
-}
-.time{
-  font-size: 15px;
-  color: #ffffff;
-}
+//.body-div{
+//  width: 0;
+//  height: 0;
+//  overflow: hidden;
+//  z-index: 1;
+//  content: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/163884/play.svg)
+//  url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/163884/pause.svg);
+//}
+//.article-01{
+//  position: absolute;
+//  background: url("https://cdn.pixabay.com/photo/2016/08/27/14/38/mountains-1624284_1280.jpg");
+//  background-size: cover;
+//  width: 950px;
+//  height: 500px;
+//  top: 40px;
+//  left: 0;
+//  bottom: 0;
+//  right: 0;
+//  margin: 200px 0 0 500px;
+//  text-align: center;
+//  padding: 50px 5%;
+//  box-sizing: border-box;
+//  box-shadow: 0 0 21px 0px rgba(0,0,0,0.3);
+//  border: 10px solid #2E2E2E;
+//}
+//.cont1{
+//  width: 750px;
+//  height: 400px;
+//  border-radius: 20px;
+//  align-content: center;
+//  text-align: center;
+//  background: rgba(0, 0, 0, 0.7); /* 흐린 검정색 배경 */
+//}
+//.cont1 h2{
+//  font-size: 65px;
+//  margin: 0 0 10px 0;
+//  color: #ffffff;
+//}
+//.audio{
+//  margin: 40px 0 0 0;
+//}
+//.time{
+//  font-size: 15px;
+//  color: #ffffff;
+//}
 .slide-up {
   animation: slide-up-invitation 1s;
 }

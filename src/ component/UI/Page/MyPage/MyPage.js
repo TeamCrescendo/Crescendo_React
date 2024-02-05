@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import './MyPage.scss';
 import classNames from "classnames";
-import Alram1 from "./a1/alram1"
+// import Alram1 from "./a1/alram1"
 const MyPage = ({ isForward }) => {
     const setAnimation = classNames({
         'slide-up': isForward,
@@ -15,7 +15,7 @@ const MyPage = ({ isForward }) => {
                     My Page
                 </h1>
                 <div className={`webinfoContainer ${setAnimation}`}>
-                        <Alram1/>
+                        {/*<Alram1/>*/}
                 </div>
             </header>
         </>
