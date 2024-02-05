@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {GrClose} from "react-icons/gr";
-import {AiFillDislike, AiFillLike} from "react-icons/ai";
+import {AiFillDislike, AiFillLike, AiFillMessage} from "react-icons/ai";
 
 import './BoardDetail.scss';
 import {FaHeart, FaRegHeart} from "react-icons/fa6";
@@ -16,6 +16,7 @@ import AddAllPlaylistModal from "../../modal/add_playlist_modal/Add_AllPlaylist_
 import BoardDetailModal from "../board_modal/BoardDetailModal";
 import {getCurrentLoginUser} from "../../../util/login-util";
 import {json} from "react-router-dom";
+import BoardMessageModal from "../board_modal/BoardMessageModal";
 
 const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, memberAccount}) => {
 
@@ -30,7 +31,8 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
     const [dislikeClicked, setDislikeClicked] = useState(false);
     // 올플리 악보 띄우기
     const [addAllPlayModalOpen, setAddAllPlayModalOpen] = useState(false);
-
+    // 메세지 모달 띄우기
+    const [messageModal, setMessageModal] = useState(false);
     const [account, setAccount] = useState("");
 
     const requestHeader = {
@@ -151,6 +153,12 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
             })
     }
 
+    // 쪽지 보내기
+    const messageHandler = () => {
+        console.log("메세지 클릭함");
+        setMessageModal(true);
+    };
+
     useEffect(() => {
         console.log(boardDetailInfo);
         console.log(memberAccount);
@@ -194,11 +202,13 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
                                             style={{cursor: "pointer"}}/>
                     }
                     <MdFormatListBulletedAdd style={{cursor: "pointer"}} onClick={clickPlayListButtonHandler}/>
-                    {memberAccount === account && < MdDelete onClick={deleteHandler} />}
+                    {memberAccount === account &&  <AiFillMessage style={{cursor: "pointer"}} onClick={messageHandler} />}
+                    {memberAccount === account && < MdDelete style={{cursor: "pointer"}} onClick={deleteHandler} />}
                     <GiSaveArrow className="download-btn" style={{cursor: "pointer"}} onClick={downloadHandler}/>
                 </div>
             </div>
             {addAllPlayModalOpen && <BoardDetailModal scoreNo={scoreNo} onClose={() => setAddAllPlayModalOpen(false)}/>}
+            {messageModal && <BoardMessageModal createMember={memberAccount} writeAccount={account} onClose={() => setMessageModal(false)}/>}
         </div>
     );
 };

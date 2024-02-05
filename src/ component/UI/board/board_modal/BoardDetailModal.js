@@ -46,12 +46,13 @@ const BoardDetailModal = ({onClose, scoreNo}) => {
     const titleHandler = e => {
         setTitle(e.target.value);
     }
+    // 플리 체크 하는 함수
     const checkHandler = e => {
-        if(e.target.checked){
+        if (e.target.checked) {
             const a = e.target.parentNode.firstChild.textContent;
             setSendPlayList([...sendPlayList, a]);
-            setOnCount(onCount+1);
-        }else{
+            setOnCount(onCount + 1);
+        } else {
             const b = e.target.parentNode.firstChild.textContent;
             const indexToRemove = sendPlayList.findIndex(item => item === b);
 
@@ -60,7 +61,7 @@ const BoardDetailModal = ({onClose, scoreNo}) => {
                 updatedPlayList.splice(indexToRemove, 1);
                 setSendPlayList(updatedPlayList);
             }
-            setOnCount(onCount-1);
+            setOnCount(onCount - 1);
         }
         // console.log(isChecked);
         // console.log(e.target.value);
@@ -68,51 +69,57 @@ const BoardDetailModal = ({onClose, scoreNo}) => {
         // setIsChecked(e.target.value);
     }
 
+
+    // 체크 하는거 에 따른 이름 변경
     useEffect(() => {
-        if(onCount === 0){
+        if (onCount === 0 && playList.length < 3) {
             setButtonName("생성하기");
-        }else{
+        } else {
             setButtonName("추가하기");
         }
     }, [onCount]);
 
     const allplaylistSubmit = e => {
         e.preventDefault();
-        if(buttonName==="생성하기"){
+        if (buttonName === "생성하기" && playList.length < 3) {
             console.log("생성하기가 실행함")
             addAllPlayList();
-        }else{
-            console.log("추가하기가 실행함")
-            send();
+        } else {
+            console.log("추가하기가 실행함");
+            if (onCount === 0) {
+                alert("체크 해주세요");
+                return;
+            } else {
+                send();
+            }
         }
     }
 
-    const send = () =>{
+    // 플리 추가하는 함수
+    const send = () => {
         console.log(sendPlayList);
         console.log(scoreNo);
-        sendPlayList.forEach((item)=>{
+        sendPlayList.forEach((item) => {
             fetch("http://localhost:8484/api/playList", {
                 method: "POST",
                 headers: {
                     'content-type': 'application/json',
                     'Authorization': 'Bearer ' + token
                 },
-                body:JSON.stringify({
+                body: JSON.stringify({
                     account: "member5",
                     plId: item,
                     scoreNo: scoreNo
                 })
-            }).then(res=>res.json())
-                .then(json=>{
+            }).then(res => res.json())
+                .then(json => {
                     console.log(json);
                 })
         })
 
     }
 
-
-
-
+    // 올 플리 만드는 함수
     const addAllPlayList = () => {
         console.log(title);
         // console.log(loginInfo.account)
@@ -142,7 +149,10 @@ const BoardDetailModal = ({onClose, scoreNo}) => {
             });
 
     }
+
     const [loading, setLoading] = useState(false);
+
+    // 자신의 올 플리 가져오는 useEffect
     useEffect(() => {
         fetch("http://localhost:8484/api/allPlayList", {
             method: "GET",
@@ -150,14 +160,31 @@ const BoardDetailModal = ({onClose, scoreNo}) => {
                 'Authorization': 'Bearer ' + token,
                 "Content-Type": "application/json"
             }
-        }).then(res => res.json()).then(
+        })
+            .then(res => res.json())
+            .then(
             json => {
                 console.log(json.allPlayLists);
+                if (json.allPlayLists.length >= 3) {
+                    setButtonName("추가하기");
+                }
                 setPlayList([...json.allPlayLists]);
+
                 setLoading(true);
             }
         )
     }, []);
+
+    // 올 플리 가져온 후에 이미 넣은 보드 인지 확인하는 함수
+    // useEffect(() => {
+    //     if(playList.length!==0){
+    //         playList.forEach((item)=>{
+    //             item.plId
+    //         })
+    //
+    //     }
+
+    // }, [playList]);
 
     return (
         <div className="allplaylist-modal-container" ref={modalBackground} onClick={handleModalClick}>
@@ -195,9 +222,10 @@ const BoardDetailModal = ({onClose, scoreNo}) => {
                             loading && playList.map((item) =>
                                 (
                                     <div className="playlist-item">
-                                        <div style={{display:"none"}}>{item.plId}</div>
+                                        <div style={{display: "none"}}>{item.plId}</div>
                                         <div className="plName2">{item.plName}</div>
-                                        <input className="plName-check2" type="checkbox" onChange={checkHandler} disabled={false}>
+                                        <input className="plName-check2" type="checkbox" onChange={checkHandler}
+                                               disabled={false}>
 
                                         </input>
                                     </div>
