@@ -17,13 +17,8 @@ import BoardDetailModal from "../board_modal/BoardDetailModal";
 import {getCurrentLoginUser} from "../../../util/login-util";
 import {json} from "react-router-dom";
 
-const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo}) => {
+const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, memberAccount}) => {
 
-    const [scoreInfo, setScoreInfo] = useState({
-        scoreImgUrl: '',
-        scoreTitle: '',
-        // scoreUploadDateTime: '',
-    });
 
     // 페이지 총 번호
     const [numPages, setNumPages] = useState(0);
@@ -35,7 +30,13 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo}) => {
     const [dislikeClicked, setDislikeClicked] = useState(false);
     // 올플리 악보 띄우기
     const [addAllPlayModalOpen, setAddAllPlayModalOpen] = useState(false);
-    const account = getCurrentLoginUser().username;
+
+    const [account, setAccount] = useState("");
+
+    const requestHeader = {
+        'content-type': 'application/json',
+        'Authorization': 'Bearer ' + token
+    };
 
     const onDocumentLoadSuccess = (document) => {
         setNumPages(document.numPages);
@@ -138,9 +139,23 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo}) => {
         setAddAllPlayModalOpen(true);
     }
 
+    // 유저 정보 가져오기
+    const getUserInfo = () =>{
+        fetch("http://localhost:8484/api/member",{
+            method: "GET",
+            headers: {'Authorization': 'Bearer ' + token},
+
+        }).then(res=>res.json())
+            .then(json=>{
+                setAccount(json.account);
+            })
+    }
+
     useEffect(() => {
         console.log(boardDetailInfo);
+        console.log(memberAccount);
         console.log(scoreNo);
+        getUserInfo();
     }, []);
 
     return (
@@ -179,7 +194,7 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo}) => {
                                             style={{cursor: "pointer"}}/>
                     }
                     <MdFormatListBulletedAdd style={{cursor: "pointer"}} onClick={clickPlayListButtonHandler}/>
-                    {boardDetailInfo.memberAccount !== account && < MdDelete onClick={deleteHandler} />}
+                    {memberAccount === account && < MdDelete onClick={deleteHandler} />}
                     <GiSaveArrow className="download-btn" style={{cursor: "pointer"}} onClick={downloadHandler}/>
                 </div>
             </div>
