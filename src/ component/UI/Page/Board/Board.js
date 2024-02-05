@@ -15,7 +15,7 @@ import boardDetail from "../../board/board_detail/BoardDetail";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 
-const Board = ({isForward}) => {
+const Board = ({isForward, loginInfo}) => {
     const [scoreDetailOpen, setScoreDetailOpen] = useState(false);
     // 보드 디테일 클릭 참거짓
     const [detailClick, setDetailClick] = useState(false);
@@ -159,6 +159,7 @@ const Board = ({isForward}) => {
             {detailClick && <BoardDetail
                 boardDetailInfo={boardDetail}
                 scoreNo={boardDetail.scoreNo}
+                loginInfo={loginInfo}
                 memberAccount={boardDetail.memberAccount}
                 detailCloseHandler={detailCloseHandler}
                 token={token}

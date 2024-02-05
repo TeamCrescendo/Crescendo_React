@@ -18,7 +18,7 @@ import {getCurrentLoginUser} from "../../../util/login-util";
 import {json} from "react-router-dom";
 import BoardMessageModal from "../board_modal/BoardMessageModal";
 
-const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, memberAccount}) => {
+const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, memberAccount, loginInfo}) => {
 
 
     // 페이지 총 번호
@@ -34,6 +34,7 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
     // 메세지 모달 띄우기
     const [messageModal, setMessageModal] = useState(false);
     const [account, setAccount] = useState("");
+
 
     const requestHeader = {
         'content-type': 'application/json',
@@ -204,6 +205,7 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
                     <MdFormatListBulletedAdd style={{cursor: "pointer"}} onClick={clickPlayListButtonHandler}/>
                     {memberAccount !== account &&  <AiFillMessage style={{cursor: "pointer"}} onClick={messageHandler} />}
                     {memberAccount === account && < MdDelete style={{cursor: "pointer"}} onClick={deleteHandler} />}
+                    {loginInfo.auth === 'ADMIN' && < MdDelete style={{cursor: "pointer"}} onClick={deleteHandler} />}
                     <GiSaveArrow className="download-btn" style={{cursor: "pointer"}} onClick={downloadHandler}/>
                 </div>
             </div>
