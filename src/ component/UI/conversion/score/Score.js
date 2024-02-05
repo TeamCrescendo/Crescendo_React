@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Document, Page} from "react-pdf";
 import {getCurrentLoginUser} from "../../../util/login-util";
 import "./Score.scss";
@@ -46,8 +46,10 @@ const Score = ({pdfFile, scoreId}) => {
     //
     const onDocumentLoadSuccess = (document) => {
         console.log(document);
+        console.log(pdfFile);
         setNumPages(document.numPages);
     };
+
     const pageClickHandler = (event, page) => {
         console.log(page);
         // console.log(event);
@@ -86,12 +88,18 @@ const Score = ({pdfFile, scoreId}) => {
             .then(res => res.json())
             .then(json => {
                 setShare(true);
-                console.log(json);
+                setOpen(false);
+                // console.log(json);
             })
             .catch(error => {
                 console.error('Error:', error);
             });
     }
+
+    useEffect(() => {
+        const binaryArray=new Uint8Array(pdfFile);
+        console.log(binaryArray);
+    }, []);
 
     const titleModifyHandler = e =>{
         setBoardTitle(e.target.value);

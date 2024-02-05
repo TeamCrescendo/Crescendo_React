@@ -44,10 +44,24 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler}) => {
     // 좋아요 버튼 클릭
     const likeClickHandler = () => {
         setLikeClicked(!likeClicked);
+        fetch("http://localhost:8484/api/board/likeAndDislike", {
+            method: "POST",
+            body: {
+                boardNo: boardDetailInfo.boardNo,
+                like: true
+            }
+        })
     }
     // 싫어요 버튼 클릭
     const dislikeClickHandler = () => {
         setDislikeClicked(!dislikeClicked);
+        fetch("http://localhost:8484/api/board/likeAndDislike", {
+            method: "POST",
+            body: {
+                boardNo: boardDetailInfo.boardNo,
+                like: false
+            }
+        })
     }
 
     // 이미지 우클릭 금지
@@ -55,12 +69,19 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler}) => {
     //     e.preventDefault();
     // });
 
+
+
+    useEffect(()=>{
+        console.log(boardDetailInfo);
+        console.log()
+    }, []);
+
     return (
         <div className="board-detail-container">
             <div className="detail-header" onClick={detailCloseHandler}><IoMdClose className="close"/></div>
             <div className="detail-title">
                 <span className="subTitle">곡명</span>
-                <span className="mainTitle">[ {scoreInfo.scoreTitle} ]</span>
+                <span className="mainTitle">[ {boardDetailInfo.boardTitle} ]</span>
             </div>
             <div className="document-container">
                 <div className="document">
