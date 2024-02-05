@@ -12,6 +12,8 @@ import {ButtonGroup} from "@mui/material";
 import Button from "@mui/material/Button";
 import Pagination from "@mui/material/Pagination";
 import {IoMdClose} from "react-icons/io";
+import AddAllPlaylistModal from "../../modal/add_playlist_modal/Add_AllPlaylist_Modal";
+import BoardDetailModal from "../board_modal/BoardDetailModal";
 
 const BoardDetail = ({boardDetailInfo, detailCloseHandler, token}) => {
 
@@ -29,6 +31,9 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token}) => {
     const [likeClicked, setLikeClicked] = useState(false);
     // 싫어요
     const [dislikeClicked, setDislikeClicked] = useState(false);
+    // 올플리 악보 띄우기
+    const [addAllPlayModalOpen, setAddAllPlayModalOpen] = useState(false);
+
 
     const onDocumentLoadSuccess = (document) => {
         setNumPages(document.numPages);
@@ -60,6 +65,8 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token}) => {
             document.body.removeChild(link);
         }
     };
+
+
 
     // 좋아요 버튼 클릭
     const likeClickHandler = () => {
@@ -108,6 +115,11 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token}) => {
     // });
 
 
+    // 플리 버튼 클릭
+    const clickPlayListButtonHandler = () =>{
+        setAddAllPlayModalOpen(true);
+    }
+
     useEffect(() => {
         console.log(boardDetailInfo);
         console.log()
@@ -148,10 +160,11 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token}) => {
                             : <BsHeartbreak className="dislike-btn" onClick={dislikeClickHandler}
                                             style={{cursor: "pointer"}}/>
                     }
-                    <MdFormatListBulletedAdd style={{cursor: "pointer"}}/>
+                    <MdFormatListBulletedAdd style={{cursor: "pointer"}} onClick={clickPlayListButtonHandler}/>
                     <GiSaveArrow className="download-btn" style={{cursor: "pointer"}} onClick={downloadHandler}/>
                 </div>
             </div>
+            {addAllPlayModalOpen && <BoardDetailModal onClose={() => setAddAllPlayModalOpen(false)}/>}
         </div>
     );
 };

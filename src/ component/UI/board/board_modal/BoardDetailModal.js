@@ -3,12 +3,12 @@ import {GrClose} from "react-icons/gr";
 import Form from "react-bootstrap/Form";
 import QuitButton from "../../button/quit/Quit_Button";
 import ModifyButton from "../../button/modify/Modify_Button";
-import './Add_AllPlaylist_Modal.scss';
+import './BoardDetailModal.scss';
 import AddAllPlayListButton from "../../button/allplaylist/add_allplaylist_button/Add_AllPlayList_Button";
 import {ALL_PLAYLIST_URL} from "../../../../config/host-config";
 import {getCurrentLoginUser} from "../../../util/login-util";
 
-const AddAllPlaylistModal = ({ onClose}) => {
+const BoardDetailModal = ({ onClose}) => {
     const modalBackground = useRef();
     const [title, setTitle] = useState("");
     const [isChecked, setIsChecked] = useState(false);
@@ -75,7 +75,19 @@ const AddAllPlaylistModal = ({ onClose}) => {
 
     }
 
-
+    useEffect(() => {
+        fetch("http://localhost:8484/api/allPlayList", {
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                "Content-Type": "application/json"
+            }
+        }).then(res=>res.json()).then(
+            json=>{
+                console.log(json);
+            }
+        )
+    }, []);
 
     return (
         <div className="allplaylist-modal-container" ref={modalBackground} onClick={handleModalClick}>
@@ -103,7 +115,6 @@ const AddAllPlaylistModal = ({ onClose}) => {
                             style={{
                             }}
                         />
-
                         <div className="exDiv">
                             <span style={{marginRight:"5px"}}>공유여부</span>
                             <input type="checkbox" onChange={checkHandler} disabled={true}>
@@ -122,4 +133,4 @@ const AddAllPlaylistModal = ({ onClose}) => {
     );
 };
 
-export default AddAllPlaylistModal;
+export default BoardDetailModal;

@@ -6,11 +6,11 @@ import {Grid, ImageList, ImageListItem, Skeleton} from "@mui/material";
 import {getCurrentLoginUser} from "../../../util/login-util";
 import Pagination from "@mui/material/Pagination";
 import {Document, Page, pdfjs} from "react-pdf";
-import BoardDetail from "../../board/board_list/board_detail/BoardDetail";
+import BoardDetail from "../../board/board_detail/BoardDetail";
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
-import boardDetail from "../../board/board_list/board_detail/BoardDetail";
+import boardDetail from "../../board/board_detail/BoardDetail";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
