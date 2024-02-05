@@ -156,7 +156,10 @@ const Board = ({isForward}) => {
             }
             {detailClick && <BoardDetail
                 boardDetailInfo={boardDetail}
-                detailCloseHandler={detailCloseHandler}/>
+                detailCloseHandler={detailCloseHandler}
+                token={token}
+            />
+
             }
             {
                 boardsLoading && <Skeleton variant="rectangular" width={1105} height={800}/>

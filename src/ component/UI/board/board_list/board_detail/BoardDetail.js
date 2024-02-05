@@ -13,7 +13,7 @@ import Button from "@mui/material/Button";
 import Pagination from "@mui/material/Pagination";
 import {IoMdClose} from "react-icons/io";
 
-const BoardDetail = ({boardDetailInfo, detailCloseHandler}) => {
+const BoardDetail = ({boardDetailInfo, detailCloseHandler, token}) => {
 
     const [scoreInfo, setScoreInfo] = useState({
         scoreImgUrl: '',
@@ -46,17 +46,31 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler}) => {
         setLikeClicked(!likeClicked);
         fetch("http://localhost:8484/api/board/likeAndDislike", {
             method: "POST",
-            body: {
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                "Content-Type": "application/json"
+
+            },
+            body: JSON.stringify({
                 boardNo: boardDetailInfo.boardNo,
                 like: true
-            }
+            })
+        }).then(res => {
+            return res.json()
+        }).then(json => {
+            console.log(json);
         })
+
     }
     // 싫어요 버튼 클릭
     const dislikeClickHandler = () => {
         setDislikeClicked(!dislikeClicked);
         fetch("http://localhost:8484/api/board/likeAndDislike", {
             method: "POST",
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                "Content-Type":"application/json"
+            },
             body: {
                 boardNo: boardDetailInfo.boardNo,
                 like: false
@@ -70,8 +84,7 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler}) => {
     // });
 
 
-
-    useEffect(()=>{
+    useEffect(() => {
         console.log(boardDetailInfo);
         console.log()
     }, []);
