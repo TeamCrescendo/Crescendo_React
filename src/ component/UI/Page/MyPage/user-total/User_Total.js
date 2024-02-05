@@ -1,6 +1,8 @@
 import React from 'react';
 import './User_Total.scss';
 import { RiChatDeleteFill } from "react-icons/ri";
+import {IconButton} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const UserTotal = () => {
     function createData(title, viewCount, like, dislike, downloadCount) {
@@ -41,7 +43,12 @@ const UserTotal = () => {
                             <div>{row.like}개</div>
                             <div>{row.dislike}개</div>
                             <div>{row.downloadCount}번</div>
-                            <div><RiChatDeleteFill style={{color:"red", cursor:"pointer", fontSize:"30px"}}/></div>
+                            {/*<div><RiChatDeleteFill style={{color:"red", cursor:"pointer", fontSize:"30px"}}/></div>*/}
+                            <div>
+                                <IconButton aria-label="delete" size="large" style={{color:"red", cursor:"pointer"}}>
+                                    <DeleteIcon fontSize="inherit" />
+                                </IconButton>
+                            </div>
                         </div>
                     ))}
                 </div>

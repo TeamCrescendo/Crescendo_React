@@ -9,6 +9,10 @@ import PlaylistModal from "../../../modal/playlist_modal/Playlist_modal";
 import {ALL_PLAYLIST_URL, PLAYLIST_URL} from "../../../../../config/host-config";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import AddAllPlaylistModal from "../../../modal/add_playlist_modal/Add_AllPlaylist_Modal";
+import {IconButton} from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
+
+
 
 const PlaylistInfo = ({ loginInfo }) => {
     const [modifyModalOpen, setModifyModalOpen] = useState(false);
@@ -115,8 +119,12 @@ const PlaylistInfo = ({ loginInfo }) => {
                                                     modifyButtonClick={modifyButtonClick} />
                             </div>
                             <div>
-                                <RiChatDeleteFill onClick={() => deleteAllPlayListHandler(row.plId)}
-                                                  style={{color:"red", cursor:"pointer", fontSize:"30px"}}/>
+                                {/*<RiChatDeleteFill onClick={() => deleteAllPlayListHandler(row.plId)}*/}
+                                {/*                  style={{color:"red", cursor:"pointer", fontSize:"30px"}}/>*/}
+                                <IconButton aria-label="delete" size="large" style={{color:"red", cursor:"pointer"}}
+                                            onClick={() => deleteAllPlayListHandler(row.plId)}>
+                                    <DeleteIcon fontSize="inherit" />
+                                </IconButton>
                             </div>
                         </div>
                     ))}

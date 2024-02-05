@@ -18,6 +18,8 @@ import {RiChatDeleteFill} from "react-icons/ri";
 import MessageModalButton from "../button/message_modal_btn/message_modal_button";
 import InquiryContentModalButton from "../button/inquirt_content_modal_button/Inquiry_Content_Modal_Button";
 import InquiryContentModal from "../modal/inquiry_content_modal/Inquiry_Content_Modal";
+import {IconButton} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const InquiryInfo = ({ loginInfo }) => {
     const [contentModalOpen, setContentModalOpen] = useState(false);
@@ -140,7 +142,12 @@ const InquiryInfo = ({ loginInfo }) => {
                                             , time: row.inquiry_time }} onClose={() => setContentModalOpen(false)}
                                                         modifyButtonClick={contentButtonClick} />
                                 </div>
-                                <div><RiChatDeleteFill onClick={() => deleteInqHandler(row.inquiryId)} style={{color:"red", cursor:"pointer", fontSize:"30px"}}/></div>
+                                {/*<div><RiChatDeleteFill onClick={() => deleteInqHandler(row.inquiryId)} style={{color:"red", cursor:"pointer", fontSize:"30px"}}/></div>*/}
+                                <div>
+                                    <IconButton aria-label="delete" size="large" onClick={() => deleteInqHandler(row.inquiryId)} style={{color:"red", cursor:"pointer"}}>
+                                        <DeleteIcon fontSize="inherit" />
+                                    </IconButton>
+                                </div>
                             </div>
                         ))}
                     </div>

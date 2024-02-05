@@ -1,0 +1,80 @@
+
+
+@keyframes moveInfo {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(200px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes moveInfoBack {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(150px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.prompt-info {
+  width: 500px;
+  height: 558px;
+  background: #aad77b;
+  position: absolute;
+  left: 39%;
+  z-index: 0;
+  border-radius: 30px;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  padding-right: 15px;
+  margin-top: 50px;
+
+  .info-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+
+    .textdiv {
+      width: 90%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      .info-header {
+        font-size: 30px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+    }
+
+    .sub-title {
+      width: 10%;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      white-space: nowrap;
+      font-weight: bold;
+      font-size: 30px;
+      cursor: pointer;
+    }
+  }
+
+
+  &.animate {
+    animation: moveInfo 0.5s ease forwards;
+  }
+  &.animate-back {
+    animation: moveInfoBack 0.5s ease forwards;
+  }
+}
+

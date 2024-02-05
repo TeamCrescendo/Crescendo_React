@@ -21,6 +21,8 @@ import {AUTH_URL, INQUIRY_URL, MESSAGE_URL} from "../../../config/host-config";
 import {getCurrentLoginUser} from "../../util/login-util";
 import MessageModalButton from "../button/message_modal_btn/message_modal_button";
 import MessageModal from "../modal/message_modal/Message_modal";
+import {IconButton} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const PostMessageInfo = ({ loginInfo }) => {
     const [modifyModalOpen, setModifyModalOpen] = useState(false);
@@ -87,8 +89,8 @@ const PostMessageInfo = ({ loginInfo }) => {
                             formatPost = "확인완료";
                         }
                     }
-                    const sender = "" + message.senderNickName + "(" + message.sender + ")";
-                    const receiverFormat = "" + message.receiverNickname + "(" + message.receiver + ")";
+                    // const sender = "" + message.senderNickName + "(" + message.sender + ")";
+                    // const receiverFormat = "" + message.receiverNickname + "(" + message.receiver + ")";
 
                     const formatTime = formatDate(message.writtenTime);
                     return createData(formatPost, message.senderNickName, message.receiverNickname, message.receiver
@@ -196,7 +198,13 @@ const PostMessageInfo = ({ loginInfo }) => {
                                     , sender: row.sender, messageId: row.messageId}} onClose={() => setModifyModalOpen(false)}
                                      onCheck={messageCheckHandler} modifyButtonClick={modifyButtonClick} />
                                 </div>
-                                <div><RiChatDeleteFill id={row.messageId} onClick={deleteCLickHandler} style={{color:"red", cursor:"pointer", fontSize:"30px"}}/></div>
+                                {/*<div><RiChatDeleteFill id={row.messageId} onClick={deleteCLickHandler} style={{color:"red", cursor:"pointer", fontSize:"30px"}}/></div>*/}
+                                <div>
+                                    <IconButton aria-label="delete" size="large" id={row.messageId}
+                                                onClick={deleteCLickHandler} style={{color:"red", cursor:"pointer"}}>
+                                        <DeleteIcon fontSize="inherit" />
+                                    </IconButton>
+                                </div>
                             </div>
                         ))}
                     </div>

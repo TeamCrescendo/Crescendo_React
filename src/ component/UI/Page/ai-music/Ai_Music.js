@@ -8,12 +8,18 @@ import {Slider} from "@mui/material";
 
 import Textarea from '@mui/joy/Textarea';
 import {Typography} from "@mui/joy";
+import PromptInfo from "./prompt_info/Prompt_Info";
+import Button from "@mui/material/Button";
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+
+
 const Ai_Music = ({ isForward, loginInfo }) => {
     const [scoreId, setScoreId] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [isDone, setIsDone] = useState(false);
     const [sliderValue, setSliderValue] = useState(5);
     const [text, setText] = React.useState('');
+
 
     const setAnimation = classNames({
         'slide-up': isForward,
@@ -93,7 +99,7 @@ const Ai_Music = ({ isForward, loginInfo }) => {
         return (
             <>
                 {/*<span>프롬프트</span>*/}
-                <span>음악 길이 설정</span>
+                <span style={{marginTop:"150px"}}>음악 길이 설정</span>
                 <Slider
                     className="music_duration"
                     aria-label="time"
@@ -123,7 +129,9 @@ const Ai_Music = ({ isForward, loginInfo }) => {
 
                 {/*<input className="music_duration" type="number" min="0" max="10" placeholder="재생시간"*/}
                 {/*       style={{width: "100px"}}/>*/}
-                <button type="button" onClick={aiMusicMakeHanlder}>생성시작</button>
+                <Button component="label" variant="contained" startIcon={<CloudUploadIcon />} onClick={aiMusicMakeHanlder}>
+                    음악 생성하기
+                </Button>
             </>
         );
     }
@@ -145,11 +153,18 @@ const Ai_Music = ({ isForward, loginInfo }) => {
                     (
                         <>
                             <MusicApp url={audioUrl}/>
+                            <PromptInfo text={text}/>
                             <div className="btn-container">
-                                <div className="returnBtn" onClick={backHandler}>돌아가기</div>
-                                <a href={audioUrl} download={`${loginInfo.userName + "의 음악"}.mp3`} className="downloadBtn">
-                                    다운로드
-                                </a>
+                                <Button variant="contained" color="success" style={{background:"deepskyblue", marginRight:"10px"}}>
+                                    <div className="returnBtn" onClick={backHandler}>돌아가기</div>
+                                </Button>
+
+                                <Button variant="contained" color="success" style={{background:"green", marginLeft:"10px"}}>
+                                    <a href={audioUrl} download={`${loginInfo.userName + "의 음악"}.mp3`} className="downloadBtn">
+                                        다운로드
+                                    </a>
+                                </Button>
+
                             </div>
                         </>
                     )

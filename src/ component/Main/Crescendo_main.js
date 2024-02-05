@@ -85,8 +85,12 @@ const Crescendo_main = () => {
             headers: requestHeader,
         })
             .then(res => {
-                if (res.status === 200) return res.json();
-                else if (res.status === 400) console.log("로그인체크 400error");
+                if (res.ok) {
+                    return res.json();
+                }
+                else if (res.status === 400){
+                    console.log("로그인체크 400error");
+                }
             })
             .then(json => {
                 if (json != null) {

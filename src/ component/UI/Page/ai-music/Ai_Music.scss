@@ -11,6 +11,7 @@
   padding-top: 50px; /* 헤더와 상단 간격을 조절합니다. */
   border-bottom-left-radius: 100px;
   border-top-left-radius: 100px;
+
 }
 
 .ai-music-header {
@@ -29,7 +30,9 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
-  margin-top: 100px;
+  margin-top: 50px;
+
+  position: absolute;
 
 
   .music_duration {
@@ -46,21 +49,26 @@
     justify-content: start;
     align-items: center;
     flex-direction: row;
+    margin-top: 20px;
 
     .returnBtn {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      width: 100px;
-      height: 30px;
-      background: #9b3535;
-      margin-top: 10px;
-
-      cursor: pointer;
+      //display: flex;
+      //justify-content: center;
+      //align-items: center;
+      //
+      //width: 100px;
+      //height: 30px;
+      //background: #9b3535;
+      //margin-top: 10px;
+      //
+      //cursor: pointer;
+      color: white;
+      font-weight: bold;
     }
     .downloadBtn {
-
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
     }
   }
 }
