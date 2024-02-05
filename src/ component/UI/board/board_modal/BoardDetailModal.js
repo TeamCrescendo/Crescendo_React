@@ -114,6 +114,7 @@ const BoardDetailModal = ({onClose, scoreNo}) => {
             }).then(res => res.json())
                 .then(json => {
                     console.log(json);
+                    onClose();
                 })
         })
 
