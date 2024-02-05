@@ -65,7 +65,8 @@ const InquiryModal = ({ onClose, createMember, writeAccount }) => {
         })
             .then(res => res.json())
             .then(save => {
-                console.log(save);
+                onClose();
+                alert("메세지 전송 성공했습니다!!");
             })
 
     }

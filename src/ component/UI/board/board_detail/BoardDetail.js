@@ -202,7 +202,7 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
                                             style={{cursor: "pointer"}}/>
                     }
                     <MdFormatListBulletedAdd style={{cursor: "pointer"}} onClick={clickPlayListButtonHandler}/>
-                    {memberAccount === account &&  <AiFillMessage style={{cursor: "pointer"}} onClick={messageHandler} />}
+                    {memberAccount !== account &&  <AiFillMessage style={{cursor: "pointer"}} onClick={messageHandler} />}
                     {memberAccount === account && < MdDelete style={{cursor: "pointer"}} onClick={deleteHandler} />}
                     <GiSaveArrow className="download-btn" style={{cursor: "pointer"}} onClick={downloadHandler}/>
                 </div>
