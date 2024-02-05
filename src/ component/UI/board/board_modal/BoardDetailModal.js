@@ -8,7 +8,7 @@ import AddAllPlayListButton from "../../button/allplaylist/add_allplaylist_butto
 import {ALL_PLAYLIST_URL} from "../../../../config/host-config";
 import {getCurrentLoginUser} from "../../../util/login-util";
 
-const BoardDetailModal = ({onClose}) => {
+const BoardDetailModal = ({onClose, scoreNo}) => {
     const modalBackground = useRef();
     const [title, setTitle] = useState("");
     // 눌렀는지 풀었는지
@@ -17,11 +17,15 @@ const BoardDetailModal = ({onClose}) => {
     // 체크 버튼 누른거 확인
     const [onCount, setOnCount] = useState(0);
 
+    const account = getCurrentLoginUser().username;
 
 
+    // 서버로 보내야할 플레이리스트
+    const [sendPlayList, setSendPlayList] = useState([]);
 
     // 내가 가진 플레이리스트 목록
     const [playList, setPlayList] = useState([]);
+
     const handleModalClick = (e) => {
         if (e.target === modalBackground.current) {
             onClose();
@@ -36,10 +40,19 @@ const BoardDetailModal = ({onClose}) => {
         setTitle(e.target.value);
     }
     const checkHandler = e => {
-        console.log(e.target.checked);
         if(e.target.checked){
+            const a = e.target.parentNode.firstChild.textContent;
+            setSendPlayList([...sendPlayList, a]);
             setOnCount(onCount+1);
         }else{
+            const b = e.target.parentNode.firstChild.textContent;
+            const indexToRemove = sendPlayList.findIndex(item => item === b);
+
+            if (indexToRemove !== -1) {
+                const updatedPlayList = [...sendPlayList];
+                updatedPlayList.splice(indexToRemove, 1);
+                setSendPlayList(updatedPlayList);
+            }
             setOnCount(onCount-1);
         }
         // console.log(isChecked);
@@ -58,9 +71,37 @@ const BoardDetailModal = ({onClose}) => {
 
     const allplaylistSubmit = e => {
         e.preventDefault();
-
-        addAllPlayList();
+        if(buttonName==="생성하기"){
+            console.log("생성하기가 실행함")
+            addAllPlayList();
+        }else{
+            console.log("추가하기가 실행함")
+            send();
+        }
     }
+
+    const send = () =>{
+        console.log(sendPlayList);
+        // console.log(scoreNo);
+        sendPlayList.forEach((item)=>{
+            fetch("http://localhost:8484/api/playList", {
+                method: "POST",
+                headers: {
+                    'content-type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                },
+                body:JSON.stringify({
+                    plId: item+0,
+                    scoreNo: scoreNo
+                })
+            }).then(res=>res.json())
+                .then(json=>{
+                    console.log(json);
+                })
+        })
+
+    }
+
 
     // 토큰 가져오기
     const [token, setToken] = useState(getCurrentLoginUser().token);
@@ -152,6 +193,7 @@ const BoardDetailModal = ({onClose}) => {
                             loading && playList.map((item) =>
                                 (
                                     <div className="playlist-item">
+                                        <div style={{display:"none"}}>{item.plId}</div>
                                         <div className="plName2">{item.plName}</div>
                                         <input className="plName-check2" type="checkbox" onChange={checkHandler} disabled={false}>
 

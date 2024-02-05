@@ -6,7 +6,7 @@ import './BoardDetail.scss';
 import {FaHeart, FaRegHeart} from "react-icons/fa6";
 import {BsHeartbreak, BsHeartbreakFill} from "react-icons/bs";
 import {GiSaveArrow} from "react-icons/gi";
-import {MdFormatListBulletedAdd} from "react-icons/md";
+import {MdDelete, MdFormatListBulletedAdd} from "react-icons/md";
 import {Document, Page} from "react-pdf";
 import {ButtonGroup} from "@mui/material";
 import Button from "@mui/material/Button";
@@ -14,6 +14,7 @@ import Pagination from "@mui/material/Pagination";
 import {IoMdClose} from "react-icons/io";
 import AddAllPlaylistModal from "../../modal/add_playlist_modal/Add_AllPlaylist_Modal";
 import BoardDetailModal from "../board_modal/BoardDetailModal";
+import {getCurrentLoginUser} from "../../../util/login-util";
 
 const BoardDetail = ({boardDetailInfo, detailCloseHandler, token}) => {
 
@@ -33,7 +34,7 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token}) => {
     const [dislikeClicked, setDislikeClicked] = useState(false);
     // 올플리 악보 띄우기
     const [addAllPlayModalOpen, setAddAllPlayModalOpen] = useState(false);
-
+    const account = getCurrentLoginUser().username;
 
     const onDocumentLoadSuccess = (document) => {
         setNumPages(document.numPages);
@@ -109,6 +110,18 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token}) => {
         })
     }
 
+    // 삭제 핸들러
+    const deleteHandler = () =>{
+        fetch(`http://localhost:8484/api/board/${boardDetailInfo.boardNo}`,{
+            method:"DELETE",
+            headers:{
+                'Authorization': 'Bearer ' + token,
+                "Content-Type":"application/json"
+            }
+        });
+        detailCloseHandler();
+    }
+
     // 이미지 우클릭 금지
     // document.querySelector('.detail-img').addEventListener('contextmenu', function (e) {
     //     e.preventDefault();
@@ -161,10 +174,11 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token}) => {
                                             style={{cursor: "pointer"}}/>
                     }
                     <MdFormatListBulletedAdd style={{cursor: "pointer"}} onClick={clickPlayListButtonHandler}/>
+                    {boardDetailInfo.memberAccount=== account && < MdDelete onClick={deleteHandler} />}
                     <GiSaveArrow className="download-btn" style={{cursor: "pointer"}} onClick={downloadHandler}/>
                 </div>
             </div>
-            {addAllPlayModalOpen && <BoardDetailModal onClose={() => setAddAllPlayModalOpen(false)}/>}
+            {addAllPlayModalOpen && <BoardDetailModal scoreNo={boardDetailInfo.scoreNo} onClose={() => setAddAllPlayModalOpen(false)}/>}
         </div>
     );
 };
