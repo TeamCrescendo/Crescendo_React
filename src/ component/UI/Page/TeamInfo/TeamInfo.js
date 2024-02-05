@@ -3,7 +3,6 @@ import classNames from "classnames";
 import React from 'react';
 import Form1 from './form/form1'
 
-
 const TeamInfo = ({ isForward }) => {
     const setAnimation = classNames({
         'slide-up': isForward,
