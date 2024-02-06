@@ -11,7 +11,7 @@ import Input from '@mui/joy/Input';
 import {KeyboardArrowRight} from "@mui/icons-material";
 
 
-const Score = ({pdfFile, scoreId}) => {
+const Score = ({pdfFile, scoreId, exitHandler}) => {
 
     // 현재 페이지
     const [numPages, setNumPages] = useState(0);
@@ -99,6 +99,10 @@ const Score = ({pdfFile, scoreId}) => {
             });
     }
 
+    const comebackHandler = () =>{
+        exitHandler();
+    }
+
     useEffect(() => {
         const binaryArray=new Uint8Array(pdfFile);
         console.log(binaryArray);
@@ -120,6 +124,7 @@ const Score = ({pdfFile, scoreId}) => {
                     sx={{mt: 2.5, mb: 6.2}}
                     // fullWidth={true}
                 >
+                    <Button onClick={comebackHandler}>돌아가기</Button>
                     <Button onClick={downloadHandler}>저장하기</Button>
                     <Button onClick={shareHandler} disabled={share}>공유하기</Button>
                 </ButtonGroup>

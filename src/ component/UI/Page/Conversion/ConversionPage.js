@@ -113,6 +113,12 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
         }
     };
 
+    // 돌아오는 핸들러
+    const exitHandler = () =>{
+        setPdfFile(null);
+        setIsLoading(false);
+    }
+
     const renderPage = () => {
         return (
             <>
@@ -139,7 +145,7 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
                     </div>
                 </form>
                 {pdfFile && (
-                   <Score pdfFile = {pdfFile} scoreId={scoreId}/>
+                   <Score pdfFile = {pdfFile} scoreId={scoreId} exitHandler={exitHandler}/>
                 )}
             </>
         )
@@ -160,7 +166,6 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
 //{`mainContainer ${setAnimation}`}
     return (
         <div className='conversion-page'>
-            {/**/}
             {
                 isLoading ? (
                     loadingPage()
