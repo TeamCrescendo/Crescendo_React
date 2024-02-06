@@ -18,9 +18,15 @@ const UserInfo = ({ logoutHandler, loginInfo, loginCheck }) => {
         <Card>
             <Card.Body>
                 <Card.Title>{loginInfo.userName} ({loginInfo.account}) 님</Card.Title>
-                <Card.Text>
-                    오늘의 변환 기회: {loginInfo.userDownloadChance}/5번
-                </Card.Text>
+                {
+                    loginInfo.auth === 'ADMIN'
+                    ? (<Card.Text>
+                         환영합니다 관리자님!
+                    </Card.Text>)
+                    : (<Card.Text>
+                            오늘의 변환 기회: {loginInfo.userDownloadChance}/5번
+                    </Card.Text>)
+                }
                 <Button variant="primary" className="info" onClose={() => setModifyModalOpen(false)}
                         onClick={modifyButtonClick}>
                     회원정보 수정

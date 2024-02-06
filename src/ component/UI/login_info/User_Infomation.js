@@ -25,7 +25,15 @@ const UserInfomation = ({ loginInfo, logoutHandler, googleLogin }) =>
 
                     <div className="user-info-subdiv" >
                         <span className="user-info-name">{loginInfo.userName}</span>
-                        <span className="downloadCount">변환기회: {loginInfo.userDownloadChance}</span>
+                        {
+                            loginInfo.auth === 'ADMIN'
+                            ? (
+                               <span className="downloadCount">관리자 계정</span>
+                              )
+                            : (
+                               <span className="downloadCount">변환기회: {loginInfo.userDownloadChance}</span>
+                            )
+                        }
                     </div>
 
                     <span className="user-info-setting" onClick={() => {setDropdownView(!dropdownView)}}><IoSettingsSharp /></span>

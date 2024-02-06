@@ -70,8 +70,8 @@ const PostMessageInfo = ({ loginInfo }) => {
         'Authorization': 'Bearer ' + token
     };
 
-    // 쪽지목록 전체조회 (본인관련)
-    const selectMyPostMessage = e => {
+// 쪽지목록을 날짜순으로 정렬하여 반환하는 함수
+    const selectMyPostMessage = () => {
         fetch(MESSAGE_URL + '/all', {
             method: 'GET',
             headers: requestHeader
@@ -89,13 +89,13 @@ const PostMessageInfo = ({ loginInfo }) => {
                             formatPost = "확인완료";
                         }
                     }
-                    // const sender = "" + message.senderNickName + "(" + message.sender + ")";
-                    // const receiverFormat = "" + message.receiverNickname + "(" + message.receiver + ")";
 
-                    const formatTime = formatDate(message.writtenTime);
+                    const formatTime = formatDate(message.writtenTime); // 발송 시간을 가져옵니다.
                     return createData(formatPost, message.senderNickName, message.receiverNickname, message.receiver
                         ,message.content, formatTime, message.messageId, message.check);
                 });
+                // 날짜순으로 정렬
+                updatedRows.sort((a, b) => new Date(b.post_time) - new Date(a.post_time));
                 setRows(updatedRows);
             })
     }

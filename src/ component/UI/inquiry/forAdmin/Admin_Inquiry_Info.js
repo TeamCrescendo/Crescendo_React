@@ -9,6 +9,7 @@ import {IconButton} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import InquiryContentModal from "../../modal/inquiry_content_modal/Inquiry_Content_Modal";
 import InquiryModal from "../../modal/inquiry_modal/Inquiry_modal";
+import AdminInquiryContentModal from "../../modal/inquiry_content_modal/forAdmin/Admin_Inquiry_Content_Modal";
 
 
 const AdminInquiryInfo = ({ loginInfo }) => {
@@ -25,8 +26,8 @@ const AdminInquiryInfo = ({ loginInfo }) => {
         setInquiryModalOpen(true);
     };
 
-    function createData(title, content, inquiry_time, inquiryId) {
-        return { title, content, inquiry_time, inquiryId };
+    function createData(title, content, inquiry_time, inquiryId, account) {
+        return { title, content, inquiry_time, inquiryId, account };
     }
 
     function formatDate(timeString) {
@@ -60,17 +61,20 @@ const AdminInquiryInfo = ({ loginInfo }) => {
         'content-type': 'application/json',
         'Authorization': 'Bearer ' + token
     };
-    // 문의목록 전체조회 (본인것만)
+    // 문의목록 전체 내역 조회
     const selectMyInquiry = e => {
-        fetch(INQUIRY_URL + `?account=${loginInfo.account}`, {
+        fetch(INQUIRY_URL + "/all", {
             method: 'GET',
             headers: requestHeader
         })
-            .then(res => res.json())
+            .then(res => {
+                if(res.ok) return res.json();
+                else if(res.status===400) alert("문의내역 조회 에러발생!");
+            })
             .then(json => {
                 const updatedRows = json.map(inquiry => {
                     const formatTime = formatDate(inquiry.createTime);
-                    return createData(inquiry.inquiryTitle, inquiry.inquiryContent, formatTime, inquiry.inquiryId);
+                    return createData(inquiry.inquiryTitle, inquiry.inquiryContent, formatTime, inquiry.inquiryId, inquiry.account);
                 });
                 setRows(updatedRows);
             })
@@ -128,22 +132,23 @@ const AdminInquiryInfo = ({ loginInfo }) => {
                                 <div>{row.inquiry_time}</div>
                                 <div>
                                     <InquiryContentModalButton row={{ content: row.content, title: row.title, inquiryId: row.inquiryId
-                                        , time: row.inquiry_time }} onClose={() => setContentModalOpen(false)}
+                                        , time: row.inquiry_time, account: row.account }} onClose={() => setContentModalOpen(false)}
                                                                modifyButtonClick={contentButtonClick} />
                                 </div>
                                 {/*<div><RiChatDeleteFill onClick={() => deleteInqHandler(row.inquiryId)} style={{color:"red", cursor:"pointer", fontSize:"30px"}}/></div>*/}
-                                <div>
-                                    <IconButton aria-label="delete" size="large" onClick={() => deleteInqHandler(row.inquiryId)} style={{color:"red", cursor:"pointer"}}>
-                                        <DeleteIcon fontSize="inherit" />
-                                    </IconButton>
-                                </div>
+                                {/*<div>*/}
+                                {/*    <IconButton aria-label="delete" size="large" onClick={() => deleteInqHandler(row.inquiryId)} style={{color:"red", cursor:"pointer"}}>*/}
+                                {/*        <DeleteIcon fontSize="inherit" />*/}
+                                {/*    </IconButton>*/}
+                                {/*</div>*/}
+                                <div>{row.account}</div>
                             </div>
                         ))}
                     </div>
                 </div>
             </div>
 
-            {contentModalOpen && <InquiryContentModal row={data}  onClose={() => setContentModalOpen(false)}/>}
+            {contentModalOpen && <AdminInquiryContentModal row={data}  onClose={() => setContentModalOpen(false)}/>}
             {inquiryModalOpen && <InquiryModal onClose={() => setInquiryModalOpen(false)} loginInfo={loginInfo}/>}
         </>
     );
