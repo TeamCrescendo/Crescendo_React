@@ -80,7 +80,6 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
                 "url": youtubeLink
             })
         });
-
         if (res.status === 200) {
             const arrayBuffer = await res.arrayBuffer();
             const idValue = res.headers.get("score-id");
@@ -91,7 +90,13 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
             setPdfFile(file);
             setIsLoading(false);
             console.log(file);
-        } else {
+        }else if(res.status===500){
+            console.log("서버 에러");
+            setIsLoading(false);
+            setIsConversion(false);
+            alert("서버에러입니다");
+        }
+        else {
             console.log("변환 실패.")
             console.error("Failed to fetch PDF:", res.body);
             setIsLoading(false);
