@@ -68,7 +68,10 @@ const Score = ({pdfFile, scoreId}) => {
         //http://localhost:8484/api/score/share
 
         // 악보 제목
-
+        if(boardTitle.length<1 || boardTitle.length>16){
+            alert("제목은 1글자 이상 16글자 이하여야 합니다.");
+            return;
+        }
         const requestHeader = {
             'content-type': 'application/json',
             'Authorization': 'Bearer ' + token
