@@ -184,12 +184,18 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
                 }
             })
     }
+
+    // 조회수 증가
+    const upViewCount = () =>{
+        fetch(BOARD_URL+`/increaseViewCount?boardNo=${boardDetailInfo.boardNo}`);
+    }
     useEffect(() => {
         console.log(boardDetailInfo);
         console.log(memberAccount);
         console.log(scoreNo);
         getUserInfo();
         getLikeClickCheck();
+        upViewCount();
     }, []);
 
     return (

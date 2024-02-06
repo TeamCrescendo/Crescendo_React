@@ -81,7 +81,7 @@ const Board = ({isForward, loginInfo}) => {
                         const file = new File([blob], "example.pdf", {type: "application/pdf"});
 
                         // 이전 상태를 기반으로 새로운 상태를 업데이트
-                        setPdfFiles(prevFiles => [...prevFiles, file]);
+                        setPdfFiles([file]);
                     } catch (error) {
                         console.error('Error fetching PDF file:', error);
                     }
@@ -127,7 +127,7 @@ const Board = ({isForward, loginInfo}) => {
                 !detailClick && !boardsLoading &&
                 (
                     <>
-                        <Grid container spacing={15} className="grid" sx={{width: 1220, height: 900, p: 2}}>
+                        <Grid container spacing={15} className="grid" sx={{width: 1220, height: 980, p: 2}}>
                             {
                                 pdfFiles.map((item, i) =>
                                     (
