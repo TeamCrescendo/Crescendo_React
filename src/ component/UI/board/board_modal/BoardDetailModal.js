@@ -100,6 +100,9 @@ const BoardDetailModal = ({onClose, scoreNo}) => {
         console.log(sendPlayList);
         console.log(scoreNo);
         sendPlayList.forEach((item) => {
+            console.log("플레이리스트: ", item);
+            console.log("악보 번호: ", scoreNo);
+
             fetch("http://localhost:8484/api/playList", {
                 method: "POST",
                 headers: {
