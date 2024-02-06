@@ -21,6 +21,8 @@ import {AUTH_URL, INQUIRY_URL, MESSAGE_URL} from "../../../config/host-config";
 import {getCurrentLoginUser} from "../../util/login-util";
 import MessageModalButton from "../button/message_modal_btn/message_modal_button";
 import MessageModal from "../modal/message_modal/Message_modal";
+import {IconButton} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const PostMessageInfo = ({ loginInfo }) => {
     const [modifyModalOpen, setModifyModalOpen] = useState(false);
@@ -68,8 +70,8 @@ const PostMessageInfo = ({ loginInfo }) => {
         'Authorization': 'Bearer ' + token
     };
 
-    // 쪽지목록 전체조회 (본인관련)
-    const selectMyPostMessage = e => {
+// 쪽지목록을 날짜순으로 정렬하여 반환하는 함수
+    const selectMyPostMessage = () => {
         fetch(MESSAGE_URL + '/all', {
             method: 'GET',
             headers: requestHeader
@@ -87,13 +89,13 @@ const PostMessageInfo = ({ loginInfo }) => {
                             formatPost = "확인완료";
                         }
                     }
-                    const sender = "" + message.senderNickName + "(" + message.sender + ")";
-                    const receiverFormat = "" + message.receiverNickname + "(" + message.receiver + ")";
 
-                    const formatTime = formatDate(message.writtenTime);
+                    const formatTime = formatDate(message.writtenTime); // 발송 시간을 가져옵니다.
                     return createData(formatPost, message.senderNickName, message.receiverNickname, message.receiver
                         ,message.content, formatTime, message.messageId, message.check);
                 });
+                // 날짜순으로 정렬
+                updatedRows.sort((a, b) => new Date(b.post_time) - new Date(a.post_time));
                 setRows(updatedRows);
             })
     }
@@ -196,7 +198,13 @@ const PostMessageInfo = ({ loginInfo }) => {
                                     , sender: row.sender, messageId: row.messageId}} onClose={() => setModifyModalOpen(false)}
                                      onCheck={messageCheckHandler} modifyButtonClick={modifyButtonClick} />
                                 </div>
-                                <div><RiChatDeleteFill id={row.messageId} onClick={deleteCLickHandler} style={{color:"red", cursor:"pointer", fontSize:"30px"}}/></div>
+                                {/*<div><RiChatDeleteFill id={row.messageId} onClick={deleteCLickHandler} style={{color:"red", cursor:"pointer", fontSize:"30px"}}/></div>*/}
+                                <div>
+                                    <IconButton aria-label="delete" size="large" id={row.messageId}
+                                                onClick={deleteCLickHandler} style={{color:"red", cursor:"pointer"}}>
+                                        <DeleteIcon fontSize="inherit" />
+                                    </IconButton>
+                                </div>
                             </div>
                         ))}
                     </div>

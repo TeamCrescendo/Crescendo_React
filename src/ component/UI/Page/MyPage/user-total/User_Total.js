@@ -1,26 +1,74 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './User_Total.scss';
 import { RiChatDeleteFill } from "react-icons/ri";
+import {IconButton} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import {ALL_PLAYLIST_URL, BOARD_URL} from "../../../../../config/host-config";
+import {getCurrentLoginUser} from "../../../../util/login-util";
 
-const UserTotal = () => {
-    function createData(title, viewCount, like, dislike, downloadCount) {
-        return { title, viewCount, like, dislike, downloadCount };
+const UserTotal = ({ loginInfo }) => {
+    const [rows, setRows] = useState([]);
+
+    function createData(bno, title, like, dislike, viewCount, downloadCount) {
+        return { bno, title, like, dislike, viewCount, downloadCount };
     }
 
-    const rows = [
-        createData('엘리제를 위하여', 159, 6, 24, 4),
-        createData('젓가락 행진곡', 237, 9, 37, 4),
-        createData('아무노래', 262, 16, 24, 6),
-        createData('너를위해서', 305, 3, 67, 4),
-        createData('좋은 날', 356, 16, 49, 3),
-        createData('좋은 2', 356, 16, 49, 3),
-        createData('좋은 3', 356, 16, 49, 3),
-        createData('좋은 4', 356, 16, 49, 3),
-        createData('좋은 5', 356, 16, 49, 3),
-        createData('좋은 6', 356, 16, 49, 3),
-        createData('좋은 7', 356, 16, 49, 3),
-        createData('좋은 8', 356, 16, 49, 3),
-    ];
+
+    // 토큰 가져오기
+    const[token, setToken] = useState(getCurrentLoginUser().token);
+    // 요청 헤더 객체
+    const requestHeader = {
+        'content-type': 'application/json',
+        'Authorization': 'Bearer ' + token
+    };
+
+    // 자신의 공유목록 불러오기
+    const selectMyBoard = () => {
+        fetch(BOARD_URL + "/myBoardList", {
+            method: 'GET',
+            headers: requestHeader,
+            credentials: 'include',
+        })
+            .then(res => {
+                if(res.ok) return res.json();
+            })
+            .then(json => {
+                console.log(json);
+                if (json) {
+                    const updatedRows = json.boards.map(board => {
+                        return createData(board.boardNo, board.boardTitle, board.boardLikeCount,
+                            board.boardDislikeCount, board.boardViewCount, board.boardDownloadCount);
+                    });
+                    setRows(updatedRows);
+                } else {
+                    console.error("Invalid JSON format or missing 'allPlayLists' array");
+                }
+            })
+    }
+
+    const deleteHandler = (bno) =>{
+        if (!window.confirm("해당 공유악보를 정말 삭제하시겠습니까?")){
+            return;
+        }
+
+        fetch(`${BOARD_URL}/${bno}`,{
+            method:"DELETE",
+            headers:{
+                'Authorization': 'Bearer ' + token,
+                "Content-Type":"application/json"
+            }
+        }).then(res=> {
+            if (res.ok) {
+                alert("공유했던 악보가 성공적으로 삭제되었습니다!");
+                selectMyBoard();
+            }
+            else alert("공유악보 삭제가 실패했습니다!");
+        })
+    }
+
+    useEffect(() => {
+        selectMyBoard();
+    }, []);
 
     return (
         <div className="user-total-container">
@@ -35,13 +83,19 @@ const UserTotal = () => {
                 </div>
                 <div className="scroll-container">
                     {rows.map((row) => (
-                        <div className="table-data" key={row.title}>
+                        <div className="table-data" key={row.bno}>
                             <div style={{cursor:"pointer", color:"deepskyblue", fontWeight:"bold"}}>{row.title}</div>
                             <div>{row.viewCount}회</div>
                             <div>{row.like}개</div>
                             <div>{row.dislike}개</div>
                             <div>{row.downloadCount}번</div>
-                            <div><RiChatDeleteFill style={{color:"red", cursor:"pointer", fontSize:"30px"}}/></div>
+                            {/*<div><RiChatDeleteFill style={{color:"red", cursor:"pointer", fontSize:"30px"}}/></div>*/}
+                            <div>
+                                <IconButton aria-label="delete" size="large" style={{color:"red", cursor:"pointer"}}
+                                onClick={() => deleteHandler(row.bno)}>
+                                    <DeleteIcon fontSize="inherit" />
+                                </IconButton>
+                            </div>
                         </div>
                     ))}
                 </div>

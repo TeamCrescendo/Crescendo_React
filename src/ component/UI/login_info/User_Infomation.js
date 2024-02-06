@@ -17,7 +17,7 @@ const UserInfomation = ({ loginInfo, logoutHandler, googleLogin }) =>
     // }
 
     return (
-        <div className="user-info-div">
+        <div className="user-info-div" style={loginInfo&& {paddingRight:"10px", paddingLeft:"10px"}}>
             {loginInfo
                 ? ( // loginInfo가 존재하는 경우에만 렌더링
                 <>
@@ -25,7 +25,15 @@ const UserInfomation = ({ loginInfo, logoutHandler, googleLogin }) =>
 
                     <div className="user-info-subdiv" >
                         <span className="user-info-name">{loginInfo.userName}</span>
-                        <span className="downloadCount">변환 기회: {loginInfo.userDownloadChance}</span>
+                        {
+                            loginInfo.auth === 'ADMIN'
+                            ? (
+                               <span className="downloadCount">관리자 계정</span>
+                              )
+                            : (
+                               <span className="downloadCount">변환기회: {loginInfo.userDownloadChance}</span>
+                            )
+                        }
                     </div>
 
                     <span className="user-info-setting" onClick={() => {setDropdownView(!dropdownView)}}><IoSettingsSharp /></span>

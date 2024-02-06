@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Document, Page} from "react-pdf";
 import {getCurrentLoginUser} from "../../../util/login-util";
 import "./Score.scss";
@@ -18,6 +18,7 @@ const Score = ({pdfFile, scoreId}) => {
     const [currentPage, setCurrentPage] = useState(1); // Current page state
     const [open, setOpen] = useState(false);
     const [boardTitle, setBoardTitle] = useState('');
+    const [share, setShare] = useState(false);
 
 
     // 토큰 가져오기
@@ -40,15 +41,15 @@ const Score = ({pdfFile, scoreId}) => {
     // 악보 공유 하는 함수
     const shareHandler = async (e) => {
         setOpen(true);
-
-
     }
 
     //
     const onDocumentLoadSuccess = (document) => {
         console.log(document);
+        console.log(pdfFile);
         setNumPages(document.numPages);
     };
+
     const pageClickHandler = (event, page) => {
         console.log(page);
         // console.log(event);
@@ -59,7 +60,7 @@ const Score = ({pdfFile, scoreId}) => {
     // 악보 제목 작성하는 핸들러
     const titleHandler = async (e)  =>{
         e.preventDefault();
-        console.log(boardTitle);
+        // console.log(boardTitle);
 
         // 악보 아이디
         //scoreId
@@ -68,26 +69,37 @@ const Score = ({pdfFile, scoreId}) => {
 
         // 악보 제목
 
-        const headers = {
-            'Authorization': 'Bearer ' + token,
+        const requestHeader = {
+            'content-type': 'application/json',
+            'Authorization': 'Bearer ' + token
         };
-
+        const requestBody = {
+            scoreNo: scoreId,
+            boardTitle: boardTitle
+        };
+        console.log(scoreId);
+        console.log(boardTitle);
+        console.log(requestHeader);
         fetch("http://localhost:8484/api/board/createBoard", {
             method: "POST",
-            headers: headers,
-            body: {
-                scoreNo : scoreId,
-                boardTitle: boardTitle
-            }
+            headers: requestHeader,
+            body: JSON.stringify(requestBody)
         })
-            .then(res => res.text())
+            .then(res => res.json())
             .then(json => {
-                console.log(json);
+                setShare(true);
+                setOpen(false);
+                // console.log(json);
             })
             .catch(error => {
                 console.error('Error:', error);
             });
     }
+
+    useEffect(() => {
+        const binaryArray=new Uint8Array(pdfFile);
+        console.log(binaryArray);
+    }, []);
 
     const titleModifyHandler = e =>{
         setBoardTitle(e.target.value);
@@ -106,7 +118,7 @@ const Score = ({pdfFile, scoreId}) => {
                     // fullWidth={true}
                 >
                     <Button onClick={downloadHandler}>저장하기</Button>
-                    <Button onClick={shareHandler}>공유하기</Button>
+                    <Button onClick={shareHandler} disabled={share}>공유하기</Button>
                 </ButtonGroup>
                 <Pagination
                     className="pagination"
@@ -148,7 +160,7 @@ const Score = ({pdfFile, scoreId}) => {
                     <Typography id="modal-desc" textColor="text.tertiary">
                         <form onSubmit={titleHandler}>
                             <Input onChange={titleModifyHandler} color="success" endDecorator={
-                                <Button endDecorator={<KeyboardArrowRight/>} color="success">
+                                <Button endDecorator={<KeyboardArrowRight/>} color="success" onClick={titleHandler}>
                                     전송
                                 </Button>
                             }/>

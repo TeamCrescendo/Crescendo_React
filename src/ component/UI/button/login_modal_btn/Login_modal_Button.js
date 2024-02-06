@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Login_modal_Button.scss';
 import LoginModal from '../../modal/login_modal/Login_modal';
 import RegisterModal from "../../modal/register_modal/Register_modal";
+import Button from "@mui/material/Button";
 
 const Login_modal_Button = ({ isLogin, LoginCheck, googleLogin }) => {
     const [loginModalOpen, setLoginModalOpen] = useState(false);
@@ -20,9 +21,13 @@ const Login_modal_Button = ({ isLogin, LoginCheck, googleLogin }) => {
 
     return (
         <>
-            <button className="loginModalOpenBtn" type="button" onClick={handleButtonClick}>
-                로그인
-            </button>
+            {/*<button >*/}
+            {/*    로그인*/}
+            {/*</button>*/}
+            <Button variant="contained" color="success" className="loginModalOpenBtn" onClick={handleButtonClick}
+                    style={{ borderBottomLeftRadius: "100px", borderTopLeftRadius: "100px", fontWeight: "bold", fontSize: "30px"}}>
+                Login
+            </Button>
 
             {loginModalOpen && <LoginModal onClose={() => setLoginModalOpen(false)}
                                            registerHandler={registerHandler} isLogin={isLogin}

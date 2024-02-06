@@ -1,0 +1,151 @@
+.board-detail-container {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 50px;
+
+  // 종료 버튼
+  .detail-header {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+
+    .close {
+      font-size: 40px;
+    }
+  }
+
+  // 제목 컨테이너
+  .detail-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    // 곡명
+    .subTitle {
+      font-size: 20px;
+    }
+
+    // 보드 게시판 타이틀
+    .mainTitle {
+      font-size: 25px;
+      font-weight: bold;
+    }
+  }
+
+  .document-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+  .detail-side {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 30px;
+    padding-bottom: 30px;
+
+    width: 100px;
+    height: 600px;
+    background: #cccccc;
+    font-size: 60px;
+
+    .like-btn {
+      margin-bottom: 15px;
+    }
+
+    .dislike-btn {
+      margin-bottom: 15px;
+    }
+
+    .download-btn {
+      margin-top: auto;
+    }
+  }
+}
+
+
+//.board-detail-container {
+//  width: 80%;
+//  display: flex;
+//  justify-content: center;
+//  align-items: center;
+//  flex-direction: column;
+//  padding-top: 10px;
+//  padding-bottom: 10px;
+//  padding-right: 50px;
+//
+//  .detail-header {
+//    width: 100%;
+//    display: flex;
+//    justify-content: left;
+//    align-items: center;
+//    .close {
+//      font-size: 40px;
+//    }
+//  }
+//  .detail-title {
+//    display: flex;
+//    justify-content: center;
+//    align-items: center;
+//    flex-direction: column;
+//
+//    .subTitle {
+//      font-size: 20px;
+//    }
+//    .mainTitle {
+//      font-size: 25px;
+//      font-weight: bold;
+//    }
+//  }
+//
+//  .img-container {
+//    display: flex;
+//    justify-content: center;
+//    align-items: center;
+//    flex-direction: row;
+//
+//    .detail-img {
+//      height: 700px;
+//      user-drag: none;
+//      user-select: none;
+//      -moz-user-select: none;
+//      -webkit-user-drag: none;
+//      -webkit-user-select: none;
+//      -ms-user-select: none;
+//    }
+//    .detail-side {
+//      display: flex;
+//      justify-content: start;
+//      align-items: center;
+//      flex-direction: column;
+//      padding-top: 30px;
+//      padding-bottom: 30px;
+//
+//      width: 100px;
+//      height: 600px;
+//      background: #cccccc;
+//      font-size: 60px;
+//      .like-btn {
+//        margin-bottom: 15px;
+//      }
+//      .dislike-btn {
+//        margin-bottom: 15px;
+//      }
+//      .download-btn {
+//        margin-top: auto;
+//      }
+//    }
+//  }
+//
+//}

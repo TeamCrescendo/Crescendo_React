@@ -8,12 +8,20 @@ import PlaylistModalButton from "../../../button/playlist_modal_Button/playlist_
 import PlaylistModal from "../../../modal/playlist_modal/Playlist_modal";
 import {ALL_PLAYLIST_URL, PLAYLIST_URL} from "../../../../../config/host-config";
 import { IoMdAddCircleOutline } from "react-icons/io";
+import AddAllPlaylistModal from "../../../modal/add_playlist_modal/Add_AllPlaylist_Modal";
+import {IconButton} from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
+
+
 
 const PlaylistInfo = ({ loginInfo }) => {
     const [modifyModalOpen, setModifyModalOpen] = useState(false);
+    const [addAllPlayModalOpen, setAddAllPlayModalOpen] = useState(false);
     const [data, setData] = useState();
     const [playlistCount, setPlaylistCount] = useState(0);
     const [rows, setRows] = useState([]);
+    const [plName, setPlName] = useState();
+    const [plShare, setPlShare] = useState();
 
 
     // 토큰 가져오기
@@ -60,30 +68,35 @@ const PlaylistInfo = ({ loginInfo }) => {
             })
     }
 
-    const addAllPlayList = () => {
-            fetch(ALL_PLAYLIST_URL + "/createAllPlayList", {
-                method: 'POST',
-                headers: requestHeader,
-                body: {
-                    plName: "",
-                    account: "",
-                    plShare: "",
-                },
-                credentials: 'include',
-            })
-                .then(res => {
-                    if (res.status === 200) alert("신규 악보목록을 생성합니다!");
-                    else if (res.status === 400) alert("악보목록 생성에 실패했습니다!");
-                })
-    }
-
     const addPlaylistHandler = e => {
-
+        setAddAllPlayModalOpen(true);
     }
+
+    const deleteAllPlayListHandler = (plId) => {
+        if (window.confirm("해당 악보목록을 삭제하시겠습니까?\n저장하신 악보내역은 다시 복구할 수 없습니다!")) {
+            deleteAllPlayList(plId);
+        }
+    }
+
+    const deleteAllPlayList = (plId) => {
+        console.log(plId)
+        fetch(`${ALL_PLAYLIST_URL}/${plId}`, {
+            method: 'DELETE',
+            headers: requestHeader
+        })
+            .then(res => {
+                if (res.ok) {
+                    alert("악보목록이 성공적으로 삭제되었습니다!");
+                    selectAllPlaylist();
+                }
+                else alert("악보목록 삭제가 실패했습니다!");
+            })
+    }
+
 
     useEffect(() => {
         selectAllPlaylist();
-    }, []);
+    }, [addAllPlayModalOpen]);
     useEffect(() => {
         setPlaylistCount(rows.length);
     }, [rows]);
@@ -106,7 +119,14 @@ const PlaylistInfo = ({ loginInfo }) => {
                                 <PlaylistModalButton row={{title: row.title, plId: row.plId}} onClose={() => setModifyModalOpen(false)}
                                                     modifyButtonClick={modifyButtonClick} />
                             </div>
-                            <div><RiChatDeleteFill style={{color:"red", cursor:"pointer", fontSize:"30px"}}/></div>
+                            <div>
+                                {/*<RiChatDeleteFill onClick={() => deleteAllPlayListHandler(row.plId)}*/}
+                                {/*                  style={{color:"red", cursor:"pointer", fontSize:"30px"}}/>*/}
+                                <IconButton aria-label="delete" size="large" style={{color:"red", cursor:"pointer"}}
+                                            onClick={() => deleteAllPlayListHandler(row.plId)}>
+                                    <DeleteIcon fontSize="inherit" />
+                                </IconButton>
+                            </div>
                         </div>
                     ))}
                     {playlistCount < 3 && (
@@ -120,6 +140,7 @@ const PlaylistInfo = ({ loginInfo }) => {
                 </div>
             </div>
             {modifyModalOpen && <PlaylistModal loginInfo={loginInfo} data={data}  onClose={() => setModifyModalOpen(false)}/>}
+            {addAllPlayModalOpen && <AddAllPlaylistModal loginInfo={loginInfo} data={data}  onClose={() => setAddAllPlayModalOpen(false)}/>}
         </div>
     );
 };

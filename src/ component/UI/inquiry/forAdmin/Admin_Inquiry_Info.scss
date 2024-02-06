@@ -1,10 +1,12 @@
 
-.playlist-container {
+
+.inquiry-info-container {
   width: 96%;
-  height: 314px;
-  max-height: 314px;
+  height: 500px;
+  max-height: 500px;
   background: white;
   overflow: hidden;
+  margin-top: 0;
 
   .table-container {
     display: flex;
@@ -20,6 +22,10 @@
       box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
       padding: 8px 17px 8px 8px;
 
+
+      .content {
+        flex: 2;
+      }
       div {
         flex: 1;
         text-align: center;
@@ -38,54 +44,39 @@
       background-color: rgba(246, 251, 253, 0.41);
     }
 
-
-    .scroll-container {
+    .inquiry-scroll-container {
       height: 449px;
-      //overflow-y: scroll;
+      overflow-x: hidden;
+      overflow-y: scroll;
 
-      .add-playlist {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        height: 70px;
-
-        .add-btn {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          background: #6db27a;
-          border-radius: 50%;
-          color: #ffffff;
-          font-weight: bold;
-          width: 60px;
-          height: 60px;
-          font-size: 60px;
-          cursor: pointer;
-          margin-top: 15px;
-        }
-      }
       .table-data {
         display: flex;
         align-items: center;
         padding: 8px;
 
+        .status {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+        }
+
+
+        .content {
+          flex: 2;
+        }
         div {
           flex: 1;
           text-align: center;
-          margin-bottom: 10px;
-          margin-top: 10px;
+          margin-bottom: 5px;
+          margin-top: 5px;
         }
+
 
         &:hover {
           background-color: #dedddd;
         }
       }
     }
-
-  }
-
-  .table-data:last-child {
-    border-bottom: none;
   }
 }

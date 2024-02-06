@@ -1,27 +1,18 @@
 import React, {useEffect, useState} from 'react';
-import TableContainer from "@mui/material/TableContainer";
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import TableCell from "@mui/material/TableCell";
-import TableBody from "@mui/material/TableBody";
 
-import './Inquiry_Info.scss';
-import InquiryButton from "../button/inquiry_modal_btn/Inquiry_modal_Button";
-import ModifyModal from "../modal/modify_modal/Modify_modal";
-import InquiryModal from "../modal/inquiry_modal/Inquiry_modal";
-import InquiryModalButton from "../button/inquiry_modal_btn/Inquiry_modal_Button";
-import {AUTH_URL, INQUIRY_URL} from "../../../config/host-config";
-import {getCurrentLoginUser} from "../../util/login-util";
-import {RiChatDeleteFill} from "react-icons/ri";
-import MessageModalButton from "../button/message_modal_btn/message_modal_button";
-import InquiryContentModalButton from "../button/inquirt_content_modal_button/Inquiry_Content_Modal_Button";
-import InquiryContentModal from "../modal/inquiry_content_modal/Inquiry_Content_Modal";
+
+import './Admin_Inquiry_Info.scss';
+import {getCurrentLoginUser} from "../../../util/login-util";
+import {INQUIRY_URL} from "../../../../config/host-config";
+import InquiryContentModalButton from "../../button/inquirt_content_modal_button/Inquiry_Content_Modal_Button";
 import {IconButton} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import InquiryContentModal from "../../modal/inquiry_content_modal/Inquiry_Content_Modal";
+import InquiryModal from "../../modal/inquiry_modal/Inquiry_modal";
+import AdminInquiryContentModal from "../../modal/inquiry_content_modal/forAdmin/Admin_Inquiry_Content_Modal";
 
-const InquiryInfo = ({ loginInfo }) => {
+
+const AdminInquiryInfo = ({ loginInfo }) => {
     const [contentModalOpen, setContentModalOpen] = useState(false);
     const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
     const [rows, setRows] = useState([]);
@@ -35,8 +26,8 @@ const InquiryInfo = ({ loginInfo }) => {
         setInquiryModalOpen(true);
     };
 
-    function createData(title, content, inquiry_time, inquiryId) {
-        return { title, content, inquiry_time, inquiryId };
+    function createData(title, content, inquiry_time, inquiryId, account) {
+        return { title, content, inquiry_time, inquiryId, account };
     }
 
     function formatDate(timeString) {
@@ -70,17 +61,20 @@ const InquiryInfo = ({ loginInfo }) => {
         'content-type': 'application/json',
         'Authorization': 'Bearer ' + token
     };
-    // 문의목록 전체조회 (본인것만)
+    // 문의목록 전체 내역 조회
     const selectMyInquiry = e => {
-        fetch(INQUIRY_URL + `?account=${loginInfo.account}`, {
+        fetch(INQUIRY_URL + "/all", {
             method: 'GET',
             headers: requestHeader
         })
-            .then(res => res.json())
+            .then(res => {
+                if(res.ok) return res.json();
+                else if(res.status===400) alert("문의내역 조회 에러발생!");
+            })
             .then(json => {
                 const updatedRows = json.map(inquiry => {
                     const formatTime = formatDate(inquiry.createTime);
-                    return createData(inquiry.inquiryTitle, inquiry.inquiryContent, formatTime, inquiry.inquiryId);
+                    return createData(inquiry.inquiryTitle, inquiry.inquiryContent, formatTime, inquiry.inquiryId, inquiry.account);
                 });
                 setRows(updatedRows);
             })
@@ -123,11 +117,12 @@ const InquiryInfo = ({ loginInfo }) => {
             <div className="inquiry-info-container">
                 <div className="table-container">
                     <div className="table-row">
-                        <div className="content">문의제목</div>
+                        <div className="content">문의내역</div>
                         {/*<div></div>*/}
                         <div>문의시각</div>
-                        <div>문의내용</div>
-                        <div><InquiryModalButton inquiryButtonClick={inquiryButtonClick} onClose={() => setContentModalOpen(false)}/></div>
+                        <div>문의접수</div>
+                        <div>문의유저</div>
+                        {/*<div><InquiryModalButton inquiryButtonClick={inquiryButtonClick} onClose={() => setContentModalOpen(false)}/></div>*/}
                     </div>
                     <div className="inquiry-scroll-container">
                         {rows.map((row) => (
@@ -137,25 +132,26 @@ const InquiryInfo = ({ loginInfo }) => {
                                 <div>{row.inquiry_time}</div>
                                 <div>
                                     <InquiryContentModalButton row={{ content: row.content, title: row.title, inquiryId: row.inquiryId
-                                            , time: row.inquiry_time }} onClose={() => setContentModalOpen(false)}
-                                                        modifyButtonClick={contentButtonClick} />
+                                        , time: row.inquiry_time, account: row.account }} onClose={() => setContentModalOpen(false)}
+                                                               modifyButtonClick={contentButtonClick} />
                                 </div>
                                 {/*<div><RiChatDeleteFill onClick={() => deleteInqHandler(row.inquiryId)} style={{color:"red", cursor:"pointer", fontSize:"30px"}}/></div>*/}
-                                <div>
-                                    <IconButton aria-label="delete" size="large" onClick={() => deleteInqHandler(row.inquiryId)} style={{color:"red", cursor:"pointer"}}>
-                                        <DeleteIcon fontSize="inherit" />
-                                    </IconButton>
-                                </div>
+                                {/*<div>*/}
+                                {/*    <IconButton aria-label="delete" size="large" onClick={() => deleteInqHandler(row.inquiryId)} style={{color:"red", cursor:"pointer"}}>*/}
+                                {/*        <DeleteIcon fontSize="inherit" />*/}
+                                {/*    </IconButton>*/}
+                                {/*</div>*/}
+                                <div>{row.account}</div>
                             </div>
                         ))}
                     </div>
                 </div>
             </div>
 
-            {contentModalOpen && <InquiryContentModal row={data}  onClose={() => setContentModalOpen(false)}/>}
+            {contentModalOpen && <AdminInquiryContentModal row={data}  onClose={() => setContentModalOpen(false)}/>}
             {inquiryModalOpen && <InquiryModal onClose={() => setInquiryModalOpen(false)} loginInfo={loginInfo}/>}
         </>
     );
 };
 
-export default InquiryInfo;
+export default AdminInquiryInfo;
