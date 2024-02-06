@@ -17,6 +17,7 @@ import BoardDetailModal from "../board_modal/BoardDetailModal";
 import {getCurrentLoginUser} from "../../../util/login-util";
 import {json} from "react-router-dom";
 import BoardMessageModal from "../board_modal/BoardMessageModal";
+import {BOARD_URL} from "../../../../config/host-config";
 
 const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, memberAccount, loginInfo}) => {
 
@@ -166,11 +167,29 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
         setMessageModal(true);
     };
 
+    // 좋아요 싫어요 체크 여부
+    const getLikeClickCheck = () =>{
+        fetch(BOARD_URL+`/ChecklikeAndDislike?boardNo=${boardDetailInfo.boardNo}`, {
+            method:"POST",
+            headers: requestHeader
+        }).then(res=>res.json())
+            .then(json=>{
+                console.log(json);
+                if(json.isClick){
+                    if(json.like){
+                        setLikeClicked(true);
+                    }else{
+                        setDislikeClicked(true);
+                    }
+                }
+            })
+    }
     useEffect(() => {
         console.log(boardDetailInfo);
         console.log(memberAccount);
         console.log(scoreNo);
         getUserInfo();
+        getLikeClickCheck();
     }, []);
 
     return (
