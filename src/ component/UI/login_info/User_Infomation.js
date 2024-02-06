@@ -17,7 +17,7 @@ const UserInfomation = ({ loginInfo, logoutHandler, googleLogin }) =>
     // }
 
     return (
-        <div className="user-info-div">
+        <div className="user-info-div" style={loginInfo&& {paddingRight:"10px", paddingLeft:"10px"}}>
             {loginInfo
                 ? ( // loginInfo가 존재하는 경우에만 렌더링
                 <>

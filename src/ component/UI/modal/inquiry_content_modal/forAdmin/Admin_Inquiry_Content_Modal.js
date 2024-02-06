@@ -17,7 +17,7 @@ const AdminInquiryContentModal = ({ row, onClose }) => {
     };
 
     const addText = () => {
-        const answer = row.content + "\n\n[문의답변]\n" + text;
+        const answer = "[문의내용]\n" + row.content + "\n\n[문의답변]\n" + text;
         if (text.length < 5) {
             alert("5글자 이상 입력해야 합니다!");
             return;

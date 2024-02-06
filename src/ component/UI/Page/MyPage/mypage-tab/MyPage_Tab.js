@@ -22,7 +22,7 @@ function MyPageTab({ loginInfo }) {
                     fill
                 >
                     <Tab eventKey="list" title="공유목록">
-                        <UserTotal />
+                        <UserTotal loginInfo={loginInfo}/>
                     </Tab>
                     <Tab eventKey="contact" title="플레이리스트">
                         <PlaylistInfo loginInfo={loginInfo}/>

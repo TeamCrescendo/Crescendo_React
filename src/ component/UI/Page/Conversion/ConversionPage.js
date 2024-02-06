@@ -154,7 +154,7 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
 
 //{`mainContainer ${setAnimation}`}
     return (
-        <div className='conversion-page'>
+        <div className={`conversion-page  ${setAnimation}`}>
             {/**/}
             {
                 isLoading ? (

@@ -47,7 +47,8 @@ const Crescendo_main = () => {
                                    logoutHandler={logoutHandler}/>;
             case 2:
                 return <Ai_Music isForward={isForward} LoginHandler={LoginHandler}
-                                 loginInfo={loginInfo}/>;
+                                 loginInfo={loginInfo} LoginCheck={LoginCheck}
+                                 googleLogin={googleLogin} logoutHandler={logoutHandler}/>;
             case 3:
                 return <Board isForward={isForward} LoginHandler={LoginHandler}
                               loginInfo={loginInfo}/>;

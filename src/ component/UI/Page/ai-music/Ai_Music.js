@@ -11,9 +11,10 @@ import {Typography} from "@mui/joy";
 import PromptInfo from "./prompt_info/Prompt_Info";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import UserInfomation from "../../login_info/User_Infomation";
 
 
-const Ai_Music = ({ isForward, loginInfo }) => {
+const Ai_Music = ({ isForward, loginInfo, googleLogin, logoutHandler, LoginCheck }) => {
     const [scoreId, setScoreId] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [isDone, setIsDone] = useState(false);
@@ -143,6 +144,9 @@ const Ai_Music = ({ isForward, loginInfo }) => {
 
     return (
         <div className={`ai-music-container ${setAnimation}`}>
+            <div className="head">
+                <UserInfomation googleLogin={googleLogin} logoutHandler={logoutHandler} loginInfo={loginInfo}/>
+            </div>
             <div className="ai-music-header">
                 <h1>나만의 AI 음악</h1>
             </div>
