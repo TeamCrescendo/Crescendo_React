@@ -135,7 +135,6 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
             .then(json=>{
                 console.log(json);
                 getBoard();
-
             })
     }
 

@@ -128,6 +128,11 @@ const BoardDetailModal = ({onClose, scoreNo}) => {
         console.log(title);
         // console.log(loginInfo.account)
         console.log(isChecked);
+        if(title === ""){
+            alert("플레이리스트 악보이름을 정해주세요!!");
+            return;
+        }
+
         fetch(ALL_PLAYLIST_URL + "/createAllPlayList", {
             method: 'POST',
             headers: requestHeader,
