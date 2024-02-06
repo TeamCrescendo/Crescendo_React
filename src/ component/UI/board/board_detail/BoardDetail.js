@@ -19,7 +19,7 @@ import {json} from "react-router-dom";
 import BoardMessageModal from "../board_modal/BoardMessageModal";
 import {BOARD_URL} from "../../../../config/host-config";
 
-const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, memberAccount, loginInfo}) => {
+const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, memberAccount, loginInfo, getBoard}) => {
 
 
     // 페이지 총 번호
@@ -134,8 +134,9 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
         }).then(res=>res.json())
             .then(json=>{
                 console.log(json);
+                getBoard();
+
             })
-        detailCloseHandler();
     }
 
     // 이미지 우클릭 금지
