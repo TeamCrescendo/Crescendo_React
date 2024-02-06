@@ -91,9 +91,34 @@ header
     white-space: nowrap;
     position: fixed;
 
-    img{
-      margin: 600px 0 250px 0 ;
-    }
-  }
 
+  }
+  .web1{
+    width: 350px;
+    border: 1px solid white;
+    flex-direction: column;
+    background: #CECEF6;
+    border-radius: 15px;
+  }
+  .web-img1{
+    height: 250px;
+    display: flex;
+    background: #5882FA;
+    border-radius: 15px;
+  }
+  .web-head1{
+    background: #61dafb;
+    height: 100px;
+    border-radius: 15px;
+  }
+  .web-main1{
+    height: 60px;
+    background: #d0ece2;
+    border-radius: 15px;
+  }
+  .web-footer1{
+    height: 50px;
+    background-color: thistle;
+    border-radius: 15px;
+  }
 }
