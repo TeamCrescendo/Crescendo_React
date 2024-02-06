@@ -11,6 +11,8 @@ import MyPageTab from "./mypage-tab/MyPage_Tab";
 const MyPageLoggedIn = ({ loginInfo, logoutHandler, loginCheck }) => {
     const url = loginInfo.profileImageUrl;
 
+    
+
     return (
         <div className="mypage-loggedin-container">
             <div className="mypageHeader" >
