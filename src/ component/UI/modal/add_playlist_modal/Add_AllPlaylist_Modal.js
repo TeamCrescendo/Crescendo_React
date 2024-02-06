@@ -8,7 +8,7 @@ import AddAllPlayListButton from "../../button/allplaylist/add_allplaylist_butto
 import {ALL_PLAYLIST_URL} from "../../../../config/host-config";
 import {getCurrentLoginUser} from "../../../util/login-util";
 
-const AddAllPlaylistModal = ({ onClose, loginInfo, }) => {
+const AddAllPlaylistModal = ({ onClose}) => {
     const modalBackground = useRef();
     const [title, setTitle] = useState("");
     const [isChecked, setIsChecked] = useState(false);
@@ -47,14 +47,13 @@ const AddAllPlaylistModal = ({ onClose, loginInfo, }) => {
 
     const addAllPlayList = () => {
         console.log(title);
-        console.log(loginInfo.account)
+        // console.log(loginInfo.account)
         console.log(isChecked);
         fetch(ALL_PLAYLIST_URL + "/createAllPlayList", {
             method: 'POST',
             headers: requestHeader,
             body: JSON.stringify({
                 plName: title,
-                account: loginInfo.account,
                 plShare: isChecked,
             }),
             credentials: 'include',

@@ -37,12 +37,18 @@ const PlaylistModal = ({ onClose, loginInfo, data }) => {
             headers: requestHeader,
             credentials: 'include',
         })
-            .then(res => res.json())
+            .then(res => {
+                if(res.ok) return res.json();
+                else if(res.status === 400) {
+                    alert("플레이리스트조회 400오류!");
+                }
+            })
             .then(json => {
-                const updatedRows = json.map(playlist => {
-                    return createData(playlist.title, playlist.plNo, playlist.plId, playlist.scoreNo);
-                });
-                setRows(updatedRows);
+                console.log("갖고온거: ", json);
+                // const updatedRows = json.map(playlist => {
+                //     return createData(playlist.title, playlist.plNo, playlist.plId, playlist.scoreNo);
+                // });
+                // setRows(updatedRows);
             })
     }
 
@@ -66,7 +72,7 @@ const PlaylistModal = ({ onClose, loginInfo, data }) => {
                         {rows.map((row) => (
                             <div className="table-data" key={row.plNo}>
                                 <div> {row.title}</div>
-                                <div> {row.plNo}번</div>
+                                {/*<div> {row.plNo}번</div>*/}
                                 <hr></hr>
                                 {/*<div><RiChatDeleteFill onClick={() => deleteInqHandler(row.inquiryId)} style={{color:"red", cursor:"pointer", fontSize:"30px"}}/></div>*/}
                             </div>
