@@ -5,6 +5,8 @@ import {GrClose} from "react-icons/gr";
 import './Playlist_modal.scss';
 import InquiryContentModalButton from "../../button/inquirt_content_modal_button/Inquiry_Content_Modal_Button";
 import {RiChatDeleteFill} from "react-icons/ri";
+import {IconButton} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const PlaylistModal = ({ onClose, loginInfo, data }) => {
     const modalBackground = useRef();
@@ -26,13 +28,13 @@ const PlaylistModal = ({ onClose, loginInfo, data }) => {
         'Authorization': 'Bearer ' + token
     };
 
-    function createData(title, plNo, plId, scoreNo) {
-        return { title, plNo, plId, scoreNo };
+    function createData(num, title, plNo, plId, time) {
+        return { num, title, plNo, plId, time };
     }
 
     // 재생목록 확인
     const selectPlaylist = e => {
-        fetch(`${PLAYLIST_URL}/${loginInfo.account}/${data.plId}`, {
+        fetch(PLAYLIST_URL, {
             method: 'GET',
             headers: requestHeader,
             credentials: 'include',
@@ -45,10 +47,13 @@ const PlaylistModal = ({ onClose, loginInfo, data }) => {
             })
             .then(json => {
                 console.log("갖고온거: ", json);
-                // const updatedRows = json.map(playlist => {
-                //     return createData(playlist.title, playlist.plNo, playlist.plId, playlist.scoreNo);
-                // });
-                // setRows(updatedRows);
+                let num = 0;
+                const updatedRows = json.map(playlist => {
+                    num = num + 1;
+                    console.log(playlist.title);
+                    return createData(num, playlist.scoreNoTitle, playlist.plNo, playlist.plId, playlist.plAddDateTime);
+                });
+                setRows(updatedRows);
             })
     }
 
@@ -69,11 +74,15 @@ const PlaylistModal = ({ onClose, loginInfo, data }) => {
 
                 <div className="playlist-div">
                     <div className="playlist-content-div">
+
                         {rows.map((row) => (
                             <div className="table-data" key={row.plNo}>
-                                <div> {row.title}</div>
+                                {/*<div>{row.num}</div>*/}
+                                <div>{row.num}: {row.title}</div>
                                 {/*<div> {row.plNo}번</div>*/}
-                                <hr></hr>
+                                <IconButton aria-label="delete" size="large" style={{color:"red", cursor:"pointer"}}>
+                                    <DeleteIcon fontSize="inherit" />
+                                </IconButton>
                                 {/*<div><RiChatDeleteFill onClick={() => deleteInqHandler(row.inquiryId)} style={{color:"red", cursor:"pointer", fontSize:"30px"}}/></div>*/}
                             </div>
                         ))}

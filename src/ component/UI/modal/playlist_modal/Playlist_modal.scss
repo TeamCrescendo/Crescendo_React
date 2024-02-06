@@ -47,6 +47,12 @@
         flex-direction: column;
         background: #637ad3;
 
+        .table-data {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: row;
+        }
       }
     }
 
