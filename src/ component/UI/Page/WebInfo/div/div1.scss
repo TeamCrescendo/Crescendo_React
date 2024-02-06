@@ -1,0 +1,94 @@
+@font-face {
+  font-family: 'Orbit-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/Orbit-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.c1-1 {
+  display: flex;
+  flex-direction: column;
+  border: 5px solid #ccc;
+  overflow: hidden;
+  max-width: 300px;
+  margin: 0 850px 0 50px;
+  position: fixed;
+}
+
+.imgi1 {
+  width: 100%;
+  height: auto;
+}
+
+.c1-2 {
+  background:url("https://cdn.pixabay.com/photo/2018/05/03/15/56/wall-3371693_1280.jpg");
+  background-size: cover;
+  height: 150px;
+  padding: 10px;
+}
+
+.ctext {
+  font-size: 18px;
+  font-family: 'Orbit-Regular';
+  color: #333;
+  margin: 0;
+}
+//******
+.c2-1 {
+  display: flex;
+  flex-direction: column;
+  border: 5px solid #ccc;
+  overflow: hidden;
+  max-width: 300px;
+  margin: 0 100px 0 100px;
+  position: fixed;
+}
+
+.imgi2 {
+  width: 100%;
+  height: auto;
+}
+
+.c2-2 {
+  background:url("https://cdn.pixabay.com/photo/2018/05/03/15/56/wall-3371693_1280.jpg");
+  background-size: cover;
+  height: 150px;
+  padding: 10px;
+}
+
+.ctext2 {
+  font-size: 18px;
+  font-family: 'Orbit-Regular';
+  color: #333;
+  margin: 0;
+}
+////**************
+.c3-1 {
+  display: flex;
+  flex-direction: column;
+  border: 5px solid #ccc;
+  overflow: hidden;
+  max-width: 300px;
+  margin: 0 0 0 800px;
+  position: fixed;
+}
+
+.imgi3 {
+  width: 100%;
+  height: auto;
+
+}
+
+.c3-2 {
+  background:url("https://cdn.pixabay.com/photo/2018/05/03/15/56/wall-3371693_1280.jpg");
+  background-size: cover;
+  height: 150px;
+  padding: 10px;
+}
+
+.ctext3 {
+  font-size: 18px;
+  font-family: 'Orbit-Regular';
+  color: #333;
+  margin: 0;
+}
