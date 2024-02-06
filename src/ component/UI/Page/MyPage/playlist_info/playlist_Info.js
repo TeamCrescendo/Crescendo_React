@@ -79,6 +79,7 @@ const PlaylistInfo = ({ loginInfo }) => {
     }
 
     const deleteAllPlayList = (plId) => {
+        console.log(plId)
         fetch(`${ALL_PLAYLIST_URL}/${plId}`, {
             method: 'DELETE',
             headers: requestHeader

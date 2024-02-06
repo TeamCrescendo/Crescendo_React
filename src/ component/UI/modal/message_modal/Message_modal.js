@@ -31,7 +31,7 @@ const MessageModal = ({ onClose, row }) => {
                     수신자: {row.receiverFormat ? `${row.receiverFormat}` : row.receiver}
                 </span>
 
-                <span className="message-content">
+                <span className="message-content" style={{ whiteSpace: 'pre-line' }}>
                     {row.content}
                 </span>
 

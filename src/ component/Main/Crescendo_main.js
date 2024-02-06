@@ -23,6 +23,8 @@ const Crescendo_main = () => {
     // 로그인 유저의 정보
     const [loginInfo, setLoginInfo] = useState();
 
+    const [turn, setTurn] = useState(false);
+
 
     const pageGetter = (id, getIsForward) => {
         setPageId(parseInt(id, 10));
@@ -144,17 +146,22 @@ const Crescendo_main = () => {
                     localStorage.setItem(TOKEN, token);
                     localStorage.setItem(USERNAME, userName);
 
-                    window.location.reload();
+                    // window.location.reload();
                 }
             })
         } else {
             return;
         }
     }
-    
-    useEffect(() => {
-
-    }, []);
+    googleCheck();
+    //
+    // useEffect(() => {
+    //     googleCheck();
+    // }, [turn]);
+    //
+    // useEffect(() => {
+    //     setTurn(true);
+    // }, []);
 
 
     const googleLogin =  () => {
