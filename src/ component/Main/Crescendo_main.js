@@ -1,5 +1,4 @@
-
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { MdAdd, MdDelete, MdDone } from "react-icons/md";
 import './Crescendo_main.scss';
 import MyPage from "../UI/Page/MyPage/MyPage";
@@ -8,15 +7,14 @@ import TeamInfo from "../UI/Page/TeamInfo/TeamInfo";
 import Ai_Music from "../UI/Page/ai-music/Ai_Music";
 import Board from "../UI/Page/Board/Board";
 import Session from "react-session-api/src";
-import {AUTH_URL} from "../../config/host-config";
-import {getCurrentLoginUser, TOKEN, USERNAME} from "../util/login-util";
+import { AUTH_URL } from "../../config/host-config";
+import { getCurrentLoginUser, TOKEN, USERNAME } from "../util/login-util";
 import ConversionPage from "../UI/Page/Conversion/ConversionPage";
-import { useNavigate ,redirect} from 'react-router-dom';
+import { useNavigate, redirect } from 'react-router-dom';
 
 const Crescendo_main = () => {
 
-    const redirection=useNavigate();
-
+    const redirection = useNavigate();
 
     // 페이지 목차 인덱스
     const [pageId, setPageId] = useState(1);
@@ -25,10 +23,9 @@ const Crescendo_main = () => {
     // 로그인 유저의 정보
     const [loginInfo, setLoginInfo] = useState();
     //구글 로그인 중이라는 상태변수
-    const [isGoogleLogin ,setIsGoogleLogin]=useState(false);
+    const [isGoogleLogin, setIsGoogleLogin] = useState(false);
 
     const [turn, setTurn] = useState(false);
-
 
     const pageGetter = (id, getIsForward) => {
         setPageId(parseInt(id, 10));
@@ -37,37 +34,35 @@ const Crescendo_main = () => {
         setIsForward(getIsForward);
     }
 
-    const clickPageGetter = (id) =>  {
+    const clickPageGetter = (id) => {
         console.log(id + "를 클릭함");
         // setPageId(parseInt(id, 10));
     }
-
-
 
     const renderPage = () => {
         switch (pageId) {
             case 1:
                 return <ConversionPage isForward={isForward} LoginHandler={LoginHandler}
-                                   loginInfo={loginInfo} googleLogin={googleLogin}
-                                   LoginCheck={LoginCheck}
-                                   logoutHandler={logoutHandler}/>;
+                                       loginInfo={loginInfo} googleLogin={googleLogin}
+                                       LoginCheck={LoginCheck}
+                                       logoutHandler={logoutHandler} />;
             case 2:
                 return <Ai_Music isForward={isForward} LoginHandler={LoginHandler}
                                  loginInfo={loginInfo} LoginCheck={LoginCheck}
-                                 googleLogin={googleLogin} logoutHandler={logoutHandler}/>;
+                                 googleLogin={googleLogin} logoutHandler={logoutHandler} />;
             case 3:
                 return <Board isForward={isForward} LoginHandler={LoginHandler}
-                              loginInfo={loginInfo}/>;
+                              loginInfo={loginInfo} />;
             case 4:
-
                 return <MyPage isForward={isForward} LoginHandler={LoginHandler}
                                loginInfo={loginInfo} googleLogin={googleLogin}
                                loginCheck={LoginCheck}
-                               logoutHandler={logoutHandler}/>;
+                               logoutHandler={logoutHandler} />;
             case 5:
                 return <TeamInfo isForward={isForward} LoginHandler={LoginHandler}
-                                 loginInfo={loginInfo}/>;
+                                 loginInfo={loginInfo} />;
             default:
+                return null;
         }
     };
 
@@ -78,51 +73,44 @@ const Crescendo_main = () => {
     }
 
     // 토큰 가져오기
-    const[token, setToken] = useState(getCurrentLoginUser().token);
+    const [token, setToken] = useState(getCurrentLoginUser().token);
     // 요청 헤더 객체
     const requestHeader = {
         'content-type': 'application/json',
         'Authorization': 'Bearer ' + token
     };
-    const LoginCheck = () => {
-        if (token === null) {
-            return;
-        }
-        console.log("로그인체크");
-        fetch("http://localhost:8484/api/member", {
-            method: "GET",
-            headers: requestHeader,
-        })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                else if (res.status === 400){
-                    console.log("로그인체크 400error");
-                }
-            })
-            .then(json => {
+
+    const fetchLoginInfo = async () => {
+        try {
+            const res = await fetch("http://localhost:8484/api/member", {
+                method: "GET",
+                headers: requestHeader,
+            });
+            if (res.ok) {
+                const json = await res.json();
                 if (json != null) {
-                    // setIsLogin(true);
                     setLoginInfo(json);
                     console.log("로그인 검증 성공");
                     console.log(json);
                 } else {
                     console.log("로그인 검증 실패");
                 }
-            })
-            .catch(error => {
-                console.error("JSON 파싱 오류:", error);
-            });
-    }
+            } else if (res.status === 400) {
+                console.log("로그인체크 400error");
+            }
+        } catch (error) {
+            console.error("HTTP 요청 오류:", error);
+        }
+    };
 
-    // const logoutHandler = () => {
-    //     setIsLogin(false);
-    //     document.cookie = 'JSESSIONID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-    //     console.log("로그아웃 시도");
-    //
-    //
-    // }
+    const LoginCheck = () => {
+        if (token === null) {
+            return;
+        }
+        console.log("로그인체크");
+        fetchLoginInfo();
+    };
+
     const logoutHandler = async () => {
         localStorage.clear();
         setLoginInfo(undefined);
@@ -130,52 +118,50 @@ const Crescendo_main = () => {
         // window.location.reload();
     };
 
-
-    
-    useEffect(() => {
-        console.log('여기로??')
-
-        // URL 파라미터에서 액세스 토큰을 추출
-        const searchParams = new URLSearchParams(window.location.hash.substring(1));
-        const accessToken = searchParams.get('access_token');
-        console.log(accessToken)
-        // 액세스 토큰이 있는 경우 백엔드로 전송
-        if (accessToken) {
-            fetch('http://localhost:8484/api/auth/oauth2/google/info',{
-                method: 'POST', // 요청 메서드
-                headers: {
-                    'Content-Type': 'application/json' // 요청 헤더
-                },
-                body: JSON.stringify(accessToken) // 요청 본문
-            }).then(res=>{
-                if(res.status===200){
-                    return res.json();
-
-                }
-            })
-            .then(json=>{
-               const token=json.token;
-               const userName=json.userName;
-
-               localStorage.setItem(TOKEN, token);
-               localStorage.setItem(USERNAME, userName);
-                redirection('/');
-
-
-            }).then(
-            )
-
-            LoginCheck();
-        } else {
+    const test = async () => {
+        if (localStorage.getItem("Google") !== "ok") {
             return;
         }
-    }, [isGoogleLogin]);
+        const searchParams = new URLSearchParams(window.location.hash.substring(1));
+        const accessToken = searchParams.get('access_token');
+        if (accessToken) {
+            try {
+                const res = await fetch('http://localhost:8484/api/auth/oauth2/google/info', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(accessToken)
+                });
+                if (res.status === 200) {
+                    const json = await res.json();
+                    const newToken = json.token;
+                    const userName = json.userName;
+                    localStorage.setItem(TOKEN, newToken);
+                    localStorage.setItem(USERNAME, userName);
+                    localStorage.setItem("Google", "no");
+                    setIsGoogleLogin(true);
+                    redirection('/');
+                    setToken(newToken);
+                }
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        }
+    };
 
+    useEffect(() => {
+        test();
+    }, []);
 
-    const googleLogin =  () => {
-       // Google's OAuth 2.0 endpoint for requesting an access token
+    useEffect(() => {
+        if (token !== null) {
+            LoginCheck();
+        }
+    }, [token, isGoogleLogin]);
+
+    const googleLogin = () => {
         const oauth2Endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
-
         const params = {
             'client_id': '890304175366-cg7t8bjavr2dt1ttf4ma2atl077n8i4r.apps.googleusercontent.com',
             'redirect_uri': 'http://localhost:3000',
@@ -184,23 +170,14 @@ const Crescendo_main = () => {
             'state': 'pass-through value'
         };
         const queryString = Object.keys(params).map(key => key + '=' + encodeURIComponent(params[key])).join('&');
-        setIsGoogleLogin(true);
-    // Redirect to Google OAuth 2.0 endpoint
+
+        localStorage.setItem("Google", "ok");
         window.location.href = `${oauth2Endpoint}?${queryString}`;
     }
-   
-
-
-
-
-
-    useEffect(() => {
-        // LoginCheck();
-    }, []);
 
     return (
         <>
-            <RecordBar pageGetter={pageGetter} clickPageGetter={clickPageGetter}/>
+            <RecordBar pageGetter={pageGetter} clickPageGetter={clickPageGetter} />
             <div className='CrescendoMain'>
                 {renderPage()}
             </div>
