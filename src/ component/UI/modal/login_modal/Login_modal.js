@@ -131,7 +131,7 @@ const LoginModal = ({onClose, registerHandler, isLogin, LoginCheck, googleLogin}
                     <LoginButton loginSubmit={loginSubmit}/>
                 </form>
 
-                <KakaoLoginButton />
+                {/*<KakaoLoginButton />*/}
                 <GoogleLoginButton googleLogin={googleLogin}/>
 
                 <div className="registerContainer">

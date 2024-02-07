@@ -57,6 +57,25 @@ const PlaylistModal = ({ onClose, loginInfo, data }) => {
             })
     }
 
+    const deletePl = (plno) => {
+        if (!window.confirm("정말 해당 악보를 악보목록에서 삭제하시겠습니까?")){
+            return;
+        }
+
+        fetch(PLAYLIST_URL + "/" + plno, {
+            method: 'DELETE',
+            headers: requestHeader
+        })
+            .then(res => {
+                if (res.ok) {
+                    alert("해당 악보가 악보목록에서 삭제되었습니다!");
+                    selectPlaylist();
+                } else {
+                    alert("에러로 인해 삭제되지 않았습니다!");
+                }
+            })
+    }
+
     useEffect(() => {
         selectPlaylist();
     }, []);
@@ -80,7 +99,8 @@ const PlaylistModal = ({ onClose, loginInfo, data }) => {
                                 {/*<div>{row.num}</div>*/}
                                 <div>{row.num}: {row.title}</div>
                                 {/*<div> {row.plNo}번</div>*/}
-                                <IconButton aria-label="delete" size="large" style={{color:"red", cursor:"pointer"}}>
+                                <IconButton aria-label="delete" size="large" onClick={() => deletePl(row.plNo)}
+                                            style={{color:"red", cursor:"pointer"}}>
                                     <DeleteIcon fontSize="inherit" />
                                 </IconButton>
                                 {/*<div><RiChatDeleteFill onClick={() => deleteInqHandler(row.inquiryId)} style={{color:"red", cursor:"pointer", fontSize:"30px"}}/></div>*/}
