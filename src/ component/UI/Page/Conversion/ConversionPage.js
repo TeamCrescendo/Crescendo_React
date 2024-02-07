@@ -115,6 +115,7 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
 
     // 돌아오는 핸들러
     const exitHandler = () =>{
+        setIsConversion(false);
         setPdfFile(null);
         setIsLoading(false);
     }
