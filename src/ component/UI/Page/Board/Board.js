@@ -93,7 +93,7 @@ const Board = ({isForward, loginInfo}) => {
         };
 
         fetchData(); // async 함수를 호출
-        setGetBoards(false);
+        setGetBoards(true);
         setBoardsLoading(false);
     }, [boards]);
 
@@ -108,8 +108,8 @@ const Board = ({isForward, loginInfo}) => {
 
     // 디테일 클릭하는 함수
     const detailHandler = (e) => {
-        if(loginInfo===undefined){
-            alert("로그인이 필요한 시스템입니다 !!");
+        if(!getBoards){
+            alert("아직 준비가 안되어 있음");
             return;
         }
         // 어떤 보드인지
@@ -187,8 +187,7 @@ const Board = ({isForward, loginInfo}) => {
                 boardsLoading && <Skeleton variant="rectangular" width={1105} height={800}/>
             }
         </div>
-    )
-        ;
+    );
 };
 
 export default Board;

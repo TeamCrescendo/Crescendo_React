@@ -198,13 +198,16 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
     const upViewCount = () =>{
         fetch(BOARD_URL+`/increaseViewCount?boardNo=${boardDetailInfo.boardNo}`);
     }
+
     useEffect(() => {
         console.log(boardDetailInfo);
         console.log(memberAccount);
         console.log(scoreNo);
-        getUserInfo();
-        getLikeClickCheck();
-        upViewCount();
+        if(loginInfo!==undefined){
+            getUserInfo();
+            getLikeClickCheck();
+            upViewCount();
+        }
     }, []);
 
     return (
@@ -226,6 +229,7 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
                         size={"large"}
                     />
                 </div>
+                {loginInfo!==undefined &&
                 <div className="detail-side">
                     {
                         likeClicked
@@ -248,6 +252,7 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
                     {loginInfo.auth === 'ADMIN' && < MdDelete style={{cursor: "pointer"}} onClick={deleteHandler} />}
                     <GiSaveArrow className="download-btn" style={{cursor: "pointer"}} onClick={downloadHandler}/>
                 </div>
+                }
             </div>
             {addAllPlayModalOpen && <BoardDetailModal scoreNo={scoreNo} boardNo={boardDetailInfo.boardNo} onClose={() => setAddAllPlayModalOpen(false)}/>}
             {messageModal && <BoardMessageModal createMember={memberAccount} writeAccount={account} onClose={() => setMessageModal(false)}/>}
