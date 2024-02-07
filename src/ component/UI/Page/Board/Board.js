@@ -33,7 +33,8 @@ const Board = ({isForward, loginInfo}) => {
     const [getPdfFiles, setGetPdfFiles] = useState(false);
     // 처음 시작 확인
     const [first, setFirst] = useState(false);
-
+    // 보드 개수
+    const [boardCount, setBoardCount] = useState(0);
 
     const setAnimation = classNames({
         'slide-up': isForward,
@@ -63,10 +64,11 @@ const Board = ({isForward, loginInfo}) => {
             setGetBoards(true);
         });
     }
+
     // 보드 불러온 다음에
     useEffect(() => {
         const fetchData = async () => {
-            if (boards.length !== 0) {
+            if (boards.length !== 0 && getBoards) {
                 console.log(boards);
                 for (let i = 0; i < boards.length; i++) {
                     try {
@@ -90,9 +92,18 @@ const Board = ({isForward, loginInfo}) => {
         };
 
         fetchData(); // async 함수를 호출
+        setGetBoards(false);
         setBoardsLoading(false);
     }, [boards]);
 
+    // 삭제 버튼 눌렀을 때
+    const deleteHandler = () =>{
+        console.log("나 실행함 삭제 버튼")
+        setPdfFiles([]);
+        setDetailClick(false);
+        setBoardsLoading(true);
+        getBoard();
+    }
 
     // 디테일 클릭하는 함수
     const detailHandler = (e) => {
@@ -112,8 +123,8 @@ const Board = ({isForward, loginInfo}) => {
 
     // 디테일 끄는 함수
     const detailCloseHandler = (e) => {
+        // setBoardsLoading(false);
         setDetailClick(false);
-
     }
 
     // PDF파일 잘 불러오면 하는 함수
@@ -127,7 +138,7 @@ const Board = ({isForward, loginInfo}) => {
                 !detailClick && !boardsLoading &&
                 (
                     <>
-                        <Grid container spacing={15} className="grid" sx={{width: 1220, height: 900, p: 2}}>
+                        <Grid container spacing={15} className="grid" sx={{width: 1220, height: 980, p: 2}}>
                             {
                                 pdfFiles.map((item, i) =>
                                     (
@@ -162,6 +173,7 @@ const Board = ({isForward, loginInfo}) => {
                 loginInfo={loginInfo}
                 memberAccount={boardDetail.memberAccount}
                 detailCloseHandler={detailCloseHandler}
+                getBoard={deleteHandler}
                 token={token}
             />
 

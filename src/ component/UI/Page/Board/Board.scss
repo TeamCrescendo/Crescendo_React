@@ -5,9 +5,10 @@
   height: 100%;
   background: rgb(255, 255, 255);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  //background: red;
   //flex-direction: row;
   //border-bottom-left-radius: 100px;
   //border-top-left-radius: 100px;
@@ -17,7 +18,10 @@
 
   .grid{
     //padding: 10px;
+    background: yellow;
+    margin: 0;
     overflow: scroll;
+    overflow-x: hidden;
 
     .grid-item{
       position: relative;
