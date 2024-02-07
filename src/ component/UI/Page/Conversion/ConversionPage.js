@@ -83,7 +83,7 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
         if (res.status === 200) {
             const arrayBuffer = await res.arrayBuffer();
             const idValue = res.headers.get("score-id");
-            console.log("악보번호: ", idValue);
+            // console.log("악보번호: ", idValue);
             const blob = new Blob([arrayBuffer], { type: 'application/pdf' });
             const file = new File([blob], 'example.pdf', { type: 'application/pdf' });
             setScoreId(idValue);
@@ -92,14 +92,16 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
             console.log(file);
         }else if(res.status===500){
             console.log("서버 에러");
-            setIsLoading(false);
             setIsConversion(false);
+            setPdfFile(null);
+            setIsLoading(false);
             alert("서버에러입니다");
         }
         else {
-            console.log("변환 실패.")
-            console.error("Failed to fetch PDF:", res.body);
+            setIsConversion(false);
+            setPdfFile(null);
             setIsLoading(false);
+            alert("변환 실패");
         }
     }
 
