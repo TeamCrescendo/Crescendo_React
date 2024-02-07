@@ -195,7 +195,7 @@ const BoardDetailModal = ({onClose, scoreNo}) => {
 
             const list = playList.map(item =>({
                 plId: item.plId,
-                scoreNo: item.scoreNo
+                scoreNo: scoreNo
             }))
             // const dto = {
             //     list: playList.map(item => ({
@@ -212,11 +212,16 @@ const BoardDetailModal = ({onClose, scoreNo}) => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    dto: list
+                    list
                 })  // 수정된 부분
             }).then(res => res.json())
                 .then(json => {
                     console.log("중복 여부: ", json);
+                    json.forEach(item=>{
+                        if(item){
+                            console.log("중복임임임");
+                        }
+                    })
                 });
         }
     }, [playList]);
