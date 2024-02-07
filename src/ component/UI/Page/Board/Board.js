@@ -36,6 +36,8 @@ const Board = ({isForward, loginInfo}) => {
     // 보드 개수
     const [boardCount, setBoardCount] = useState(0);
 
+    const [noBoard, setNoBoard] = useState(false);
+
     const setAnimation = classNames({
         'slide-up': isForward,
         'slide-down': !isForward,
@@ -60,6 +62,10 @@ const Board = ({isForward, loginInfo}) => {
         }).then(res => {
             return res.json();
         }).then(json => {
+            if(json.boards.length === 0){
+                setNoBoard(true);
+                console.log("나 실행함");
+            }
             console.log(json.boards);
             setBoards([...json.boards]);
             setGetBoards(true);
@@ -139,11 +145,15 @@ const Board = ({isForward, loginInfo}) => {
 
     return (
         <div className={`boardContainer ${setAnimation}`}>
+
             {
                 !detailClick && !boardsLoading &&
                 (
                     <>
                         <Grid container spacing={15} className="grid" sx={{width: 1220, height: 980, p: 2}}>
+                            {
+                                noBoard && <div className="no-board"  style={{display:"flex", alignItems:"center", justifyContent:"center"}}>공유된 보드가 없습니다.</div>
+                            }
                             {
                                 pdfFiles.map((item, i) =>
                                     (
