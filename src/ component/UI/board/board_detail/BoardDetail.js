@@ -249,7 +249,7 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
                     <GiSaveArrow className="download-btn" style={{cursor: "pointer"}} onClick={downloadHandler}/>
                 </div>
             </div>
-            {addAllPlayModalOpen && <BoardDetailModal scoreNo={scoreNo} onClose={() => setAddAllPlayModalOpen(false)}/>}
+            {addAllPlayModalOpen && <BoardDetailModal scoreNo={scoreNo} boardNo={boardDetailInfo.boardNo} onClose={() => setAddAllPlayModalOpen(false)}/>}
             {messageModal && <BoardMessageModal createMember={memberAccount} writeAccount={account} onClose={() => setMessageModal(false)}/>}
         </div>
     );

@@ -8,7 +8,7 @@ import AddAllPlayListButton from "../../button/allplaylist/add_allplaylist_butto
 import {ALL_PLAYLIST_URL, PLAYLIST_URL} from "../../../../config/host-config";
 import {getCurrentLoginUser} from "../../../util/login-util";
 
-const BoardDetailModal = ({onClose, scoreNo}) => {
+const BoardDetailModal = ({onClose, scoreNo, boardNo}) => {
     const modalBackground = useRef();
     const [title, setTitle] = useState("");
     // 눌렀는지 풀었는지
@@ -110,7 +110,7 @@ const BoardDetailModal = ({onClose, scoreNo}) => {
                     'Authorization': 'Bearer ' + token
                 },
                 body: JSON.stringify({
-                    account: "member5",
+                    boardNo: boardNo,
                     plId: item,
                     scoreNo: scoreNo
                 })
