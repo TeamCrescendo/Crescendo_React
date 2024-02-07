@@ -44,6 +44,7 @@ const Board = ({isForward, loginInfo}) => {
     // 모든 보드 정보 불러오기
     useEffect(() => {
         if (!first) {
+            console.log(loginInfo);
             getBoard();
             setFirst(true);
         }
@@ -107,6 +108,10 @@ const Board = ({isForward, loginInfo}) => {
 
     // 디테일 클릭하는 함수
     const detailHandler = (e) => {
+        if(loginInfo===undefined){
+            alert("로그인이 필요한 시스템입니다 !!");
+            return;
+        }
         // 어떤 보드인지
         console.log(boards[e.target.classList[1]]);
 
