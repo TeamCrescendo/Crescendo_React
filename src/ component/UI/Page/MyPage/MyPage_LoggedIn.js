@@ -21,7 +21,7 @@ const MyPageLoggedIn = ({ loginInfo, logoutHandler, loginCheck }) => {
             <div className="mypageMain" >
                 <div className="mypageMain-top">
                     <div className="mypage-info-div">
-                        <img className="imgtest" src={`http://localhost:8484/local${url}`} alt="프로필" />
+                        <img className="imgtest" src={url} alt="프로필" />
                         <UserInfo loginInfo={loginInfo} logoutHandler={logoutHandler} loginCheck={loginCheck}/>
                     </div>
                 </div>

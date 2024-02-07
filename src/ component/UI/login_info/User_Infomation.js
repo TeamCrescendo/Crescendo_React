@@ -21,7 +21,7 @@ const UserInfomation = ({ loginInfo, logoutHandler, googleLogin }) =>
             {loginInfo
                 ? ( // loginInfo가 존재하는 경우에만 렌더링
                 <>
-                    <img className="imgtest" src={`http://localhost:8484/local${loginInfo.profileImageUrl}`} alt="프로필" />
+                    <img className="imgtest" src={loginInfo.profileImageUrl} alt="프로필" />
 
                     <div className="user-info-subdiv" >
                         <span className="user-info-name">{loginInfo.userName}</span>

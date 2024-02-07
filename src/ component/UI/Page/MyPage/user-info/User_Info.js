@@ -11,6 +11,7 @@ const UserInfo = ({ logoutHandler, loginInfo, loginCheck }) => {
     const [modifyModalOpen, setModifyModalOpen] = useState(false);
 
     const modifyButtonClick = () => {
+        console.log(loginInfo.profileImageUrl)
         setModifyModalOpen(true);
     };
 
