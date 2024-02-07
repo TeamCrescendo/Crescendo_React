@@ -5,7 +5,7 @@ import QuitButton from "../../button/quit/Quit_Button";
 import ModifyButton from "../../button/modify/Modify_Button";
 import './BoardDetailModal.scss';
 import AddAllPlayListButton from "../../button/allplaylist/add_allplaylist_button/Add_AllPlayList_Button";
-import {ALL_PLAYLIST_URL} from "../../../../config/host-config";
+import {ALL_PLAYLIST_URL, PLAYLIST_URL} from "../../../../config/host-config";
 import {getCurrentLoginUser} from "../../../util/login-util";
 
 const BoardDetailModal = ({onClose, scoreNo}) => {
@@ -161,8 +161,8 @@ const BoardDetailModal = ({onClose, scoreNo}) => {
 
     const [loading, setLoading] = useState(false);
 
-    // 자신의 올 플리 가져오는 useEffect
-    useEffect(() => {
+    // 올 플리 가져오기
+    const getAllPlay = () =>{
         fetch("http://localhost:8484/api/allPlayList", {
             method: "GET",
             headers: {
@@ -170,29 +170,73 @@ const BoardDetailModal = ({onClose, scoreNo}) => {
                 "Content-Type": "application/json"
             }
         })
-            .then(res => res.json())
-            .then(
-            json => {
-                console.log(json.allPlayLists);
-                if (json.allPlayLists.length >= 3) {
-                    setButtonName("추가하기");
-                }
-                setPlayList([...json.allPlayLists]);
+            .then(res => {
+                if(res.status ===200){
+                    return res.json();
+                }else{
 
-                setLoading(true);
-            }
-        )
+                }
+            })
+            .then(
+                json => {
+                    console.log(json.allPlayLists);
+                    if (json.allPlayLists.length >= 3) {
+                        setButtonName("추가하기");
+                    }
+                    setPlayList([...json.allPlayLists]);
+
+                    setLoading(true);
+                }
+            )
+    }
+
+    useEffect(() => {
+        if (playList.length !== 0) {
+
+            const list = playList.map(item =>({
+                plId: item.plId,
+                scoreNo: item.scoreNo
+            }))
+            // const dto = {
+            //     list: playList.map(item => ({
+            //         plId: item.plId,
+            //         scoreNo: item.scoreNo
+            //     }))
+            // };
+            console.log("여기봐랑: ", list);
+
+            fetch(PLAYLIST_URL + "/duplicate", {
+                method: "POST",
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    dto: list
+                })  // 수정된 부분
+            }).then(res => res.json())
+                .then(json => {
+                    console.log("중복 여부: ", json);
+                });
+        }
+    }, [playList]);
+
+    // 자신의 올 플리 가져오는 useEffect
+    useEffect(() => {
+        getAllPlay();
+
+
     }, []);
 
-    // 올 플리 가져온 후에 이미 넣은 보드 인지 확인하는 함수
+    // // 올 플리 가져온 후에 이미 넣은 보드 인지 확인하는 함수
     // useEffect(() => {
     //     if(playList.length!==0){
     //         playList.forEach((item)=>{
-    //             item.plId
+    //             fetch()
     //         })
     //
     //     }
-
+    //
     // }, [playList]);
 
     return (
