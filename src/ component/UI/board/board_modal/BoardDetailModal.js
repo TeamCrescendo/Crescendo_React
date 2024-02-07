@@ -16,8 +16,8 @@ const BoardDetailModal = ({onClose, scoreNo}) => {
     const [buttonName, setButtonName] = useState("생성하기");
     // 체크 버튼 누른거 확인
     const [onCount, setOnCount] = useState(0);
-
-    const account = getCurrentLoginUser().username;
+    const [duplicateList, setDuplicateList] = useState([]);
+    // const account = getCurrentLoginUser().username;
 
     // 토큰 가져오기
     const [token, setToken] = useState(getCurrentLoginUser().token);
@@ -190,6 +190,7 @@ const BoardDetailModal = ({onClose, scoreNo}) => {
             )
     }
 
+    // 플리이리스트 중복여부 체크
     useEffect(() => {
         if (playList.length !== 0) {
 
@@ -216,15 +217,13 @@ const BoardDetailModal = ({onClose, scoreNo}) => {
                 })  // 수정된 부분
             }).then(res => res.json())
                 .then(json => {
-                    console.log("중복 여부: ", json);
-                    json.forEach(item=>{
-                        if(item){
-                            console.log("중복임임임");
-                        }
-                    })
+                    // console.log("중복 여부: ", json);
+                    setDuplicateList([...json]);
                 });
         }
     }, [playList]);
+
+    // 중복 체크 까지 함
 
     // 자신의 올 플리 가져오는 useEffect
     useEffect(() => {
@@ -275,15 +274,15 @@ const BoardDetailModal = ({onClose, scoreNo}) => {
 
                             </input>
                         </div>
-                        <div className="my-playlist">나의 플레이리스트</div>
+                        <div className="my-playlist">{playList.length>0?"나의 플레이리스트":"플레이리스트가 없습니다"}</div>
                         {
-                            loading && playList.map((item) =>
+                            loading && playList.map((item, i) =>
                                 (
                                     <div className="playlist-item">
                                         <div style={{display: "none"}}>{item.plId}</div>
                                         <div className="plName2">{item.plName}</div>
                                         <input className="plName-check2" type="checkbox" onChange={checkHandler}
-                                               disabled={false}>
+                                               disabled={duplicateList[i]}>
 
                                         </input>
                                     </div>

@@ -56,6 +56,15 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
     // pdf 파일 다운로드
     const downloadHandler = () => {
         // 사용자로부터 파일 이름 입력 받기 (예: prompt 사용)
+        fetch(BOARD_URL + `/${boardDetailInfo.boardNo}/boardDownLoad`, {
+            method:"POST",
+            headers:requestHeader,
+        }).then(res=>{
+            if(res.ok) return res.json();
+            if(res.status===500) alert("다운로드 횟수가 부족합니다!");
+        }).then(json=>{
+            console.log(json);
+        })
         const fileName = prompt('파일 이름을 정해주세요:', 'example.pdf');
 
         if (fileName) {
