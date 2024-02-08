@@ -137,8 +137,8 @@ const Crescendo_main = () => {
                     const json = await res.json();
                     const newToken = json.token;
                     const userName = json.userName;
-                    localStorage.setItem(TOKEN, newToken);
-                    localStorage.setItem(USERNAME, userName);
+                    localStorage.setItem(TOKEN, json.token);
+                    localStorage.setItem(USERNAME, json.userName);
                     localStorage.setItem("Google", "no");
                     setIsGoogleLogin(true);
                     redirection('/');
