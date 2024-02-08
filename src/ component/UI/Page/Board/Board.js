@@ -42,16 +42,6 @@ const Board = ({isForward, loginInfo}) => {
         'slide-up': isForward,
         'slide-down': !isForward,
     });
-    return (
-        <>
-            <header className="hhh1">
-                <h1>
-                    Bulletin Board
-                </h1>
-                <div className={`boardContainer ${setAnimation}`}>
-                </div>
-            </header>
-        </>
 
     // 모든 보드 정보 불러오기
     useEffect(() => {
