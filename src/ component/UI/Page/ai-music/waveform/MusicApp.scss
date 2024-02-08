@@ -1,0 +1,102 @@
+
+.musicApp {
+  //height: ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  //border: 3px solid gray;
+  border-radius: 30px;
+  box-shadow: 0 0 20px #8d8e91;
+
+  z-index: 10;
+  margin-top: 50px;
+
+  .musicApp-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 100%;
+    background: #dee5ff;
+    border-top-right-radius: 30px;
+    border-top-left-radius: 30px;
+
+    font-weight: bold;
+  }
+
+  .wave {
+    height: 300px;
+    width: 500px;
+    background: #c3cffa;
+    //border-top-right-radius: 30px;
+    //border-top-left-radius: 30px;
+
+  }
+
+  .audio-player {
+    background: #dee5ff;
+    width: 500px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+
+    .volumeControl {
+      display: flex;
+      justify-content: left;
+      align-items: center;
+      padding-left: 50px;
+      position: relative;
+      margin-bottom: 10px;
+    }
+
+    .volumeControl input[type="range"] {
+      position: absolute;
+      top: 6.9px;
+      left: 90px;
+      width: 100px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .volumeControl:hover input[type="range"] {
+      opacity: 1;
+    }
+
+
+    .runTime{
+      font-family: "Noto Sans KR", sans-serif;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      font-size: 20px;
+      padding: 0 50px 0 50px;
+    }
+    .runTimeBar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .Bar {
+        width: 400px;
+      }
+
+    }
+
+
+
+    .audioBtn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .startAndPause {
+        border: 0;
+        background: none;
+        font-size: 40px;
+      }
+    }
+  }
+}
