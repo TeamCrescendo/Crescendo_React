@@ -1,5 +1,4 @@
-import React from 'react';
-
+import React, {useState, useEffect} from 'react';
 import './MyPage.scss';
 import classNames from "classnames";
 import UserInfomation from "../../login_info/User_Infomation";
