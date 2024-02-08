@@ -37,6 +37,7 @@ const PlaylistModal = ({ onClose, loginInfo, data }) => {
         fetch(PLAYLIST_URL, {
             method: 'GET',
             headers: requestHeader,
+            body: JSON.stringify(data.plId),
             credentials: 'include',
         })
             .then(res => {
