@@ -47,7 +47,7 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
     };
 
     const pageClickHandler = (event, page) => {
-        console.log(page);
+        // console.log(page);
         // console.log(event);
         const pageNum = parseInt(page);
         setCurrentPage(pageNum);
@@ -63,7 +63,7 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
             if(res.ok) return res.json();
             if(res.status===500) alert("다운로드 횟수가 부족합니다!");
         }).then(json=>{
-            console.log(json);
+            // console.log(json);
         })
         const fileName = prompt('파일 이름을 정해주세요:', 'example.pdf');
 
@@ -104,7 +104,7 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
         }).then(res => {
             return res.text()
         }).then(json => {
-            console.log(json);
+            // console.log(json);
         })
     }
 
@@ -127,7 +127,7 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
         }).then(res => {
             return res.text()
         }).then(json => {
-            console.log(json);
+            // console.log(json);
         })
     }
 
@@ -142,7 +142,7 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
             }
         }).then(res=>res.json())
             .then(json=>{
-                console.log(json);
+                // console.log(json);
                 getBoard();
             })
     }
@@ -200,9 +200,9 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
     }
 
     useEffect(() => {
-        console.log(boardDetailInfo);
-        console.log(memberAccount);
-        console.log(scoreNo);
+        // console.log(boardDetailInfo);
+        // console.log(memberAccount);
+        // console.log(scoreNo);
         if(loginInfo!==undefined){
             getUserInfo();
             getLikeClickCheck();
