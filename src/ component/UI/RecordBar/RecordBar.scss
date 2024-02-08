@@ -1,0 +1,52 @@
+
+.RecordBarDiv {
+  font-family: "Noto Sans KR", sans-serif;
+  width: 400px;
+  min-width: 400px;
+  max-width: 400px;
+  //background: #61dafb;
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
+
+  .RecordBarIMG {
+    width: 1200px;
+    height: 1200px;
+    position: fixed;
+    left: -750px;
+    border-radius: 50%;
+    //cursor: pointer;
+    z-index: 100;
+
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+  }
+}
+
+//@media screen and (max-width:1023px) {
+//  .RecordBarDiv {
+//    width: 200px;
+//    min-width: 200px;
+//    max-width: 200px;
+//
+//    .RecordBarIMG {
+//      width: 900px;
+//      height: 900px;
+//      left: -650px;
+//    }
+//  }
+//}
+
+@media screen and (max-width:767px) {
+  /* 모바일 */
+}

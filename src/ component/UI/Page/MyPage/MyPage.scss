@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Lobster&display=swap');
+@font-face {
+  font-family: 'GangwonState';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/GangwonState.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Lobster&family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Lobster&family=Oswald:wght@500&family=Pacifico&display=swap');
+header
+{
+  width: 100%;
+  height: 100%;
+  background: url(https://cdn.pixabay.com/photo/2016/11/19/09/57/violins-1838390_1280.jpg);
+  background-size: cover;
+  top: 0;
+  position: fixed;
+  z-index: -1;
+  font-size: 90px;
+  font-weight: bold;
+
+}
+.hhh {
+  text-align: center;
+  color: #ffffff;
+  font-family: 'Playfair Display', serif;
+  background: url(https://cdn.pixabay.com/photo/2016/11/19/09/57/violins-1838390_1280.jpg);
+  background-size: cover;
+  font-size: 35px;
+}
+
+
+.mypageContainer {
+  font-family: "Noto Sans KR", sans-serif;
+  width: 1700px;
+  margin: 0 auto;
+  height: 100%;
+  background: rgb(227, 227, 227);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow: hidden;
+
+  border-radius: 100px 0 0 100px;
+  box-shadow: 0 0 1px #23252c;
+
+
+
+  @keyframes slide-up-invitation {
+    0% {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes slide-down-invitation {
+    0% {
+      opacity: 0;
+      transform: translateY(-100%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .player-ctn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+
+}
+
+.slide-up {
+  animation: slide-up-invitation 1s;
+}
+.slide-down {
+  animation: slide-down-invitation 1s;
+}

@@ -6,19 +6,34 @@
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.4",
+    "@mui/joy": "^5.0.0-beta.24",
+    "@mui/lab": "^5.0.0-alpha.161",
     "@mui/material": "^5.15.4",
+    "@react-pdf-viewer/core": "^3.12.0",
+    "@react-pdf-viewer/default-layout": "^3.12.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.6.5",
+    "body-parser": "^1.20.2",
     "bootstrap": "^5.3.2",
     "classnames": "^2.5.1",
+    "howler": "^2.2.4",
     "react": "^18.2.0",
+    "react-audio-spectrum": "^0.1.0",
+    "react-bootstrap": "^2.10.0",
     "react-dom": "^18.2.0",
+    "react-h5-audio-player": "^3.9.1",
     "react-icons": "^5.0.1",
+    "react-modal": "^3.16.1",
+    "react-pdf": "^7.7.0",
     "react-router-dom": "^6.21.2",
     "react-scripts": "5.0.1",
+    "react-session-api": "^1.1.0",
+    "react-window": "^1.8.10",
     "reactstrap": "^9.2.1",
     "sass": "^1.69.7",
+    "use-sound": "^4.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -44,5 +59,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "vite-plugin-static-copy": "^1.0.1"
   }
 }
