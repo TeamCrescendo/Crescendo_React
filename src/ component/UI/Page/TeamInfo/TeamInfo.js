@@ -3,7 +3,8 @@ import classNames from "classnames";
 import React from 'react';
 import Form1 from './form/form1'
 
-const TeamInfo = ({ isForward }) => {
+const TeamInfo = ({ isForward , LoginHandler, loginInfo}) => {
+    console.log("실행함")
     const setAnimation = classNames({
         'slide-up': isForward,
         'slide-down': !isForward,
@@ -11,14 +12,15 @@ const TeamInfo = ({ isForward }) => {
 
 
     return (
-        <header className="head1">
+        <>
             <h1>
                 Beethoven Tomato Deluxe
             </h1>
             <div className={`teaminfoContainer ${setAnimation}`}>
                 <Form1/>
             </div>
-        </header>
+        </>
     );
 };
+
 export default TeamInfo;

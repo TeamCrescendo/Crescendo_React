@@ -6,8 +6,6 @@ import './Form.scss'
 const Form1 = () => {
     return (
         <>
-            {/*<h2>*/}
-            {/*</h2>*/}
             <div className="top" >
                 <div className="box" >
                     <div className="box-tool">
@@ -16,10 +14,10 @@ const Form1 = () => {
                     </div>
                     <h1 className="heading">PYTHON</h1>
                     <div className="data">
-                        <span className="name">인공지능</span>
+                        <span className="name">인공지능 & 백엔드</span>
                     </div>
                     <p className="texts">
-                        J
+                        장선경
                     </p>
                 </div>
                 <div className="box">
@@ -28,10 +26,10 @@ const Form1 = () => {
                     </div>
                     <h1 className="heading">BACKEND</h1>
                     <div className="data">
-                        <span className="name">on</span>
+                        <span className="name">백엔드</span>
                     </div>
                     <p className="texts">
-                        abc
+                        한태용
                     </p>
                 </div>
             </div>
@@ -42,10 +40,10 @@ const Form1 = () => {
                     </div>
                     <h1 className="heading">BACKEND</h1>
                     <div className="data">
-                        <span className="name">백엔드</span>
+                        <span className="name">백엔드 & 프론트엔드</span>
                     </div>
                     <p className="texts">
-                        abc
+                        경규현
                     </p>
                 </div>
                 <div className="box">
@@ -54,10 +52,10 @@ const Form1 = () => {
                     </div>
                     <h1 className="heading">REACT</h1>
                     <div className="data">
-                        <span className="name">abc</span>
+                        <span className="name">프론트엔드</span>
                     </div>
                     <p className="texts">
-                        abc
+                        김다빈
                     </p>
                 </div>
                 <div className="box">
@@ -66,7 +64,7 @@ const Form1 = () => {
                     </div>
                     <h1 className="heading">REACT</h1>
                     <div className="data">
-                        <span className="name">Won</span>
+                        <span className="name">프론트엔드</span>
                     </div>
                     <p className="texts">
                         원용재
