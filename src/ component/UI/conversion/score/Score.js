@@ -11,7 +11,7 @@ import Input from '@mui/joy/Input';
 import {KeyboardArrowRight} from "@mui/icons-material";
 
 
-const Score = ({pdfFile, scoreId, exitHandler}) => {
+const Score = ({pdfFile, scoreId, exitHandler, loginInfo}) => {
 
     // 현재 페이지
     const [numPages, setNumPages] = useState(0);
@@ -24,6 +24,12 @@ const Score = ({pdfFile, scoreId, exitHandler}) => {
     // 토큰 가져오기
     const [token, setToken] = useState(getCurrentLoginUser().token);
 
+
+    useEffect(() => {
+        if(loginInfo ===undefined){
+            exitHandler();
+        }
+    }, [loginInfo]);
     // pdf 파일 다운로드
     const downloadHandler = () => {
         const url = URL.createObjectURL(pdfFile);
