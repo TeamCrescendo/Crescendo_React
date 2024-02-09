@@ -56,7 +56,7 @@ const Crescendo_main = () => {
             case 4:
                 return <MyPage isForward={isForward} LoginHandler={LoginHandler}
                                loginInfo={loginInfo} googleLogin={googleLogin}
-                               loginCheck={LoginCheck}
+                               loginCheck={LoginCheck} pageGetter={pageGetter} clickPageGetter={clickPageGetter}
                                logoutHandler={logoutHandler} />;
             case 5:
                 return <TeamInfo isForward={isForward} LoginHandler={LoginHandler}

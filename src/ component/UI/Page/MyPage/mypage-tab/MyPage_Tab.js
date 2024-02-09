@@ -10,7 +10,7 @@ import PlaylistInfo from "../playlist_info/playlist_Info";
 import AdminInquiryInfo from "../../../inquiry/forAdmin/Admin_Inquiry_Info";
 
 
-function MyPageTab({ loginInfo }) {
+function MyPageTab({ loginInfo, pageGetter, clickPageGetter }) {
 
     const userRender = () => {
         return (
@@ -22,7 +22,7 @@ function MyPageTab({ loginInfo }) {
                     fill
                 >
                     <Tab eventKey="list" title="공유목록">
-                        <UserTotal loginInfo={loginInfo}/>
+                        <UserTotal loginInfo={loginInfo} pageGetter={pageGetter} clickPageGetter={clickPageGetter}/>
                     </Tab>
                     <Tab eventKey="contact" title="플레이리스트">
                         <PlaylistInfo loginInfo={loginInfo}/>

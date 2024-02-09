@@ -75,7 +75,10 @@ const Ai_Music = ({ isForward, loginInfo, googleLogin, logoutHandler, LoginCheck
     }
 
     const aiMusicMakeHanlder = e => {
-        if (text === '') setText("무제");
+        if (text.length < 3) {
+            alert("3글자 이상 작성해주세요!");
+            return;
+        }
         setIsLoading(true);
 
         setIsDone(false);
@@ -116,7 +119,7 @@ const Ai_Music = ({ isForward, loginInfo, googleLogin, logoutHandler, LoginCheck
                 />
                 <Textarea
                     className="music_prompt"
-                    placeholder="원하는 음악을 설명해주세요."
+                    placeholder="원하는 음악을 설명해주세요. (3글자 이상)"
                     value={text}
                     onChange={(event) => setText(event.target.value)}
                     minRows={5}
@@ -140,7 +143,7 @@ const Ai_Music = ({ isForward, loginInfo, googleLogin, logoutHandler, LoginCheck
 
     const backHandler = () => {
         setIsDone(false);
-
+        setText("");
     }
 
     return (

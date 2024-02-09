@@ -15,7 +15,7 @@ import boardDetail from "../../board/board_detail/BoardDetail";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 
-const Board = ({isForward, loginInfo}) => {
+const Board = ({isForward, loginInfo, target}) => {
     const [scoreDetailOpen, setScoreDetailOpen] = useState(false);
     // 보드 디테일 클릭 참거짓
     const [detailClick, setDetailClick] = useState(false);
@@ -131,6 +131,24 @@ const Board = ({isForward, loginInfo}) => {
         });
         setDetailClick(true);
     }
+
+    // 개인서비스에서 타고 들어왔을 경우
+    useEffect(() => {
+        if (getBoards) {
+            if (target <= 1) {
+                // 디테일 클릭함
+                setBoardDetail({
+                    pdfFile: pdfFiles[target],
+                    boardTitle: boards[target].boardTitle,
+                    boardNo: boards[target].boardNo,
+                    scoreNo: boards[target].scoreNo,
+                    memberAccount: boards[target].memberAccount
+                });
+                setDetailClick(true);
+            }
+        }
+    }, [getBoards]);
+
 
     // 디테일 끄는 함수
     const detailCloseHandler = (e) => {

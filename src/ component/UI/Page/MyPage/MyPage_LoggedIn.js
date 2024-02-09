@@ -8,7 +8,7 @@ import InquiryInfo from "../../inquiry/Inquiry_Info";
 import InquiryButton from "../../button/inquiry_modal_btn/Inquiry_modal_Button";
 import MyPageTab from "./mypage-tab/MyPage_Tab";
 
-const MyPageLoggedIn = ({ loginInfo, logoutHandler, loginCheck }) => {
+const MyPageLoggedIn = ({ loginInfo, logoutHandler, loginCheck, pageGetter, clickPageGetter }) => {
     const url = loginInfo.profileImageUrl;
 
     
@@ -26,7 +26,7 @@ const MyPageLoggedIn = ({ loginInfo, logoutHandler, loginCheck }) => {
                     </div>
                 </div>
                 <div className="mypageMain-bottom">
-                    <MyPageTab loginInfo={loginInfo} />
+                    <MyPageTab loginInfo={loginInfo} pageGetter={pageGetter} clickPageGetter={clickPageGetter}/>
 
 
                 </div>
