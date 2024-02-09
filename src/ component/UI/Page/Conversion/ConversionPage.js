@@ -89,6 +89,7 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
             setScoreId(idValue);
             setPdfFile(file);
             setIsLoading(false);
+            LoginCheck();
             console.log(file);
         }else if(res.status===500){
             console.log("서버 에러");

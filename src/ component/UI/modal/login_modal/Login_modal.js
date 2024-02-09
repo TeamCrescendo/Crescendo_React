@@ -1,11 +1,13 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {GrClose} from "react-icons/gr";
 import './Login_modal.scss';
 import LoginButton from "../../button/login/original_login/Login_Button";
 import KakaoLoginButton from "../../button/login/kakao_login/Kakao_Login_Button";
-import {AUTH_URL} from "../../../../config/host-config";
-import {TOKEN, USERNAME} from "../../../util/login-util";
+import {AUTH_URL, MEMBER_URL} from "../../../../config/host-config";
+import {getCurrentLoginUser, TOKEN, USERNAME} from "../../../util/login-util";
 import GoogleLoginButton from "../../button/login/google_login/Google_Login_Button";
+import RegisterModal from "../register_modal/Register_modal";
+import Find_Password_Modal from "../find_password_modal/Find_Password_Modal";
 
 
 const LoginModal = ({onClose, registerHandler, isLogin, LoginCheck, googleLogin}) => {
@@ -14,6 +16,7 @@ const LoginModal = ({onClose, registerHandler, isLogin, LoginCheck, googleLogin}
     const [account, setAccount] = useState('');
     const [password, setPassword] = useState('');
     const [autoLogin, setAutoLogin] = useState(false);
+    const [pwModalOpen, setPwModalOpen] = useState(false);
 
     // 모달 바깥의 백그라운드를 클릭하면 모달이 사라짐
     const handleModalClick = (e) => {
@@ -31,39 +34,17 @@ const LoginModal = ({onClose, registerHandler, isLogin, LoginCheck, googleLogin}
     }
 
     // 패스워드 찾기 모달을 생성함
-    const pwFindHandler = e => {
-        console.log("비밀번호 찾기 클릭됨!");
+    const setPwModal = () => {
+        setPwModalOpen(true);
     }
+
+
+
 
     // 로그인 버튼을 눌렀을 때
     const loginSubmit = async e => {
         e.preventDefault();
 
-        // fetch(AUTH_URL + "/login", {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify({
-        //         account: account,
-        //         password: password,
-        //         autoLogin: autoLogin
-        //     }),
-        //     credentials: 'include',
-        // })
-        //     .then(res => res.json())
-        //     .then(json => {
-        //         if (json.result === true) {
-        //             isLogin = true;
-        //             console.log(json)
-        //         } else {
-        //             isLogin = false;
-        //         }
-        //         // console.log("로그인 유저 정보: ", json.dto);
-        //         console.log("여기까지왔다");
-        //         // LoginSessionCheck();
-        //         window.location.reload();
-        //     })
         const res = await fetch(AUTH_URL + "/login", {
             method: 'POST',
             headers: {'content-type': 'application/json'},
@@ -126,7 +107,7 @@ const LoginModal = ({onClose, registerHandler, isLogin, LoginCheck, googleLogin}
                             />
                             자동 로그인
                         </div>
-                        <span className="pwfindSpan" onClick={pwFindHandler}>비밀번호 찾기</span>
+                        <span className="pwfindSpan" onClick={setPwModal}>비밀번호 찾기</span>
                     </div>
                     <LoginButton loginSubmit={loginSubmit}/>
                 </form>
@@ -135,8 +116,10 @@ const LoginModal = ({onClose, registerHandler, isLogin, LoginCheck, googleLogin}
                 <GoogleLoginButton googleLogin={googleLogin}/>
 
                 <div className="registerContainer">
-                    <span>회원이 아니신가요?</span> <span className="registerSpan" onClick={setRegisterModal}>회원가입</span>
+                    <span>회원이 아니신가요?</span> <span className="registerSpan"  onClick={setRegisterModal}>회원가입</span>
                 </div>
+
+                {pwModalOpen && <Find_Password_Modal onClose={() => setPwModalOpen(false)}/>}
 
             </div>
         </div>
