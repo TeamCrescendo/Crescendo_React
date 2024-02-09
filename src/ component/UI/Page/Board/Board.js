@@ -99,7 +99,6 @@ const Board = ({isForward, loginInfo, target}) => {
         };
 
         fetchData(); // async 함수를 호출
-        setGetBoards(true);
         setBoardsLoading(false);
     }, [boards]);
 
@@ -132,9 +131,10 @@ const Board = ({isForward, loginInfo, target}) => {
         setDetailClick(true);
     }
 
+
     // 개인서비스에서 타고 들어왔을 경우
     useEffect(() => {
-        if (getBoards) {
+        if (!boardsLoading) {
             if (target <= 1) {
                 // 디테일 클릭함
                 setBoardDetail({
@@ -147,8 +147,7 @@ const Board = ({isForward, loginInfo, target}) => {
                 setDetailClick(true);
             }
         }
-    }, [getBoards]);
-
+    }, [boardsLoading]);
 
     // 디테일 끄는 함수
     const detailCloseHandler = (e) => {

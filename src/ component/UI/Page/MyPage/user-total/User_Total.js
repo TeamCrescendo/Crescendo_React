@@ -6,6 +6,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import {ALL_PLAYLIST_URL, BOARD_URL} from "../../../../../config/host-config";
 import {getCurrentLoginUser} from "../../../../util/login-util";
 import Board from "../../Board/Board";
+import ShowDetailModal from "../../../modal/show_detail_modal/Show_Detail_Modal";
 
 const UserTotal = ({ loginInfo }) => {
     const [rows, setRows] = useState([]);
@@ -83,11 +84,6 @@ const UserTotal = ({ loginInfo }) => {
 
     return (
         <div className="user-total-container">
-            {showDetail
-                ?
-                (<Board loginInfo={loginInfo} target={target}/>)
-                :
-                (
                 <div className="table-container">
                 <div className="table-row">
                     <div>공유 악보</div>
@@ -116,7 +112,9 @@ const UserTotal = ({ loginInfo }) => {
                     ))}
                 </div>
             </div>
-            )}
+
+            {showDetail && <ShowDetailModal onClose={() => setShowDetail(false)} target={target}/>}
+
         </div>
     );
 };
