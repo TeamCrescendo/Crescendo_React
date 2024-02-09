@@ -64,7 +64,6 @@ const Ai_Music = ({ isForward, loginInfo, googleLogin, logoutHandler, LoginCheck
                 // URL을 상태로 설정하여 자식 컴포넌트에게 전달
                 setAudioUrl(url);
                 setIsDone(true);
-                LoginCheck();
             } else {
                 console.error("Failed to fetch MP3:", res.statusText);
             }
@@ -72,6 +71,7 @@ const Ai_Music = ({ isForward, loginInfo, googleLogin, logoutHandler, LoginCheck
             console.error("Error fetching MP3:", error);
         }
         setIsLoading(false);
+        LoginCheck();
     }
 
     const aiMusicMakeHanlder = e => {
