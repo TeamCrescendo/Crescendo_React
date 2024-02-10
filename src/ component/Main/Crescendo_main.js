@@ -181,6 +181,7 @@ const Crescendo_main = () => {
             <div className='CrescendoMain'>
                 {renderPage()}
             </div>
+            <div className="custom-bg"><img src="/img/scoreBG.jpg" alt="bg" /></div>
         </>
     );
 };

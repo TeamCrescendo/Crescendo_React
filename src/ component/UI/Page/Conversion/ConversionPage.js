@@ -133,9 +133,14 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
                     <Input
                         error
                         className=" youtube-link"
-                        startDecorator={<FaYoutube style={{color:"red"}}/>}
-                        endDecorator={<IoIosSend style={{color:"skyblue"}} className="sendButton" onClick={submitHandler} />}
-                        placeholder={isLogin()?"유튜브 링크를 적어주세요!!":"로그인이 필요한 기능입니다."}
+                        startDecorator={<FaYoutube style={{color:"red", fontSize:"40px"}}/>}
+                        endDecorator={
+                            <div className="sendButton" style={{cursor:"pointer"}} onClick={submitHandler}>
+                                <IoIosSend />
+                                <span style={{fontWeight:"bold"}}>변환</span>
+                            </div>
+                        }
+                        placeholder={isLogin()?"유튜브 링크 붙여넣기":"로그인이 필요한 기능입니다."}
                         size="lg"
                         color="danger"
                         variant="outlined"
@@ -145,7 +150,7 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
                     />
                     <div className={cn('error', { none: isValid })}>
                         <InfoOutlined />
-                        링크 형식으로 적어주세요!!
+                        올바른 유튜브 링크를 입력해주세요!
                     </div>
                 </form>
                 {pdfFile && (
@@ -169,15 +174,17 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
 
 //{`mainContainer ${setAnimation}`}
     return (
-        <div className='conversion-page'>
-            {
-                isLoading ? (
-                    loadingPage()
-                ) : (
-                    renderPage()
-                )
-            }
-        </div>
+        <>
+            <div className={`conversion-page  ${setAnimation}`}>
+                {
+                    isLoading ? (
+                        loadingPage()
+                    ) : (
+                        renderPage()
+                    )
+                }
+            </div>
+        </>
     );
 };
 

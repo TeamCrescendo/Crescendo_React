@@ -15,3 +15,18 @@
   font-family: "Noto Sans KR", sans-serif;
 
 }
+
+.custom-bg {
+  position: absolute; /* 다른 요소들 위에 위치함 */
+  top: 0;
+  left: 0;
+  width: 100%; /* 부모 요소의 전체 너비를 채움 */
+  height: 100%; /* 부모 요소의 전체 높이를 채움 */
+  z-index: -1; /* 다른 요소들보다 뒤에 나타나도록 설정 */
+}
+
+.custom-bg img {
+  width: 100%; /* 이미지가 부모 요소의 너비를 채우도록 함 */
+  height: 100%; /* 이미지가 부모 요소의 높이를 채우도록 함 */
+  object-fit: cover; /* 이미지가 비율 유지하면서 요소에 맞추어짐 */
+}
