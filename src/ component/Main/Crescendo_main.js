@@ -53,7 +53,8 @@ const Crescendo_main = () => {
                                  googleLogin={googleLogin} logoutHandler={logoutHandler} />;
             case 3:
                 return <Board isForward={isForward} LoginHandler={LoginHandler}
-                              loginInfo={loginInfo} />;
+                              loginInfo={loginInfo} LoginCheck={LoginCheck}
+                              googleLogin={googleLogin} logoutHandler={logoutHandler} />;
             case 4:
                 return <MyPage isForward={isForward} LoginHandler={LoginHandler}
                                loginInfo={loginInfo} googleLogin={googleLogin}

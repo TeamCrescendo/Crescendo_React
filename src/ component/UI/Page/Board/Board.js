@@ -11,11 +11,12 @@ import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import boardDetail from "../../board/board_detail/BoardDetail";
+import UserInfomation from "../../login_info/User_Infomation";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 
-const Board = ({isForward, loginInfo, target}) => {
+const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginCheck}) => {
     const [scoreDetailOpen, setScoreDetailOpen] = useState(false);
     // 보드 디테일 클릭 참거짓
     const [detailClick, setDetailClick] = useState(false);
@@ -162,7 +163,9 @@ const Board = ({isForward, loginInfo, target}) => {
 
     return (
         <div className={`boardContainer ${setAnimation}`}>
-
+            <div className="head">
+                <UserInfomation googleLogin={googleLogin} logoutHandler={logoutHandler} loginInfo={loginInfo}/>
+            </div>
             {
                 !detailClick && !boardsLoading &&
                 (
@@ -181,7 +184,7 @@ const Board = ({isForward, loginInfo, target}) => {
                                             </Document>
                                             <div className={`image-text ${i}`} onClick={detailHandler}
                                                  id={item.scoreNo}>
-                                                곡명
+                                                악보
                                                 <span className={`score-title ${i}`}>{item.boardTitle}</span>
                                                 <div className={`score-info ${i}`}><span>자세히 보기</span></div>
                                             </div>
