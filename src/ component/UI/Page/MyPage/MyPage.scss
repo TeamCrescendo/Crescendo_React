@@ -35,15 +35,16 @@ header
   width: 1700px;
   margin: 0 auto;
   height: 100%;
-  background: rgb(227, 227, 227);
+  background: rgba(227, 227, 227, 0.25);
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   overflow: hidden;
 
-  border-radius: 100px 0 0 100px;
+  //border-radius: 100px 0 0 100px;
   box-shadow: 0 0 1px #23252c;
+  padding-left: 250px;
 
 
 

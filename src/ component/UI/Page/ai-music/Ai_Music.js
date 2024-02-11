@@ -1,4 +1,4 @@
-import React, {StrictMode, useState} from 'react';
+import React, {StrictMode, useEffect, useState} from 'react';
 import './Ai_Music.scss';
 import classNames from "classnames";
 import {getCurrentLoginUser} from "../../../util/login-util";
@@ -85,11 +85,24 @@ const Ai_Music = ({ isForward, loginInfo, googleLogin, logoutHandler, LoginCheck
         makeAiMusic(text, sliderValue);
     }
 
+    const [dots, setDots] = useState('...');
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setDots(prevDots => {
+                if (prevDots === '...') return '.';
+                else if (prevDots === '.') return '..';
+                else if (prevDots === '..') return '...';
+            });
+        }, 500);
+
+        return () => clearInterval(interval);
+    }, []);
     const loadingPage = () => {
         return (
             <>
                 <div className="loading-container">
-                    <span>프롬프트를 음악으로 변환중입니다...</span>
+                    <span>음악을 생성하는 중{dots}</span>
                     <img src="img/write.gif" alt="베토벤 로딩" />
                 </div>
             </>
