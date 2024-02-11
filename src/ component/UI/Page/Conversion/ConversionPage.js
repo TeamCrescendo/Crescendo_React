@@ -140,7 +140,9 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
                     pdfFile
                     ?
                     (
-                        <Score pdfFile = {pdfFile} scoreId={scoreId} loginInfo={loginInfo} exitHandler={exitHandler}/>
+                        <>
+                            <Score pdfFile = {pdfFile} scoreId={scoreId} loginInfo={loginInfo} exitHandler={exitHandler}/>
+                        </>
                     )
                     :
                     (

@@ -11,6 +11,7 @@ import { AUTH_URL } from "../../config/host-config";
 import { getCurrentLoginUser, TOKEN, USERNAME } from "../util/login-util";
 import ConversionPage from "../UI/Page/Conversion/ConversionPage";
 import { useNavigate, redirect } from 'react-router-dom';
+import classNames from "classnames";
 
 const Crescendo_main = () => {
 
@@ -175,13 +176,53 @@ const Crescendo_main = () => {
         window.location.href = `${oauth2Endpoint}?${queryString}`;
     }
 
+
+    const setAnimation = classNames({
+        'slide-up': isForward,
+        'slide-down': !isForward,
+    });
+    const bgSetter = () => {
+        switch (pageId) {
+            case 1:
+                return (
+                    <>
+                         <div className="custom-bg"><img src="/img/scoreBG.jpg" alt="bg" /></div>
+                    </>
+                )
+            case 2:
+                return (
+                    <>
+                        <div className="custom-bg"><img src="/img/aibg1.jpg" alt="bg" /></div>
+                    </>
+                )
+            case 3:
+                return (
+                    <>
+                        <div className="custom-bg"><img src="/img/scoreBG.jpg" alt="bg" /></div>
+                    </>
+                )
+            case 4:
+                return (
+                    <>
+                        <div className="custom-bg"><img src="/img/scoreBG.jpg" alt="bg" /></div>
+                    </>
+                )
+            case 5:
+                return (
+                    <>
+                        <div className="custom-bg"><img src="/img/scoreBG.jpg" alt="bg" /></div>
+                    </>
+                )
+        }
+    }
+
     return (
         <>
             <RecordBar pageGetter={pageGetter} clickPageGetter={clickPageGetter} />
             <div className='CrescendoMain'>
                 {renderPage()}
             </div>
-            <div className="custom-bg"><img src="/img/scoreBG.jpg" alt="bg" /></div>
+            {bgSetter()}
         </>
     );
 };

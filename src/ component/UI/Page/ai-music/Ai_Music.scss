@@ -1,16 +1,22 @@
+@font-face {
+  font-family: 'SBAggroB';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 
 .ai-music-container {
   font-family: "Noto Sans KR", sans-serif;
   width: 100%;
   height: 100%;
-  background: rgb(255, 255, 255);
+  background: rgba(255, 255, 255, 20%);
   display: flex;
   flex-direction: column;
   justify-content: flex-start; /* 헤더를 컨테이너의 맨 위에 위치시킵니다. */
   align-items: center;
   //padding-top: 50px; /* 헤더와 상단 간격을 조절합니다. */
-  border-bottom-left-radius: 100px;
-  border-top-left-radius: 100px;
+  //border-bottom-left-radius: 100px;
+  //border-top-left-radius: 100px;
 
   .head {
     width: 100%;
@@ -19,46 +25,12 @@
     align-items: center;
   }
 
-
-}
-
-.ai-music-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  margin-top: 50px;
-  //background: #9b3535;
-  width: 100%;
-}
-
-.ai-music-div {
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  margin-top: 150px;
-
-  position: absolute;
-
-
-  .music_duration {
-    width: 300px;
-    margin-bottom: 20px;
-  }
-  .music_prompt {
-    margin-bottom: 20px;
-
-  }
-
   .btn-container {
     display: flex;
     justify-content: start;
     align-items: center;
     flex-direction: row;
-    margin-top: 20px;
+    margin-top: 30px;
 
     .returnBtn {
       //display: flex;
@@ -79,6 +51,58 @@
       color: white;
       font-weight: bold;
     }
+  }
+
+
+}
+
+.ai-music-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 50px;
+  //background: #9b3535;
+  width: 100%;
+  font-family: 'SBAggroB', sans-serif;
+}
+
+.ai-music-div {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  width: 600px;
+  height: 40%;
+  margin-top: 300px;
+  padding-top: 30px;
+  background: rgba(40, 44, 52, 0.33);
+  border-radius: 50px;
+  position: absolute;
+
+  .set-duration{
+    width: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: rgb(255, 255, 255);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    padding-top: 10px;
+
+    .duration-text {
+      font-family: 'SBAggroB', serif;
+      font-size: 25px;
+    }
+    .music_duration {
+      width: 300px;
+      margin-bottom: 20px;
+    }
+  }
+  .music_prompt {
+    margin-bottom: 20px;
+    border-radius: 0 0 20px 20px;
   }
 }
 

@@ -8,7 +8,7 @@ const PageIndex = ({ pageId, clickPageGetter, indexClickPageId }) => {
 
     const getColor = (index) => {
         if (hoveredIndex === index) {
-            return '#3333FF'; // 호버됐을 때 색상 변경
+            return '#65656c'; // 호버됐을 때 색상 변경
         }
         // 다른 경우에는 페이지 ID에 따른 색상 적용
         return pageId === index ? 'rgba(100, 216, 255, 0.7)' : 'white';

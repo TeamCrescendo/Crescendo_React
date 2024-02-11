@@ -103,40 +103,44 @@ const Ai_Music = ({ isForward, loginInfo, googleLogin, logoutHandler, LoginCheck
     const renderPage = () => {
         return (
             <>
-                {/*<span>프롬프트</span>*/}
-                <span style={{marginTop:"150px"}}>음악 길이 설정</span>
-                <Slider
-                    className="music_duration"
-                    aria-label="time"
-                    defaultValue={5}
-                    // getAriaValueText={valuetext}
-                    onChange={handleSliderChange}
-                    valueLabelDisplay="auto"
-                    step={1}
-                    marks
-                    min={1}
-                    max={10}
-                />
-                <Textarea
-                    className="music_prompt"
-                    placeholder="원하는 음악을 설명해주세요. (3글자 이상)"
-                    value={text}
-                    onChange={(event) => setText(event.target.value)}
-                    minRows={5}
-                    maxRows={7}
-                    endDecorator={
-                        <Typography level="body-xs" sx={{ ml: 'auto' }}>
-                            {text.length} character(s)
-                        </Typography>
-                    }
-                    sx={{ minWidth: 500 }}
-                />
+                <div className="ai-music-header">
+                    <h1 style={{fontSize: "60px"}}>AI 음악 생성하기</h1>
+                </div>
+                <div className="ai-music-div">
+                    <div className="set-duration">
+                        <span className="duration-text">음악 길이 설정</span>
+                        <Slider
+                            className="music_duration"
+                            aria-label="time"
+                            defaultValue={5}
+                            // getAriaValueText={valuetext}
+                            onChange={handleSliderChange}
+                            valueLabelDisplay="auto"
+                            step={1}
+                            marks
+                            min={1}
+                            max={10}
+                        />
+                    </div>
+                    <Textarea
+                        className="music_prompt"
+                        placeholder="원하는 음악을 설명해주세요. (3글자 이상)"
+                        value={text}
+                        onChange={(event) => setText(event.target.value)}
+                        minRows={5}
+                        maxRows={5}
+                        endDecorator={
+                            <Typography level="body-xs" sx={{ ml: 'auto' }}>
+                                {text.length} 글자
+                            </Typography>
+                        }
+                        sx={{ minWidth: 500 }}
+                    />
 
-                {/*<input className="music_duration" type="number" min="0" max="10" placeholder="재생시간"*/}
-                {/*       style={{width: "100px"}}/>*/}
-                <Button component="label" variant="contained" startIcon={<CloudUploadIcon />} onClick={aiMusicMakeHanlder}>
-                    음악 생성하기
-                </Button>
+                    <Button component="label" variant="contained" startIcon={<CloudUploadIcon />} onClick={aiMusicMakeHanlder}>
+                        생성하기
+                    </Button>
+                </div>
             </>
         );
     }
@@ -151,11 +155,6 @@ const Ai_Music = ({ isForward, loginInfo, googleLogin, logoutHandler, LoginCheck
             <div className="head">
                 <UserInfomation googleLogin={googleLogin} logoutHandler={logoutHandler} loginInfo={loginInfo}/>
             </div>
-            <div className="ai-music-header">
-                <h1>나만의 AI 음악</h1>
-            </div>
-            <div className="ai-music-div">
-
                 {
                     isDone &&
                     (
@@ -172,7 +171,6 @@ const Ai_Music = ({ isForward, loginInfo, googleLogin, logoutHandler, LoginCheck
                                         다운로드
                                     </a>
                                 </Button>
-
                             </div>
                         </>
                     )
@@ -182,7 +180,7 @@ const Ai_Music = ({ isForward, loginInfo, googleLogin, logoutHandler, LoginCheck
                         ? loadingPage()
                         : !isDone && renderPage()
                 }
-            </div>
+
         </div>
     );
 };

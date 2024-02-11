@@ -137,11 +137,13 @@ export default function MusicApp({ url }) {
                 <div className="volumeControl">
                     {muted ? (
                         <FaVolumeMute
+                            className="mute"
                             onClick={handleToggleMute}
-                            style={{ cursor: 'pointer', fontSize: '30px', color: "red", marginRight: "10px" }} // 음소거 상태일 때 색상을 변경할 수 있습니다.
+                            style={{ cursor: 'pointer', fontSize: '30px', marginRight: "10px" }} // 음소거 상태일 때 색상을 변경할 수 있습니다.
                         />
                     ) : (
                         <FaVolumeUp
+                            className="volumeUp"
                             onClick={handleToggleMute}
                             style={{ cursor: 'pointer', fontSize: '30px', marginRight: "10px" }}
                         />
