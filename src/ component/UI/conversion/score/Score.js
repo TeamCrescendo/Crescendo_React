@@ -121,17 +121,17 @@ const Score = ({pdfFile, scoreId, exitHandler, loginInfo}) => {
         <>
             <div className="document">
                 <Document file={pdfFile} onLoadSuccess={onDocumentLoadSuccess}>
-                    <Page pageNumber={currentPage}/>
+                    <Page className="pdfimg" pageNumber={currentPage}/>
                 </Document>
                 <ButtonGroup
-                    // className = "button-zip"
+                    className = "button-zip"
                     variant="contained"
                     aria-label="outlined primary button group"
                     sx={{mt: 2.5, mb: 6.2}}
                     // fullWidth={true}
                 >
                     <Button onClick={comebackHandler}>돌아가기</Button>
-                    <Button onClick={downloadHandler}>저장하기</Button>
+                    <Button className="downBtn" onClick={downloadHandler}>저장하기</Button>
                     <Button onClick={shareHandler} disabled={share}>공유하기</Button>
                 </ButtonGroup>
                 <Pagination
