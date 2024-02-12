@@ -39,6 +39,8 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
 
     const [noBoard, setNoBoard] = useState(false);
 
+    const [pageNo, setPageNo] = useState(1);
+
     const setAnimation = classNames({
         'slide-up': isForward,
         'slide-down': !isForward,
@@ -55,7 +57,7 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
 
     // 서버에서 모든 보드 불러오기
     const getBoard = () => {
-        fetch("http://localhost:8484/api/board/", {
+        fetch(`http://localhost:8484/api/board/pageNo/${pageNo}`, {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + token
@@ -63,12 +65,11 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
         }).then(res => {
             return res.json();
         }).then(json => {
-            if(json.boards.length === 0){
+            console.log(json)
+            if(json.list.length === 0){
                 setNoBoard(true);
-                console.log("나 실행함");
             }
-            console.log(json.boards);
-            setBoards([...json.boards]);
+            setBoards([...json]);
             setGetBoards(true);
         });
     }
