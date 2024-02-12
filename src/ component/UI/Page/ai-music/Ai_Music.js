@@ -1,7 +1,7 @@
 import React, {StrictMode, useEffect, useState} from 'react';
 import './Ai_Music.scss';
 import classNames from "classnames";
-import {getCurrentLoginUser} from "../../../util/login-util";
+import {getCurrentLoginUser, isLogin} from "../../../util/login-util";
 import Score from "../../conversion/score/Score";
 import MusicApp from "./waveform/MusicApp";
 import {Slider} from "@mui/material";
@@ -121,7 +121,7 @@ const Ai_Music = ({ isForward, loginInfo, googleLogin, logoutHandler, LoginCheck
                 </div>
                 <div className="ai-music-div">
                     <div className="set-duration">
-                        <span className="duration-text">음악 길이 설정</span>
+                        <span className="duration-text">로그인이 필요한 기능입니다.</span>
                         <Slider
                             className="music_duration"
                             aria-label="time"
@@ -133,26 +133,53 @@ const Ai_Music = ({ isForward, loginInfo, googleLogin, logoutHandler, LoginCheck
                             marks
                             min={1}
                             max={10}
+                            disabled={!isLogin()}
                         />
                     </div>
-                    <Textarea
-                        className="music_prompt"
-                        placeholder="원하는 음악을 설명해주세요. (3글자 이상)"
-                        value={text}
-                        onChange={(event) => setText(event.target.value)}
-                        minRows={5}
-                        maxRows={5}
-                        endDecorator={
-                            <Typography level="body-xs" sx={{ ml: 'auto' }}>
-                                {text.length} 글자
-                            </Typography>
-                        }
-                        sx={{ minWidth: 500 }}
-                    />
+                    {
+                        !isLogin()
+                        ?
+                            (
+                                <Textarea
+                                    className="music_prompt"
+                                    placeholder="원하는 음악을 설명해주세요. (3글자 이상)"
+                                    value={text}
+                                    minRows={5}
+                                    maxRows={5}
+                                    readOnly={true}
+                                    style={{background: "lightgray"}}
+                                    endDecorator={
+                                        <Typography level="body-xs" sx={{ ml: 'auto' }}>
+                                            {text.length} 글자
+                                        </Typography>
+                                    }
+                                    sx={{ minWidth: 500 }}
+                                />
+                            )
+                        :
+                            (
+                                <>
+                                    <Textarea
+                                        className="music_prompt"
+                                        placeholder="원하는 음악을 설명해주세요. (3글자 이상)"
+                                        value={text}
+                                        onChange={(event) => setText(event.target.value)}
+                                        minRows={5}
+                                        maxRows={5}
+                                        endDecorator={
+                                            <Typography level="body-xs" sx={{ ml: 'auto' }}>
+                                                {text.length} 글자
+                                            </Typography>
+                                        }
+                                        sx={{ minWidth: 500 }}
+                                    />
+                                    <Button component="label" variant="contained" startIcon={<CloudUploadIcon />} onClick={aiMusicMakeHanlder}>
+                                        생성하기
+                                    </Button>
+                                </>
+                            )
+                    }
 
-                    <Button component="label" variant="contained" startIcon={<CloudUploadIcon />} onClick={aiMusicMakeHanlder}>
-                        생성하기
-                    </Button>
                 </div>
             </>
         );

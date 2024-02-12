@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {GrClose} from "react-icons/gr";
+import { TbArrowBack } from "react-icons/tb";
 import LoginButton from "../../button/login/original_login/Login_Button";
 import GoogleLoginButton from "../../button/login/google_login/Google_Login_Button";
 import './Find_Password_Modal.scss';
@@ -29,7 +29,7 @@ const FindPasswordModal = ({ onClose }) => {
         <div className="pw-modal-container" ref={modalBackground} onClick={handleModalClick}>
             <div className="pw-modal-content">
                 <button className="pwModalCloseBtn" onClick={onClose}>
-                    <GrClose/>
+                    <TbArrowBack />
                 </button>
                 <div className="pw-modal-title">
                     <h2>비밀번호 찾기</h2>
@@ -43,7 +43,7 @@ const FindPasswordModal = ({ onClose }) => {
                             <input
                             type="password"
                             className="pw-password"
-                            placeholder="패스워드 입력"
+                            placeholder="비밀번호 입력"
                             onChange={(e) => setNewPassword(e.target.value)}/>
                         )
                         :

@@ -96,6 +96,7 @@ const Score = ({pdfFile, scoreId, exitHandler, loginInfo}) => {
         })
             .then(res => res.json())
             .then(json => {
+                alert("악보가 게시판에 등록되었습니다!");
                 setShare(true);
                 setOpen(false);
                 // console.log(json);

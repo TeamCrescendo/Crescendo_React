@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {MEMBER_URL} from "../../../../config/host-config";
 import {getCurrentLoginUser} from "../../../util/login-util";
+import './User_Check_Button.scss';
 
 const UserCheckButton = ({ oncheck, account, email}) => {
 
@@ -34,7 +35,7 @@ const UserCheckButton = ({ oncheck, account, email}) => {
             })
     }
     return (
-        <button type="button" onClick={() => userCheckHandler(account, email)}>회원정보 확인</button>
+        <button className="checkBtn" type="button" onClick={() => userCheckHandler(account, email)}>회원정보 확인</button>
     );
 };
 

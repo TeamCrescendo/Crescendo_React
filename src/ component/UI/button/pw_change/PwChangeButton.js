@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {getCurrentLoginUser} from "../../../util/login-util";
 import {MEMBER_URL} from "../../../../config/host-config";
+import './PwChangeButton.scss';
 
 const PwChangeButton = ({ onClose, account, email, newPassword }) => {
     // 토큰 가져오기
@@ -32,7 +33,7 @@ const PwChangeButton = ({ onClose, account, email, newPassword }) => {
     }
 
     return (
-        <button type="button" onClick={pwChangeHandler}>비밀번호 변경</button>
+        <button className="changeBtn" type="button" onClick={pwChangeHandler}>비밀번호 변경</button>
     );
 };
 
