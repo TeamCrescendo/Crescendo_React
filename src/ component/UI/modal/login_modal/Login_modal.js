@@ -45,6 +45,15 @@ const LoginModal = ({onClose, registerHandler, isLogin, LoginCheck, googleLogin}
     const loginSubmit = async e => {
         e.preventDefault();
 
+        if (account === '') {
+            alert("아이디를 입력해주세요.");
+            return;
+        } else if (password === '') {
+            alert("비밀번호를 입력해주세요.");
+            return;
+        }
+
+
         const res = await fetch(AUTH_URL + "/login", {
             method: 'POST',
             headers: {'content-type': 'application/json'},
@@ -56,8 +65,7 @@ const LoginModal = ({onClose, registerHandler, isLogin, LoginCheck, googleLogin}
         });
 
         if (res.status === 400) {
-            const text = await res.text();
-            alert(text);
+            alert("회원정보를 올바르게 입력해주세요.");
             return;
         }
         if (res.status === 200) {
@@ -104,6 +112,7 @@ const LoginModal = ({onClose, registerHandler, isLogin, LoginCheck, googleLogin}
                                 type="checkbox"
                                 checked={autoLogin}
                                 onChange={() => setAutoLogin(!autoLogin)}
+                                style={{marginRight:"5px"}}
                             />
                             자동 로그인
                         </div>

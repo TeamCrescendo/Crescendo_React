@@ -297,10 +297,10 @@ const RegisterModal = ({ onClose }) => {
         'Authorization': 'Bearer ' + token,
     };
     const registerSubmit = () => {
-        if (!isChange) {
-            alert("프로필 사진은 필수입니다!");
-            return;
-        }
+        // if (!isChange) {
+        //     alert("프로필 사진은 필수입니다!");
+        //     return;
+        // }
 
         const formData = new FormData();
         formData.append('profileImage', profileIMG);
@@ -331,7 +331,9 @@ const RegisterModal = ({ onClose }) => {
         setIsChange(true);
     }
 
-
+    const profileClickHandler = () => {
+        document.querySelector('.file-upload').click();
+    }
 
     return (
         <div className="register-modal-container" ref={modalBackground} onClick={handleModalClick}>
@@ -448,11 +450,11 @@ const RegisterModal = ({ onClose }) => {
                     <div className="register-profile-img-container">
                         {
                             isChange
-                            ? <img className="imgp" src={URL.createObjectURL(profileIMG)} alt="프로필 사진"/>
-                            : <img className="imgp" src={profileIMG} alt="프로필 사진"/>
+                            ? <img className="imgp" onClick={profileClickHandler} src={URL.createObjectURL(profileIMG)} alt="프로필 사진"/>
+                            : <img className="imgp" onClick={profileClickHandler} src={profileIMG} alt="프로필 사진"/>
                         }
                         <Form.Group controlId="formFile" className="mb-3">
-                            <Form.Control type="file" onChange={imgHandler}/>
+                            <Form.Control className="file-upload" type="file" onChange={imgHandler}/>
                         </Form.Group>
                         {/*<div className="img-title">*/}
                         {/*    프로필 사진*/}

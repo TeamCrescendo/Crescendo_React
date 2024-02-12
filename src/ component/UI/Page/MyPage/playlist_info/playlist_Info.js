@@ -106,7 +106,7 @@ const PlaylistInfo = ({ loginInfo }) => {
             <div className="table-container">
                 <div className="table-row">
                     <div>악보리스트</div>
-                    <div>악보몇개?</div>
+                    <div>악보개수</div>
                     <div></div>
                     <div style={{color:"gray", fontWeight:"normal"}}>※ 최대 3개까지 생성가능</div>
                 </div>

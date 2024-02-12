@@ -62,7 +62,7 @@ const PageIndex = ({ pageId, clickPageGetter, indexClickPageId }) => {
                             <BsCircleFill />
                         </div>
                         <div className="index-name" style={{ color: getColor(3) }}>
-                            악보공유
+                            악보게시판
                         </div>
                     </li>
                     <li className="index-fourth"

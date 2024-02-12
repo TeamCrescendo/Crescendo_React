@@ -24,7 +24,7 @@ function MyPageTab({ loginInfo, pageGetter, clickPageGetter }) {
                     <Tab eventKey="list" title="공유목록">
                         <UserTotal loginInfo={loginInfo} pageGetter={pageGetter} clickPageGetter={clickPageGetter}/>
                     </Tab>
-                    <Tab eventKey="contact" title="플레이리스트">
+                    <Tab eventKey="contact" title="악보리스트">
                         <PlaylistInfo loginInfo={loginInfo}/>
                     </Tab>
                     <Tab eventKey="profile" title="쪽지목록">

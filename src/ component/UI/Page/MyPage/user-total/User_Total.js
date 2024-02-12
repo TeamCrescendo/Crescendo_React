@@ -96,7 +96,7 @@ const UserTotal = ({ loginInfo }) => {
                 <div className="scroll-container">
                     {rows.map((row) => (
                         <div className="table-data" key={row.bno}>
-                            <div onClick={() => moveToTargetHandler(row.bno)} style={{cursor:"pointer", color:"deepskyblue", fontWeight:"bold"}}>{row.title}</div>
+                            <div className="title" onClick={() => moveToTargetHandler(row.bno)} style={{cursor:"pointer", fontWeight:"bold"}}>{row.title}</div>
                             <div>{row.viewCount}회</div>
                             <div>{row.like}개</div>
                             <div>{row.dislike}개</div>

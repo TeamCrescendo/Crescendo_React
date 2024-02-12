@@ -32,10 +32,11 @@ header
 
 .mypageContainer {
   font-family: "Noto Sans KR", sans-serif;
-  width: 1700px;
-  margin: 0 auto;
+  //width: 1700px;
+  //margin: 0 auto;
+  width: 100%;
   height: 100%;
-  background: rgba(227, 227, 227, 0.25);
+  background: rgba(227, 227, 227, 0.2);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -46,7 +47,12 @@ header
   box-shadow: 0 0 1px #23252c;
   padding-left: 250px;
 
-
+  .loginBtnContainer {
+    //width: 500px;
+    //height: 200px;
+    width: 100%;
+    //height: 100%;
+  }
 
   @keyframes slide-up-invitation {
     0% {

@@ -10,4 +10,10 @@
   border-radius: 5px;
   font-weight: bold;
   margin-bottom: 10px;
+  transition-duration: 0.2s;
+
+  &:hover {
+    background: #404652;
+
+  }
 }

@@ -5,7 +5,7 @@
   font-size: 15px;
   cursor: pointer;
   border: 0;
-  background: #dadada;
+  background: #eeeeee;
   color: black;
   border-radius: 5px;
   font-weight: bold;
@@ -13,6 +13,11 @@
   display: flex;
   justify-content: left;
   align-items: center;
+  transition-duration: 0.2s;
+
+  &:hover {
+    background: #e5e3e3;
+  }
 
   .googleIcon {
     width: 100px;

@@ -32,6 +32,7 @@
       font-size: 20px;
     }
     .login-modal-title {
+      font-family: 'SBAggroB', Serif;
       margin-bottom: 20px;
     }
 
@@ -66,6 +67,12 @@
       .pwfindSpan {
         cursor: pointer;
         color: #3556d5;
+        transition-duration: 0.2s;
+
+        &:hover {
+          color: #2944a8;
+          font-weight: bold;
+        }
       }
     }
 
@@ -74,6 +81,12 @@
       .registerSpan {
         cursor: pointer;
         color: #3556d5;
+        transition-duration: 0.2s;
+
+        &:hover {
+          color: #2944a8;
+          font-weight: bold;
+        }
       }
     }
   }

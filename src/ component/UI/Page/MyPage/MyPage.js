@@ -15,7 +15,9 @@ const MyPage = ({ isForward, isLogin, loginInfo, logoutHandler, loginCheck, goog
         if (loginInfo != null) {
             return <MyPageLoggedIn loginInfo={loginInfo} logoutHandler={logoutHandler} loginCheck={loginCheck} pageGetter={pageGetter} clickPageGetter={clickPageGetter}/>
         } else {
-            return <MyPageLogin isLogin={isLogin} loginCheck={loginCheck} googleLogin={googleLogin}/>
+            return (
+                    <MyPageLogin isLogin={isLogin} loginCheck={loginCheck} googleLogin={googleLogin}/>
+            )
         }
     }
 
