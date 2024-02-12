@@ -12,7 +12,8 @@ import 'react-pdf/dist/Page/TextLayer.css';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import boardDetail from "../../board/board_detail/BoardDetail";
 import UserInfomation from "../../login_info/User_Infomation";
-import page from "react-pdf/src/Page";
+import {BOARD_URL} from "../../../../config/host-config";
+
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -34,13 +35,15 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
     const [pdfFiles, setPdfFiles] = useState([]);
     const [getPdfFiles, setGetPdfFiles] = useState(false);
     // 처음 시작 확인
-    const [first, setFirst] = useState(false);
+    const [first, setFirst] = useState(true);
     // 보드 개수
     const [boardCount, setBoardCount] = useState(0);
 
     const [noBoard, setNoBoard] = useState(false);
-
+    // 현재 페이지
     const [pageNo, setPageNo] = useState(1);
+    // 총 페이지
+    const [allPageNo, setAllPageNo] = useState(1);
 
     const setAnimation = classNames({
         'slide-up': isForward,
@@ -50,10 +53,10 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
 
     // 모든 보드 정보 불러오기
     useEffect(() => {
-        if (!first) {
+        if (first) {
             console.log(loginInfo);
             getBoard();
-            setFirst(true);
+            setFirst(false);
         }
     }, [first]);
 
@@ -67,14 +70,17 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
         }).then(res => {
             return res.json();
         }).then(json => {
-            console.log(json)
+            // console.log(json)
+            setAllPageNo(json.allPageNo);
             if(json.list.length === 0){
                 setNoBoard(true);
             }
+            setPdfFiles([]);
             setBoards([...json.list]);
             setGetBoards(true);
         });
     }
+
 
     // 보드 불러온 다음에
     useEffect(() => {
@@ -115,11 +121,15 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
         getBoard();
     }
     // 페이지 이동 했을 때
-    const pageClickHandler = e =>{
-        console.log(e.target.page);
-        setPageNo(e.target.page);
-        getBoard();
+    const pageClickHandler = (event, page) =>{
+        console.log(page);
+        setPageNo(page);
     }
+
+
+    useEffect(() => {
+        if(first !== true) getBoard();
+    }, [pageNo]);
 
     // 디테일 클릭하는 함수
     const detailHandler = (e) => {
@@ -161,7 +171,6 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
 
     // 디테일 끄는 함수
     const detailCloseHandler = (e) => {
-        // setBoardsLoading(false);
         setDetailClick(false);
     }
 
@@ -204,8 +213,8 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
                         </Grid>
                         <Pagination
                             className="pagination"
-                            count={pageNo}
-                            page={setPageNo(page)}
+                            count={allPageNo}
+                            page={pageNo}
                             // count={numPages}
                             onChange={pageClickHandler}
                             size={"large"}
