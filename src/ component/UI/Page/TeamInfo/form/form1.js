@@ -6,8 +6,11 @@ import './Form.scss'
 const Form1 = () => {
     return (
         <>
-            <div className="top" >
-                <div className="box" >
+            <div className="title">
+                <h2 className="h2-title">팀소개 입니다!</h2>
+            </div>
+            <div className="top">
+                <div className="box">
                     <div className="box-tool">
                         <br/>
                         <img src={p1} className="img3" alt="instruction1"/>
