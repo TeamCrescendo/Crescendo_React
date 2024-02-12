@@ -6,8 +6,18 @@ import './Form.scss'
 const Form1 = () => {
     return (
         <>
-            <div className="title">
-                <h2 className="h2-title">팀소개 입니다!</h2>
+            <div className="title1">
+                <h1 className="h1-title">음악 파일을 악보로 바로 변환, 한번에 즐기기</h1>
+                <span className="span-title1">
+                    " Unexpressed emotions through sound, that's what music is! "
+                </span><br/>
+                <p>
+                    사용자가 음원 파일을 업로드하면, 빠르고 정확한 변환 알고리즘이 적용되어 즉시 악보로 변환됩니다.<br/>
+                    도구를 사용하여 음악 파일을 악보로 변환하고, 빠르게 음악을 이해하며 연주하는 새로운 경험을 즐겨보세요!
+                </p>
+            </div>
+            <div className="title3">
+                <h2 className="h3-title">팀소개 입니다!</h2>
             </div>
             <div className="top">
                 <div className="box">
@@ -77,5 +87,4 @@ const Form1 = () => {
         </>
     );
 };
-
 export default Form1;
