@@ -12,6 +12,7 @@ import 'react-pdf/dist/Page/TextLayer.css';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import boardDetail from "../../board/board_detail/BoardDetail";
 import UserInfomation from "../../login_info/User_Infomation";
+import page from "react-pdf/src/Page";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -46,6 +47,7 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
         'slide-down': !isForward,
     });
 
+
     // 모든 보드 정보 불러오기
     useEffect(() => {
         if (!first) {
@@ -69,7 +71,7 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
             if(json.list.length === 0){
                 setNoBoard(true);
             }
-            setBoards([...json]);
+            setBoards([...json.list]);
             setGetBoards(true);
         });
     }
@@ -110,6 +112,12 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
         setPdfFiles([]);
         setDetailClick(false);
         setBoardsLoading(true);
+        getBoard();
+    }
+    // 페이지 이동 했을 때
+    const pageClickHandler = e =>{
+        console.log(e.target.page);
+        setPageNo(e.target.page);
         getBoard();
     }
 
@@ -196,8 +204,10 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
                         </Grid>
                         <Pagination
                             className="pagination"
+                            count={pageNo}
+                            page={setPageNo(page)}
                             // count={numPages}
-                            // onChange={pageClickHandler}
+                            onChange={pageClickHandler}
                             size={"large"}
                         />
                     </>
