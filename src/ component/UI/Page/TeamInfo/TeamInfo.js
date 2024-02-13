@@ -12,6 +12,7 @@ const TeamInfo = ({ isForward , LoginHandler, loginInfo}) => {
 
 
     return (
+        <>
             <div className={`teaminfoContainer ${setAnimation}`}>
                 <h1>
                     Beethoven Tomato Deluxe

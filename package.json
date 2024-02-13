@@ -8,7 +8,8 @@
     "@mui/icons-material": "^5.15.4",
     "@mui/joy": "^5.0.0-beta.24",
     "@mui/lab": "^5.0.0-alpha.161",
-    "@mui/material": "^5.15.4",
+    "@mui/material": "^5.15.9",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.16",
     "@react-pdf-viewer/core": "^3.12.0",
     "@react-pdf-viewer/default-layout": "^3.12.0",
     "@testing-library/jest-dom": "^5.17.0",
@@ -33,6 +34,7 @@
     "react-window": "^1.8.10",
     "reactstrap": "^9.2.1",
     "sass": "^1.69.7",
+    "styled-components": "^6.1.8",
     "use-sound": "^4.0.1",
     "web-vitals": "^2.1.4"
   },
