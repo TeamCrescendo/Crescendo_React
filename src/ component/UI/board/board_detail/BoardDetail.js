@@ -17,7 +17,7 @@ import BoardDetailModal from "../board_modal/BoardDetailModal";
 import {getCurrentLoginUser} from "../../../util/login-util";
 import {json} from "react-router-dom";
 import BoardMessageModal from "../board_modal/BoardMessageModal";
-import {BOARD_URL} from "../../../../config/host-config";
+import {BOARD_URL, MEMBER_URL} from "../../../../config/host-config";
 
 const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, memberAccount, loginInfo, getBoard}) => {
 
@@ -90,7 +90,7 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
             setDislikeClicked(!dislikeClicked);
         }
         setLikeClicked(!likeClicked);
-        fetch("http://localhost:8484/api/board/likeAndDislike", {
+        fetch(BOARD_URL + "/likeAndDislike", {
             method: "POST",
             headers: {
                 'Authorization': 'Bearer ' + token,
@@ -114,7 +114,7 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
             setLikeClicked(!likeClicked);
         }
         setDislikeClicked(!dislikeClicked);
-        fetch("http://localhost:8484/api/board/likeAndDislike", {
+        fetch(BOARD_URL + "/likeAndDislike", {
             method: "POST",
             headers: {
                 'Authorization': 'Bearer ' + token,
@@ -133,8 +133,7 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
 
     // 삭제 핸들러
     const deleteHandler = () =>{
-        console.log(`http://localhost:8484/api/board/${boardDetailInfo.boardNo}`);
-        fetch(`http://localhost:8484/api/board/${boardDetailInfo.boardNo}`,{
+        fetch(`${BOARD_URL}/${boardDetailInfo.boardNo}`,{
             method:"DELETE",
             headers:{
                 'Authorization': 'Bearer ' + token,
@@ -160,7 +159,7 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
 
     // 유저 정보 가져오기
     const getUserInfo = () =>{
-        fetch("http://localhost:8484/api/member",{
+        fetch(MEMBER_URL,{
             method: "GET",
             headers: {'Authorization': 'Bearer ' + token},
 

@@ -307,7 +307,7 @@ const RegisterModal = ({ onClose }) => {
         formData.append('email', userValue.email);
         formData.append('password', userValue.password);
 
-        fetch('http://localhost:8484/api/auth/register', {
+        fetch(AUTH_URL + '/register', {
             method: 'POST',
             body: formData,
         })
@@ -323,7 +323,6 @@ const RegisterModal = ({ onClose }) => {
     };
 
     const imgHandler = e => {
-        console.log(e.target);
         const img = e.target.files[0];
 
         setProfileIMG(img);

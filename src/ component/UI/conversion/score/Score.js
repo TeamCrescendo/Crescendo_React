@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import {DialogContent, DialogTitle, Modal, ModalClose, ModalDialog, Sheet, Typography} from "@mui/joy";
 import Input from '@mui/joy/Input';
 import {KeyboardArrowRight} from "@mui/icons-material";
+import {BOARD_URL} from "../../../../config/host-config";
 
 
 const Score = ({pdfFile, scoreId, exitHandler, loginInfo}) => {
@@ -33,7 +34,6 @@ const Score = ({pdfFile, scoreId, exitHandler, loginInfo}) => {
     // pdf 파일 다운로드
     const downloadHandler = () => {
         const url = URL.createObjectURL(pdfFile);
-        console.log(url);
 
         const link = document.createElement('a');
         link.href = url;
@@ -51,14 +51,10 @@ const Score = ({pdfFile, scoreId, exitHandler, loginInfo}) => {
 
     //
     const onDocumentLoadSuccess = (document) => {
-        console.log(document);
-        console.log(pdfFile);
         setNumPages(document.numPages);
     };
 
     const pageClickHandler = (event, page) => {
-        console.log(page);
-        // console.log(event);
         const pageNum = parseInt(page);
         setCurrentPage(pageNum);
     }
@@ -66,8 +62,6 @@ const Score = ({pdfFile, scoreId, exitHandler, loginInfo}) => {
     // 악보 제목 작성하는 핸들러
     const titleHandler = async (e)  =>{
         e.preventDefault();
-        // console.log(boardTitle);
-
         // 악보 아이디
         //scoreId
         // 엔드포인트
@@ -89,7 +83,7 @@ const Score = ({pdfFile, scoreId, exitHandler, loginInfo}) => {
         console.log(scoreId);
         console.log(boardTitle);
         console.log(requestHeader);
-        fetch("http://localhost:8484/api/board/createBoard", {
+        fetch(BOARD_URL + "/createBoard", {
             method: "POST",
             headers: requestHeader,
             body: JSON.stringify(requestBody)

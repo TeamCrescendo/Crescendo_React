@@ -12,6 +12,7 @@ import {ButtonGroup} from "@mui/material";
 import Button from "@mui/material/Button";
 import Pagination from "@mui/material/Pagination";
 import {IoMdClose} from "react-icons/io";
+import {BOARD_URL} from "../../../../../config/host-config";
 
 const BoardDetail = ({boardDetailInfo, detailCloseHandler, loginInfo}) => {
 
@@ -44,7 +45,7 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, loginInfo}) => {
     // 좋아요 버튼 클릭
     const likeClickHandler = () => {
         setLikeClicked(!likeClicked);
-        fetch("http://localhost:8484/api/board/likeAndDislike", {
+        fetch(BOARD_URL + "/likeAndDislike", {
             method: "POST",
             body: {
                 boardNo: boardDetailInfo.boardNo,
@@ -55,7 +56,7 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, loginInfo}) => {
     // 싫어요 버튼 클릭
     const dislikeClickHandler = () => {
         setDislikeClicked(!dislikeClicked);
-        fetch("http://localhost:8484/api/board/likeAndDislike", {
+        fetch(BOARD_URL + "/likeAndDislike", {
             method: "POST",
             body: {
                 boardNo: boardDetailInfo.boardNo,

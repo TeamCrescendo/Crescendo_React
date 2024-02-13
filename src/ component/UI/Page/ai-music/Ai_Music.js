@@ -12,6 +12,7 @@ import PromptInfo from "./prompt_info/Prompt_Info";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import UserInfomation from "../../login_info/User_Infomation";
+import {SCORE_URL} from "../../../../config/host-config";
 
 
 const Ai_Music = ({ isForward, loginInfo, googleLogin, logoutHandler, LoginCheck }) => {
@@ -46,7 +47,7 @@ const Ai_Music = ({ isForward, loginInfo, googleLogin, logoutHandler, LoginCheck
     const makeAiMusic = async (prompt, duration) => {
 
         try {
-            const res = await fetch("http://localhost:8484/api/score/ai", {
+            const res = await fetch(SCORE_URL + "/ai", {
                 method: 'POST',
                 headers: requestHeader,
                 body: JSON.stringify({

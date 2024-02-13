@@ -62,7 +62,7 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
 
     // 서버에서 모든 보드 불러오기
     const getBoard = () => {
-        fetch(`http://localhost:8484/api/board/pageNo/${pageNo}`, {
+        fetch(`${BOARD_URL}/pageNo/${pageNo}`, {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + token
@@ -91,7 +91,7 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
                 console.log(boards);
                 for (let i = 0; i < boards.length; i++) {
                     try {
-                        const res = await fetch(`http://localhost:8484/api/board/${boards[i].boardNo}`, {
+                        const res = await fetch(`${BOARD_URL}/${boards[i].boardNo}`, {
                             method: 'GET',
                             headers: {
                                 'Authorization': 'Bearer ' + token

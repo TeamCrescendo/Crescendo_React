@@ -15,6 +15,7 @@ import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import Score from "../../conversion/score/Score";
+import {SCORE_URL} from "../../../../config/host-config";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 
@@ -84,7 +85,7 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
 
         setIsLoading(true);
         setIsConversion(true);
-        const res = await fetch("http://localhost:8484/api/score/youtube", {
+        const res = await fetch(SCORE_URL + "/youtube", {
             method: "POST",
             headers: requestHeader,
             body: JSON.stringify({

@@ -7,7 +7,7 @@ import TeamInfo from "../UI/Page/TeamInfo/TeamInfo";
 import Ai_Music from "../UI/Page/ai-music/Ai_Music";
 import Board from "../UI/Page/Board/Board";
 import Session from "react-session-api/src";
-import { AUTH_URL } from "../../config/host-config";
+import {API_BASE_URL, AUTH_URL, MEMBER_URL} from "../../config/host-config";
 import { getCurrentLoginUser, TOKEN, USERNAME } from "../util/login-util";
 import ConversionPage from "../UI/Page/Conversion/ConversionPage";
 import { useNavigate, redirect } from 'react-router-dom';
@@ -84,7 +84,7 @@ const Crescendo_main = () => {
 
     const fetchLoginInfo = async () => {
         try {
-            const res = await fetch("http://localhost:8484/api/member", {
+            const res = await fetch(MEMBER_URL, {
                 method: "GET",
                 headers: requestHeader,
             });
@@ -128,7 +128,7 @@ const Crescendo_main = () => {
         const accessToken = searchParams.get('access_token');
         if (accessToken) {
             try {
-                const res = await fetch('http://localhost:8484/api/auth/oauth2/google/info', {
+                const res = await fetch(AUTH_URL + '/oauth2/google/info', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -166,7 +166,7 @@ const Crescendo_main = () => {
         const oauth2Endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
         const params = {
             'client_id': '890304175366-cg7t8bjavr2dt1ttf4ma2atl077n8i4r.apps.googleusercontent.com',
-            'redirect_uri': 'http://localhost:3000',
+            'redirect_uri': API_BASE_URL,
             'response_type': 'token',
             'scope': 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
             'state': 'pass-through value'

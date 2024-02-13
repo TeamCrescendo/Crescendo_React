@@ -97,13 +97,8 @@ const BoardDetailModal = ({onClose, scoreNo, boardNo}) => {
 
     // 플리 추가하는 함수
     const send = () => {
-        console.log(sendPlayList);
-        console.log(scoreNo);
         sendPlayList.forEach((item) => {
-            console.log("플레이리스트: ", item);
-            console.log("악보 번호: ", scoreNo);
-
-            fetch("http://localhost:8484/api/playList", {
+            fetch(PLAYLIST_URL, {
                 method: "POST",
                 headers: {
                     'content-type': 'application/json',
@@ -163,7 +158,7 @@ const BoardDetailModal = ({onClose, scoreNo, boardNo}) => {
 
     // 올 플리 가져오기
     const getAllPlay = () =>{
-        fetch("http://localhost:8484/api/allPlayList", {
+        fetch(ALL_PLAYLIST_URL, {
             method: "GET",
             headers: {
                 'Authorization': 'Bearer ' + token,
