@@ -68,10 +68,12 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
                 'Authorization': 'Bearer ' + token
             }
         }).then(res => {
-            return res.json();
+            if(res.status === 200) return res.json();
+            else alert("서버에러입니닿ㅎ")
         }).then(json => {
             // console.log(json)
             setAllPageNo(json.allPageNo);
+
             if(json.list.length === 0){
                 setNoBoard(true);
             }
@@ -96,9 +98,12 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
                             }
                         });
 
-                        const blob = await res.blob();
+                        console.log(res.blob());
+                        console.log(res);
+                        const blob = new Blob([res.body], {type: "application/pdf"});
+                        console.log(blob);
                         const file = new File([blob], "example.pdf", {type: "application/pdf"});
-
+                        console.log(file);
                         // 이전 상태를 기반으로 새로운 상태를 업데이트
                         setPdfFiles(prevFiles => [...prevFiles, file]);
                     } catch (error) {

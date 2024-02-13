@@ -19,6 +19,7 @@ const TeamInfo = ({ isForward , LoginHandler, loginInfo}) => {
                 </h1>
                 <Form1/>
             </div>
+        </>
     );
 };
 

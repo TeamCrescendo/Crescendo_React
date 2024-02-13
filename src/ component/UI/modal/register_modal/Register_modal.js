@@ -297,10 +297,10 @@ const RegisterModal = ({ onClose }) => {
         'Authorization': 'Bearer ' + token,
     };
     const registerSubmit = () => {
-        // if (!isChange) {
-        //     alert("프로필 사진은 필수입니다!");
-        //     return;
-        // }
+        const formData = new FormData();
+        if(isChange){
+            formData.append('profileImage', profileIMG);
+        }
 
         formData.append('account', userValue.account);
         formData.append('userName', userValue.userName);
