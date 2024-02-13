@@ -302,8 +302,6 @@ const RegisterModal = ({ onClose }) => {
         //     return;
         // }
 
-        const formData = new FormData();
-        formData.append('profileImage', profileIMG);
         formData.append('account', userValue.account);
         formData.append('userName', userValue.userName);
         formData.append('email', userValue.email);
@@ -325,6 +323,7 @@ const RegisterModal = ({ onClose }) => {
     };
 
     const imgHandler = e => {
+        console.log(e.target);
         const img = e.target.files[0];
 
         setProfileIMG(img);
