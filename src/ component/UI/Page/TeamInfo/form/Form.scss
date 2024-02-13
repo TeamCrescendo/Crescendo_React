@@ -1,17 +1,33 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Lobster&family=Oswald:wght@500&family=Pacifico&family=Protest+Riot&display=swap');
 @font-face {
   font-family: 'KNUTRUTHTTF';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/KNUTRUTHTTF.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
 }
+.title1{
+  text-align: center;
+  .h1-title{
+    color: #819FF7;
+    font-family: 'KNUTRUTHTTF';
+    font-size: 40px;
+  }
+  .span-title1{
+    color: #F2F2F2;
+    font-family: "Protest Riot", sans-serif;
+    font-size: 35px;
+  }
+  .p-title1{
+    color: white;
+    font-size: 20px;
+  }
+}
+
 .title3{
-  margin: 0 0 355px 0;
+  margin: 0 0 365px 0;
   .h3-title{
     color: white;
-    margin: 0 0 345px  0;
+    margin: 0 0 355px  0;
     font-family: 'KNUTRUTHTTF';
   }
 }
@@ -50,7 +66,8 @@
   text-align: center;
   margin: 750px 30px 10px 10px;
   color: whitesmoke;
-  .box-tool{
+
+  .box-tool {
     width: 200px;
     height: 150px;
     box-shadow: 0px 0px 20px black;
@@ -67,6 +84,7 @@
       }
     }
   }
+
   .img {
     width: 10%;
     height: auto;
@@ -74,11 +92,13 @@
     margin: 10px;
     align-items: center;
   }
+
   .heading {
     font-size: 30px;
     font-family: 'Lobster', sans-serif;
     margin: 10px 0;
   }
+
   .data {
     color: #666;
     font-size: 14px;
@@ -86,13 +106,16 @@
     margin-bottom: 10px;
     color: white;
   }
+
   .date {
     margin-right: 10px;
   }
+
   .texts {
     font-family: 'KNUTRUTHTTF';
     font-size: 20px;
     line-height: 1.5;
     color: white;
   }
+
 }
