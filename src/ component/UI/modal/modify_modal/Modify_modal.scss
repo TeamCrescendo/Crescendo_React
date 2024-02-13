@@ -32,6 +32,7 @@
       font-size: 20px;
     }
     .modify-modal-title {
+      font-family: 'SBAggroB', Serif;
       margin-bottom: 20px;
     }
 
@@ -57,6 +58,7 @@
           border-radius: 5px;
           font-size: 20px;
           margin-bottom: 10px;
+
         }
 
         .exDiv {
@@ -84,11 +86,16 @@
           border-radius: 50%;
           cursor: pointer;
           margin-bottom: 15px;
-          margin-right: 0;
+          //margin-right: 0;
           display: flex;
           justify-content: center;
           align-items: center;
           border: 2px solid gray;
+          transition-duration: 0.2s;
+
+          &:hover {
+            box-shadow: 0 0 10px gray;
+          }
         }
         .img-title {
           font-size: 17px;

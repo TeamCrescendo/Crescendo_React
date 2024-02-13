@@ -5,9 +5,13 @@ import {IconButton} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {ALL_PLAYLIST_URL, BOARD_URL} from "../../../../../config/host-config";
 import {getCurrentLoginUser} from "../../../../util/login-util";
+import Board from "../../Board/Board";
+import ShowDetailModal from "../../../modal/show_detail_modal/Show_Detail_Modal";
 
 const UserTotal = ({ loginInfo }) => {
     const [rows, setRows] = useState([]);
+    const [showDetail, setShowDetail] = useState(false);
+    const [target, setTarget] = useState();
 
     function createData(bno, title, like, dislike, viewCount, downloadCount) {
         return { bno, title, like, dislike, viewCount, downloadCount };
@@ -70,9 +74,17 @@ const UserTotal = ({ loginInfo }) => {
         selectMyBoard();
     }, []);
 
+    const moveToTargetHandler = (bno) => {
+        setTarget(bno);
+        ssd();
+    }
+    const ssd = () => {
+        setShowDetail(true);
+    }
+
     return (
         <div className="user-total-container">
-            <div className="table-container">
+                <div className="table-container">
                 <div className="table-row">
                     <div>공유 악보</div>
                     <div>조회수</div>
@@ -84,7 +96,7 @@ const UserTotal = ({ loginInfo }) => {
                 <div className="scroll-container">
                     {rows.map((row) => (
                         <div className="table-data" key={row.bno}>
-                            <div style={{cursor:"pointer", color:"deepskyblue", fontWeight:"bold"}}>{row.title}</div>
+                            <div className="title" onClick={() => moveToTargetHandler(row.bno)} style={{cursor:"pointer", fontWeight:"bold"}}>{row.title}</div>
                             <div>{row.viewCount}회</div>
                             <div>{row.like}개</div>
                             <div>{row.dislike}개</div>
@@ -100,6 +112,9 @@ const UserTotal = ({ loginInfo }) => {
                     ))}
                 </div>
             </div>
+
+            {showDetail && <ShowDetailModal onClose={() => setShowDetail(false)} target={target}/>}
+
         </div>
     );
 };

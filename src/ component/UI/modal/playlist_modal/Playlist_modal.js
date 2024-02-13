@@ -34,10 +34,9 @@ const PlaylistModal = ({ onClose, loginInfo, data }) => {
 
     // 재생목록 확인
     const selectPlaylist = e => {
-        fetch(PLAYLIST_URL, {
+        fetch(`${PLAYLIST_URL}?plId=${data.plId}`, {
             method: 'GET',
             headers: requestHeader,
-            body: JSON.stringify(data.plId),
             credentials: 'include',
         })
             .then(res => {
@@ -52,7 +51,7 @@ const PlaylistModal = ({ onClose, loginInfo, data }) => {
                 const updatedRows = json.map(playlist => {
                     num = num + 1;
                     console.log(playlist.title);
-                    return createData(num, playlist.scoreNoTitle, playlist.plNo, playlist.plId, playlist.plAddDateTime);
+                    return createData(num, playlist.boardTitle, playlist.plNo, playlist.plId, playlist.plAddDateTime);
                 });
                 setRows(updatedRows);
             })

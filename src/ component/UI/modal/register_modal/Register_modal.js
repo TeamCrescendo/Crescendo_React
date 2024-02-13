@@ -292,46 +292,15 @@ const RegisterModal = ({ onClose }) => {
         onClose();
     }
 
-    // const registerSubmit = e => {
-    //     e.preventDefault();
-    //     if (!correct.account || !correct.userName || !correct.password || !correct.password2 || !correct.email) {
-    //         return;
-    //     }
-    //
-    //     fetch(`${URL}/register`, {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'multipart/form-data',
-    //         },
-    //         body: JSON.stringify({
-    //             account: userValue.account,
-    //             userName: userValue.userName,
-    //             email: userValue.email,
-    //             password: userValue.password,
-    //             profileImage: profileIMG
-    //         }),
-    //     })
-    //         .then(res => res.json())
-    //         .then(json => {
-    //             // 로그인 검증 메서드
-    //             if (json === true) {
-    //                 alert("회원가입이 성공적으로 처리되었습니다!");
-    //                 onClose();
-    //             } else {
-    //                 alert("회원가입에 실패했습니다!");
-    //             }
-    //         })
-    // }
-
     const[token, setToken] = useState(getCurrentLoginUser().token);
     const headers = {
         'Authorization': 'Bearer ' + token,
     };
     const registerSubmit = () => {
-        if (!isChange) {
-            alert("프로필 사진은 필수입니다!");
-            return;
-        }
+        // if (!isChange) {
+        //     alert("프로필 사진은 필수입니다!");
+        //     return;
+        // }
 
         const formData = new FormData();
         formData.append('profileImage', profileIMG);
@@ -344,12 +313,12 @@ const RegisterModal = ({ onClose }) => {
             method: 'POST',
             body: formData,
         })
-            .then(response => {
-                if (response.status === 200) return response.json();
-                else if (response.status === 400) console.log("회원가입 400오류");
+            .then(res => {
+                if (res.status === 200) return res.json();
+                else alert("회원가입에 실패했습니다!");
             })
-            .then(data => {
-                console.log(data);
+            .then(json => {
+                alert("회원가입에 성공했습니다!");
                 onClose();
             })
             .catch(error => console.error('Error uploading file:', error));
@@ -362,7 +331,9 @@ const RegisterModal = ({ onClose }) => {
         setIsChange(true);
     }
 
-
+    const profileClickHandler = () => {
+        document.querySelector('.file-upload').click();
+    }
 
     return (
         <div className="register-modal-container" ref={modalBackground} onClick={handleModalClick}>
@@ -479,11 +450,11 @@ const RegisterModal = ({ onClose }) => {
                     <div className="register-profile-img-container">
                         {
                             isChange
-                            ? <img className="imgp" src={URL.createObjectURL(profileIMG)} alt="프로필 사진"/>
-                            : <img className="imgp" src={profileIMG} alt="프로필 사진"/>
+                            ? <img className="imgp" onClick={profileClickHandler} src={URL.createObjectURL(profileIMG)} alt="프로필 사진"/>
+                            : <img className="imgp" onClick={profileClickHandler} src={profileIMG} alt="프로필 사진"/>
                         }
                         <Form.Group controlId="formFile" className="mb-3">
-                            <Form.Control type="file" onChange={imgHandler}/>
+                            <Form.Control className="file-upload" type="file" onChange={imgHandler}/>
                         </Form.Group>
                         {/*<div className="img-title">*/}
                         {/*    프로필 사진*/}

@@ -32,6 +32,7 @@
       font-size: 20px;
     }
     .register-modal-title {
+      font-family: 'SBAggroB', Serif;
       margin-bottom: 20px;
     }
 
@@ -99,6 +100,11 @@
           justify-content: center;
           align-items: center;
           border: 2px solid gray;
+          transition-duration: 0.2s;
+
+          &:hover {
+            box-shadow: 0 0 10px gray;
+          }
         }
         .img-title {
           font-size: 17px;

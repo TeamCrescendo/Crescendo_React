@@ -175,8 +175,8 @@ const PostMessageInfo = ({ loginInfo }) => {
                         <div>발신자</div>
                         <div>수신자</div>
                         <div>발송시간</div>
-                        <div></div>
-                        <div></div>
+                        {/*<div></div>*/}
+                        <div style={{flex:"2", color:"gray", fontWeight:"normal", fontSize:"16px"}}>※ 쪽지는 게시판에서 전송 가능합니다.</div>
                     </div>
                     <div className="pm-scroll-container">
                         {rows.map((row) => (

@@ -47,7 +47,7 @@
   flex-direction: row;
   overflow: hidden;
 
-  background-image: url("/public/img/classic.jpg");
+  /*background-image: url("/public/img/classic.jpg");*/
   background-size: cover; /* 창에 꽉 차게 설정 */
   background-repeat: no-repeat; /* 반복 없이 설정 */
   background-position: center; /* 이미지를 가운데 정렬 */
