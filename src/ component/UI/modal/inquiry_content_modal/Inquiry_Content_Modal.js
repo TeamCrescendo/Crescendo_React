@@ -21,11 +21,12 @@ const InquiryContentModal = ({ row, onClose }) => {
                     <h2>문의 내용확인</h2>
                 </div>
                 <span className="sender-name">
-                    문의제목: {row.title}
+                    <b style={{marginRight:"10px"}}>문의제목:</b> {row.title}
+                    <b style={{marginRight:"10px", marginLeft:"auto"}}>문의시간:</b> {row.time}
                 </span>
-                <span className="inquiry-time">
-                    문의시간: {row.time}
-                </span>
+                {/*<span className="inquiry-time">*/}
+                {/*    <b style={{marginRight:"10px"}}>문의시간: </b> {row.time}*/}
+                {/*</span>*/}
 
                 <span className="inquiry-content">
                     {row.content}

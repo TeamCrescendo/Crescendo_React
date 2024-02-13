@@ -9,7 +9,7 @@ const MESSAGE: string = '/api/message';
 const PLAYLIST: string = '/api/playList';
 const ALL_PLAYLIST: string = '/api/allPlayList';
 const BOARD: string = '/api/board';
-const SCORE: string = 'api/score';
+const SCORE: string = '/api/score';
 
 
 export const AUTH_URL: string = API_BASE_URL + AUTH;

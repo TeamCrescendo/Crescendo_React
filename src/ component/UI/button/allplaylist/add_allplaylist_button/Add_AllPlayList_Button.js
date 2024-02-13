@@ -1,4 +1,5 @@
 import React from 'react';
+import './Add_AllPlayList_Button.scss';
 
 const AddAllPlayListButton = ({ allplaylistSubmit }) => {
     return (

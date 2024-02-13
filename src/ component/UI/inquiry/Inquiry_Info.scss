@@ -38,11 +38,13 @@
 
     /* 짝수 번째 table-data 요소 */
     .table-data:nth-of-type(even) {
+      transition-duration: 0.2s;
       background-color: rgba(211, 211, 211, 0.31);
     }
 
     /* 홀수 번째 table-data 요소 */
     .table-data:nth-of-type(odd) {
+      transition-duration: 0.2s;
       background-color: rgba(246, 251, 253, 0.41);
     }
 

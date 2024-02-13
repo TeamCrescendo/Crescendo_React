@@ -185,6 +185,7 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
             <div className="head">
                 <UserInfomation googleLogin={googleLogin} logoutHandler={logoutHandler} loginInfo={loginInfo}/>
             </div>
+            # 싫어요가 일정개수를 넘으면 해당 게시물이 블라인드 처리됩니다.
             {
                 !detailClick && !boardsLoading &&
                 (

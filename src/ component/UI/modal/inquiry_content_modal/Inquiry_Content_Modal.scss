@@ -14,8 +14,8 @@
 
   .inquiry-content-modal-content {
     background-color: #ffffff;
-    width: 750px;
-    height: 600px;
+    width: 600px !important;
+    height: 400px !important;
     padding: 15px;
     border-radius: 10px;
 
@@ -24,26 +24,26 @@
     align-items: center;
     flex-direction: column;
 
+    .inquiry-content-modal-title {
+      font-family: 'SBAggroB', Serif;
+      margin-bottom: 15px;
+    }
+
     .inquiryContentModalCloseBtn {
       margin-left: auto;
       border: 0;
       background: #ffffff;
       cursor: pointer;
       font-size: 20px;
-  }
+    }
 
     .sender-name {
-      width: 500px;
+      width: 100%;
       display: flex;
-      justify-content: start;
+      justify-content: space-between;
       align-items: center;
-  }
-    .inquiry-time {
-      width: 500px;
-      display: flex;
-      justify-content: start;
-      align-items: center;
-  }
+      flex-direction: row;
+    }
 
     .inquiry-content {
       width: 500px;
@@ -55,11 +55,12 @@
       align-items: start;
 
       padding: 30px;
+
+      border-radius: 20px;
+      margin-top: 10px;
+    }
+
   }
-
-}
-
-
 
 
 }

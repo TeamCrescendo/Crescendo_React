@@ -58,7 +58,7 @@ const PlaylistModal = ({ onClose, loginInfo, data }) => {
     }
 
     const deletePl = (plno) => {
-        if (!window.confirm("정말 해당 악보를 악보목록에서 삭제하시겠습니까?")){
+        if (!window.confirm("해당 악보를 악보목록에서 삭제하시겠습니까?")){
             return;
         }
 
@@ -88,7 +88,7 @@ const PlaylistModal = ({ onClose, loginInfo, data }) => {
                 </button>
 
                 <div className="playlist-modal-title">
-                    <h2>재생목록</h2>
+                    <h2>악보목록</h2>
                 </div>
 
                 <div className="playlist-div">
@@ -96,14 +96,11 @@ const PlaylistModal = ({ onClose, loginInfo, data }) => {
 
                         {rows.map((row) => (
                             <div className="table-data" key={row.plNo}>
-                                {/*<div>{row.num}</div>*/}
-                                <div>{row.num}: {row.title}</div>
-                                {/*<div> {row.plNo}번</div>*/}
-                                <IconButton aria-label="delete" size="large" onClick={() => deletePl(row.plNo)}
+                                <div className="list-title">{row.num}. {row.title}</div>
+                                <IconButton className="list-btn" aria-label="delete" size="large" onClick={() => deletePl(row.plNo)}
                                             style={{color:"red", cursor:"pointer"}}>
                                     <DeleteIcon fontSize="inherit" />
                                 </IconButton>
-                                {/*<div><RiChatDeleteFill onClick={() => deleteInqHandler(row.inquiryId)} style={{color:"red", cursor:"pointer", fontSize:"30px"}}/></div>*/}
                             </div>
                         ))}
                     </div>

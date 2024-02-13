@@ -104,12 +104,7 @@ const AddAllPlaylistModal = ({ onClose}) => {
                             }}
                         />
 
-                        <div className="exDiv">
-                            <span style={{marginRight:"5px"}}>공유여부</span>
-                            <input type="checkbox" onChange={checkHandler} disabled={true}>
 
-                            </input>
-                        </div>
 
                         <AddAllPlayListButton allplaylistSubmit={allplaylistSubmit}/>
 
