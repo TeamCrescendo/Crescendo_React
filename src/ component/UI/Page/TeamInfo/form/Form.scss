@@ -1,17 +1,33 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Lobster&family=Oswald:wght@500&family=Pacifico&family=Protest+Riot&display=swap');
 @font-face {
   font-family: 'KNUTRUTHTTF';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/KNUTRUTHTTF.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
 }
+.title1{
+  text-align: center;
+  .h1-title{
+    color: #819FF7;
+    font-family: 'KNUTRUTHTTF';
+    font-size: 40px;
+  }
+  .span-title1{
+    color: #F2F2F2;
+    font-family: "Protest Riot", sans-serif;
+    font-size: 35px;
+  }
+  .p-title1{
+    color: white;
+    font-size: 25px;
+  }
+}
+
 .title3{
-  margin: 0 0 355px 0;
+  margin: 0 0 365px 0;
   .h3-title{
     color: white;
-    margin: 0 0 345px  0;
+    margin: 0 0 355px  0;
     font-family: 'KNUTRUTHTTF';
   }
 }
