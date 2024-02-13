@@ -19,7 +19,7 @@
   }
   .p-title1{
     color: white;
-    font-size: 25px;
+    font-size: 20px;
   }
 }
 
@@ -66,7 +66,8 @@
   text-align: center;
   margin: 750px 30px 10px 10px;
   color: whitesmoke;
-  .box-tool{
+
+  .box-tool {
     width: 200px;
     height: 150px;
     box-shadow: 0px 0px 20px black;
@@ -83,6 +84,7 @@
       }
     }
   }
+
   .img {
     width: 10%;
     height: auto;
@@ -90,11 +92,13 @@
     margin: 10px;
     align-items: center;
   }
+
   .heading {
     font-size: 30px;
     font-family: 'Lobster', sans-serif;
     margin: 10px 0;
   }
+
   .data {
     color: #666;
     font-size: 14px;
@@ -102,13 +106,16 @@
     margin-bottom: 10px;
     color: white;
   }
+
   .date {
     margin-right: 10px;
   }
+
   .texts {
     font-family: 'KNUTRUTHTTF';
     font-size: 20px;
     line-height: 1.5;
     color: white;
   }
+
 }

@@ -16,6 +16,7 @@ const Form1 = () => {
                     도구를 사용하여 음악 파일을 악보로 변환하고, 빠르게 음악을 이해하며 연주하는 새로운 경험을 즐겨보세요!
                 </p>
             </div>
+
             <div className="title3">
                 <h2 className="h3-title">TEAM</h2>
             </div>
@@ -84,6 +85,7 @@ const Form1 = () => {
                     </p>
                 </div>
             </div>
+
         </>
     );
 };

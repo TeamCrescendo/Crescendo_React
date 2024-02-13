@@ -10,7 +10,6 @@ const TeamInfo = ({ isForward , LoginHandler, loginInfo}) => {
         'slide-down': !isForward,
     });
 
-
     return (
         <>
             <div className={`teaminfoContainer ${setAnimation}`}>
