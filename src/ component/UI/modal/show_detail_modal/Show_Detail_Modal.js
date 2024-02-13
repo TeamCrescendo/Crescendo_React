@@ -1,9 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {BOARD_URL} from "../../../../config/host-config";
 import {getCurrentLoginUser} from "../../../util/login-util";
-import {Document, Page} from "react-pdf";
+import {Document, Page, pdfjs} from "react-pdf";
 import './Show_Detail_Modal.scss';
 import {GrClose} from "react-icons/gr";
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 const ShowDetailModal = ({ target, onClose }) => {
     const [pdfFile, setPdfFile] = useState();
@@ -25,6 +26,8 @@ const ShowDetailModal = ({ target, onClose }) => {
     };
 
     const pdfLoading = () => {
+        console.log(target);
+        console.log()
         fetch(`${BOARD_URL}/${target}`, {
             method: 'GET',
             headers: requestHeader
@@ -33,17 +36,30 @@ const ShowDetailModal = ({ target, onClose }) => {
                 if (res.ok) return res.blob();
             })
             .then(blob => {
+                console.log(blob);
                 const file = new File([blob], "example.pdf", {type: "application/pdf"});
+                console.log(file);
                 setPdfFile(file);
-                setIsLoading(false);
-                console.log(pdfFile);
+                // setIsLoading(false);
+                // console.log(pdfFile);
             })
 
     }
+
+    useEffect(() => {
+        if(pdfFile !== undefined){
+            setIsLoading(false);
+        }
+    }, [pdfFile]);
+
     useEffect(() => {
         pdfLoading();
     }, []);
 
+    const onDocumentLoadSuccess = () =>{
+        // setIsLoading(false)
+        console.log("불러오기 성공!!")
+    }
     return (
         <div className="showPdfContainer"  ref={modalBackground} onClick={handleModalClick}>
             <div className="showPdfContent">
@@ -54,7 +70,10 @@ const ShowDetailModal = ({ target, onClose }) => {
                     !isLoading &&
                     (
                         <>
-                            <Document file={pdfFile}  className="document"></Document>
+                            <Document file={pdfFile} onLoadSuccess={onDocumentLoadSuccess}
+                                      className="document">
+                                <Page pageNumber={1}/>
+                            </Document>
                         </>
                     )
                 }

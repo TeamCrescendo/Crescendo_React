@@ -97,11 +97,10 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
                                 'Authorization': 'Bearer ' + token
                             }
                         });
-
-                        console.log(res.blob());
-                        console.log(res);
-                        const blob = new Blob([res.body], {type: "application/pdf"});
-                        console.log(blob);
+                        const blob = await res.blob();
+                        // console.log(blob2);
+                        // const blob = new Blob([blob2], {type: "application/pdf"});
+                        // console.log(blob2);
                         const file = new File([blob], "example.pdf", {type: "application/pdf"});
                         console.log(file);
                         // 이전 상태를 기반으로 새로운 상태를 업데이트
