@@ -72,6 +72,11 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
     const submitHandler = async (e) => {
         e.preventDefault();
 
+        if (loginInfo.userDownloadChance < 1) {
+            alert("변환 기회가 모두 소진되었습니다.");
+            return;
+        }
+
         if (youtubeLink.length < 10) {
             alert("유튜브 링크가 올바르게 입력되지 않았습니다.");
             return;

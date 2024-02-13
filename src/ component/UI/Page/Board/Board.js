@@ -178,10 +178,7 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
         setDetailClick(false);
     }
 
-    // PDF파일 잘 불러오면 하는 함수
-    const onDocumentLoadSuccess = () => {
 
-    }
 
     return (
         <div className={`boardContainer ${setAnimation}`}>
@@ -200,7 +197,7 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
                                 pdfFiles.map((item, i) =>
                                     (
                                         <Grid xs={6} key={item.scoreNo} className="grid-item">
-                                            <Document file={item} onLoadSuccess={onDocumentLoadSuccess}
+                                            <Document file={item}
                                                       className="document">
                                                 <Page pageNumber={1}/>
                                             </Document>

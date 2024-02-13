@@ -44,6 +44,7 @@ const Ai_Music = ({ isForward, loginInfo, googleLogin, logoutHandler, LoginCheck
     };
     const [audioUrl, setAudioUrl] = useState(null);
     const makeAiMusic = async (prompt, duration) => {
+
         try {
             const res = await fetch("http://localhost:8484/api/score/ai", {
                 method: 'POST',
@@ -79,6 +80,11 @@ const Ai_Music = ({ isForward, loginInfo, googleLogin, logoutHandler, LoginCheck
             alert("3글자 이상 작성해주세요!");
             return;
         }
+        if (loginInfo.userDownloadChance < 1) {
+            alert("변환 기회가 전부 소진되었습니다!");
+            return;
+        }
+
         setIsLoading(true);
 
         setIsDone(false);
@@ -121,7 +127,7 @@ const Ai_Music = ({ isForward, loginInfo, googleLogin, logoutHandler, LoginCheck
                 </div>
                 <div className="ai-music-div">
                     <div className="set-duration">
-                        <span className="duration-text">로그인이 필요한 기능입니다.</span>
+                        <span className="duration-text">{isLogin() ? "음악 설정" : "로그인이 필요한 기능입니다."}</span>
                         <Slider
                             className="music_duration"
                             aria-label="time"
