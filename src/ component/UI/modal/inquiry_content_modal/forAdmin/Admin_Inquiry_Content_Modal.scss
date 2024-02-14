@@ -1,3 +1,15 @@
+@keyframes modalAnimation {
+  0% {
+    top: 100%;
+  }
+  70% {
+    top: 30%;
+  }
+  100% {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
 
 .inquiry-content-modal-container {
   width: 100%;
@@ -23,6 +35,8 @@
     justify-content: start;
     align-items: center;
     flex-direction: column;
+    position: fixed;
+    animation: modalAnimation 0.4s ease-in-out forwards;
 
     .inquiryContentModalCloseBtn {
       margin-left: auto;

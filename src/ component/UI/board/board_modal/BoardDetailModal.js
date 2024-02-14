@@ -96,8 +96,10 @@ const BoardDetailModal = ({onClose, scoreNo, boardNo}) => {
 
     // 플리 추가하는 함수
     const send = () => {
+        let allRequests = [];
+
         sendPlayList.forEach((item) => {
-            fetch(PLAYLIST_URL, {
+            const requestPromise = fetch(PLAYLIST_URL, {
                 method: "POST",
                 headers: {
                     'content-type': 'application/json',
@@ -108,17 +110,24 @@ const BoardDetailModal = ({onClose, scoreNo, boardNo}) => {
                     plId: item,
                     scoreNo: scoreNo
                 })
-            }).then(res => {
-                if(res.ok) return res.json();
-                else alert("오류로 인해서 실패했습니다.");
-            })
-                .then(json => {
+            });
+            allRequests.push(requestPromise);
+        });
+
+        Promise.all(allRequests)
+            .then(responses => {
+                const allSucceeded = responses.every(res => res.ok);
+                if (allSucceeded) {
                     alert("악보목록에 추가되었습니다!");
                     onClose();
-                })
-        })
-
-    }
+                } else {
+                    alert("오류로 인해 목록에 추가하지 못했습니다.");
+                }
+            })
+            .catch(error => {
+                alert("악보 추가 중 오류가 발생했습니다.");
+            });
+    };
 
     // 올 플리 만드는 함수
     const addAllPlayList = () => {

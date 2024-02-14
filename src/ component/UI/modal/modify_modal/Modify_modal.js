@@ -449,7 +449,7 @@ const ModifyModal = ({ onClose, loginInfo, loginCheck }) => {
                         {
                             imgChange
                                 ? <img className="imgtest" onClick={profileClickHandler}
-                                       src={profileIMG}  alt="프로필"
+                                       src={URL.createObjectURL(profileIMG)}  alt="프로필"
                                 />
                                 : <img className="imgtest" onClick={profileClickHandler}
                                        src={profileIMG} alt="프로필"
