@@ -87,13 +87,47 @@
           margin-bottom: 5px;
           //background: red;
           .plName2{
+            display: flex;
+            justify-content: center;
+            align-items: center;
             box-sizing: border-box;
-            width: 80%;
+            //padding-right: 60px;
+            width: 55%;
             //background: purple;
           }
           .plName-check2{
-            width: 20%;
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            flex-direction: row;
+            width: 45%;
             //background: orange;
+          }
+        }
+        .add-playlist {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          height: 70px;
+
+          .add-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #6db27a;
+            border-radius: 50%;
+            color: #ffffff;
+            font-weight: bold;
+            width: 40px;
+            height: 40px;
+            font-size: 60px;
+            cursor: pointer;
+            transition-duration: 0.2s;
+
+            &:hover {
+              background: #45704d;
+            }
           }
         }
       }

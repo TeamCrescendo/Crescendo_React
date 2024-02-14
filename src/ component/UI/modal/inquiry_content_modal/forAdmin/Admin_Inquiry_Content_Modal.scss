@@ -12,9 +12,9 @@
   z-index: 150;
   font-family: "Noto Sans KR", sans-serif;
 
-  .inquiry-content-modal-content {
+  .adinquiry-content-modal-content {
     background-color: #ffffff;
-    width: 750px;
+    width: 600px;
     height: 600px;
     padding: 15px;
     border-radius: 10px;
@@ -30,20 +30,31 @@
       background: #ffffff;
       cursor: pointer;
       font-size: 20px;
-  }
+      transition-duration: 0.2s;
+
+      &:hover {
+        color: red;
+      }
+    }
+
+    .inquiry-content-modal-title {
+      font-family: 'SBAggroB', Serif;
+    }
 
     .sender-name {
       width: 500px;
       display: flex;
       justify-content: start;
       align-items: center;
-  }
+      margin-bottom: 15px;
+    }
+
     .inquiry-time {
       width: 500px;
       display: flex;
       justify-content: start;
       align-items: center;
-  }
+    }
 
     .inquiry-content {
       width: 500px;
@@ -55,11 +66,31 @@
       align-items: start;
 
       padding: 30px;
+      margin-bottom: 20px;
+      border-radius: 20px;
+    }
+
+    .inquiry-return {
+      border-radius: 20px;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+    .inquiry-return-btn {
+      width: 100px;
+      height: 50px;
+      border: 0;
+      border-radius: 20px;
+      background: #819FF7;
+      margin-top: 15px;
+      transition-duration: 0.2s;
+      color: white;
+
+      &:hover {
+        background: #5c71b0;
+      }
+    }
+
   }
-
-}
-
-
 
 
 }

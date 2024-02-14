@@ -34,13 +34,19 @@
       background: #ffffff;
       cursor: pointer;
       font-size: 20px;
+      transition-duration: 0.2s;
+
+      &:hover {
+        color: red;
+      }
     }
 
     .sender-name {
       width: 500px;
       display: flex;
-      justify-content: start;
+      justify-content: space-between;
       align-items: center;
+      margin-bottom: 15px;
     }
     .receiver-name {
       width: 500px;

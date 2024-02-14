@@ -12,10 +12,10 @@
   z-index: 150;
   font-family: "Noto Sans KR", sans-serif;
 
-  .inquiry-modal-content {
+  .bdinquiry-modal-content {
     background-color: #ffffff;
     width: 500px;
-    height: 600px;
+    height: 500px;
     padding: 15px;
     border-radius: 10px;
 
@@ -33,6 +33,7 @@
     }
     .inquiry-modal-title {
       margin-bottom: 20px;
+      font-family: 'SBAggroB', Serif;
     }
 
     .user-name {

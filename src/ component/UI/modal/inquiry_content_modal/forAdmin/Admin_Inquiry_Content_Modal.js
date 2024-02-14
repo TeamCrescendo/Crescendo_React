@@ -54,7 +54,7 @@ const AdminInquiryContentModal = ({ row, onClose }) => {
 
     return (
         <div className="inquiry-content-modal-container" ref={modalBackground} onClick={handleModalClick}>
-            <div className="inquiry-content-modal-content">
+            <div className="adinquiry-content-modal-content">
                 <button className="inquiryContentModalCloseBtn" onClick={onClose}>
                     <GrClose />
                 </button>
@@ -70,7 +70,7 @@ const AdminInquiryContentModal = ({ row, onClose }) => {
                 </span>
 
                 <Textarea
-                    className="music_prompt"
+                    className="inquiry-return"
                     startDecorator={
                         <div>
                             <SiDocusaurus /> 문의접수
@@ -82,7 +82,7 @@ const AdminInquiryContentModal = ({ row, onClose }) => {
                     maxRows={7}
                     sx={{ minWidth: 500 }}
                 />
-                <button onClick={addText}>전송하기</button>
+                <button className="inquiry-return-btn" onClick={addText}>전송하기</button>
             </div>
         </div>
     );

@@ -46,9 +46,6 @@ const AddAllPlaylistModal = ({ onClose}) => {
     };
 
     const addAllPlayList = () => {
-        console.log(title);
-        // console.log(loginInfo.account)
-        console.log(isChecked);
         fetch(ALL_PLAYLIST_URL + "/createAllPlayList", {
             method: 'POST',
             headers: requestHeader,

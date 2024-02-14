@@ -88,6 +88,10 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
 
     // 좋아요 버튼 클릭
     const likeClickHandler = () => {
+        if (likeClicked) {
+            return;
+        }
+
         if(dislikeClicked){
             setDislikeClicked(!dislikeClicked);
         }
@@ -97,7 +101,6 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
             headers: {
                 'Authorization': 'Bearer ' + token,
                 "Content-Type": "application/json"
-
             },
             body: JSON.stringify({
                 boardNo: boardDetailInfo.boardNo,
@@ -112,6 +115,9 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
 
     // 싫어요 버튼 클릭
     const dislikeClickHandler = () => {
+        if (dislikeClicked) {
+            return;
+        }
         if(likeClicked){
             setLikeClicked(!likeClicked);
         }
@@ -133,19 +139,26 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
         })
     }
 
+
+
     // 삭제 핸들러
     const deleteHandler = () =>{
+        if (!window.confirm("해당 악보를 삭제하시겠습니까?")) {
+            return;
+        }
+
+        console.log("번호: {}", boardDetailInfo.boardNo);
         fetch(`${BOARD_URL}/${boardDetailInfo.boardNo}`,{
-            method:"DELETE",
-            headers:{
-                'Authorization': 'Bearer ' + token,
-                "Content-Type":"application/json"
-            }
-        }).then(res=>res.json())
-            .then(json=>{
-                // console.log(json);
+            method: "DELETE",
+            headers: requestHeader
+        }).then(res=> {
+            if (res.ok) {
+                alert("악보 삭제가 성공했습니다.");
                 getBoard();
-            })
+            } else {
+                alert("악보 삭제가 실패했습니다.");
+            }
+        })
     }
 
     // 이미지 우클릭 금지

@@ -31,6 +31,11 @@
       background: #ffffff;
       cursor: pointer;
       font-size: 20px;
+      transition-duration: 0.2s;
+
+      &:hover {
+        color: red;
+      }
     }
     .allplaylist-modal-title {
       margin-bottom: 20px;

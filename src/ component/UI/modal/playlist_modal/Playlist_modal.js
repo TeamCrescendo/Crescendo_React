@@ -46,11 +46,9 @@ const PlaylistModal = ({ onClose, loginInfo, data }) => {
                 }
             })
             .then(json => {
-                console.log("갖고온거: ", json);
                 let num = 0;
                 const updatedRows = json.map(playlist => {
                     num = num + 1;
-                    console.log(playlist.title);
                     return createData(num, playlist.boardTitle, playlist.plNo, playlist.plId, playlist.plAddDateTime);
                 });
                 setRows(updatedRows);
