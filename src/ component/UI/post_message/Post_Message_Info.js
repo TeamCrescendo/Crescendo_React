@@ -211,7 +211,7 @@ const PostMessageInfo = ({ loginInfo }) => {
                 </div>
             </div>
 
-            {modifyModalOpen && <MessageModal row={data}  onClose={() => setModifyModalOpen(false)}/>}
+            {modifyModalOpen && <MessageModal row={data} loginInfo={loginInfo}  onClose={() => setModifyModalOpen(false)}/>}
 
         </>
     );

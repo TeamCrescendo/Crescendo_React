@@ -82,10 +82,8 @@ const BoardDetailModal = ({onClose, scoreNo, boardNo}) => {
     const allplaylistSubmit = e => {
         e.preventDefault();
         if (buttonName === "생성하기" && playList.length < 3) {
-            console.log("생성하기가 실행함")
             addAllPlayList();
         } else {
-            console.log("추가하기가 실행함");
             if (onCount === 0) {
                 alert("체크 해주세요");
                 return;
@@ -120,9 +118,6 @@ const BoardDetailModal = ({onClose, scoreNo, boardNo}) => {
 
     // 올 플리 만드는 함수
     const addAllPlayList = () => {
-        console.log(title);
-        // console.log(loginInfo.account)
-        console.log(isChecked);
         if(title === ""){
             alert("플레이리스트 악보이름을 정해주세요!!");
             return;
@@ -193,13 +188,6 @@ const BoardDetailModal = ({onClose, scoreNo, boardNo}) => {
                 plId: item.plId,
                 scoreNo: scoreNo
             }))
-            // const dto = {
-            //     list: playList.map(item => ({
-            //         plId: item.plId,
-            //         scoreNo: item.scoreNo
-            //     }))
-            // };
-            console.log("여기봐랑: ", list);
 
             fetch(PLAYLIST_URL + "/duplicate", {
                 method: "POST",
@@ -227,16 +215,6 @@ const BoardDetailModal = ({onClose, scoreNo, boardNo}) => {
 
     }, []);
 
-    // // 올 플리 가져온 후에 이미 넣은 보드 인지 확인하는 함수
-    // useEffect(() => {
-    //     if(playList.length!==0){
-    //         playList.forEach((item)=>{
-    //             fetch()
-    //         })
-    //
-    //     }
-    //
-    // }, [playList]);
 
     return (
         <div className="allplaylist-modal-container" ref={modalBackground} onClick={handleModalClick}>
@@ -263,12 +241,7 @@ const BoardDetailModal = ({onClose, scoreNo, boardNo}) => {
                             onChange={titleHandler}
                             style={{}}
                         />
-                        <div className="exDiv">
-                            <span style={{marginRight: "5px"}}>공유여부</span>
-                            <input type="checkbox" onChange={checkHandler} disabled={true}>
 
-                            </input>
-                        </div>
                         <div className="my-playlist">{playList.length>0?"나의 플레이리스트":"플레이리스트가 없습니다"}</div>
                         {
                             loading && playList.map((item, i) =>

@@ -14,8 +14,8 @@
 
   .message-modal-content {
     background-color: #ffffff;
-    width: 750px;
-    height: 600px;
+    width: 600px;
+    height: 400px;
     padding: 15px;
     border-radius: 10px;
 
@@ -23,6 +23,10 @@
     justify-content: start;
     align-items: center;
     flex-direction: column;
+
+    .inquiry-modal-title {
+      font-family: 'SBAggroB', Serif;
+    }
 
     .messageModalCloseBtn {
       margin-left: auto;
@@ -47,8 +51,10 @@
 
     .message-content {
       width: 500px;
-      height: 500px;
+      height: 200px;
       background: #f1f1f1;
+
+      border-radius: 20px;
 
       display: flex;
       justify-content: left;

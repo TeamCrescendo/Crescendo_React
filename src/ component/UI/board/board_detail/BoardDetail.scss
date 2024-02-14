@@ -125,6 +125,16 @@
       }
     }
 
+    .msg-btn {
+      margin-top: auto;
+      color: #bbd9a3;
+      transition-duration: 0.2s;
+
+      &:hover {
+        color: #819670;
+      }
+    }
+
     .del-btn {
       margin-top: auto;
       color: indianred;

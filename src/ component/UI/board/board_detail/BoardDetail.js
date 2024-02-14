@@ -251,7 +251,7 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
                                             style={{cursor: "pointer"}}/>
                     }
                     <MdFormatListBulletedAdd className="addpl-btn" style={{cursor: "pointer"}} onClick={clickPlayListButtonHandler}/>
-                    {memberAccount !== account &&  <AiFillMessage style={{cursor: "pointer"}} onClick={messageHandler} />}
+                    {memberAccount !== account &&  <AiFillMessage className="msg-btn" style={{cursor: "pointer"}} onClick={messageHandler} />}
                     {memberAccount === account && < MdDelete className="del-btn"  style={{cursor: "pointer"}} onClick={deleteHandler} />}
                     {loginInfo.auth === 'ADMIN' && < MdDelete className="del-btn"  style={{cursor: "pointer"}} onClick={deleteHandler} />}
                     <GiSaveArrow className="download-btn" style={{cursor: "pointer"}} onClick={downloadHandler}/>
