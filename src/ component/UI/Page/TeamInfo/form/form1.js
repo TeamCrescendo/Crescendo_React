@@ -6,6 +6,7 @@ import './Form.scss'
 const Form1 = () => {
     return (
         <>
+
                 <div className="title1">
                     <h1 className="h1-title">음악 파일을 악보로 바로 변환, 한번에 즐기기</h1>
                     <span className="span-title1">
