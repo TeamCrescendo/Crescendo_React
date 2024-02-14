@@ -98,6 +98,9 @@ const PlaylistInfo = ({ loginInfo }) => {
         selectAllPlaylist();
     }, [addAllPlayModalOpen]);
     useEffect(() => {
+        selectAllPlaylist();
+    }, [modifyModalOpen]);
+    useEffect(() => {
         setPlaylistCount(rows.length);
     }, [rows]);
 

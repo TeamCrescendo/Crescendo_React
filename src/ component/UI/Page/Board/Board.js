@@ -182,14 +182,15 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
 
     return (
         <div className={`boardContainer ${setAnimation}`}>
-            <div className="head">
-                <UserInfomation googleLogin={googleLogin} logoutHandler={logoutHandler} loginInfo={loginInfo}/>
-            </div>
-            # 싫어요가 일정개수를 넘으면 해당 게시물이 블라인드 처리됩니다.
+
             {
                 !detailClick && !boardsLoading &&
                 (
                     <>
+                        <div className="head">
+                            <UserInfomation googleLogin={googleLogin} logoutHandler={logoutHandler} loginInfo={loginInfo}/>
+                        </div>
+                        <span className="board-info-title"># 싫어요가 일정개수를 넘으면 해당 게시물이 블라인드 처리됩니다.</span>
                         <Grid container spacing={15} className="grid" sx={{width: 1220, height: 980, p: 2}}>
                             {
                                 noBoard && <div className="no-board"  style={{display:"flex", alignItems:"center", justifyContent:"center"}}>공유된 보드가 없습니다.</div>
@@ -231,6 +232,8 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
                 memberAccount={boardDetail.memberAccount}
                 detailCloseHandler={detailCloseHandler}
                 getBoard={deleteHandler}
+                googleLogin={googleLogin}
+                logoutHandler={logoutHandler}
                 token={token}
             />
 

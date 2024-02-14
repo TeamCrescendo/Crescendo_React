@@ -30,11 +30,17 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    height: 100%;
+    margin: auto 0;
 
     span {
       font-weight: bold;
       font-size: 40px;
       font-family: 'SBAggroB', serif;
+    }
+    .loading-img {
+      width: 500px;
+      height: 500px;
     }
   }
 

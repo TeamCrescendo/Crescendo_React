@@ -110,7 +110,7 @@ const Ai_Music = ({ isForward, loginInfo, googleLogin, logoutHandler, LoginCheck
             <>
                 <div className="loading-container">
                     <span>음악을 생성하는 중{dots}</span>
-                    <img src="img/write.gif" alt="베토벤 로딩" />
+                    <img className="loading-img" src="img/write.gif" alt="베토벤 로딩" />
                 </div>
             </>
         )

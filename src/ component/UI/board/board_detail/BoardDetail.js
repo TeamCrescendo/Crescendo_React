@@ -18,8 +18,10 @@ import {getCurrentLoginUser} from "../../../util/login-util";
 import {json} from "react-router-dom";
 import BoardMessageModal from "../board_modal/BoardMessageModal";
 import {BOARD_URL, MEMBER_URL} from "../../../../config/host-config";
+import UserInfomation from "../../login_info/User_Infomation";
+import {TbArrowBack} from "react-icons/tb";
 
-const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, memberAccount, loginInfo, getBoard}) => {
+const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, memberAccount, loginInfo, getBoard, googleLogin, logoutHandler}) => {
 
 
     // 페이지 총 번호
@@ -211,14 +213,16 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
 
     return (
         <div className="board-detail-container">
-            <div className="detail-header" onClick={detailCloseHandler}><IoMdClose className="close"/></div>
+            <div className="head">
+                <UserInfomation googleLogin={googleLogin} logoutHandler={logoutHandler} loginInfo={loginInfo}/>
+            </div>
             <div className="detail-title">
-                <span className="subTitle">곡명</span>
                 <span className="mainTitle">[ {boardDetailInfo.boardTitle} ]</span>
+
             </div>
             <div className="document-container">
                 <div className="document">
-                    <Document file={boardDetailInfo.pdfFile} onLoadSuccess={onDocumentLoadSuccess}>
+                    <Document className="document-pdf" file={boardDetailInfo.pdfFile} onLoadSuccess={onDocumentLoadSuccess}>
                         <Page pageNumber={currentPage}/>
                     </Document>
                     <Pagination
@@ -230,6 +234,7 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
                 </div>
                 {loginInfo!==undefined &&
                 <div className="detail-side">
+                    <TbArrowBack className="return-btn" style={{cursor:"pointer"}} onClick={detailCloseHandler}/>
                     {
                         likeClicked
                             ?
@@ -245,12 +250,19 @@ const BoardDetail = ({boardDetailInfo, detailCloseHandler, token, scoreNo, membe
                             : <BsHeartbreak className="dislike-btn" onClick={dislikeClickHandler}
                                             style={{cursor: "pointer"}}/>
                     }
-                    <MdFormatListBulletedAdd style={{cursor: "pointer"}} onClick={clickPlayListButtonHandler}/>
+                    <MdFormatListBulletedAdd className="addpl-btn" style={{cursor: "pointer"}} onClick={clickPlayListButtonHandler}/>
                     {memberAccount !== account &&  <AiFillMessage style={{cursor: "pointer"}} onClick={messageHandler} />}
-                    {memberAccount === account && < MdDelete style={{cursor: "pointer"}} onClick={deleteHandler} />}
-                    {loginInfo.auth === 'ADMIN' && < MdDelete style={{cursor: "pointer"}} onClick={deleteHandler} />}
+                    {memberAccount === account && < MdDelete className="del-btn"  style={{cursor: "pointer"}} onClick={deleteHandler} />}
+                    {loginInfo.auth === 'ADMIN' && < MdDelete className="del-btn"  style={{cursor: "pointer"}} onClick={deleteHandler} />}
                     <GiSaveArrow className="download-btn" style={{cursor: "pointer"}} onClick={downloadHandler}/>
                 </div>
+                }
+                {loginInfo===undefined &&
+                    <>
+                        <div className="detail-side">
+                            <TbArrowBack className="return-btn" style={{cursor:"pointer"}} onClick={detailCloseHandler}/>
+                        </div>
+                    </>
                 }
             </div>
             {addAllPlayModalOpen && <BoardDetailModal scoreNo={scoreNo} boardNo={boardDetailInfo.boardNo} onClose={() => setAddAllPlayModalOpen(false)}/>}
