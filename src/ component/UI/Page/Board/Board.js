@@ -54,7 +54,6 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
     // 모든 보드 정보 불러오기
     useEffect(() => {
         if (first) {
-            console.log(loginInfo);
             getBoard();
             setFirst(false);
         }
@@ -88,7 +87,6 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
     useEffect(() => {
         const fetchData = async () => {
             if (boards.length !== 0 && getBoards) {
-                console.log(boards);
                 for (let i = 0; i < boards.length; i++) {
                     try {
                         const res = await fetch(`${BOARD_URL}/${boards[i].boardNo}`, {
@@ -102,7 +100,6 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
                         // const blob = new Blob([blob2], {type: "application/pdf"});
                         // console.log(blob2);
                         const file = new File([blob], "example.pdf", {type: "application/pdf"});
-                        console.log(file);
                         // 이전 상태를 기반으로 새로운 상태를 업데이트
                         setPdfFiles(prevFiles => [...prevFiles, file]);
                     } catch (error) {
@@ -118,7 +115,6 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
 
     // 삭제 버튼 눌렀을 때
     const deleteHandler = () =>{
-        console.log("나 실행함 삭제 버튼")
         setPdfFiles([]);
         setDetailClick(false);
         setBoardsLoading(true);
@@ -126,7 +122,6 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
     }
     // 페이지 이동 했을 때
     const pageClickHandler = (event, page) =>{
-        console.log(page);
         setPageNo(page);
     }
 
@@ -141,8 +136,6 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
             alert("아직 준비가 안되어 있음");
             return;
         }
-        // 어떤 보드인지
-        console.log(boards[e.target.classList[1]]);
 
         // 디테일 클릭함
         setBoardDetail({

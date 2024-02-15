@@ -17,7 +17,7 @@ const UserInfo = ({ logoutHandler, loginInfo, loginCheck }) => {
     return (
         <Card>
             <Card.Body>
-                <Card.Title>{loginInfo.userName} ({loginInfo.account}) 님</Card.Title>
+                <Card.Title>{loginInfo.userName} {loginInfo.auth !== 'ADMIN' && `(${loginInfo.account})`} 님</Card.Title>
                 {
                     loginInfo.auth === 'ADMIN'
                     ? (<Card.Text>

@@ -50,13 +50,14 @@ header
   .board-info-title {
     font-family: 'SBAggroB', Serif;
     font-size: 30px;
+    text-shadow: 0 0 20px #ababab;
   }
 
   .no-board{
     width: 100%;
     font-size: 2.5rem;
-    text-shadow: #489a58;
-    color: red;
+    text-shadow: 0 0 20px #ababab;
+    font-family: 'SBAggroB', Serif;
   }
 
   .grid{
