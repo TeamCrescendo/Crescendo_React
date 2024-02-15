@@ -30,14 +30,10 @@ const Crescendo_main = () => {
 
     const pageGetter = (id, getIsForward) => {
         setPageId(parseInt(id, 10));
-        console.log("이동한 페이지는: ", id);
-        console.log("forward?: ", getIsForward);
         setIsForward(getIsForward);
     }
 
     const clickPageGetter = (id) => {
-        console.log(id + "를 클릭함");
-        // setPageId(parseInt(id, 10));
     }
 
     const renderPage = () => {
@@ -69,9 +65,7 @@ const Crescendo_main = () => {
     };
 
     const LoginHandler = (check) => {
-        console.log("전달된 로그인 성공여부: ", check);
-        // localStorage.setItem("isLoggedIn", Session.get("login"));
-        // console.log("dto: ", );
+
     }
 
     // 토큰 가져오기
@@ -92,16 +86,11 @@ const Crescendo_main = () => {
                 const json = await res.json();
                 if (json != null) {
                     setLoginInfo(json);
-                    console.log("로그인 검증 성공");
-                    console.log(json);
-                } else {
-                    console.log("로그인 검증 실패");
                 }
-            } else if (res.status === 400) {
-                console.log("로그인체크 400error");
+            } else {
+                await logoutHandler();
             }
         } catch (error) {
-            console.error("HTTP 요청 오류:", error);
         }
     };
 
@@ -109,7 +98,6 @@ const Crescendo_main = () => {
         if (token === null) {
             return;
         }
-        console.log("로그인체크");
         fetchLoginInfo();
     };
 

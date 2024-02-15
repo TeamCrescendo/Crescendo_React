@@ -312,12 +312,11 @@ const RegisterModal = ({ onClose }) => {
             body: formData,
         })
             .then(res => {
-                if (res.status === 200) return res.json();
+                if (res.ok) {
+                    alert("회원가입에 성공했습니다!");
+                    onClose();
+                }
                 else alert("회원가입에 실패했습니다!");
-            })
-            .then(json => {
-                alert("회원가입에 성공했습니다!");
-                onClose();
             })
             .catch(error => console.error('Error uploading file:', error));
     };

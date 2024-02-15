@@ -56,14 +56,12 @@ const PlaylistInfo = ({ loginInfo }) => {
         })
             .then(res => res.json())
             .then(json => {
-                console.log(json);
                 if (json && json.allPlayLists && Array.isArray(json.allPlayLists)) {
                     const updatedRows = json.allPlayLists.map(playlist => {
                         return createData(playlist.plName, playlist.scoreCount, playlist.plId);
                     });
                     setRows(updatedRows);
                 } else {
-                    console.error("Invalid JSON format or missing 'allPlayLists' array");
                 }
             })
     }
@@ -97,6 +95,9 @@ const PlaylistInfo = ({ loginInfo }) => {
     useEffect(() => {
         selectAllPlaylist();
     }, [addAllPlayModalOpen]);
+    useEffect(() => {
+        selectAllPlaylist();
+    }, [modifyModalOpen]);
     useEffect(() => {
         setPlaylistCount(rows.length);
     }, [rows]);

@@ -26,6 +26,7 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
     const [scoreId, setScoreId] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [isConversion, setIsConversion] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
 
 
     const setAnimation = classNames({
@@ -136,6 +137,16 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
         setYoutubeLink("");
     }
 
+    useEffect(() => {
+        if (isLogin()) {
+            if (loginInfo) {
+                if (loginInfo.auth === 'ADMIN') {
+                    setIsAdmin(true);
+                }
+            }
+        }
+    }, [loginInfo]);
+
     const renderPage = () => {
         return (
             <>
@@ -157,24 +168,54 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
 
                             <form className={cn("form", {none:isConversion})} onSubmit={submitHandler}>
                                 <span style={{fontSize:"20px"}}>※유튜브 저작권 정책에 의해서 일부 동영상은 변환이 불가능 할 수도 있습니다.</span>
-                                <Input
-                                    error
-                                    className=" youtube-link"
-                                    startDecorator={<FaYoutube style={{color:"red", fontSize:"40px"}}/>}
-                                    endDecorator={
-                                        <div className="sendButton" style={{cursor:"pointer"}} onClick={submitHandler}>
-                                            <IoIosSend />
-                                            <span style={{fontWeight:"bold"}}>변환</span>
-                                        </div>
-                                    }
-                                    placeholder={isLogin()?"유튜브 링크 붙여넣기":"로그인이 필요한 기능입니다."}
-                                    size="lg"
-                                    color="danger"
-                                    variant="outlined"
-                                    onChange={youtubeLinkHandler}
-                                    sx={{ color: 'error.main' }}
-                                    disabled={!isLogin()}
-                                />
+                                {
+                                    isAdmin
+                                    ?
+                                        (
+                                            <>
+                                                <Input
+                                                    error
+                                                    className=" youtube-link"
+                                                    startDecorator={<FaYoutube style={{color:"red", fontSize:"40px"}}/>}
+                                                    endDecorator={
+                                                        <div className="sendButton" style={{cursor:"pointer"}}>
+                                                            <IoIosSend />
+                                                            <span style={{fontWeight:"bold"}}>변환</span>
+                                                        </div>
+                                                    }
+                                                    placeholder="관리자는 이용할 수 없는 기능입니다."
+                                                    size="lg"
+                                                    color="danger"
+                                                    variant="outlined"
+                                                    sx={{ color: 'error.main' }}
+                                                    disabled={true}
+                                                />
+                                            </>
+                                        )
+                                    :
+                                        (
+                                            <>
+                                                <Input
+                                                    error
+                                                    className=" youtube-link"
+                                                    startDecorator={<FaYoutube style={{color:"red", fontSize:"40px"}}/>}
+                                                    endDecorator={
+                                                        <div className="sendButton" style={{cursor:"pointer"}} onClick={submitHandler}>
+                                                            <IoIosSend />
+                                                            <span style={{fontWeight:"bold"}}>변환</span>
+                                                        </div>
+                                                    }
+                                                    placeholder={isLogin()?"유튜브 링크 붙여넣기":"로그인이 필요한 기능입니다."}
+                                                    size="lg"
+                                                    color="danger"
+                                                    variant="outlined"
+                                                    onChange={youtubeLinkHandler}
+                                                    sx={{ color: 'error.main' }}
+                                                    disabled={!isLogin()}
+                                                />
+                                            </>
+                                        )
+                                }
                                 <div className={cn('error', { none: isValid })}>
                                     <InfoOutlined />
                                     올바른 유튜브 링크를 입력해주세요!

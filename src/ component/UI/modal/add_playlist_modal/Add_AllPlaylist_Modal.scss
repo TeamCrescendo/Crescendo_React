@@ -1,4 +1,16 @@
 
+@keyframes modalAnimation {
+  0% {
+    top: 100%;
+  }
+  70% {
+    top: 30%;
+  }
+  100% {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
 
 .allplaylist-modal-container {
   width: 100%;
@@ -24,6 +36,8 @@
     justify-content: start;
     align-items: center;
     flex-direction: column;
+    position: fixed;
+    animation: modalAnimation 0.4s ease-in-out forwards;
 
     .allplaylistModalCloseBtn {
       margin-left: auto;
@@ -31,6 +45,11 @@
       background: #ffffff;
       cursor: pointer;
       font-size: 20px;
+      transition-duration: 0.2s;
+
+      &:hover {
+        color: red;
+      }
     }
     .allplaylist-modal-title {
       margin-bottom: 20px;

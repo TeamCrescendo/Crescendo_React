@@ -54,7 +54,6 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
     // 모든 보드 정보 불러오기
     useEffect(() => {
         if (first) {
-            console.log(loginInfo);
             getBoard();
             setFirst(false);
         }
@@ -88,7 +87,6 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
     useEffect(() => {
         const fetchData = async () => {
             if (boards.length !== 0 && getBoards) {
-                console.log(boards);
                 for (let i = 0; i < boards.length; i++) {
                     try {
                         const res = await fetch(`${BOARD_URL}/${boards[i].boardNo}`, {
@@ -102,7 +100,6 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
                         // const blob = new Blob([blob2], {type: "application/pdf"});
                         // console.log(blob2);
                         const file = new File([blob], "example.pdf", {type: "application/pdf"});
-                        console.log(file);
                         // 이전 상태를 기반으로 새로운 상태를 업데이트
                         setPdfFiles(prevFiles => [...prevFiles, file]);
                     } catch (error) {
@@ -118,7 +115,6 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
 
     // 삭제 버튼 눌렀을 때
     const deleteHandler = () =>{
-        console.log("나 실행함 삭제 버튼")
         setPdfFiles([]);
         setDetailClick(false);
         setBoardsLoading(true);
@@ -126,7 +122,6 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
     }
     // 페이지 이동 했을 때
     const pageClickHandler = (event, page) =>{
-        console.log(page);
         setPageNo(page);
     }
 
@@ -141,8 +136,6 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
             alert("아직 준비가 안되어 있음");
             return;
         }
-        // 어떤 보드인지
-        console.log(boards[e.target.classList[1]]);
 
         // 디테일 클릭함
         setBoardDetail({
@@ -182,14 +175,15 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
 
     return (
         <div className={`boardContainer ${setAnimation}`}>
-            <div className="head">
-                <UserInfomation googleLogin={googleLogin} logoutHandler={logoutHandler} loginInfo={loginInfo}/>
-            </div>
-            # 싫어요가 일정개수를 넘으면 해당 게시물이 블라인드 처리됩니다.
+
             {
                 !detailClick && !boardsLoading &&
                 (
                     <>
+                        <div className="head">
+                            <UserInfomation googleLogin={googleLogin} logoutHandler={logoutHandler} loginInfo={loginInfo}/>
+                        </div>
+                        <span className="board-info-title"># 싫어요가 일정개수를 넘으면 해당 게시물이 블라인드 처리됩니다.</span>
                         <Grid container spacing={15} className="grid" sx={{width: 1220, height: 980, p: 2}}>
                             {
                                 noBoard && <div className="no-board"  style={{display:"flex", alignItems:"center", justifyContent:"center"}}>공유된 보드가 없습니다.</div>
@@ -231,6 +225,8 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
                 memberAccount={boardDetail.memberAccount}
                 detailCloseHandler={detailCloseHandler}
                 getBoard={deleteHandler}
+                googleLogin={googleLogin}
+                logoutHandler={logoutHandler}
                 token={token}
             />
 

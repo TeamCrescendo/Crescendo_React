@@ -30,11 +30,18 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    height: 100%;
+    margin: auto 0;
 
     span {
       font-weight: bold;
       font-size: 40px;
       font-family: 'SBAggroB', serif;
+      text-shadow: 0 0 20px #ababab;
+    }
+    .loading-img {
+      width: 500px;
+      height: 500px;
     }
   }
 
@@ -78,6 +85,7 @@
   //background: #9b3535;
   width: 100%;
   font-family: 'SBAggroB', sans-serif;
+  text-shadow: 0 0 20px #ababab;
 }
 
 .ai-music-div {

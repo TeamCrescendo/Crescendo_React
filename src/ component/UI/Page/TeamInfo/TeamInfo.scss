@@ -8,9 +8,8 @@
   justify-content: center;
   align-items: center;
   position: fixed;
-  border-bottom-left-radius: 100px;
-  border-top-left-radius: 100px;
-  position: fixed;
+  //border-bottom-left-radius: 100px;
+  //border-top-left-radius: 100px;
   /* 스크롤에 따라 영향을 받지 않도록 설정 */
   transform: translate(0, 0);
   @keyframes slide-up-invitation {

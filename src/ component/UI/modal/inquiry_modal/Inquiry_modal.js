@@ -48,7 +48,6 @@ const InquiryModal = ({ onClose, loginInfo }) => {
     // 문의전송 버튼을 눌렀을 때
     const inquirySubmit = e => {
         e.preventDefault();
-
         fetch(INQUIRY_URL, {
             method: 'POST',
             headers: requestHeader,

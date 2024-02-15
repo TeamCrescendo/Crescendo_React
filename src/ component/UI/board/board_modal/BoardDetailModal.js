@@ -7,17 +7,19 @@ import './BoardDetailModal.scss';
 import AddAllPlayListButton from "../../button/allplaylist/add_allplaylist_button/Add_AllPlayList_Button";
 import {ALL_PLAYLIST_URL, PLAYLIST_URL} from "../../../../config/host-config";
 import {getCurrentLoginUser} from "../../../util/login-util";
+import {IoMdAddCircleOutline} from "react-icons/io";
 
 const BoardDetailModal = ({onClose, scoreNo, boardNo}) => {
     const modalBackground = useRef();
     const [title, setTitle] = useState("");
     // 눌렀는지 풀었는지
     const [isChecked, setIsChecked] = useState(false);
-    const [buttonName, setButtonName] = useState("생성하기");
+    const [buttonName, setButtonName] = useState("선택하기");
     // 체크 버튼 누른거 확인
     const [onCount, setOnCount] = useState(0);
     const [duplicateList, setDuplicateList] = useState([]);
-    // const account = getCurrentLoginUser().username;
+    // 플리 새로만들건지 확인
+    const [wantNew , setWantNew] = useState(false);
 
     // 토큰 가져오기
     const [token, setToken] = useState(getCurrentLoginUser().token);
@@ -63,18 +65,17 @@ const BoardDetailModal = ({onClose, scoreNo, boardNo}) => {
             }
             setOnCount(onCount - 1);
         }
-        // console.log(isChecked);
-        // console.log(e.target.value);
-        // setButtonName("추가하기");
-        // setIsChecked(e.target.value);
+
     }
 
 
-    // 체크 하는거 에 따른 이름 변경
+
     useEffect(() => {
-        if (onCount === 0 && playList.length < 3) {
-            setButtonName("생성하기");
-        } else {
+        console.log(onCount);
+        if (onCount === 0) {
+            setButtonName("선택하기");
+        }
+        else if (onCount >= 1) {
             setButtonName("추가하기");
         }
     }, [onCount]);
@@ -82,10 +83,8 @@ const BoardDetailModal = ({onClose, scoreNo, boardNo}) => {
     const allplaylistSubmit = e => {
         e.preventDefault();
         if (buttonName === "생성하기" && playList.length < 3) {
-            console.log("생성하기가 실행함")
             addAllPlayList();
         } else {
-            console.log("추가하기가 실행함");
             if (onCount === 0) {
                 alert("체크 해주세요");
                 return;
@@ -97,8 +96,10 @@ const BoardDetailModal = ({onClose, scoreNo, boardNo}) => {
 
     // 플리 추가하는 함수
     const send = () => {
+        let allRequests = [];
+
         sendPlayList.forEach((item) => {
-            fetch(PLAYLIST_URL, {
+            const requestPromise = fetch(PLAYLIST_URL, {
                 method: "POST",
                 headers: {
                     'content-type': 'application/json',
@@ -109,20 +110,27 @@ const BoardDetailModal = ({onClose, scoreNo, boardNo}) => {
                     plId: item,
                     scoreNo: scoreNo
                 })
-            }).then(res => res.json())
-                .then(json => {
-                    console.log(json);
-                    onClose();
-                })
-        })
+            });
+            allRequests.push(requestPromise);
+        });
 
-    }
+        Promise.all(allRequests)
+            .then(responses => {
+                const allSucceeded = responses.every(res => res.ok);
+                if (allSucceeded) {
+                    alert("악보목록에 추가되었습니다!");
+                    onClose();
+                } else {
+                    alert("오류로 인해 목록에 추가하지 못했습니다.");
+                }
+            })
+            .catch(error => {
+                alert("악보 추가 중 오류가 발생했습니다.");
+            });
+    };
 
     // 올 플리 만드는 함수
     const addAllPlayList = () => {
-        console.log(title);
-        // console.log(loginInfo.account)
-        console.log(isChecked);
         if(title === ""){
             alert("플레이리스트 악보이름을 정해주세요!!");
             return;
@@ -174,9 +182,7 @@ const BoardDetailModal = ({onClose, scoreNo, boardNo}) => {
             })
             .then(
                 json => {
-                    console.log(json.allPlayLists);
                     if (json.allPlayLists.length >= 3) {
-                        setButtonName("추가하기");
                     }
                     setPlayList([...json.allPlayLists]);
 
@@ -193,13 +199,6 @@ const BoardDetailModal = ({onClose, scoreNo, boardNo}) => {
                 plId: item.plId,
                 scoreNo: scoreNo
             }))
-            // const dto = {
-            //     list: playList.map(item => ({
-            //         plId: item.plId,
-            //         scoreNo: item.scoreNo
-            //     }))
-            // };
-            console.log("여기봐랑: ", list);
 
             fetch(PLAYLIST_URL + "/duplicate", {
                 method: "POST",
@@ -227,16 +226,13 @@ const BoardDetailModal = ({onClose, scoreNo, boardNo}) => {
 
     }, []);
 
-    // // 올 플리 가져온 후에 이미 넣은 보드 인지 확인하는 함수
-    // useEffect(() => {
-    //     if(playList.length!==0){
-    //         playList.forEach((item)=>{
-    //             fetch()
-    //         })
-    //
-    //     }
-    //
-    // }, [playList]);
+
+
+    const addbtnHandler = () => {
+        setWantNew(!wantNew);
+        setButtonName("생성하기");
+    }
+
 
     return (
         <div className="allplaylist-modal-container" ref={modalBackground} onClick={handleModalClick}>
@@ -250,42 +246,84 @@ const BoardDetailModal = ({onClose, scoreNo, boardNo}) => {
 
                 <div className="allplaylist-container">
                     <form className="allplaylist-input-form">
+                        {
+                            wantNew &&
+                            (
+                                <>
+                                    <div className="exDiv">
+                                        <span>신규 악보목록 이름
+                                            <span style={{fontSize: '14px',}}></span>
+                                        </span>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        className="input-title"
+                                        onChange={titleHandler}
+                                        style={{}}
+                                    />
+                                </>
+                            )
+                        }
 
-                        <div className="exDiv">
-                            <span>신규 악보목록 이름
-                            <span style={{
-                                fontSize: '14px',
-                            }}></span></span>
-                        </div>
-                        <input
-                            type="text"
-                            className="input-title"
-                            onChange={titleHandler}
-                            style={{}}
-                        />
-                        <div className="exDiv">
-                            <span style={{marginRight: "5px"}}>공유여부</span>
-                            <input type="checkbox" onChange={checkHandler} disabled={true}>
-
-                            </input>
-                        </div>
-                        <div className="my-playlist">{playList.length>0?"나의 플레이리스트":"플레이리스트가 없습니다"}</div>
+                        {
+                            !wantNew &&
+                            <div className="my-playlist">{playList.length > 0 ? "나의 플레이리스트" :"플레이리스트가 없습니다"}</div>
+                        }
                         {
                             loading && playList.map((item, i) =>
                                 (
-                                    <div className="playlist-item">
-                                        <div style={{display: "none"}}>{item.plId}</div>
-                                        <div className="plName2">{item.plName}</div>
-                                        <input className="plName-check2" type="checkbox" onChange={checkHandler}
-                                               disabled={duplicateList[i]}>
-
-                                        </input>
-                                    </div>
+                                    <>
+                                        {
+                                            !wantNew &&
+                                            <div className="playlist-item">
+                                                <div style={{display: "none"}}>{item.plId}</div>
+                                                <div className="plName2">{item.plName}</div>
+                                                <input className="plName-check2" type="checkbox" onChange={checkHandler}
+                                                       disabled={duplicateList[i]}>
+                                                </input>
+                                            </div>
+                                        }
+                                    </>
                                 ))
                         }
-                        <button className="addallplaylist-btn" type="submit" onClick={allplaylistSubmit}>
-                            {buttonName}
-                        </button>
+
+                        {
+                            playList.length < 3 &&
+                            <div className="add-playlist">
+                                <div className="add-btn" onClick={addbtnHandler}>
+                                    <IoMdAddCircleOutline />
+                                </div>
+                            </div>
+                        }
+
+                        {
+                            !wantNew &&
+                            (
+                                <>
+                                    {
+                                        buttonName === "선택하기" &&
+                                        <button className="addallplaylist-btn" type="button"
+                                                style={{background:"gray"}}>
+                                            {buttonName}
+                                        </button>
+                                    }
+                                    {
+                                        buttonName === "추가하기" &&
+                                        <button className="addallplaylist-btn" type="button" onClick={allplaylistSubmit}>
+                                            {buttonName}
+                                        </button>
+                                    }
+                                </>
+                            )
+                        }
+
+                        {
+                            wantNew &&
+                            <button className="addallplaylist-btn" type="button" onClick={allplaylistSubmit}>
+                                {buttonName}
+                            </button>
+                        }
+
 
                     </form>
 
