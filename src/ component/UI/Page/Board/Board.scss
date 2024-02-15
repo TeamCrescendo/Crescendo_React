@@ -45,8 +45,7 @@ header
     display: flex;
     justify-content: right;
     align-items: center;
-    margin-top: -45px;
-    margin-bottom: 100px;
+    margin-bottom: auto;
   }
 
   .board-info-title {
@@ -66,6 +65,7 @@ header
     overflow: scroll;
     overflow-x: hidden;
     width: 73%;
+    height: 80%;
     margin: 0 auto 0 auto;
 
     .grid-item{
