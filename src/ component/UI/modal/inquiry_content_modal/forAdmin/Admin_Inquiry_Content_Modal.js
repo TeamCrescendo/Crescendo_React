@@ -63,9 +63,6 @@ const AdminInquiryContentModal = ({ row, onClose }) => {
             }
         })
     }
-
-    console.log(row.check);
-
     return (
         <div className="inquiry-content-modal-container" ref={modalBackground} onClick={handleModalClick}>
             <div className="adinquiry-content-modal-content">
