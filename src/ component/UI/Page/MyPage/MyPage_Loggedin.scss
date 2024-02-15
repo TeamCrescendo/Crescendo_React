@@ -51,9 +51,11 @@
           max-width: 220px;
           height: 220px;
           max-height: 220px;
-          border: 1px solid black;
+          border: 1px solid rgba(176, 57, 57, 0.62);
           border-radius: 50%;
           margin: 0 auto;
+
+          box-shadow: 0 0 10px rgba(255, 69, 0, 0.37);
         }
         //
         //.note-div {

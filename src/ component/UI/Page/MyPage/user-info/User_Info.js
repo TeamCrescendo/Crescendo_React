@@ -28,7 +28,7 @@ const UserInfo = ({ logoutHandler, loginInfo, loginCheck }) => {
                     </Card.Text>)
                 }
                 <Button variant="primary" className="info" onClose={() => setModifyModalOpen(false)}
-                        onClick={modifyButtonClick}>
+                        onClick={modifyButtonClick} style={{marginTop:"20px"}}>
                     회원정보 수정
                 </Button>
                 {modifyModalOpen && <ModifyModal loginInfo={loginInfo} loginCheck={loginCheck} onClose={() => setModifyModalOpen(false)}/>}

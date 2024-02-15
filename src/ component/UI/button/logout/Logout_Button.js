@@ -6,7 +6,7 @@ import './Logout_Button.scss';
 const LogoutButton = ({ logoutHandler }) => {
     return (
         <>
-            <Button variant="warning" onClick={logoutHandler}>로그아웃</Button>{' '}
+            <Button className="logoutBtn" variant="warning" onClick={logoutHandler}>로그아웃</Button>{' '}
         </>
     );
 };

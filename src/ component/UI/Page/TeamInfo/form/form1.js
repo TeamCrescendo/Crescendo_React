@@ -12,8 +12,8 @@ const Form1 = () => {
                     " Unexpressed emotions through sound, that's what music is! "
                 </span><br/>
                 <p className="p-title1">
-                    사용자가 음원 파일을 업로드하면, 빠르고 정확한 변환 알고리즘이 적용되어 즉시 악보로 변환됩니다.<br/>
-                    도구를 사용하여 음악 파일을 악보로 변환하고, 빠르게 음악을 이해하며 연주하는 새로운 경험을 즐겨보세요!
+                    사용자가 유튜브 링크를 업로드 하면, 파이썬에서 악보 변환 알고리즘이 적용되어 동영상이 악보로 변환됩니다.<br/>
+                    AI 음악생성 도구를 이용해 자신만의 음악을 생성하고, 빠르게 음악을 이해하며 연주하는 새로운 경험을 즐겨보세요!
                 </p>
             </div>
 
@@ -26,9 +26,9 @@ const Form1 = () => {
                         <br/>
                         <img src={p1} className="img3" alt="instruction1"/>
                     </div>
-                    <h1 className="heading">PYTHON</h1>
+                    <h1 className="heading">BACKEND</h1>
                     <div className="data">
-                        <span className="name">인공지능 & 백엔드</span>
+                        <span className="name">파이썬 & 스프링</span>
                     </div>
                     <p className="texts">
                         장선경
@@ -40,7 +40,7 @@ const Form1 = () => {
                     </div>
                     <h1 className="heading">BACKEND</h1>
                     <div className="data">
-                        <span className="name">백엔드</span>
+                        <span className="name">스프링</span>
                     </div>
                     <p className="texts">
                         한태용
@@ -54,7 +54,7 @@ const Form1 = () => {
                     </div>
                     <h1 className="heading">BACKEND</h1>
                     <div className="data">
-                        <span className="name">백엔드 & 프론트엔드</span>
+                        <span className="name">스프링 & 리액트</span>
                     </div>
                     <p className="texts">
                         경규현
@@ -64,9 +64,9 @@ const Form1 = () => {
                     <div className="box-tool">
                         <img src={r} className="img1" alt="instruction1"/>
                     </div>
-                    <h1 className="heading">REACT</h1>
+                    <h1 className="heading">FRONTEND</h1>
                     <div className="data">
-                        <span className="name">프론트엔드</span>
+                        <span className="name">리액트</span>
                     </div>
                     <p className="texts">
                         김다빈
@@ -76,9 +76,9 @@ const Form1 = () => {
                     <div className="box-tool">
                         <img src={r} className="img1" alt="instruction1"/>
                     </div>
-                    <h1 className="heading">REACT</h1>
+                    <h1 className="heading">FRONTEND</h1>
                     <div className="data">
-                        <span className="name">프론트엔드</span>
+                        <span className="name">리액트</span>
                     </div>
                     <p className="texts">
                         원용재
