@@ -26,8 +26,8 @@ const AdminInquiryInfo = ({ loginInfo }) => {
         setInquiryModalOpen(true);
     };
 
-    function createData(title, content, inquiry_time, inquiryId, account) {
-        return { title, content, inquiry_time, inquiryId, account };
+    function createData(title, content, inquiry_time, inquiryId, account, check) {
+        return { title, content, inquiry_time, inquiryId, account, check };
     }
 
     function formatDate(timeString) {
@@ -74,7 +74,7 @@ const AdminInquiryInfo = ({ loginInfo }) => {
             .then(json => {
                 const updatedRows = json.map(inquiry => {
                     const formatTime = formatDate(inquiry.createTime);
-                    return createData(inquiry.inquiryTitle, inquiry.inquiryContent, formatTime, inquiry.inquiryId, inquiry.account);
+                    return createData(inquiry.inquiryTitle, inquiry.inquiryContent, formatTime, inquiry.inquiryId, inquiry.account, inquiry.check);
                 });
                 setRows(updatedRows);
             })
@@ -132,7 +132,7 @@ const AdminInquiryInfo = ({ loginInfo }) => {
                                 <div>{row.inquiry_time}</div>
                                 <div>
                                     <InquiryContentModalButton row={{ content: row.content, title: row.title, inquiryId: row.inquiryId
-                                        , time: row.inquiry_time, account: row.account }} onClose={() => setContentModalOpen(false)}
+                                        , time: row.inquiry_time, account: row.account, check:row.check }} onClose={() => setContentModalOpen(false)}
                                                                modifyButtonClick={contentButtonClick} />
                                 </div>
                                 {/*<div><RiChatDeleteFill onClick={() => deleteInqHandler(row.inquiryId)} style={{color:"red", cursor:"pointer", fontSize:"30px"}}/></div>*/}
