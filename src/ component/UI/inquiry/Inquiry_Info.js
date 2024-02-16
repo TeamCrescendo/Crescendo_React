@@ -72,7 +72,7 @@ const InquiryInfo = ({ loginInfo }) => {
     };
     // 문의목록 전체조회 (본인것만)
     const selectMyInquiry = e => {
-        fetch(INQUIRY_URL + `?account=${loginInfo.account}`, {
+        fetch(INQUIRY_URL, {
             method: 'GET',
             headers: requestHeader
         })
