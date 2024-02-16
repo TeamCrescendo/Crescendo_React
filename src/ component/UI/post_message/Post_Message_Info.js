@@ -100,23 +100,12 @@ const PostMessageInfo = ({ loginInfo }) => {
             })
     }
 
-    // let rows = [
-    //     createData('발신', '다른곡도 공유해주세요', "1일전"),
-    //     createData('수신', '님 신고함 ㅋㅋ', "3일전"),
-    //     createData('수신', '이상한거 올리네 신고함', "7일전"),
-    // ];
 
     // 메세지 읽음처리 메서드
     const messageCheckHandler = (id, receiver) => {
         if (receiver !== loginInfo.account) {
-            console.log("받은사람: ", receiver);
-            console.log("로그인유저: ", loginInfo.account);
             return;
         }
-
-
-        console.log("읽음처리!")
-
         fetch(MESSAGE_URL + "?messageId=" + id, {
             method: "PUT",
             headers: requestHeader,
@@ -148,14 +137,12 @@ const PostMessageInfo = ({ loginInfo }) => {
             })
             .catch(error => {
                 // 요청이 실패한 경우 에러 처리
-                console.error('쪽지 삭제에 실패했습니다!', error);
                 alert("쪽지 삭제에 실패했습니다!");
             });
     }
     const deleteCLickHandler = e => {
         const id = e.target.closest('.table-data');
         const dataInfo = id.getAttribute('data-id');
-        console.log(dataInfo);
         if (window.confirm("해당 쪽지를 삭제하시겠습니까?")) {
             deleteMessage(dataInfo);
         }
@@ -175,8 +162,8 @@ const PostMessageInfo = ({ loginInfo }) => {
                         <div>발신자</div>
                         <div>수신자</div>
                         <div>발송시간</div>
-                        <div></div>
-                        <div></div>
+                        {/*<div></div>*/}
+                        <div style={{flex:"2", color:"gray", fontWeight:"normal", fontSize:"16px"}}>※ 쪽지는 게시판에서 전송 가능합니다.</div>
                     </div>
                     <div className="pm-scroll-container">
                         {rows.map((row) => (
@@ -211,7 +198,7 @@ const PostMessageInfo = ({ loginInfo }) => {
                 </div>
             </div>
 
-            {modifyModalOpen && <MessageModal row={data}  onClose={() => setModifyModalOpen(false)}/>}
+            {modifyModalOpen && <MessageModal row={data} loginInfo={loginInfo}  onClose={() => setModifyModalOpen(false)}/>}
 
         </>
     );

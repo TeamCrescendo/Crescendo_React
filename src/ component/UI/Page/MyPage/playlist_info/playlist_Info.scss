@@ -5,6 +5,8 @@
   max-height: 314px;
   background: white;
   overflow: hidden;
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 30px;
 
   .table-container {
     display: flex;
@@ -30,11 +32,13 @@
 
     /* 짝수 번째 table-data 요소 */
     .table-data:nth-of-type(even) {
+      transition-duration: 0.2s;
       background-color: rgba(211, 211, 211, 0.31);
     }
 
     /* 홀수 번째 table-data 요소 */
     .table-data:nth-of-type(odd) {
+      transition-duration: 0.2s;
       background-color: rgba(246, 251, 253, 0.41);
     }
 
@@ -63,12 +67,18 @@
           font-size: 60px;
           cursor: pointer;
           margin-top: 15px;
+          transition-duration: 0.2s;
+
+          &:hover {
+            background: #45704d;
+          }
         }
       }
       .table-data {
         display: flex;
         align-items: center;
         padding: 8px;
+        transition-duration: 0.2s;
 
         div {
           flex: 1;

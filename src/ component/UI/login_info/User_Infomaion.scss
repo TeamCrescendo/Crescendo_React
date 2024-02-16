@@ -45,6 +45,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    transition-duration: 0.2s;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.2);
+    }
   }
   .dropdown-menu {
     width: 185px;
@@ -61,7 +70,6 @@
     padding: 0;
     //padding-left: 15px;
     //padding-right: 15px;
-
 
     li {
       width: 100%;

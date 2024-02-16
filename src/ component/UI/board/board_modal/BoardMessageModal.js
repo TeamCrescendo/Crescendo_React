@@ -73,28 +73,29 @@ const InquiryModal = ({ onClose, createMember, writeAccount }) => {
 
     return (
         <div className="inquiry-modal-container" ref={modalBackground} onClick={handleModalClick}>
-            <div className="inquiry-modal-content">
+            <div className="bdinquiry-modal-content">
                 <button className="inquiryModalCloseBtn" onClick={onClose}>
                     <GrClose/>
                 </button>
 
 
                 <div className="inquiry-modal-title">
-                    <h2>{createMember}에게 메세지 보내기</h2>
+                    {/*<h2>{createMember}에게 메세지 보내기</h2>*/}
+                    <h2>업로더에게 쪽지 보내기</h2>
                 </div>
                 {/*<span className="user-name">회원명: {loginInfo.userName}({loginInfo.account})</span>*/}
                 <form className="inquiry-input-form" onSubmit={messageSubmit}>
                     <TextField
                         required
                         id="outlined-required"
-                        label="메세지"
+                        label="쪽지내용"
                         placeholder="내용을 입력하세요."
                         className="inquiry-input-content"
                         multiline
                         rows={10}
                         onChange={contentHandler}
                     />
-                    <Button type="submit" variant="success" className="inquiry-btn">메세지 전송</Button>{' '}
+                    <Button type="submit" variant="success" className="inquiry-btn">쪽지 전송</Button>{' '}
                 </form>
 
 

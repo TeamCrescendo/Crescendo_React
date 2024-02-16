@@ -336,6 +336,10 @@ const ModifyModal = ({ onClose, loginInfo, loginCheck }) => {
 
     }, []);
 
+    const profileClickHandler = () => {
+        document.querySelector('.file-upload').click();
+    }
+
 
     return (
         <div className="modify-modal-container" ref={modalBackground} onClick={handleModalClick}>
@@ -444,11 +448,11 @@ const ModifyModal = ({ onClose, loginInfo, loginCheck }) => {
                     <div className="modify-profile-img-container">
                         {
                             imgChange
-                                ? <img className="imgtest"
+                                ? <img className="imgtest" onClick={profileClickHandler}
                                        src={URL.createObjectURL(profileIMG)}  alt="프로필"
                                 />
-                                : <img className="imgtest"
-                                       src={`http://localhost:8484/local${profileIMG}`} alt="프로필"
+                                : <img className="imgtest" onClick={profileClickHandler}
+                                       src={profileIMG} alt="프로필"
                                 />
 
                         }

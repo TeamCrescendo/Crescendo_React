@@ -108,11 +108,6 @@ const InquiryInfo = ({ loginInfo }) => {
         }
     }
 
-    // let rows = [
-    //     // createData('업로드가 잘 안됩니다.', '어떤일이 있었냐면', "1일전"),
-    //     // createData('등록이 잘 안되요.', '어떤일이 있었냐면', "3일전"),
-    //     // createData('아이디는 못바꾸나요.', '어떤일이 있었냐면', "7일전"),
-    // ];
 
     useEffect(() => {
         selectMyInquiry();

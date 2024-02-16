@@ -20,26 +20,22 @@ const RecordBar = ({ pageGetter, clickPageGetter }) => {
                 if (pageId >= 1 && pageId < 5) {
                     setRotationAngle((prevAngle) => prevAngle + 360);
                     setPageId((prevPageId) => prevPageId + 1);
-                    console.log("다음 페이지");
                     pageGetter(pageId + 1, true);
                 }
                 if (pageId === 5) {
                     setRotationAngle((prevAngle) => prevAngle + 360);
                     setPageId((prevPageId) => prevPageId - 4);
-                    console.log("처음 페이지로");
                     pageGetter(1, true);
                 }
             } else {
                 if (pageId > 1 && pageId < 6) {
                     setRotationAngle((prevAngle) => prevAngle - 360);
                     setPageId((prevPageId) => prevPageId - 1);
-                    console.log("이전 페이지");
                     pageGetter(pageId - 1, false);
                 }
                 if (pageId === 1) {
                     setRotationAngle((prevAngle) => prevAngle - 360);
                     setPageId((prevPageId) => prevPageId + 4);
-                    console.log("마지막 페이지로");
                     pageGetter(5, false);
                 }
             }
@@ -58,14 +54,10 @@ const RecordBar = ({ pageGetter, clickPageGetter }) => {
             // setRotationAngle((prevAngle) => prevAngle + (deltaY > 0 ? 360 : -360));
             if (deltaY > 0) {
                 setRotationAngle((prevAngle) => prevAngle + 360);
-                console.log("다음 페이지");
                 pageGetter(id, true);
-                console.log("레코드바2가 주는 ID: ", id)
             } else {
                 setRotationAngle((prevAngle) => prevAngle - 360);
-                console.log("이전 페이지");
                 pageGetter(id, false);
-                console.log("레코드바2가 주는 ID: ", id)
             }
             // setTimeout(() => {
             //     setIsAnimating(false);

@@ -27,7 +27,7 @@ const PromptInfo = ({ text }) => {
                         maxRows={9}
                         endDecorator={
                             <Typography level="body-xs" sx={{ ml: 'auto' }}>
-                                {text.length} character(s)
+                                {text.length} 글자
                             </Typography>
                         }
                         sx={{ minWidth: 350 }}
@@ -38,8 +38,8 @@ const PromptInfo = ({ text }) => {
             <span className="sub-title" onClick={runAnimation}>
                 {
                     isAnimated
-                    ? <FaChevronLeft style={{fontSize:"30px", cursor:"pointer"}}/>
-                    : <FaChevronRight style={{fontSize:"30px", cursor:"pointer"}}/>
+                    ? <FaChevronLeft className="arrow" style={{fontSize:"30px", cursor:"pointer"}}/>
+                    : <FaChevronRight className="arrow" style={{fontSize:"30px", cursor:"pointer"}}/>
                 }
             </span>
         </div>

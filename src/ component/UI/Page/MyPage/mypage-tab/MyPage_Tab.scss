@@ -4,5 +4,18 @@
   width: 96%;
   //background: #ffffff;
   margin: 0 !important;
+  border: 0;
+}
 
+.nav-link {
+  background: #5f656b;
+  color: white;
+  font-family: 'SBAggroB', Serif;
+  border: 0;
+  transition-duration: 0.2s;
+
+  &:hover {
+    background: #a1aab4;
+    border: 0;
+  }
 }

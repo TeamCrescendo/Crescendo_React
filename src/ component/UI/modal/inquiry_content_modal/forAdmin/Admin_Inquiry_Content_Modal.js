@@ -4,7 +4,7 @@ import './Admin_Inquiry_Content_Modal.scss';
 import Textarea from "@mui/joy/Textarea";
 import { SiDocusaurus } from "react-icons/si";
 import { getCurrentLoginUser } from "../../../../util/login-util";
-import { MESSAGE_URL } from "../../../../../config/host-config";
+import {INQUIRY_URL, MESSAGE_URL} from "../../../../../config/host-config";
 
 const AdminInquiryContentModal = ({ row, onClose }) => {
     const [text, setText] = useState("");
@@ -45,6 +45,7 @@ const AdminInquiryContentModal = ({ row, onClose }) => {
             .then(res => {
                 if(res.ok) {
                     alert("문의답변 쪽지 전송완료!");
+                    checkInquiry();
                     onClose();
                 } else if(res.status === 400) {
                     alert("쪽지 전송 오류!");
@@ -52,9 +53,19 @@ const AdminInquiryContentModal = ({ row, onClose }) => {
             });
     }
 
+    const checkInquiry =() =>{
+        fetch(INQUIRY_URL+"/check/"+row.inquiryId, {
+            method: "GET",
+            headers: requestHeader
+        }).then(res=>{
+            if (res.ok){
+                console.log("123");
+            }
+        })
+    }
     return (
         <div className="inquiry-content-modal-container" ref={modalBackground} onClick={handleModalClick}>
-            <div className="inquiry-content-modal-content">
+            <div className="adinquiry-content-modal-content">
                 <button className="inquiryContentModalCloseBtn" onClick={onClose}>
                     <GrClose />
                 </button>
@@ -70,7 +81,7 @@ const AdminInquiryContentModal = ({ row, onClose }) => {
                 </span>
 
                 <Textarea
-                    className="music_prompt"
+                    className="inquiry-return"
                     startDecorator={
                         <div>
                             <SiDocusaurus /> 문의접수
@@ -82,7 +93,7 @@ const AdminInquiryContentModal = ({ row, onClose }) => {
                     maxRows={7}
                     sx={{ minWidth: 500 }}
                 />
-                <button onClick={addText}>전송하기</button>
+                <button className="inquiry-return-btn" onClick={addText}>전송하기</button>
             </div>
         </div>
     );

@@ -7,10 +7,11 @@ import TeamInfo from "../UI/Page/TeamInfo/TeamInfo";
 import Ai_Music from "../UI/Page/ai-music/Ai_Music";
 import Board from "../UI/Page/Board/Board";
 import Session from "react-session-api/src";
-import { AUTH_URL } from "../../config/host-config";
+import {API_BASE_URL, AUTH_URL, MEMBER_URL} from "../../config/host-config";
 import { getCurrentLoginUser, TOKEN, USERNAME } from "../util/login-util";
 import ConversionPage from "../UI/Page/Conversion/ConversionPage";
 import { useNavigate, redirect } from 'react-router-dom';
+import classNames from "classnames";
 
 const Crescendo_main = () => {
 
@@ -29,14 +30,10 @@ const Crescendo_main = () => {
 
     const pageGetter = (id, getIsForward) => {
         setPageId(parseInt(id, 10));
-        console.log("이동한 페이지는: ", id);
-        console.log("forward?: ", getIsForward);
         setIsForward(getIsForward);
     }
 
     const clickPageGetter = (id) => {
-        console.log(id + "를 클릭함");
-        // setPageId(parseInt(id, 10));
     }
 
     const renderPage = () => {
@@ -52,11 +49,12 @@ const Crescendo_main = () => {
                                  googleLogin={googleLogin} logoutHandler={logoutHandler} />;
             case 3:
                 return <Board isForward={isForward} LoginHandler={LoginHandler}
-                              loginInfo={loginInfo} />;
+                              loginInfo={loginInfo} LoginCheck={LoginCheck}
+                              googleLogin={googleLogin} logoutHandler={logoutHandler} />;
             case 4:
                 return <MyPage isForward={isForward} LoginHandler={LoginHandler}
                                loginInfo={loginInfo} googleLogin={googleLogin}
-                               loginCheck={LoginCheck}
+                               loginCheck={LoginCheck} pageGetter={pageGetter} clickPageGetter={clickPageGetter}
                                logoutHandler={logoutHandler} />;
             case 5:
                 return <TeamInfo isForward={isForward} LoginHandler={LoginHandler}
@@ -67,9 +65,7 @@ const Crescendo_main = () => {
     };
 
     const LoginHandler = (check) => {
-        console.log("전달된 로그인 성공여부: ", check);
-        // localStorage.setItem("isLoggedIn", Session.get("login"));
-        // console.log("dto: ", );
+
     }
 
     // 토큰 가져오기
@@ -82,7 +78,7 @@ const Crescendo_main = () => {
 
     const fetchLoginInfo = async () => {
         try {
-            const res = await fetch("http://localhost:8484/api/member", {
+            const res = await fetch(MEMBER_URL, {
                 method: "GET",
                 headers: requestHeader,
             });
@@ -90,16 +86,11 @@ const Crescendo_main = () => {
                 const json = await res.json();
                 if (json != null) {
                     setLoginInfo(json);
-                    console.log("로그인 검증 성공");
-                    console.log(json);
-                } else {
-                    console.log("로그인 검증 실패");
                 }
-            } else if (res.status === 400) {
-                console.log("로그인체크 400error");
+            } else {
+                await logoutHandler();
             }
         } catch (error) {
-            console.error("HTTP 요청 오류:", error);
         }
     };
 
@@ -107,7 +98,6 @@ const Crescendo_main = () => {
         if (token === null) {
             return;
         }
-        console.log("로그인체크");
         fetchLoginInfo();
     };
 
@@ -126,7 +116,7 @@ const Crescendo_main = () => {
         const accessToken = searchParams.get('access_token');
         if (accessToken) {
             try {
-                const res = await fetch('http://localhost:8484/api/auth/oauth2/google/info', {
+                const res = await fetch(AUTH_URL + '/oauth2/google/info', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -164,7 +154,7 @@ const Crescendo_main = () => {
         const oauth2Endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
         const params = {
             'client_id': '890304175366-cg7t8bjavr2dt1ttf4ma2atl077n8i4r.apps.googleusercontent.com',
-            'redirect_uri': 'http://localhost:3000',
+            'redirect_uri': API_BASE_URL,
             'response_type': 'token',
             'scope': 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
             'state': 'pass-through value'
@@ -175,12 +165,53 @@ const Crescendo_main = () => {
         window.location.href = `${oauth2Endpoint}?${queryString}`;
     }
 
+
+    const setAnimation = classNames({
+        'slide-up': isForward,
+        'slide-down': !isForward,
+    });
+    const bgSetter = () => {
+        switch (pageId) {
+            case 1:
+                return (
+                    <>
+                         <div className="custom-bg"><img src="/img/scoreBG.jpg" alt="bg" /></div>
+                    </>
+                )
+            case 2:
+                return (
+                    <>
+                        <div className="custom-bg"><img src="/img/aibg1.jpg" alt="bg" /></div>
+                    </>
+                )
+            case 3:
+                return (
+                    <>
+                        <div className="custom-bg"><img src="/img/scoreBG.jpg" alt="bg" /></div>
+                    </>
+                )
+            case 4:
+                return (
+                    <>
+                        <div className="custom-bg"><img src="/img/scoreBG.jpg" alt="bg" /></div>
+                    </>
+                )
+            case 5:
+                return (
+                    <>
+                        <div className="custom-bg"><img src="/img/scoreBG.jpg" alt="bg" /></div>
+                    </>
+                )
+        }
+    }
+
     return (
         <>
             <RecordBar pageGetter={pageGetter} clickPageGetter={clickPageGetter} />
             <div className='CrescendoMain'>
                 {renderPage()}
             </div>
+            {bgSetter()}
         </>
     );
 };

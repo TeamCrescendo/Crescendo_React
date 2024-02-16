@@ -28,7 +28,8 @@
   height: 558px;
   background: #aad77b;
   position: absolute;
-  left: 42%;
+  left: 47%;
+  top: 5.5%;
   z-index: 0;
   border-radius: 30px;
   display: flex;
@@ -64,8 +65,7 @@
       text-orientation: mixed;
       white-space: nowrap;
       font-weight: bold;
-      font-size: 30px;
-      cursor: pointer;
+      transition-duration: 0.2s;
     }
   }
 

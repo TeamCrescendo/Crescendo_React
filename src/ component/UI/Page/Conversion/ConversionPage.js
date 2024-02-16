@@ -15,6 +15,7 @@ import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import Score from "../../conversion/score/Score";
+import {SCORE_URL} from "../../../../config/host-config";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 
@@ -25,6 +26,7 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
     const [scoreId, setScoreId] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [isConversion, setIsConversion] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
 
 
     const setAnimation = classNames({
@@ -71,9 +73,20 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
     // 검색 했을 때 이벤트
     const submitHandler = async (e) => {
         e.preventDefault();
+
+        if (loginInfo.userDownloadChance < 1) {
+            alert("변환 기회가 모두 소진되었습니다.");
+            return;
+        }
+
+        if (youtubeLink.length < 10) {
+            alert("유튜브 링크가 올바르게 입력되지 않았습니다.");
+            return;
+        }
+
         setIsLoading(true);
         setIsConversion(true);
-        const res = await fetch("http://localhost:8484/api/score/youtube", {
+        const res = await fetch(SCORE_URL + "/youtube", {
             method: "POST",
             headers: requestHeader,
             body: JSON.stringify({
@@ -103,6 +116,7 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
             setIsLoading(false);
             alert("변환 실패");
         }
+        LoginCheck();
     }
 
 
@@ -120,7 +134,18 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
         setIsConversion(false);
         setPdfFile(null);
         setIsLoading(false);
+        setYoutubeLink("");
     }
+
+    useEffect(() => {
+        if (isLogin()) {
+            if (loginInfo) {
+                if (loginInfo.auth === 'ADMIN') {
+                    setIsAdmin(true);
+                }
+            }
+        }
+    }, [loginInfo]);
 
     const renderPage = () => {
         return (
@@ -128,37 +153,101 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
                 <div className="head">
                     <UserInfomation googleLogin={googleLogin} logoutHandler={logoutHandler} loginInfo={loginInfo}/>
                 </div>
-                <form className={cn("form", {none:isConversion})} onSubmit={submitHandler}>
-                    <Input
-                        error
-                        className=" youtube-link"
-                        startDecorator={<FaYoutube style={{color:"red"}}/>}
-                        endDecorator={<IoIosSend style={{color:"skyblue"}} className="sendButton" onClick={submitHandler} />}
-                        placeholder={isLogin()?"유튜브 링크를 적어주세요!!":"로그인이 필요한 기능입니다."}
-                        size="lg"
-                        color="danger"
-                        variant="outlined"
-                        onChange={youtubeLinkHandler}
-                        sx={{ color: 'error.main' }}
-                        disabled={!isLogin()}
-                    />
-                    <div className={cn('error', { none: isValid })}>
-                        <InfoOutlined />
-                        링크 형식으로 적어주세요!!
-                    </div>
-                </form>
-                {pdfFile && (
-                   <Score pdfFile = {pdfFile} scoreId={scoreId} loginInfo={loginInfo} exitHandler={exitHandler}/>
-                )}
+                {
+                    pdfFile
+                    ?
+                    (
+                        <>
+                            <Score pdfFile = {pdfFile} scoreId={scoreId} loginInfo={loginInfo} exitHandler={exitHandler}/>
+                        </>
+                    )
+                    :
+                    (
+                        <>
+                            <span className="conversion-info">유튜브 동영상을 악보로 변환하기</span>
+
+                            <form className={cn("form", {none:isConversion})} onSubmit={submitHandler}>
+                                <span style={{fontSize:"20px"}}>※유튜브 저작권 정책에 의해서 일부 동영상은 변환이 불가능 할 수도 있습니다.</span>
+                                {
+                                    isAdmin
+                                    ?
+                                        (
+                                            <>
+                                                <Input
+                                                    error
+                                                    className=" youtube-link"
+                                                    startDecorator={<FaYoutube style={{color:"red", fontSize:"40px"}}/>}
+                                                    endDecorator={
+                                                        <div className="sendButton" style={{cursor:"pointer"}}>
+                                                            <IoIosSend />
+                                                            <span style={{fontWeight:"bold"}}>변환</span>
+                                                        </div>
+                                                    }
+                                                    placeholder="관리자는 이용할 수 없는 기능입니다."
+                                                    size="lg"
+                                                    color="danger"
+                                                    variant="outlined"
+                                                    sx={{ color: 'error.main' }}
+                                                    disabled={true}
+                                                />
+                                            </>
+                                        )
+                                    :
+                                        (
+                                            <>
+                                                <Input
+                                                    error
+                                                    className=" youtube-link"
+                                                    startDecorator={<FaYoutube style={{color:"red", fontSize:"40px"}}/>}
+                                                    endDecorator={
+                                                        <div className="sendButton" style={{cursor:"pointer"}} onClick={submitHandler}>
+                                                            <IoIosSend />
+                                                            <span style={{fontWeight:"bold"}}>변환</span>
+                                                        </div>
+                                                    }
+                                                    placeholder={isLogin()?"유튜브 링크 붙여넣기":"로그인이 필요한 기능입니다."}
+                                                    size="lg"
+                                                    color="danger"
+                                                    variant="outlined"
+                                                    onChange={youtubeLinkHandler}
+                                                    sx={{ color: 'error.main' }}
+                                                    disabled={!isLogin()}
+                                                />
+                                            </>
+                                        )
+                                }
+                                <div className={cn('error', { none: isValid })}>
+                                    <InfoOutlined />
+                                    올바른 유튜브 링크를 입력해주세요!
+                                </div>
+                            </form>
+                        </>
+                    )
+                }
             </>
         )
     }
+
+
+    const [dots, setDots] = useState('...');
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setDots(prevDots => {
+                if (prevDots === '...') return '.';
+                else if (prevDots === '.') return '..';
+                else if (prevDots === '..') return '...';
+            });
+        }, 500);
+
+        return () => clearInterval(interval);
+    }, []);
 
     const loadingPage = () => {
         return (
             <>
                 <div className="loading-container">
-                    <span>유튜브 링크를 악보로 변환중입니다...</span>
+                    <span>유튜브 동영상을 악보로 변환중입니다{dots}</span>
                     <img src="img/write.gif" alt="베토벤 로딩" />
                 </div>
             </>
@@ -168,15 +257,17 @@ const ConversionPage = ({isForward, LoginHandler, loginInfo, LoginCheck, logoutH
 
 //{`mainContainer ${setAnimation}`}
     return (
-        <div className='conversion-page'>
-            {
-                isLoading ? (
-                    loadingPage()
-                ) : (
-                    renderPage()
-                )
-            }
-        </div>
+        <>
+            <div className={`conversion-page  ${setAnimation}`}>
+                {
+                    isLoading ? (
+                        loadingPage()
+                    ) : (
+                        renderPage()
+                    )
+                }
+            </div>
+        </>
     );
 };
 

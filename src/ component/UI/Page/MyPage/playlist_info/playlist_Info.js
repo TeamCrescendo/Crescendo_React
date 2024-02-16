@@ -56,14 +56,12 @@ const PlaylistInfo = ({ loginInfo }) => {
         })
             .then(res => res.json())
             .then(json => {
-                console.log(json);
                 if (json && json.allPlayLists && Array.isArray(json.allPlayLists)) {
                     const updatedRows = json.allPlayLists.map(playlist => {
                         return createData(playlist.plName, playlist.scoreCount, playlist.plId);
                     });
                     setRows(updatedRows);
                 } else {
-                    console.error("Invalid JSON format or missing 'allPlayLists' array");
                 }
             })
     }
@@ -98,6 +96,9 @@ const PlaylistInfo = ({ loginInfo }) => {
         selectAllPlaylist();
     }, [addAllPlayModalOpen]);
     useEffect(() => {
+        selectAllPlaylist();
+    }, [modifyModalOpen]);
+    useEffect(() => {
         setPlaylistCount(rows.length);
     }, [rows]);
 
@@ -106,7 +107,7 @@ const PlaylistInfo = ({ loginInfo }) => {
             <div className="table-container">
                 <div className="table-row">
                     <div>악보리스트</div>
-                    <div>악보몇개?</div>
+                    <div>악보개수</div>
                     <div></div>
                     <div style={{color:"gray", fontWeight:"normal"}}>※ 최대 3개까지 생성가능</div>
                 </div>

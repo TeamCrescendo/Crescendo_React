@@ -46,9 +46,6 @@ const AddAllPlaylistModal = ({ onClose}) => {
     };
 
     const addAllPlayList = () => {
-        console.log(title);
-        // console.log(loginInfo.account)
-        console.log(isChecked);
         fetch(ALL_PLAYLIST_URL + "/createAllPlayList", {
             method: 'POST',
             headers: requestHeader,
@@ -104,12 +101,7 @@ const AddAllPlaylistModal = ({ onClose}) => {
                             }}
                         />
 
-                        <div className="exDiv">
-                            <span style={{marginRight:"5px"}}>공유여부</span>
-                            <input type="checkbox" onChange={checkHandler} disabled={true}>
 
-                            </input>
-                        </div>
 
                         <AddAllPlayListButton allplaylistSubmit={allplaylistSubmit}/>
 

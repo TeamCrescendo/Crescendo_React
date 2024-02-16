@@ -10,6 +10,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import InquiryContentModal from "../../modal/inquiry_content_modal/Inquiry_Content_Modal";
 import InquiryModal from "../../modal/inquiry_modal/Inquiry_modal";
 import AdminInquiryContentModal from "../../modal/inquiry_content_modal/forAdmin/Admin_Inquiry_Content_Modal";
+import InquiryContentModalButton2 from "../../button/inquirt_content_modal_button/Inquiry_Content_Modal_Button2";
 
 
 const AdminInquiryInfo = ({ loginInfo }) => {
@@ -26,8 +27,8 @@ const AdminInquiryInfo = ({ loginInfo }) => {
         setInquiryModalOpen(true);
     };
 
-    function createData(title, content, inquiry_time, inquiryId, account) {
-        return { title, content, inquiry_time, inquiryId, account };
+    function createData(title, content, inquiry_time, inquiryId, account, check) {
+        return { title, content, inquiry_time, inquiryId, account, check };
     }
 
     function formatDate(timeString) {
@@ -74,39 +75,13 @@ const AdminInquiryInfo = ({ loginInfo }) => {
             .then(json => {
                 const updatedRows = json.map(inquiry => {
                     const formatTime = formatDate(inquiry.createTime);
-                    return createData(inquiry.inquiryTitle, inquiry.inquiryContent, formatTime, inquiry.inquiryId, inquiry.account);
+                    return createData(inquiry.inquiryTitle, inquiry.inquiryContent, formatTime, inquiry.inquiryId, inquiry.account, inquiry.check);
                 });
                 setRows(updatedRows);
             })
 
     }
 
-    const deleteInqHandler = (inquiryId) => {
-        if (window.confirm("해당 문의를 삭제하시겠습니까?")) {
-
-            fetch(INQUIRY_URL + "?inquiryId=" + inquiryId, {
-                method: 'DELETE',
-                headers: requestHeader
-            })
-                .then(res => res.json())
-                .then(b => {
-                    if (b) {
-                        alert("해당 문의가 삭제되었습니다!");
-                        selectMyInquiry();
-                    } else {
-                        alert("문의 삭제가 실패했습니다!");
-                    }
-                })
-
-
-        }
-    }
-
-    // let rows = [
-    //     // createData('업로드가 잘 안됩니다.', '어떤일이 있었냐면', "1일전"),
-    //     // createData('등록이 잘 안되요.', '어떤일이 있었냐면', "3일전"),
-    //     // createData('아이디는 못바꾸나요.', '어떤일이 있었냐면', "7일전"),
-    // ];
 
     useEffect(() => {
         selectMyInquiry();
@@ -130,11 +105,28 @@ const AdminInquiryInfo = ({ loginInfo }) => {
                                 <div className="content"> {row.title}</div>
                                 {/*<div className="content">{row.content}</div>*/}
                                 <div>{row.inquiry_time}</div>
-                                <div>
-                                    <InquiryContentModalButton row={{ content: row.content, title: row.title, inquiryId: row.inquiryId
-                                        , time: row.inquiry_time, account: row.account }} onClose={() => setContentModalOpen(false)}
-                                                               modifyButtonClick={contentButtonClick} />
-                                </div>
+                                {
+                                    row.check
+                                    ?
+                                        (
+                                            <div>
+                                                <InquiryContentModalButton2 />
+                                            </div>
+                                        )
+                                    :
+                                        (
+                                            <div>
+                                                <InquiryContentModalButton row={{ content: row.content, title: row.title, inquiryId: row.inquiryId
+                                                    , time: row.inquiry_time, account: row.account, check:row.check }} onClose={() => setContentModalOpen(false)}
+                                                                           modifyButtonClick={contentButtonClick} />
+                                            </div>
+                                        )
+                                }
+                                {/*<div>*/}
+                                {/*    <InquiryContentModalButton row={{ content: row.content, title: row.title, inquiryId: row.inquiryId*/}
+                                {/*        , time: row.inquiry_time, account: row.account, check:row.check }} onClose={() => setContentModalOpen(false)}*/}
+                                {/*                               modifyButtonClick={contentButtonClick} />*/}
+                                {/*</div>*/}
                                 {/*<div><RiChatDeleteFill onClick={() => deleteInqHandler(row.inquiryId)} style={{color:"red", cursor:"pointer", fontSize:"30px"}}/></div>*/}
                                 {/*<div>*/}
                                 {/*    <IconButton aria-label="delete" size="large" onClick={() => deleteInqHandler(row.inquiryId)} style={{color:"red", cursor:"pointer"}}>*/}

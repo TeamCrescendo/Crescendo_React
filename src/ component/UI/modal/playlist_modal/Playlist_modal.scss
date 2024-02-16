@@ -1,4 +1,18 @@
 
+@keyframes modalAnimation {
+  0% {
+    top: 100%;
+  }
+  70% {
+    top: 30%;
+  }
+  100% {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+
 .playlist-modal-container {
   width: 100%;
   height: 100%;
@@ -23,6 +37,8 @@
     justify-content: start;
     align-items: center;
     flex-direction: column;
+    position: fixed;
+    animation: modalAnimation 0.4s ease-in-out forwards;
 
     .playlistModalCloseBtn {
       margin-left: auto;
@@ -30,9 +46,15 @@
       background: #ffffff;
       cursor: pointer;
       font-size: 20px;
+      transition-duration: 0.2s;
+
+      &:hover {
+        color: red;
+      }
     }
     .playlist-modal-title {
       margin-bottom: 20px;
+      font-family: 'SBAggroB', Serif;
     }
 
     .playlist-div {
@@ -42,16 +64,34 @@
         width: 100%;
         height: 100%;
         display: flex;
-        justify-content: center;
+        justify-content: start;
         align-items: center;
         flex-direction: column;
-        background: #637ad3;
+        overflow-y: scroll;
 
         .table-data {
           display: flex;
-          justify-content: center;
+          justify-content: start;
           align-items: center;
           flex-direction: row;
+          margin: 0 auto 10px;
+          //padding-left: 70px;
+          //padding-right: 70px;
+          width: 60%;
+          border-bottom: 1px solid gray;
+          transition-duration: 0.2s;
+          padding-left: 10px;
+
+          &:hover {
+            background: #e5e6ec;
+          }
+
+          .list-title {
+            margin-right: auto;
+            font-weight: bold;
+          }
+          .list-btn {
+          }
         }
       }
     }

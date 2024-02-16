@@ -50,6 +50,22 @@
       padding-left: 50px;
       position: relative;
       margin-bottom: 10px;
+
+
+
+      .mute {
+        color: red;
+        transition-duration: 0.2s;
+        &:hover {
+          color: #940000;
+        }
+      }
+      .volumeUp {
+        transition-duration: 0.2s;
+        &:hover {
+          color: rgba(110, 110, 110, 0.73);
+        }
+      }
     }
 
     .volumeControl input[type="range"] {
@@ -96,6 +112,12 @@
         border: 0;
         background: none;
         font-size: 40px;
+        transition-duration: 0.1s;
+
+        &:hover {
+          color: rgba(110, 110, 110, 0.73);
+
+        }
       }
     }
   }

@@ -16,6 +16,7 @@
   -ms-user-select:none;
   user-select:none;
 
+
   .RecordBarIMG {
     width: 1200px;
     height: 1200px;
@@ -30,23 +31,7 @@
     -moz-user-drag: none;
     -o-user-drag: none;
     user-drag: none;
+
   }
 }
 
-//@media screen and (max-width:1023px) {
-//  .RecordBarDiv {
-//    width: 200px;
-//    min-width: 200px;
-//    max-width: 200px;
-//
-//    .RecordBarIMG {
-//      width: 900px;
-//      height: 900px;
-//      left: -650px;
-//    }
-//  }
-//}
-
-@media screen and (max-width:767px) {
-  /* 모바일 */
-}

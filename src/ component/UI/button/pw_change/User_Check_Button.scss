@@ -1,0 +1,15 @@
+
+.checkBtn {
+  border: 0;
+  width: 120px;
+  height: 50px;
+  border-radius: 10px;
+  color: white;
+  background: #82c48e;
+  transition-duration: 0.2s;
+  margin-top: 20px;
+
+  &:hover {
+    background: #5f8f68;
+  }
+}

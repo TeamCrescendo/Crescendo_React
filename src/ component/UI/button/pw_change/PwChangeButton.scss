@@ -1,0 +1,15 @@
+
+.changeBtn {
+  border: 0;
+  width: 120px;
+  height: 50px;
+  border-radius: 10px;
+  color: white;
+  background: #ffb352;
+  transition-duration: 0.2s;
+  margin-top: 20px;
+
+  &:hover {
+    background: #cb8f42;
+  }
+}
