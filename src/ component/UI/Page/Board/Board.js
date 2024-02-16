@@ -169,6 +169,7 @@ const Board = ({isForward, loginInfo, target, googleLogin, logoutHandler, loginC
     // 디테일 끄는 함수
     const detailCloseHandler = (e) => {
         setDetailClick(false);
+        getBoard();
     }
 
 
