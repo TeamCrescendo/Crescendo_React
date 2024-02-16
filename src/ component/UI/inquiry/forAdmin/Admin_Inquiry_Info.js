@@ -91,6 +91,10 @@ const AdminInquiryInfo = ({ loginInfo }) => {
         setContentModalOpen(false);
         selectMyInquiry();
     }
+    const closeHandler2 = () => {
+        setInquiryModalOpen(false);
+        selectMyInquiry();
+    }
 
 
     return (
@@ -147,7 +151,7 @@ const AdminInquiryInfo = ({ loginInfo }) => {
             </div>
 
             {contentModalOpen && <AdminInquiryContentModal row={data}  onClose={closeHandler}/>}
-            {inquiryModalOpen && <InquiryModal onClose={() => setInquiryModalOpen(false)} loginInfo={loginInfo}/>}
+            {inquiryModalOpen && <InquiryModal onClose={closeHandler2} loginInfo={loginInfo}/>}
         </>
     );
 };

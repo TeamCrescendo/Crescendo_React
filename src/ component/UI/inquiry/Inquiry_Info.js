@@ -42,7 +42,7 @@ const InquiryInfo = ({ loginInfo }) => {
     function formatDate(timeString) {
         const today = new Date();
         const date = new Date(timeString);
-        const diffTime = today - date;
+        const diffTime = today.getTime() - date.getTime();
         const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
         if (diffDays === 0) {
@@ -50,16 +50,16 @@ const InquiryInfo = ({ loginInfo }) => {
         } else if (diffDays === 1) {
             return '어제';
         } else if (diffDays <= 7) {
-            return `${diffDays}일전`;
+            return `${diffDays}일 전`;
         } else if (diffDays <= 30) {
             const diffWeeks = Math.floor(diffDays / 7);
-            return `${diffWeeks}주전`;
+            return `${diffWeeks}주 전`;
         } else if (diffDays <= 365) {
             const diffMonths = Math.floor(diffDays / 30);
-            return `${diffMonths}개월전`;
+            return `${diffMonths}개월 전`;
         } else {
             const diffYears = Math.floor(diffDays / 365);
-            return `${diffYears}년전`;
+            return `${diffYears}년 전`;
         }
     }
 
@@ -113,6 +113,15 @@ const InquiryInfo = ({ loginInfo }) => {
         selectMyInquiry();
     }, [contentModalOpen, inquiryModalOpen]);
 
+    const sendInquiryHandler = () => {
+        setContentModalOpen(false)
+        selectMyInquiry();
+    }
+    const sendInquiryHandler2 = () => {
+        setInquiryModalOpen(false)
+        selectMyInquiry();
+    }
+
     return (
         <>
             <div className="inquiry-info-container">
@@ -147,8 +156,8 @@ const InquiryInfo = ({ loginInfo }) => {
                 </div>
             </div>
 
-            {contentModalOpen && <InquiryContentModal row={data}  onClose={() => setContentModalOpen(false)}/>}
-            {inquiryModalOpen && <InquiryModal onClose={() => setInquiryModalOpen(false)} loginInfo={loginInfo}/>}
+            {contentModalOpen && <InquiryContentModal row={data}  onClose={sendInquiryHandler}/>}
+            {inquiryModalOpen && <InquiryModal onClose={sendInquiryHandler2} loginInfo={loginInfo}/>}
         </>
     );
 };
