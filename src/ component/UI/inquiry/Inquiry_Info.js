@@ -35,8 +35,8 @@ const InquiryInfo = ({ loginInfo }) => {
         setInquiryModalOpen(true);
     };
 
-    function createData(title, content, inquiry_time, inquiryId) {
-        return { title, content, inquiry_time, inquiryId };
+    function createData(title, content, formatTime, inquiryId) {
+        return { title, content, formatTime, inquiryId };
     }
 
     function formatDate(timeString) {
@@ -129,10 +129,10 @@ const InquiryInfo = ({ loginInfo }) => {
                             <div className="table-data" key={row.inquiryId}>
                                 <div className="content"> {row.title}</div>
                                 {/*<div className="content">{row.content}</div>*/}
-                                <div>{row.inquiry_time}</div>
+                                <div>{row.formatTime}</div>
                                 <div>
                                     <InquiryContentModalButton row={{ content: row.content, title: row.title, inquiryId: row.inquiryId
-                                            , time: row.inquiry_time }} onClose={() => setContentModalOpen(false)}
+                                            , time: row.formatTime }} onClose={() => setContentModalOpen(false)}
                                                         modifyButtonClick={contentButtonClick} />
                                 </div>
                                 {/*<div><RiChatDeleteFill onClick={() => deleteInqHandler(row.inquiryId)} style={{color:"red", cursor:"pointer", fontSize:"30px"}}/></div>*/}

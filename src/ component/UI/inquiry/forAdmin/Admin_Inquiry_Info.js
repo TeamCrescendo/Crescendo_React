@@ -27,14 +27,14 @@ const AdminInquiryInfo = ({ loginInfo }) => {
         setInquiryModalOpen(true);
     };
 
-    function createData(title, content, inquiry_time, inquiryId, account, check) {
-        return { title, content, inquiry_time, inquiryId, account, check };
+    function createData(title, content, formatTime, inquiryId, account, check) {
+        return { title, content, formatTime, inquiryId, account, check };
     }
 
     function formatDate(timeString) {
         const today = new Date();
         const date = new Date(timeString);
-        const diffTime = today - date;
+        const diffTime = today.getTime() - date.getTime();
         const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
         if (diffDays === 0) {
@@ -42,16 +42,16 @@ const AdminInquiryInfo = ({ loginInfo }) => {
         } else if (diffDays === 1) {
             return '어제';
         } else if (diffDays <= 7) {
-            return `${diffDays}일전`;
+            return `${diffDays}일 전`;
         } else if (diffDays <= 30) {
             const diffWeeks = Math.floor(diffDays / 7);
-            return `${diffWeeks}주전`;
+            return `${diffWeeks}주 전`;
         } else if (diffDays <= 365) {
             const diffMonths = Math.floor(diffDays / 30);
-            return `${diffMonths}개월전`;
+            return `${diffMonths}개월 전`;
         } else {
             const diffYears = Math.floor(diffDays / 365);
-            return `${diffYears}년전`;
+            return `${diffYears}년 전`;
         }
     }
 
@@ -87,6 +87,12 @@ const AdminInquiryInfo = ({ loginInfo }) => {
         selectMyInquiry();
     }, [contentModalOpen, inquiryModalOpen]);
 
+    const closeHandler = () => {
+        setContentModalOpen(false);
+        selectMyInquiry();
+    }
+
+
     return (
         <>
             <div className="inquiry-info-container">
@@ -104,7 +110,7 @@ const AdminInquiryInfo = ({ loginInfo }) => {
                             <div className="table-data" key={row.inquiryId}>
                                 <div className="content"> {row.title}</div>
                                 {/*<div className="content">{row.content}</div>*/}
-                                <div>{row.inquiry_time}</div>
+                                <div>{row.formatTime}</div>
                                 {
                                     row.check
                                     ?
@@ -117,7 +123,7 @@ const AdminInquiryInfo = ({ loginInfo }) => {
                                         (
                                             <div>
                                                 <InquiryContentModalButton row={{ content: row.content, title: row.title, inquiryId: row.inquiryId
-                                                    , time: row.inquiry_time, account: row.account, check:row.check }} onClose={() => setContentModalOpen(false)}
+                                                    , time: row.formatTime, account: row.account, check:row.check }} onClose={() => setContentModalOpen(false)}
                                                                            modifyButtonClick={contentButtonClick} />
                                             </div>
                                         )
@@ -140,7 +146,7 @@ const AdminInquiryInfo = ({ loginInfo }) => {
                 </div>
             </div>
 
-            {contentModalOpen && <AdminInquiryContentModal row={data}  onClose={() => setContentModalOpen(false)}/>}
+            {contentModalOpen && <AdminInquiryContentModal row={data}  onClose={closeHandler}/>}
             {inquiryModalOpen && <InquiryModal onClose={() => setInquiryModalOpen(false)} loginInfo={loginInfo}/>}
         </>
     );
