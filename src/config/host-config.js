@@ -1,6 +1,29 @@
+// const LOCAL_PORT = '8484';
+const LOCAL_PORT: string = '80';
 
-const LOCAL_PORT: string = '8484';
-export const API_BASE_URL: string = 'http://localhost:' + LOCAL_PORT;
+// const API_BASE_URL = 'http://localhost/:' + LOCAL_PORT;
+// const API_BASE_URL = 'http://localhost/:' + LOCAL_PORT;
+
+
+
+// const clientHostName = window.location.hostname;
+// console.log('client: ', clientHostName);
+
+
+// 버킷 주소
+const S3URL = 'http://todo-bucket9984.s3-website.ap-northeast-2.amazonaws.com/';
+// 최종 URL
+const DEPLOY_BACKEND = 'http://13.125.198.34';
+
+export const API_BASE_URL = DEPLOY_BACKEND;
+
+// let backendHost;
+// if (clientHostName === 'localhost') {
+//     backendHost = API_BASE_URL;
+// } else if (clientHostName === S3URL) {
+//     backendHost = DEPLOY_BACKEND;
+// }
+
 
 const AUTH: string = '/api/auth';
 const INQUIRY: string = '/api/inquiry';
