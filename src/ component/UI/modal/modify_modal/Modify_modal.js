@@ -324,6 +324,9 @@ const ModifyModal = ({ onClose, loginInfo, loginCheck }) => {
                 console.log(flag);
                 if (flag) {
                     alert("회원탈퇴가 성공적으로 이루어졌습니다!");
+                    localStorage.clear();
+                    setToken(null);
+                    loginCheck();
                     onClose();
                 } else {
                     alert("회원탈퇴에 실패했습니다!");
