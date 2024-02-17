@@ -282,7 +282,7 @@ const ModifyModal = ({ onClose, loginInfo, loginCheck, logoutHandler }) => {
 
         const formData = new FormData();
         formData.append('account', loginInfo.account);
-        if (loginInfo.auth === 'ADMIN') {
+        if (loginInfo.account === 'root') {
             formData.append('userName', "관리자");
         } else {
             formData.append('userName', userValue.userName);
