@@ -154,7 +154,7 @@ const Crescendo_main = () => {
         const oauth2Endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
         const params = {
             'client_id': '890304175366-cg7t8bjavr2dt1ttf4ma2atl077n8i4r.apps.googleusercontent.com',
-            'redirect_uri': API_BASE_URL,
+            'redirect_uri': 'http://cresendo.site',
             'response_type': 'token',
             'scope': 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
             'state': 'pass-through value'
