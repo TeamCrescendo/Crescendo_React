@@ -9,6 +9,7 @@ import QuitButton from "../../button/quit/Quit_Button";
 import {AUTH_URL, MEMBER_URL, RESTORE_URL} from "../../../../config/host-config";
 import Form from "react-bootstrap/Form";
 import {getCurrentLoginUser} from "../../../util/login-util";
+import QuitCancelButton from "../../button/quit/Quit_Cancel_Button";
 
 
 const ModifyModal = ({ onClose, loginInfo, loginCheck, logoutHandler }) => {
@@ -16,6 +17,7 @@ const ModifyModal = ({ onClose, loginInfo, loginCheck, logoutHandler }) => {
     // const url = loginInfo.profileImageUrl;
     const [profileIMG, setProfileIMG] = useState(loginInfo.profileImageUrl);
     const [imgChange, setImgChange] = useState(false);
+    const [onDelete, setOnDelete] = useState(false);
 
     const imgHandler = e => {
         const img = e.target.files[0];
@@ -323,7 +325,6 @@ const ModifyModal = ({ onClose, loginInfo, loginCheck, logoutHandler }) => {
             .then(res => {
                 if(res.ok) {
                     alert("회원탈퇴 신청이 완료되었습니다! 10분뒤에 계정이 삭제됩니다.");
-                    logoutHandler();
                     onClose();
                 } else {
                     alert("회원탈퇴에 실패했습니다!");
@@ -331,8 +332,37 @@ const ModifyModal = ({ onClose, loginInfo, loginCheck, logoutHandler }) => {
             })
     }
 
-    useEffect(() => {
+    const isOnDelete = () => {
+        fetch(RESTORE_URL, {
+            method: 'GET',
+            headers: requestHeader
+        })
+            .then(res => {
+                if (res.ok) {
+                    alert("회원탈퇴 처리가 진행중인 계정입니다.\n회원정보 수정에서 취소할 수 있습니다.");
+                    setOnDelete(true);
+                }
+            })
+    }
 
+    const cancelDelete = () => {
+        fetch(RESTORE_URL, {
+            method: 'DELETE',
+            headers: requestHeader
+        })
+            .then(res => {
+                if (res.ok) {
+                    setOnDelete(false);
+                    alert("회원탈퇴 처리가 취소되었습니다.")
+                }
+                else {
+                    alert("오류가 발생하여 취소하지 못했습니다.")
+                }
+            })
+    }
+
+    useEffect(() => {
+        isOnDelete();
     }, []);
 
     const profileClickHandler = () => {
@@ -461,7 +491,18 @@ const ModifyModal = ({ onClose, loginInfo, loginCheck, logoutHandler }) => {
                         {/*<div className="img-title">*/}
                         {/*    프로필 변경*/}
                         {/*</div>*/}
-                        <QuitButton restoreSubmit={restoreSubmit}/>
+
+                        {
+                            onDelete
+                            ?
+                                <>
+                                    <QuitCancelButton cancelDelete={cancelDelete}/>
+                                </>
+                            :
+                                <>
+                                    <QuitButton restoreSubmit={restoreSubmit}/>
+                                </>
+                        }
                         <ModifyButton modifySubmit={modifySubmit}/>
                     </div>
                 </div>
