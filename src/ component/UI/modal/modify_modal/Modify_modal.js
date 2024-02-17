@@ -11,7 +11,7 @@ import Form from "react-bootstrap/Form";
 import {getCurrentLoginUser} from "../../../util/login-util";
 
 
-const ModifyModal = ({ onClose, loginInfo, loginCheck }) => {
+const ModifyModal = ({ onClose, loginInfo, loginCheck, logoutHandler }) => {
     const modalBackground = useRef();
     // const url = loginInfo.profileImageUrl;
     const [profileIMG, setProfileIMG] = useState(loginInfo.profileImageUrl);
@@ -258,9 +258,12 @@ const ModifyModal = ({ onClose, loginInfo, loginCheck }) => {
         onClose();
     }
 
-    const[token, setToken] = useState(getCurrentLoginUser().token);
-    const headers = {
-        'Authorization': 'Bearer ' + token,
+    // 토큰 가져오기
+    const [token, setToken] = useState(getCurrentLoginUser().token);
+    // 요청 헤더 객체
+    const requestHeader = {
+        'content-type': 'application/json',
+        'Authorization': 'Bearer ' + token
     };
 
     // 회원정보 수정 버튼을 눌렀을 때
@@ -312,11 +315,9 @@ const ModifyModal = ({ onClose, loginInfo, loginCheck }) => {
 
         e.preventDefault();
 
-        fetch(AUTH_URL + `/restore/${loginInfo.account}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+        fetch(MEMBER_URL + '/delete', {
+            method: 'DELETE',
+            headers: requestHeader,
             credentials: 'include',
         })
             .then(res => res.json())
@@ -324,9 +325,7 @@ const ModifyModal = ({ onClose, loginInfo, loginCheck }) => {
                 console.log(flag);
                 if (flag) {
                     alert("회원탈퇴가 성공적으로 이루어졌습니다!");
-                    localStorage.clear();
-                    setToken(null);
-                    loginCheck();
+                    logoutHandler();
                     onClose();
                 } else {
                     alert("회원탈퇴에 실패했습니다!");

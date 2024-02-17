@@ -31,7 +31,7 @@ const UserInfo = ({ logoutHandler, loginInfo, loginCheck }) => {
                         onClick={modifyButtonClick} style={{marginTop:"20px"}}>
                     회원정보 수정
                 </Button>
-                {modifyModalOpen && <ModifyModal loginInfo={loginInfo} loginCheck={loginCheck} onClose={() => setModifyModalOpen(false)}/>}
+                {modifyModalOpen && <ModifyModal logoutHandler={logoutHandler} loginInfo={loginInfo} loginCheck={loginCheck} onClose={() => setModifyModalOpen(false)}/>}
                 {/*<Button variant="primary">로그아웃</Button>*/}
                 <LogoutButton logoutHandler={logoutHandler}/>
             </Card.Body>
