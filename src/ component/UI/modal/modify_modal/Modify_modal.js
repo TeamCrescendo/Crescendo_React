@@ -282,7 +282,7 @@ const ModifyModal = ({ onClose, loginInfo, loginCheck, logoutHandler }) => {
 
         const formData = new FormData();
         formData.append('account', loginInfo.account);
-        if (loginInfo.account === 'root') {
+        if (loginInfo.account === "root") {
             formData.append('userName', "관리자");
         } else {
             formData.append('userName', userValue.userName);
@@ -292,24 +292,25 @@ const ModifyModal = ({ onClose, loginInfo, loginCheck, logoutHandler }) => {
         if (imgChange) {
             formData.append('profileImage', profileIMG);
         }
-        console.log(profileIMG);
+        console.log("계정: ", loginInfo.account);
+        console.log("이름: ", userValue.userName);
+        console.log("메일: ", userValue.email);
+        console.log("비번: ", userValue.password);
+        console.log("사진: ", profileIMG);
+        console.log("폼데이터: ", formData);
 
         fetch(MEMBER_URL + '/modify', {
-            method: 'PATCH',
+            method: 'PUT',
             headers: requestHeader,
             body: formData,
         })
-            .then(response => {
-                if (response.status === 200) return response.json();
-                else if (response.status === 400) console.log("회원수정 400에러");
-            })
-            .then(flag => {
-                console.log(flag);
-                if (flag) {
+            .then(res => {
+                if (res.ok) {
                     alert("회원정보가 성공적으로 변경되었습니다!");
                     loginCheck();
                     onClose();
-                } else {
+                }
+                else {
                     alert("회원정보 변경에 실패했습니다!");
                 }
             })
@@ -404,33 +405,17 @@ const ModifyModal = ({ onClose, loginInfo, loginCheck, logoutHandler }) => {
                                 fontSize: '14px',
                             }}>{message.userName}</span></span>
                         </div>
-
-                        {
-                            loginInfo.auth === 'ADMIN'
-                            ?
-                                <input
-                                    type="text"
-                                    className="input-nickname"
-                                    onChange={nameHandler}
-                                    style={{color:"gray", background:"lightgray"}}
-                                    readOnly={true}
-                                    value={userValue.userName}
-                                />
-                            :
-                                <input
-                                    type="text"
-                                    className="input-nickname"
-                                    onChange={nameHandler}
-                                    style={{
-                                        borderColor: userValue.userName && userValue.userName !== loginInfo.userName ? (correct.userName ? 'green' : 'red') : 'black',
-                                        outline: 'none',
-                                        borderWidth: userValue.userName ? '2px' : '1px',
-                                    }}
-                                    placeholder={userValue.userName}
-                                />
-                        }
-
-
+                        <input
+                            type="text"
+                            className="input-nickname"
+                            onChange={nameHandler}
+                            style={{
+                                borderColor: userValue.userName && userValue.userName !== loginInfo.userName ? (correct.userName ? 'green' : 'red') : 'black',
+                                outline: 'none',
+                                borderWidth: userValue.userName ? '2px' : '1px',
+                            }}
+                            placeholder={userValue.userName}
+                        />
 
                         <div className="exDiv">
                             <span>이메일
