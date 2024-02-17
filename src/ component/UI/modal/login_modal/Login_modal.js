@@ -63,12 +63,7 @@ const LoginModal = ({onClose, registerHandler, isLogin, LoginCheck, googleLogin}
                 autoLogin: autoLogin
             })
         });
-
-        if (res.status === 400) {
-            alert("회원정보를 올바르게 입력해주세요.");
-            return;
-        }
-        if (res.status === 200) {
+        if (res.ok) {
             const {token, userName, auth} = await res.json();
 
             localStorage.setItem(TOKEN, token);
@@ -76,7 +71,10 @@ const LoginModal = ({onClose, registerHandler, isLogin, LoginCheck, googleLogin}
 
             window.location.reload();
         }
-
+        else {
+            alert("회원정보를 올바르게 입력해주세요.");
+            return;
+        }
 
     }
 
