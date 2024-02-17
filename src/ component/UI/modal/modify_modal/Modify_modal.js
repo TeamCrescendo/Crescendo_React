@@ -264,7 +264,6 @@ const ModifyModal = ({ onClose, loginInfo, loginCheck, logoutHandler }) => {
     const [token, setToken] = useState(getCurrentLoginUser().token);
     // 요청 헤더 객체
     const requestHeader = {
-        'content-type': 'application/json',
         'Authorization': 'Bearer ' + token
     };
 
@@ -345,6 +344,9 @@ const ModifyModal = ({ onClose, loginInfo, loginCheck, logoutHandler }) => {
             .then(res => {
                 if (res.ok) {
                     setOnDelete(true);
+                }
+                else {
+                    setOnDelete(false);
                 }
             })
     }
