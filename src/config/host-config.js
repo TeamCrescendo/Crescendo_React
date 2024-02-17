@@ -33,6 +33,7 @@ const PLAYLIST: string = '/api/playList';
 const ALL_PLAYLIST: string = '/api/allPlayList';
 const BOARD: string = '/api/board';
 const SCORE: string = '/api/score';
+const RESTORE: string = '/api/restore';
 
 
 export const AUTH_URL: string = API_BASE_URL + AUTH;
@@ -43,3 +44,4 @@ export const PLAYLIST_URL: string = API_BASE_URL + PLAYLIST;
 export const ALL_PLAYLIST_URL: string = API_BASE_URL + ALL_PLAYLIST;
 export const BOARD_URL: string = API_BASE_URL + BOARD;
 export const SCORE_URL: string = API_BASE_URL + SCORE;
+export const RESTORE_URL: string = API_BASE_URL + RESTORE;

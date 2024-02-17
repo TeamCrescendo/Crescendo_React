@@ -6,7 +6,7 @@ import {FiAlertCircle} from "react-icons/fi";
 import RegisterButton from "../../button/register/Register_Button";
 import ModifyButton from "../../button/modify/Modify_Button";
 import QuitButton from "../../button/quit/Quit_Button";
-import {AUTH_URL, MEMBER_URL} from "../../../../config/host-config";
+import {AUTH_URL, MEMBER_URL, RESTORE_URL} from "../../../../config/host-config";
 import Form from "react-bootstrap/Form";
 import {getCurrentLoginUser} from "../../../util/login-util";
 
@@ -315,23 +315,20 @@ const ModifyModal = ({ onClose, loginInfo, loginCheck, logoutHandler }) => {
 
         e.preventDefault();
 
-        fetch(MEMBER_URL + '/delete', {
-            method: 'DELETE',
+        fetch(RESTORE_URL, {
+            method: 'POST',
             headers: requestHeader,
             credentials: 'include',
         })
-            .then(res => res.json())
-            .then(flag => {
-                console.log(flag);
-                if (flag) {
-                    alert("회원탈퇴가 성공적으로 이루어졌습니다!");
+            .then(res => {
+                if(res.ok) {
+                    alert("회원탈퇴 신청이 완료되었습니다! 10분뒤에 계정이 삭제됩니다.");
                     logoutHandler();
                     onClose();
                 } else {
                     alert("회원탈퇴에 실패했습니다!");
                 }
             })
-
     }
 
     useEffect(() => {
