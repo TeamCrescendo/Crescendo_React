@@ -282,7 +282,11 @@ const ModifyModal = ({ onClose, loginInfo, loginCheck, logoutHandler }) => {
 
         const formData = new FormData();
         formData.append('account', loginInfo.account);
-        formData.append('userName', userValue.userName);
+        if (loginInfo.auth === 'ADMIN') {
+            formData.append('userName', "관리자");
+        } else {
+            formData.append('userName', userValue.userName);
+        }
         formData.append('email', userValue.email);
         formData.append('password', userValue.password);
         if (imgChange) {
@@ -400,17 +404,32 @@ const ModifyModal = ({ onClose, loginInfo, loginCheck, logoutHandler }) => {
                                 fontSize: '14px',
                             }}>{message.userName}</span></span>
                         </div>
-                        <input
-                            type="text"
-                            className="input-nickname"
-                            onChange={nameHandler}
-                            style={{
-                                borderColor: userValue.userName && userValue.userName !== loginInfo.userName ? (correct.userName ? 'green' : 'red') : 'black',
-                                outline: 'none',
-                                borderWidth: userValue.userName ? '2px' : '1px',
-                            }}
-                            placeholder={userValue.userName}
-                        />
+
+                        {
+                            loginInfo.auth === 'ADMIN'
+                            ?
+                                <input
+                                    type="text"
+                                    className="input-nickname"
+                                    onChange={nameHandler}
+                                    style={{color:"gray", background:"lightgray"}}
+                                    readOnly={true}
+                                    value={userValue.userName}
+                                />
+                            :
+                                <input
+                                    type="text"
+                                    className="input-nickname"
+                                    onChange={nameHandler}
+                                    style={{
+                                        borderColor: userValue.userName && userValue.userName !== loginInfo.userName ? (correct.userName ? 'green' : 'red') : 'black',
+                                        outline: 'none',
+                                        borderWidth: userValue.userName ? '2px' : '1px',
+                                    }}
+                                    placeholder={userValue.userName}
+                                />
+                        }
+
 
 
                         <div className="exDiv">
