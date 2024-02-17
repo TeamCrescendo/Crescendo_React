@@ -339,7 +339,6 @@ const ModifyModal = ({ onClose, loginInfo, loginCheck, logoutHandler }) => {
         })
             .then(res => {
                 if (res.ok) {
-                    alert("회원탈퇴 처리가 진행중인 계정입니다.\n회원정보 수정에서 취소할 수 있습니다.");
                     setOnDelete(true);
                 }
             })
