@@ -290,7 +290,7 @@ const ModifyModal = ({ onClose, loginInfo, loginCheck, logoutHandler }) => {
 
         fetch(MEMBER_URL + '/modify', {
             method: 'PATCH',
-            headers: headers,
+            headers: requestHeader,
             body: formData,
         })
             .then(response => {
