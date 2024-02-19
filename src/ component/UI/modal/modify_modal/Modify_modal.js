@@ -342,11 +342,14 @@ const ModifyModal = ({ onClose, loginInfo, loginCheck, logoutHandler }) => {
             headers: requestHeader
         })
             .then(res => {
-                if (res.ok) {
-                    setOnDelete(true);
+                if (res.ok) return res.json();
+            })
+            .then(json => {
+                if (json === false) {
+                    setOnDelete(false);
                 }
                 else {
-                    setOnDelete(false);
+                    setOnDelete(true);
                 }
             })
     }
