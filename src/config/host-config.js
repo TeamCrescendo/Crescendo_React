@@ -13,9 +13,9 @@ export const API_BASE_URL = 'http://localhost:' + LOCAL_PORT;
 // // 버킷 주소
 // const S3URL = 'http://todo-bucket9984.s3-website.ap-northeast-2.amazonaws.com/';
 // // // 최종 URL
-// const DEPLOY_BACKEND = 'http://43.201.86.107';
-// // //
-// export const API_BASE_URL = DEPLOY_BACKEND;
+const DEPLOY_BACKEND = 'http://43.202.193.30';
+// //
+export const API_BASE_URL = DEPLOY_BACKEND;
 
 // let backendHost;
 // if (clientHostName === 'localhost') {
